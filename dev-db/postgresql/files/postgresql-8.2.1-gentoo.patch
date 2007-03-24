@@ -1,0 +1,54 @@
+diff --git a/src/Makefile b/src/Makefile
+index 6d9043a..5eb7c4a 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -18,7 +18,6 @@ all install installdirs uninstall dep de
+ 	$(MAKE) -C timezone $@
+ 	$(MAKE) -C backend $@
+ 	$(MAKE) -C backend/utils/mb/conversion_procs $@
+-	$(MAKE) -C include $@
+ 	$(MAKE) -C interfaces $@
+ 	$(MAKE) -C bin $@
+ 	$(MAKE) -C pl $@
+@@ -47,7 +46,6 @@ clean:
+ 	$(MAKE) -C port $@
+ 	$(MAKE) -C timezone $@
+ 	$(MAKE) -C backend $@
+-	$(MAKE) -C include $@
+ 	$(MAKE) -C interfaces $@
+ 	$(MAKE) -C bin $@
+ 	$(MAKE) -C pl $@
+@@ -60,7 +58,6 @@ distclean maintainer-clean:
+ 	-$(MAKE) -C port $@
+ 	-$(MAKE) -C timezone $@
+ 	-$(MAKE) -C backend $@
+-	-$(MAKE) -C include $@
+ 	-$(MAKE) -C interfaces $@
+ 	-$(MAKE) -C bin $@
+ 	-$(MAKE) -C pl $@
+diff --git a/src/bin/Makefile b/src/bin/Makefile
+index 0d86213..86be5fc 100644
+--- a/src/bin/Makefile
++++ b/src/bin/Makefile
+@@ -14,7 +14,7 @@ top_builddir = ../..
+ include $(top_builddir)/src/Makefile.global
+ 
+ DIRS := initdb ipcclean pg_ctl pg_dump \
+-	psql scripts pg_config pg_controldata pg_resetxlog
++	psql scripts pg_controldata pg_resetxlog
+ ifeq ($(PORTNAME), win32)
+ DIRS+=pgevent
+ endif
+diff --git a/src/interfaces/Makefile b/src/interfaces/Makefile
+index 876c489..25507b3 100644
+--- a/src/interfaces/Makefile
++++ b/src/interfaces/Makefile
+@@ -12,7 +12,7 @@ subdir = src/interfaces
+ top_builddir = ../..
+ include $(top_builddir)/src/Makefile.global
+ 
+-DIRS := libpq ecpg 
++DIRS := ecpg 
+ 
+ ALLDIRS := $(DIRS) 
+ 
