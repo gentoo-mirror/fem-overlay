@@ -19,3 +19,9 @@ DEPEND="dev-lang/perl
 	dev-perl/libwww-perl
 	dev-perl/Exception-Class
 	dev-perl/Error"
+
+src_unpack() {
+        unpack ${A}
+        cd "${S}"
+        epatch "${FILESDIR}"/rt-3.8.1_custom-fields.patch
+}
