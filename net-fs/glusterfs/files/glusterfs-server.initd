@@ -1,0 +1,27 @@
+#!/sbin/runscript
+
+PID_FILE=/var/run/${SVCNAME}.pid
+EXECUTABLE=`which glusterfsd`
+
+depend() {
+	before glusterfs-client
+}
+
+start() {
+	if [ -z "${CONF_FILE}" -o ! -f "${CONF_FILE}" -o -z "${LOG_FILE}" -o -z "${LOG_LEVEL}" ]; then
+		eerror "Please specify all params in /etc/conf.d/${SVCNAME}"
+		return 1
+	fi
+
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon --exec ${EXECUTABLE} --start -- \
+		-f "${CONF_FILE}" --pidfile=${PID_FILE} \
+		-l "${LOG_FILE}" -L "${LOG_LEVEL}"
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --pidfile ${PID_FILE} --stop
+	eend $?
+}
