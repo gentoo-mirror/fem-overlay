@@ -26,6 +26,7 @@ DEPEND="dev-perl/SOAP-Lite
 	prefork? ( dev-perl/IPC-Shareable )
 	ssl? ( dev-perl/POE-Component-SSLify )
 	test-streaming? ( dev-perl/POE-Component-Client-HTTP )
+	dev-perl/POE
 	dev-lang/perl"
 
 src_unpack() {

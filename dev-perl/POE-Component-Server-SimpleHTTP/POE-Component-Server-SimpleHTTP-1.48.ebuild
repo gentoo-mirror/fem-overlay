@@ -26,6 +26,7 @@ DEPEND="dev-perl/SOAP-Lite
 	dev-perl/DBI
 	dev-perl/Sys-Hostname-Long
 	dev-perl/libwww-perl
+	dev-perl/POE
 	dev-lang/perl"
 
 src_unpack() {
