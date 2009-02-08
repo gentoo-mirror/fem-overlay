@@ -19,6 +19,7 @@ SRC_TEST="do"
 myconf="${myconf} --noprompt"
 
 DEPEND="dev-perl/Net-SSLeay
+	perl-core/Module-Build
 	perl-core/Test-Simple
 	dev-lang/perl"
 
