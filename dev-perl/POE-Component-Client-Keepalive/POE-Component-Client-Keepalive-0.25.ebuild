@@ -19,6 +19,7 @@ SRC_TEST="do"
 myconf="${myconf} --noprompt"
 
 DEPEND="dev-perl/POE
+	>=virtual/perl-Module-Build-0.28
 	dev-lang/perl
 	dev-perl/POE-Component-Client-DNS"
 

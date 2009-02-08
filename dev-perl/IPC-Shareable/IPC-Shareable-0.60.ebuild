@@ -18,7 +18,8 @@ SRC_TEST="do"
 
 myconf="${myconf} --noprompt"
 
-DEPEND="dev-lang/perl"
+DEPEND="dev-lang/perl
+	>=virtual/perl-Module-Build-0.28"
 
 src_unpack() {
 	unpack ${A}

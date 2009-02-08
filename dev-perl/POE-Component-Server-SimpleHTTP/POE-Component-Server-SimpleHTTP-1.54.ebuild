@@ -22,6 +22,7 @@ DEPEND="dev-perl/SOAP-Lite
 	dev-perl/Test-POE-Client-TCP
 	dev-perl/POE-Filter-HTTP-Parser
 	dev-perl/Test-POE-Client-TCP
+	>=virtual/perl-Module-Build-0.28
 	prefork? ( dev-perl/IPC-Shareable )
 	ssl? ( dev-perl/POE-Component-SSLify )
 	test-streaming? ( dev-perl/POE-Component-Client-HTTP )

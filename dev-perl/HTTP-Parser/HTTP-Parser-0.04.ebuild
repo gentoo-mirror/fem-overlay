@@ -17,6 +17,7 @@ KEYWORDS="amd64 x86"
 SRC_TEST="do"
 
 DEPEND="dev-perl/URI
+	>=virtual/perl-Module-Build-0.28
 	dev-lang/perl"
 
 src_unpack() {

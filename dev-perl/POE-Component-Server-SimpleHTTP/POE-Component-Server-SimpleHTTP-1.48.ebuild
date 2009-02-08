@@ -21,6 +21,7 @@ DEPEND="dev-perl/SOAP-Lite
 	prefork? ( dev-perl/IPC-Shareable )
 	ssl? ( dev-perl/POE-Component-SSLify )
 	test-streaming? ( dev-perl/POE-Component-Client-HTTP )
+	>=virtual/perl-Module-Build-0.28
 	dev-perl/IO-Socket-INET6
 	dev-perl/DBI
 	dev-perl/Sys-Hostname-Long

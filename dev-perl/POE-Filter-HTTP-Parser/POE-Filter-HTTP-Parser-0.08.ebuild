@@ -17,6 +17,7 @@ KEYWORDS="amd64 x86"
 SRC_TEST="do"
 
 DEPEND="dev-perl/HTTP-Parser
+	>=virtual/perl-Module-Build-0.28
 	dev-perl/Test-POE-Client-TCP
 	dev-perl/POE
 	dev-lang/perl"
