@@ -13,7 +13,7 @@ HOMEPAGE="http://search.cpan.org/~tlbdk/"
 
 SLOT="0"
 LICENSE="|| ( Artistic GPL-2 )"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 SRC_TEST="do"
 
 myconf="${myconf} --noprompt"
