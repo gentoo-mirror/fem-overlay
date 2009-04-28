@@ -1,0 +1,35 @@
+--- a/Makefile	2009-04-24 17:16:54.000000000 +0200
++++ b/Makefile	2009-04-24 17:52:19.000000000 +0200
+@@ -1,20 +1,25 @@
+ CC = gcc
+-CFLAGS = -O2 -Wall -I /usr/include/PCSC/
++DESTDIR?=
++CFLAGS = $(CXXFLAGS) -Wall -I /usr/include/PCSC/ -fPIC -D_REENTRANT
++
++all: pcsc-ctapi-wrapper
+ 
+ pcsc-ctapi-wrapper: pcsc-ctapi-wrapper.o
+-	$(CC) $(CFLAGS) -shared -o libpcsc-ctapi-wrapper.so.0.3 -Wl,-soname="libpcsc-ctapi-wrapper.so" pcsc-ctapi-wrapper.o -lpcsclite
++	$(CC) $(CFLAGS) -shared -o libpcsc-ctapi-wrapper.so.0.3 -Wl,-soname="libpcsc-ctapi-wrapper.so",-z,defs  pcsc-ctapi-wrapper.o -lpcsclite
++	strip --strip-unneeded pcsc-ctapi-wrapper.o
+ 
+ pcsc-ctapi-wrapper.o: pcsc-ctapi-wrapper.c
+ 	$(CC) $(CFLAGS) -c -fPIC pcsc-ctapi-wrapper.c
+ 
+ clean:
+-	rm libpcsc-ctapi-wrapper.so.0.3 pcsc-ctapi-wrapper.o
++	rm -f libpcsc-ctapi-wrapper.so.0.3 pcsc-ctapi-wrapper.o
+ 
+ install: pcsc-ctapi-wrapper
+-	cp libpcsc-ctapi-wrapper.so.0.3 /usr/local/lib
+-	ldconfig
++	install -d $(DESTDIR)/usr/lib
++	install -m644 libpcsc-ctapi-wrapper.so.0.3 $(DESTDIR)/usr/lib
++	ldconfig -l $(DESTDIR)/usr/lib/libpcsc-ctapi-wrapper.so.0.3
+ 
+ uninstall: pcsc-ctapi-wrapper
+-	rm /usr/local/lib/libpcsc-ctapi-wrapper.so
+-	rm /usr/local/lib/libpcsc-ctapi-wrapper.so.0.3
++	rm $(DESTDIR)/usr/lib/libpcsc-ctapi-wrapper.so
++	rm $(DESTDIR)/usr/lib/libpcsc-ctapi-wrapper.so.0.3
+ 	ldconfig

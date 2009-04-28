@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sys-apps</herd>
+	<maintainer>
+		<email></email>
+		<name></name>
+		<description></description>
+	</maintainer>
+	<use>
+		<flag name='port0'>Use Portnumber (lowest input is 0) to select smartcard reader in 0.4.x and later</flag>
+		<flag name='port1'>Use Portnumber (lowest input is 1) to select smartcard reader in 0.4.x and later (e.g. Moneyplex: select COMX to select the Xth reader).</flag>
+		<flag name='ctn0'>Use CTN (lowest input is 0) to select smartcard reader in 0.4.x and later</flag>
+		<flag name='ctn1'>Use CTN (lowest input is 1) to select smartcard reader in 0.4.x and later (e.g. jameica: enter X into "Index of Reader"  to select Xth smartcard reader)</flag>
+	</use>
+</pkgmetadata>
