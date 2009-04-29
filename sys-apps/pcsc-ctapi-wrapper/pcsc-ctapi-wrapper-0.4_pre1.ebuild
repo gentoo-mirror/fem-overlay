@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/pcsc-ctapi-wrapper/${PN}-0.3.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="port0 port1 ctn0 ctn1"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 RDEPEND="sys-apps/pcsc-lite"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
