@@ -5,26 +5,23 @@
 ETYPE="sources"
 UNIPATCH_STRICTORDER="1"
 K_WANT_GENPATCHES="base"
-K_GENPATCHES_VER="6"
+K_GENPATCHES_VER="2"
 inherit kernel-2
 detect_version
 
 DESCRIPTION="Full sources for a dom0/domU Linux kernel to run under Xen"
 HOMEPAGE="http://xen.org/"
-IUSE="accessfs"
+IUSE=""
 
 KEYWORDS="~x86 ~amd64"
 
 XENPATCHES_VER="2"
 XENPATCHES="xen-patches-${PV}-${XENPATCHES_VER}.tar.bz2"
-XENPATCHES_URI="mirror://gentoo/${XENPATCHES}"
+XENPATCHES_URI="http://gentoo-xen-kernel.googlecode.com/files/${XENPATCHES}"
 
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${XENPATCHES_URI}"
 
-UNIPATCH_LIST="${DISTDIR}/${XENPATCHES} ${FILESDIR}/sumversion-2.6.21.patch"
 
-if use accessfs; then
-  UNIPATCH_LIST="${UNIPATCH_LIST} ${FILESDIR}/accessfs-2.6.21-0.20.patch"
-fi
+UNIPATCH_LIST="${DISTDIR}/${XENPATCHES}"
 
 DEPEND="${DEPEND} >=sys-devel/binutils-2.17"

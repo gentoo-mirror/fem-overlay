@@ -1,0 +1,11 @@
+diff -urN a/scripts/mod/sumversion.c b/scripts/mod/sumversion.txt
+--- a/scripts/mod/sumversion.c        2009-04-06 16:52:16.797149585 +0200
++++ b/scripts/mod/sumversion.c        2009-04-06 16:53:05.006969838 +0200
+@@ -8,6 +8,7 @@
+ #include <errno.h>
+ #include <string.h>
+ #include "modpost.h"
++#include <linux/limits.h>
+ 
+ /*
+  * Stolen form Cryptographic API.
