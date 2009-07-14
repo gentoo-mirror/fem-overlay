@@ -5,7 +5,7 @@
 ETYPE="sources"
 UNIPATCH_STRICTORDER="1"
 K_WANT_GENPATCHES="base"
-K_GENPATCHES_VER="2"
+K_GENPATCHES_VER="6"
 inherit kernel-2
 detect_version
 
@@ -15,7 +15,7 @@ IUSE=""
 
 KEYWORDS="~x86 ~amd64"
 
-XENPATCHES_VER="2"
+XENPATCHES_VER="6"
 XENPATCHES="xen-patches-${PV}-${XENPATCHES_VER}.tar.bz2"
 XENPATCHES_URI="http://gentoo-xen-kernel.googlecode.com/files/${XENPATCHES}"
 
