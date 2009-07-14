@@ -178,7 +178,7 @@ src_install() {
 	if use pvgrub; then
 		emake DESTDIR="${D}" -C stubdom install-grub || die "install pvgrub_${XEN_TARGET_ARCH} failed"
 		if use amd64; then
-			emake XEN_TARGET_ARCH="x86_32" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
+			emake XEN_TARGET_ARCH="x86_32" DESTDIR="${D}" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
 		fi
 	fi
 
