@@ -158,7 +158,7 @@ src_compile() {
 	if use pvgrub; then
 		emake -C stubdom pv-grub || die "compile pv-grub_${XEN_TARGET_ARCH} failed"
 		if use amd64; then
-			emake XEN_TARGET_ARCH="x86_32" -C stubdom pvgrub || die "compile pv-grub_x86_32 failed"
+			emake XEN_TARGET_ARCH="x86_32" -C stubdom pv-grub || die "compile pv-grub_x86_32 failed"
 		fi
 	fi
 
