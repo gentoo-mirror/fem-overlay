@@ -129,7 +129,7 @@ src_unpack() {
 	if use pvgrub; then
 		sed -i \
 		-e 's/WGET=.*/WGET=cp -t . /' \
-		-e "s;\$(XEN_EXTFILES_URL);${DISTDIR};" \
+		-e "s;URL?=.*;URL?=${DISTDIR};" \
 		-e 's/$(LD)/$(LD) LDFLAGS=/' \
 		-e 's;install-grub: pv-grub;install-grub:;' \
 		stubdom/Makefile
@@ -175,7 +175,7 @@ src_compile() {
 	if use pvgrub; then
 		emake -C stubdom pv-grub || die "compile pv-grub_${XEN_TARGET_ARCH} failed"
 		if use amd64; then
-			emake XEN_TARGET_ARCH="x86_32" -C stubdom pvgrub || die "compile pv-grub_x86_32 failed"
+			emake XEN_TARGET_ARCH="x86_32" -C stubdom pv-grub || die "compile pv-grub_x86_32 failed"
 		fi
 	fi
 
@@ -195,7 +195,7 @@ src_install() {
 	if use pvgrub; then
 		emake DESTDIR="${D}" -C stubdom install-grub || die "install pvgrub_${XEN_TARGET_ARCH} failed"
 		if use amd64; then
-			emake XEN_TARGET_ARCH="x86_32" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
+			emake DESTDIR="${D}" XEN_TARGET_ARCH="x86_32" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
 		fi
 	fi
 
