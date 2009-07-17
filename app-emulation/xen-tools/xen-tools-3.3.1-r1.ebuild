@@ -1,5 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.3.1.ebuild,v 1.4 2009/06/27 07:12:39 patrick Exp $
+
+EAPI="2"
 
 inherit flag-o-matic eutils multilib python
 
@@ -21,7 +24,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc debug screen custom-cflags pygrub pvgrub hvm api acm flask"
 
-CDEPEND="dev-lang/python
+CDEPEND="dev-lang/python[ncurses,threads]
 	sys-libs/zlib
 	hvm? ( media-libs/libsdl )
 	acm? ( dev-libs/libxml2 )
@@ -31,10 +34,12 @@ CDEPEND="dev-lang/python
 DEPEND="${CDEPEND}
 	sys-devel/gcc
 	dev-lang/perl
+	dev-lang/python
 	app-misc/pax-utils
 	doc? (
 		app-doc/doxygen
-		dev-tex/latex2html
+		dev-tex/latex2html[png,gif]
+		dev-texlive/texlive-latexextra
 		media-gfx/transfig
 		media-gfx/graphviz
 	)
@@ -81,25 +86,6 @@ pkg_setup() {
 		else
 			die "Unsupported architecture!"
 		fi
-	fi
-
-	if use doc && ! built_with_use -o dev-tex/latex2html png gif; then
-		# die early instead of later
-		eerror "USE=doc requires latex2html with image support. Please add"
-		eerror "'png' and/or 'gif' to your use flags and re-emerge latex2html"
-		die "latex2html missing both png and gif flags"
-	fi
-
-	if use pygrub && ! built_with_use dev-lang/python ncurses; then
-		eerror "USE=pygrub requires python to be built with ncurses support. Please add"
-		eerror "'ncurses' to your use flags and re-emerge python"
-		die "python is missing ncurses flags"
-	fi
-
-	if ! built_with_use dev-lang/python threads; then
-		eerror "Python is required to be built with threading support. Please add"
-		eerror "'threads' to your use flags and re-emerge python"
-		die "python is missing threads flags"
 	fi
 
 #	use vtpm    && export "VTPM_TOOLS=y"
@@ -155,9 +141,8 @@ src_unpack() {
 	# Do not strip binaries
 	epatch "${FILESDIR}/${PN}-3.3.0-nostrip.patch"
 
-	# Fix eqemu-xen
-	epatch "${FILESDIR}/${P}-qemu-xen.patch"
-
+	# fix variable declaration to avoid sandbox issue, #253134
+	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
 }
 
 src_compile() {
@@ -240,7 +225,7 @@ src_install() {
 pkg_postinst() {
 	elog "Official Xen Guide and the unoffical wiki page:"
 	elog " http://www.gentoo.org/doc/en/xen-guide.xml"
-	elog " http://gentoo-wiki.com/HOWTO_Xen_and_Gentoo"
+	elog " http://en.gentoo-wiki.com/wiki/Xen/"
 
 	if [[ "$(scanelf -s __guard -q $(type -P python))" ]] ; then
 		echo
@@ -282,4 +267,3 @@ pkg_postinst() {
 pkg_postrm() {
 	python_mod_cleanup
 }
-
