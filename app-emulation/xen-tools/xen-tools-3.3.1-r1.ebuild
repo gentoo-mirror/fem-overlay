@@ -143,6 +143,9 @@ src_unpack() {
 
 	# fix variable declaration to avoid sandbox issue, #253134
 	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
+
+        # fix for udev changes bug #236819
+        epatch "${FILESDIR}/${PN}-3.3.1-udevinfo.patch"
 }
 
 src_compile() {
