@@ -16,6 +16,10 @@ IUSE="cdp fdp edp sonmp lldpmed dot1 dot3 snmp"
 RDEPEND="snmp? ( net-analyzer/net-snmp )"
 DEPEND="${RDEPEND}"
 
+pkg_setup() {
+	enewgroup _lldpd
+	enewuser _lldpd -1 -1 /dev/null _lldpd
+}
 src_compile() {
 	econf \
 		$(use_with snmp) \
@@ -37,8 +41,8 @@ src_install() {
 	newinitd "${FILESDIR}/${PN}".init "${PN}"
 	newconfd "${FILESDIR}/${PN}".conf "${PN}"
 
-	# location of radvd.pid needs to be writeable by the radvd user
+	dodir /var/run/lldpd
 	keepdir /var/run/lldpd
-	chown -R _lldpd:_lldpd "${D}"/var/run/lldpd
+	fowners _lldpd:_lldpd /var/run/lldpd
 	fperms 755 /var/run/lldpd
 }
