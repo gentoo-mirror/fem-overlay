@@ -116,6 +116,7 @@ src_unpack() {
 		sed -i \
 		-e 's/WGET=.*/WGET=cp -t . /' \
 		-e "s;URL?=.*;URL?=${DISTDIR};" \
+		-e 's/LANG=C/LC_ALL=C/' \
 		-e 's/$(LD)/$(LD) LDFLAGS=/' \
 		-e 's;install-grub: pv-grub;install-grub:;' \
 		stubdom/Makefile
