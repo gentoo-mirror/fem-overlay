@@ -27,7 +27,7 @@ S="${WORKDIR}/${MERC_REPO}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc debug screen custom-cflags pygrub pvgrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
