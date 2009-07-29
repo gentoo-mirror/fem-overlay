@@ -25,10 +25,7 @@ DEPEND="${RDEPEND}
 SRC_TEST="do"
 
 src_prepare() {
-	elog "${S}"
-
-	sed -i -e "s; /; \${DESTDIR}/;g" "${S}"/Makefile
-
+	( echo ""; echo "# set default shell"; echo "shell /usr/bin/xen-shell" ) >> "${S}"/misc/_screenrc
 }
 
 src_compile() {
@@ -47,6 +44,10 @@ src_install() {
 }
 
 pkg_postinst() {
+        einfo "Updating ${ROOT}etc/shells"
+	( grep -v -e "^/usr/bin/xen-\(login-\)\?shell$" "${ROOT}"etc/shells; echo "/usr/bin/xen-login-shell"; echo "/usr/bin/xen-shell" ) > "${T}"/shells 
+        mv -f "${T}"/shells "${ROOT}"etc/shells
+
 	elog ""
 	elog " To use xen-shell, set /usr/bin/xen-login-shell as users login shell"
 	elog ""
