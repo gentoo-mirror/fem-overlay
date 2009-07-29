@@ -16,6 +16,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND="dev-lang/perl
+	dev-perl/Term-ReadLine-Gnu
+	app-misc/screen
 	app-admin/sudo"
 DEPEND="${RDEPEND}
         test? ( dev-perl/Test-Pod )"
