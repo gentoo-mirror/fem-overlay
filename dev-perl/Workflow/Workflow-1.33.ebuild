@@ -31,7 +31,4 @@ DEPEND="dev-lang/perl
 	dev-perl/DBI
 	dev-perl/File-Slurp"
 
-src_unpack() {
-	unpack ${A}
-	cd ${S}
-}
+S=${S}_3
