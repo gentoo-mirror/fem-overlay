@@ -1,0 +1,24 @@
+--- /dev/null	2009-07-31 17:46:39.206735934 +0200
++++ setup.py	2009-08-05 19:00:55.000000000 +0200
+@@ -0,0 +1,21 @@
++#!/usr/bin/python
++from setuptools import setup, find_packages
++import os
++
++setup(
++    name = "mercurial-server",
++    version = "0.6",
++    packages = find_packages('src'),
++    package_dir = {'':'src'},
++
++    author = ["LShift Ltd."],
++    description = "software for hosting mercurial repositories",
++    long_description = """
++mercurial-server makes a group of repositories available to the developers
++you choose, identified by ssh keys, with easy key and access management
++based on hg.
++""".strip(),
++    license = "GPL",    
++    keywords = "mercurial hg scm version-control ssh",
++    url = "http://hg.opensource.lshift.net/mercurial-server"
++)
