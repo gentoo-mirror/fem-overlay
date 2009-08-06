@@ -4,31 +4,24 @@
 
 EAPI="2"
 
-inherit flag-o-matic eutils multilib python mercurial git
+inherit flag-o-matic eutils multilib python
 
 # TPMEMUFILE=tpm_emulator-0.4.tar.gz
 
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-MERC_REPO="xen-3.4-testing.hg"
-GIT_REPO="qemu-xen-3.4-testing.git"
-
-EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
-EHG_REVISION="${PV/_/-}"
-EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
-EGIT_PROJECT="${GIT_REPO}"
-
-SRC_URI="pvgrub? ( http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz
+        pvgrub? ( http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
 		http://www.zlib.net/zlib-1.2.3.tar.gz
 		http://www.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.tar.bz2
 		http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
 		ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz )"
 #	vtpm? ( mirror://berlios/tpm-emulator/${TPMEMUFILE} )"
-S="${WORKDIR}/${MERC_REPO}"
+S="${WORKDIR}/xen-${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc debug screen custom-cflags pygrub pvgrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
@@ -99,29 +92,9 @@ pkg_setup() {
 	use api     && export "LIBXENAPI_BINDINGS=y"
 	use acm     && export "ACM_SECURITY=y"
 	use flask   && export "FLASK_ENABLE=y"
-
-	# use emerge to fetch qemu/ioemu
-	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
-}
-
-src_unpack() {
-    default_src_unpack
-    
-    # unpack xen
-    mercurial_src_unpack
-
-    EGIT_TREE=$(sed -n -e "s/QEMU_TAG ?= \(.*\)/\1/p" "${S}"/Config.mk)
-
-    # unpack ioemu repos
-    S=${WORKDIR}/${GIT_REPO}
-    git_src_unpack    
-    
-    S=${WORKDIR}/${MERC_REPO}
-    cd ${S}
 }
 
 src_prepare() {
-
 #	use vtpm && cp "${DISTDIR}"/${TPMEMUFILE}  tools/vtpm
 
 	# if the user *really* wants to use their own custom-cflags, let them
@@ -141,6 +114,7 @@ src_prepare() {
 		sed -i \
 		-e 's/WGET=.*/WGET=cp -t . /' \
 		-e "s;\$(XEN_EXTFILES_URL);${DISTDIR};" \
+		-e 's/LANG=C/LC_ALL=C/' \
 		-e 's/$(LD)/$(LD) LDFLAGS=/' \
 		-e 's;install-grub: pv-grub;install-grub:;' \
 		"${S}"/stubdom/Makefile
@@ -157,18 +131,14 @@ src_prepare() {
 		sed -i -e '/^SUBDIRS-$(PYTHON_TOOLS) += pygrub$/d' "${S}"/tools/Makefile
 	fi
 
-	# patch ioemu/qemu
-	cd ${WORKDIR}
+	# Fix network broadcast on bridged networks
+	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
+
 	# Do not strip binaries
 	epatch "${FILESDIR}/${PN}-3.4.1-nostrip.patch"
 
 	# fix variable declaration to avoid sandbox issue, #253134
 	epatch "${FILESDIR}/${PN}-3.4.1-sandbox-fix.patch"
-
-	cd ${S}
-
-	# Fix network broadcast on bridged networks
-	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
 }
 
 src_compile() {
