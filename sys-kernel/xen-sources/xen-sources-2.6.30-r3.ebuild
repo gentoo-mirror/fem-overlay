@@ -11,11 +11,11 @@ detect_version
 
 DESCRIPTION="Full sources for a dom0/domU Linux kernel to run under Xen"
 HOMEPAGE="http://xen.org/"
-IUSE=""
+IUSE="accessfs"
 
 KEYWORDS="~x86 ~amd64"
 
-XENPATCHES_VER="2"
+XENPATCHES_VER="3"
 XENPATCHES="xen-patches-${PV}-${XENPATCHES_VER}.tar.bz2"
 XENPATCHES_URI="http://gentoo-xen-kernel.googlecode.com/files/${XENPATCHES}"
 
@@ -23,5 +23,9 @@ SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${XENPATCHES_URI}"
 
 
 UNIPATCH_LIST="${DISTDIR}/${XENPATCHES}"
+
+if use accessfs; then
+  UNIPATCH_LIST="${UNIPATCH_LIST} ${FILESDIR}/accessfs-2.6.30-0.22.patch"
+fi
 
 DEPEND="${DEPEND} >=sys-devel/binutils-2.17"
