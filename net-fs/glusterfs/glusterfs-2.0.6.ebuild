@@ -32,10 +32,10 @@ want_apache2_2
 
 src_prepare() {
 
-	epatch "${FILESDIR}/${PN}-2.0.1-gentoo.patch"
-	epatch "${FILESDIR}/${PN}-2.0.1-parallel-make.patch"
-	epatch "${FILESDIR}/${PN}-2.0.1-apxs.patch"
-	epatch "${FILESDIR}/${P}-docdir.patch"
+#	epatch "${FILESDIR}/${PN}-2.0.1-gentoo.patch"
+#	epatch "${FILESDIR}/${PN}-2.0.1-parallel-make.patch"
+#	epatch "${FILESDIR}/${PN}-2.0.1-apxs.patch"
+#	epatch "${FILESDIR}/${P}-docdir.patch"
 
 	eautoreconf || die "eautoreconf failed"
 }
