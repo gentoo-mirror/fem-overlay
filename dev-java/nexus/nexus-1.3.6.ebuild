@@ -6,7 +6,7 @@ inherit eutils java-pkg-2
 DESCRIPTION="Nexus Maven Repository Server"
 
 MY_P=${P/nexus/nexus-webapp}
-SLOT="1"
+SLOT="0"
 SRC_URI="http://nexus.sonatype.org/downloads/${MY_P}-bundle.tar.gz"
 KEYWORDS="~amd64 ~x86"
 
@@ -22,7 +22,7 @@ NEXUS_HOME=/usr/share/${PN}
 pkg_setup() {
     java-pkg-2_pkg_setup
     enewgroup nexus
-    enewuser nexus -1 -1 /bin/sh nexus
+    enewuser nexus -1 /bin/sh -1 nexus
 }
 
 src_install() {
