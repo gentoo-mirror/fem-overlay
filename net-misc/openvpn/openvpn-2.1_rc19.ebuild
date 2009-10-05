@@ -7,7 +7,7 @@ inherit eutils multilib toolchain-funcs
 DESCRIPTION="OpenVPN is a robust and highly flexible tunneling application compatible with many OSes."
 SRC_URI="http://openvpn.net/release/${P}.tar.gz
 		 ipv6? (
-			http://cloud.github.com/downloads/jjo/openvpn-ipv6/openvpn-2.1_rc19-2.1_rc19c-ipv6-0.4.6.patch.gz
+			http://cloud.github.com/downloads/jjo/openvpn-ipv6/openvpn-2.1_rc19-2.1_rc19c-ipv6-0.4.8.patch.gz
 		 )"
 HOMEPAGE="http://openvpn.net/"
 
@@ -41,7 +41,7 @@ src_unpack() {
 	cd "${S}"
 
 	# IPv6-Patch
-	use ipv6 &&	epatch ${WORKDIR}/openvpn-2.1_rc19-2.1_rc19c-ipv6-0.4.6.patch
+	use ipv6 &&	epatch ${WORKDIR}/openvpn-2.1_rc19-2.1_rc19c-ipv6-0.4.8.patch
 
 	sed -i \
 		-e "s/gcc \${CC_FLAGS}/\${CC} \${CFLAGS} -Wall/" \
@@ -168,6 +168,8 @@ pkg_postinst() {
 
 	if use ipv6 ; then
 		einfo ""
-		einfo "IPv6-Patch-Info"
+		einfo "This build contains IPv6-Patch from JuanJo Ciarlante."
+		einfo "For more information please visit:"
+		einfo "http://github.com/jjo/openvpn-ipv6"
 	fi
 }
