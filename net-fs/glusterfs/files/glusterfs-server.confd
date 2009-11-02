@@ -1,3 +1,0 @@
-CONF_FILE=/etc/glusterfs/${SVCNAME}.vol
-LOG_FILE=/var/log/glusterfs/${SVCNAME}.log
-LOG_LEVEL=WARNING
