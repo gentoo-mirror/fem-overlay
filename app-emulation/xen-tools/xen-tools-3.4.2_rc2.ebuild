@@ -1,27 +1,35 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.3.1.ebuild,v 1.4 2009/06/27 07:12:39 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.0-r1.ebuild,v 1.2 2009/06/27 07:12:39 patrick Exp $
 
 EAPI="2"
 
-inherit flag-o-matic eutils multilib python
+inherit flag-o-matic eutils multilib python mercurial git
 
 # TPMEMUFILE=tpm_emulator-0.4.tar.gz
 
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz
-        pvgrub? ( http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
+MERC_REPO="xen-3.4-testing.hg"
+GIT_REPO="qemu-xen-3.4-testing.git"
+
+EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
+EHG_REVISION="${PV/_/-}"
+EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
+EGIT_PROJECT="${GIT_REPO}"
+EGIT_TREE="xen-${PV/_/-}"
+
+SRC_URI="pvgrub? ( http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
 		http://www.zlib.net/zlib-1.2.3.tar.gz
 		http://www.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.tar.bz2
 		http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
 		ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz )"
 #	vtpm? ( mirror://berlios/tpm-emulator/${TPMEMUFILE} )"
-S="${WORKDIR}/xen-${PV}"
+S="${WORKDIR}/${MERC_REPO}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc debug screen custom-cflags pygrub pvgrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
@@ -34,7 +42,7 @@ CDEPEND="dev-lang/python[ncurses,threads]
 DEPEND="${CDEPEND}
 	sys-devel/gcc
 	dev-lang/perl
-	dev-lang/python
+	dev-lang/python[ssl]
 	app-misc/pax-utils
 	doc? (
 		app-doc/doxygen
@@ -62,9 +70,14 @@ PYTHON_MODNAME="xen grub"
 
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
-QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
-QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
-	usr/share/xen/qemu/openbios-sparc64"
+OPENBIOS_FILES="usr/share/xen/qemu/openbios-sparc32
+	usr/share/xen/qemu/openbios-sparc64
+	usr/share/xen/qemu/openbios-ppc"
+
+QA_WX_LOAD="usr/lib/xen/boot/hvmloader
+	${OPENBIOS_FILES}"
+QA_EXECSTACK="${OPENBIOS_FILES}"
+QA_PRESTRIPPED="${OPENBIOS_FILES}"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -92,11 +105,29 @@ pkg_setup() {
 	use api     && export "LIBXENAPI_BINDINGS=y"
 	use acm     && export "ACM_SECURITY=y"
 	use flask   && export "FLASK_ENABLE=y"
+
+	# use emerge to fetch qemu/ioemu
+	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
 }
 
 src_unpack() {
-	unpack ${A}
-	cd "${S}"
+    default_src_unpack
+    
+    # unpack xen
+    mercurial_src_unpack
+
+    EGIT_TREE=$(sed -n -e "s/QEMU_TAG ?= \(.*\)/\1/p" "${S}"/Config.mk)
+
+    # unpack ioemu repos
+    S=${WORKDIR}/${GIT_REPO}
+    git_src_unpack    
+    
+    S=${WORKDIR}/${MERC_REPO}
+    cd ${S}
+}
+
+src_prepare() {
+
 #	use vtpm && cp "${DISTDIR}"/${TPMEMUFILE}  tools/vtpm
 
 	# if the user *really* wants to use their own custom-cflags, let them
@@ -115,11 +146,10 @@ src_unpack() {
 	if use pvgrub; then
 		sed -i \
 		-e 's/WGET=.*/WGET=cp -t . /' \
-		-e "s;URL?=.*;URL?=${DISTDIR};" \
-		-e 's/LANG=C/LC_ALL=C/' \
+		-e "s;\$(XEN_EXTFILES_URL);${DISTDIR};" \
 		-e 's/$(LD)/$(LD) LDFLAGS=/' \
 		-e 's;install-grub: pv-grub;install-grub:;' \
-		stubdom/Makefile
+		"${S}"/stubdom/Makefile
 	fi
 
 	# Disable hvm support on systems that don't support x86_32 binaries.
@@ -133,20 +163,19 @@ src_unpack() {
 		sed -i -e '/^SUBDIRS-$(PYTHON_TOOLS) += pygrub$/d' "${S}"/tools/Makefile
 	fi
 
-	# Fix network broadcast on bridged networks
-	epatch "${FILESDIR}/${PN}-3.1.3-network-bridge-broadcast.patch"
-
-	# Fix building small dumb utility called 'xen-detect' on hardened
-	epatch "${FILESDIR}/${PN}-3.3.0-xen-detect-nopie-fix.patch"
+	# patch ioemu/qemu
+	cd ${WORKDIR}
 
 	# Do not strip binaries
-	epatch "${FILESDIR}/${PN}-3.3.0-nostrip.patch"
+	epatch "${FILESDIR}/${PN}-3.4.2-nostrip.patch"
 
 	# fix variable declaration to avoid sandbox issue, #253134
-	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
+	epatch "${FILESDIR}/${PN}-3.4.2-sandbox-fix.patch"
 
-        # fix for udev changes bug #236819
-        epatch "${FILESDIR}/${PN}-3.3.1-udevinfo.patch"
+	cd ${S}
+
+	# Fix network broadcast on bridged networks
+	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
 }
 
 src_compile() {
@@ -184,7 +213,7 @@ src_install() {
 	if use pvgrub; then
 		emake DESTDIR="${D}" -C stubdom install-grub || die "install pvgrub_${XEN_TARGET_ARCH} failed"
 		if use amd64; then
-			emake DESTDIR="${D}" XEN_TARGET_ARCH="x86_32" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
+			emake XEN_TARGET_ARCH="x86_32" DESTDIR="${D}" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
 		fi
 	fi
 
@@ -206,11 +235,11 @@ src_install() {
 
 	doman docs/man?/*
 
-	newinitd "${FILESDIR}"/xend.initd xend \
+	newinitd "${FILESDIR}"/xend.initd-r1 xend \
 		|| die "Couldn't install xen.initd"
 	newconfd "${FILESDIR}"/xendomains.confd xendomains \
 		|| die "Couldn't install xendomains.confd"
-	newinitd "${FILESDIR}"/xendomains.initd xendomains \
+	newinitd "${FILESDIR}"/xendomains.initd-r1 xendomains \
 		|| die "Couldn't install xendomains.initd"
 
 	if use screen; then
@@ -238,13 +267,13 @@ pkg_postinst() {
 		ewarn "This probablem may be resolved as of Xen 3.0.4, if not post in the bug."
 	fi
 
-	if ! built_with_use dev-lang/python ncurses; then
+	if ! has_version "dev-lang/python[ncurses]"; then
 		echo
 		ewarn "NB: Your dev-lang/python is built without USE=ncurses."
 		ewarn "Please rebuild python with USE=ncurses to make use of xenmon.py."
 	fi
 
-	if built_with_use sys-apps/iproute2 minimal; then
+	if has_version "sys-apps/iproute2[minimal]"; then
 		echo
 		ewarn "Your sys-apps/iproute2 is built with USE=minimal. Networking"
 		ewarn "will not work until you rebuild iproute2 without USE=minimal."

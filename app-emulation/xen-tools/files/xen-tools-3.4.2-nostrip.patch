@@ -1,6 +1,6 @@
---- xen-3.4.1/tools/ioemu-qemu-xen/Makefile.old	2009-07-26 19:26:53.000000000 +0200
-+++ xen-3.4.1/tools/ioemu-qemu-xen/Makefile	2009-07-26 19:27:27.000000000 +0200
-@@ -242,7 +242,7 @@
+--- qemu-xen-3.4-testing.git/Makefile.old	2009-07-26 19:26:53.000000000 +0200
++++ qemu-xen-3.4-testing.git/Makefile	2009-07-26 19:27:27.000000000 +0200
+@@ -243,7 +243,7 @@
  install: all $(if $(BUILD_DOCS),install-doc)
  	mkdir -p "$(DESTDIR)$(bindir)"
  ifneq ($(TOOLS),)
@@ -9,8 +9,8 @@
  endif
  ifneq ($(BLOBS),)
  	mkdir -p "$(DESTDIR)$(datadir)"
---- xen-3.4.1/tools/ioemu-qemu-xen/Makefile.target.old	2009-07-26 19:27:56.000000000 +0200
-+++ xen-3.4.1/tools/ioemu-qemu-xen/Makefile.target	2009-07-26 19:28:25.000000000 +0200
+--- qemu-xen-3.4-testing.git/Makefile.target.old	2009-07-26 19:27:56.000000000 +0200
++++ qemu-xen-3.4-testing.git/Makefile.target	2009-07-26 19:28:25.000000000 +0200
 @@ -754,7 +754,7 @@
  
  install: all install-hook

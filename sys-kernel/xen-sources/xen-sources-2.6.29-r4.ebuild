@@ -9,7 +9,7 @@ K_GENPATCHES_VER="6"
 inherit kernel-2
 detect_version
 
-DESCRIPTION="Full sources for a dom0/domU Linux kernel to run under Xen"
+DESCRIPTION="Full sources for a dom0/domU Linux kernel to run under Xen (rebased from official xen kernel 2.6.18)"
 HOMEPAGE="http://xen.org/"
 IUSE=""
 

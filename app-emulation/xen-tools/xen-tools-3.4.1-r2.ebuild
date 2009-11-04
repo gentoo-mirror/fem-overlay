@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.0-r1.ebuild,v 1.2 2009/06/27 07:12:39 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.1-r1.ebuild,v 1.2 2009/10/11 17:00:04 betelgeuse Exp $
 
 EAPI="2"
 
@@ -34,7 +34,7 @@ CDEPEND="dev-lang/python[ncurses,threads]
 DEPEND="${CDEPEND}
 	sys-devel/gcc
 	dev-lang/perl
-	dev-lang/python
+	dev-lang/python[ssl]
 	app-misc/pax-utils
 	doc? (
 		app-doc/doxygen
@@ -62,9 +62,14 @@ PYTHON_MODNAME="xen grub"
 
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
-QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
-QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
-	usr/share/xen/qemu/openbios-sparc64"
+OPENBIOS_FILES="usr/share/xen/qemu/openbios-sparc32
+        usr/share/xen/qemu/openbios-sparc64
+        usr/share/xen/qemu/openbios-ppc"
+
+QA_WX_LOAD="usr/lib/xen/boot/hvmloader
+        ${OPENBIOS_FILES}"
+QA_EXECSTACK="${OPENBIOS_FILES}"
+QA_PRESTRIPPED="${OPENBIOS_FILES}"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -114,10 +119,9 @@ src_prepare() {
 		sed -i \
 		-e 's/WGET=.*/WGET=cp -t . /' \
 		-e "s;\$(XEN_EXTFILES_URL);${DISTDIR};" \
-		-e 's/LANG=C/LC_ALL=C/' \
 		-e 's/$(LD)/$(LD) LDFLAGS=/' \
 		-e 's;install-grub: pv-grub;install-grub:;' \
-		stubdom/Makefile
+		"${S}"/stubdom/Makefile
 	fi
 
 	# Disable hvm support on systems that don't support x86_32 binaries.
@@ -140,8 +144,8 @@ src_prepare() {
 	# fix variable declaration to avoid sandbox issue, #253134
 	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
 
-	# fix for udev changes bug #236819
-	epatch "${FILESDIR}/${P}-udevinfo.patch"
+	# fix gcc 4.4 failure
+	epatch "${FILESDIR}/${P}-xc_core-memset.patch"
 }
 
 src_compile() {
@@ -201,11 +205,11 @@ src_install() {
 
 	doman docs/man?/*
 
-	newinitd "${FILESDIR}"/xend.initd xend \
+	newinitd "${FILESDIR}"/xend.initd-r1 xend \
 		|| die "Couldn't install xen.initd"
 	newconfd "${FILESDIR}"/xendomains.confd xendomains \
 		|| die "Couldn't install xendomains.confd"
-	newinitd "${FILESDIR}"/xendomains.initd xendomains \
+	newinitd "${FILESDIR}"/xendomains.initd-r1 xendomains \
 		|| die "Couldn't install xendomains.initd"
 
 	if use screen; then
@@ -233,13 +237,13 @@ pkg_postinst() {
 		ewarn "This probablem may be resolved as of Xen 3.0.4, if not post in the bug."
 	fi
 
-	if ! built_with_use dev-lang/python ncurses; then
+	if ! has_version "dev-lang/python[ncurses]"; then
 		echo
 		ewarn "NB: Your dev-lang/python is built without USE=ncurses."
 		ewarn "Please rebuild python with USE=ncurses to make use of xenmon.py."
 	fi
 
-	if built_with_use sys-apps/iproute2 minimal; then
+	if has_version "sys-apps/iproute2[minimal]"; then
 		echo
 		ewarn "Your sys-apps/iproute2 is built with USE=minimal. Networking"
 		ewarn "will not work until you rebuild iproute2 without USE=minimal."

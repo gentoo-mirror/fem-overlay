@@ -1,0 +1,10 @@
+--- xen-3.3.2/tools/misc/Makefile.orig	2009-11-03 10:41:48.000000000 +0100
++++ xen-3.3.2/tools/misc/Makefile	2009-11-03 10:41:23.000000000 +0100
+@@ -57,4 +57,7 @@
+ xenperf xenpm: %: %.o Makefile
+ 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) $(LDFLAGS_libxenctrl)
+ 
++xen-detect: %: %.c Makefile
++	$(CC) $(CFLAGS) $(LDFLAGS) $(call cc-option,$(CC),-nopie,) -o $@ $<
++
+ -include $(DEPS)

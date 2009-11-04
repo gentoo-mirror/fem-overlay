@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.0-r1.ebuild,v 1.2 2009/06/27 07:12:39 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.3.1.ebuild,v 1.4 2009/06/27 07:12:39 patrick Exp $
 
 EAPI="2"
 
@@ -62,9 +62,14 @@ PYTHON_MODNAME="xen grub"
 
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
-QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
-QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
-	usr/share/xen/qemu/openbios-sparc64"
+
+OPENBIOS_FILES="usr/share/xen/qemu/openbios-sparc32
+        usr/share/xen/qemu/openbios-sparc64"
+
+QA_WX_LOAD="usr/lib/xen/boot/hvmloader
+	${OPENBIOS_FILES}"
+QA_EXECSTACK="${OPENBIOS_FILES}"
+QA_PRESTRIPPED="${OPENBIOS_FILES}"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -94,7 +99,9 @@ pkg_setup() {
 	use flask   && export "FLASK_ENABLE=y"
 }
 
-src_prepare() {
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
 #	use vtpm && cp "${DISTDIR}"/${TPMEMUFILE}  tools/vtpm
 
 	# if the user *really* wants to use their own custom-cflags, let them
@@ -114,7 +121,6 @@ src_prepare() {
 		sed -i \
 		-e 's/WGET=.*/WGET=cp -t . /' \
 		-e "s;\$(XEN_EXTFILES_URL);${DISTDIR};" \
-		-e 's/LANG=C/LC_ALL=C/' \
 		-e 's/$(LD)/$(LD) LDFLAGS=/' \
 		-e 's;install-grub: pv-grub;install-grub:;' \
 		stubdom/Makefile
@@ -132,7 +138,10 @@ src_prepare() {
 	fi
 
 	# Fix network broadcast on bridged networks
-	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
+	epatch "${FILESDIR}/${PN}-3.1.3-network-bridge-broadcast.patch"
+
+	# Fix building small dumb utility called 'xen-detect' on hardened
+	epatch "${FILESDIR}/${PN}-3.3.2-xen-detect-nopie-fix.patch"
 
 	# Do not strip binaries
 	epatch "${FILESDIR}/${PN}-3.3.0-nostrip.patch"
@@ -140,11 +149,8 @@ src_prepare() {
 	# fix variable declaration to avoid sandbox issue, #253134
 	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
 
-	# fix for udev changes bug #236819
-	epatch "${FILESDIR}/${P}-udevinfo.patch"
-
 	# fix python-2.6 DeprecationWarnings
-	epatch "${FILESDIR}/${PN}-3.4.0-python.patch"
+	epatch "${FILESDIR}/${PN}-3.3.2-python.patch"
 }
 
 src_compile() {
@@ -182,7 +188,7 @@ src_install() {
 	if use pvgrub; then
 		emake DESTDIR="${D}" -C stubdom install-grub || die "install pvgrub_${XEN_TARGET_ARCH} failed"
 		if use amd64; then
-			emake XEN_TARGET_ARCH="x86_32" DESTDIR="${D}" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
+			emake DESTDIR="${D}" XEN_TARGET_ARCH="x86_32" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
 		fi
 	fi
 

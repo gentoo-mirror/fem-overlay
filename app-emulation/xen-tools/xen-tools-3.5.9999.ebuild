@@ -40,7 +40,7 @@ CDEPEND="dev-lang/python[ncurses,threads]
 DEPEND="${CDEPEND}
 	sys-devel/gcc
 	dev-lang/perl
-	dev-lang/python
+	dev-lang/python[ssl]
 	app-misc/pax-utils
 	doc? (
 		app-doc/doxygen
@@ -68,9 +68,15 @@ PYTHON_MODNAME="xen grub"
 
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
-QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
-QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
-	usr/share/xen/qemu/openbios-sparc64"
+OPENBIOS_FILES="usr/share/xen/qemu/openbios-sparc32
+	usr/share/xen/qemu/openbios-sparc64
+	usr/share/xen/qemu/openbios-ppc"
+
+QA_WX_LOAD="usr/lib/xen/boot/hvmloader
+	${OPENBIOS_FILES}"
+QA_EXECSTACK="${OPENBIOS_FILES}"
+QA_PRESTRIPPED="${OPENBIOS_FILES}"
+QA_TEXTRELS="usr/lib/libvhd.so.1.0.0"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -227,11 +233,11 @@ src_install() {
 
 	doman docs/man?/*
 
-	newinitd "${FILESDIR}"/xend.initd xend \
+	newinitd "${FILESDIR}"/xend.initd-r1 xend \
 		|| die "Couldn't install xen.initd"
 	newconfd "${FILESDIR}"/xendomains.confd xendomains \
 		|| die "Couldn't install xendomains.confd"
-	newinitd "${FILESDIR}"/xendomains.initd xendomains \
+	newinitd "${FILESDIR}"/xendomains.initd-r1 xendomains \
 		|| die "Couldn't install xendomains.initd"
 
 	if use screen; then
@@ -259,13 +265,13 @@ pkg_postinst() {
 		ewarn "This probablem may be resolved as of Xen 3.0.4, if not post in the bug."
 	fi
 
-	if ! built_with_use dev-lang/python ncurses; then
+	if ! has_version "dev-lang/python[ncurses]"; then
 		echo
 		ewarn "NB: Your dev-lang/python is built without USE=ncurses."
 		ewarn "Please rebuild python with USE=ncurses to make use of xenmon.py."
 	fi
 
-	if built_with_use sys-apps/iproute2 minimal; then
+	if has_version "sys-apps/iproute2[minimal]"; then
 		echo
 		ewarn "Your sys-apps/iproute2 is built with USE=minimal. Networking"
 		ewarn "will not work until you rebuild iproute2 without USE=minimal."

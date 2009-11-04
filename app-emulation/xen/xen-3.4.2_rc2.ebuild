@@ -6,8 +6,9 @@ inherit mount-boot flag-o-matic toolchain-funcs mercurial
 
 DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
-REPO="xen-unstable.hg"
+REPO="xen-3.4-testing.hg"
 EHG_REPO_URI="http://xenbits.xensource.com/${REPO}"
+EHG_REVISION="${PV/_/-}"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -22,7 +23,7 @@ PDEPEND="~app-emulation/xen-tools-${PV}"
 RESTRICT="test"
 
 # Approved by QA team in bug #144032
-QA_WX_LOAD="boot/xen-syms-3.5-unstable"
+QA_WX_LOAD="boot/xen-syms-${PV/_/-}"
 
 S="${WORKDIR}/${REPO}"
 
