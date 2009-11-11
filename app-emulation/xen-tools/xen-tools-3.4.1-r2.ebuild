@@ -32,6 +32,7 @@ CDEPEND="dev-lang/python[ncurses,threads]
 #	vtpm? ( dev-libs/gmp dev-libs/openssl )
 
 DEPEND="${CDEPEND}
+	sys-devel/gettext
 	sys-devel/gcc
 	dev-lang/perl
 	dev-lang/python[ssl]
