@@ -95,6 +95,8 @@ src_install() {
 
 	# install documentation
 	dodoc AUTHORS ChangeLog PORTS README
+	use eurephia && dodoc README.eurephia
+
 	# remove empty dir
 	rmdir "${D}/usr/share/doc/openvpn"
 
