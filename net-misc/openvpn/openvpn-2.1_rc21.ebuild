@@ -7,7 +7,7 @@ inherit eutils multilib toolchain-funcs autotools
 DESCRIPTION="OpenVPN is a robust and highly flexible tunneling application compatible with many OSes."
 SRC_URI="http://openvpn.net/release/${P}.tar.gz
 		ipv6? (
-			http://cloud.github.com/downloads/jjo/openvpn-ipv6/openvpn-2.1_rc21-ipv6-0.4.10.uncached.patch.gz
+			http://cloud.github.com/downloads/jjo/openvpn-ipv6/openvpn-2.1_rc21-ipv6-0.4.10.patch.gz
 		)
 		eurephia? (
 			mirror://sourceforge/eurephia/${P}_eurephia.patch
