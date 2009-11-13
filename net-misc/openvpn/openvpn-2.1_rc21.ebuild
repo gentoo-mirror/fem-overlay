@@ -45,7 +45,7 @@ src_unpack() {
 
 	epatch "${FILESDIR}/${PN}-2.1_rc13-peercred.patch"
 	epatch "${FILESDIR}"/openvpn-2.1_rc20-pkcs11.patch
-	use ipv6 && epatch "${WORKDIR}"/openvpn-2.1_rc21-ipv6-0.4.10.uncached.patch
+	use ipv6 && epatch "${WORKDIR}"/openvpn-2.1_rc21-ipv6-0.4.10.patch
 	use eurephia && epatch "${DISTDIR}/${P}_eurephia.patch"
 	sed -i \
 		-e "s/gcc \${CC_FLAGS}/\${CC} \${CFLAGS} -Wall/" \
