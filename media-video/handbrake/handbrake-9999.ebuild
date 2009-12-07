@@ -30,7 +30,7 @@ DESCRIPTION="A DVD to MPEG-4 converter"
 HOMEPAGE="http://handbrake.fr/"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="dev-util/ftjam"
