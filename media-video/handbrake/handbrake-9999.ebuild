@@ -16,6 +16,7 @@ CONTRIB_DIR="${ESVN_STORE_DIR}/${ESVN_PROJECT}/trunk/contrib"
 
 SRC_URI="
 `
+[[ -d ${CONTRIB_DIR} ]] && \
 for CONTRIB_FILE in ${CONTRIB_DIR}/version*.txt;
 do
 	cat ${CONTRIB_FILE};
