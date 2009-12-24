@@ -1,6 +1,6 @@
-diff -Nru a/tools/ioemu-qemu-xen/xen-setup b/tools/ioemu-qemu-xen/xen-setup
---- a/tools/ioemu-qemu-xen/xen-setup	2008-08-22 17:56:41.000000000 +0800
-+++ b/tools/ioemu-qemu-xen/xen-setup	2009-02-20 10:55:37.000000000 +0800
+diff -urN xen-3.3.1/tools/ioemu-qemu-xen/xen-setup xen-3.3.1-fix/tools/ioemu-qemu-xen/xen-setup
+--- xen-3.3.1/tools/ioemu-qemu-xen/xen-setup	2009-01-05 04:36:22.000000000 -0700
++++ xen-3.3.1-fix/tools/ioemu-qemu-xen/xen-setup	2009-04-25 17:55:03.000000000 -0600
 @@ -3,6 +3,8 @@
  
  # git-clean -x -d && ./xen-setup && make prefix=/usr CMDLINE_CFLAGS='-O0 -g' -j4 && make install DESTDIR=`pwd`/dist/ prefix=/usr && rsync -a --stats --delete . thule:shadow/qemu-iwj.git/ && rsync -a --stats dist/. root@thule:/

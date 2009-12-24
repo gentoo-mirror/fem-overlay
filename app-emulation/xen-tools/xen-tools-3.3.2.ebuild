@@ -6,30 +6,21 @@ EAPI="2"
 
 inherit flag-o-matic eutils multilib python
 
-# TPMEMUFILE=tpm_emulator-0.4.tar.gz
-
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz
-        pvgrub? ( http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
-		http://www.zlib.net/zlib-1.2.3.tar.gz
-		http://www.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.tar.bz2
-		http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
-		ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz )"
-#	vtpm? ( mirror://berlios/tpm-emulator/${TPMEMUFILE} )"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
 S="${WORKDIR}/xen-${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc debug screen custom-cflags pygrub pvgrub hvm api acm flask"
+IUSE="doc debug screen custom-cflags pygrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
 	sys-libs/zlib
 	hvm? ( media-libs/libsdl )
 	acm? ( dev-libs/libxml2 )
 	api? ( dev-libs/libxml2 net-misc/curl )"
-#	vtpm? ( dev-libs/gmp dev-libs/openssl )
 
 DEPEND="${CDEPEND}
 	sys-devel/gcc
@@ -117,15 +108,6 @@ src_unpack() {
 			-i {} \;
 	fi
 
-	if use pvgrub; then
-		sed -i \
-		-e 's/WGET=.*/WGET=cp -t . /' \
-		-e "s;\$(XEN_EXTFILES_URL);${DISTDIR};" \
-		-e 's/$(LD)/$(LD) LDFLAGS=/' \
-		-e 's;install-grub: pv-grub;install-grub:;' \
-		stubdom/Makefile
-	fi
-
 	# Disable hvm support on systems that don't support x86_32 binaries.
 	if ! use hvm; then
 		chmod 644 tools/check/check_x11_devel
@@ -165,13 +147,6 @@ src_compile() {
 
 	emake -C tools ${myopt} || die "compile failed"
 
-	if use pvgrub; then
-		emake -C stubdom pv-grub || die "compile pv-grub_${XEN_TARGET_ARCH} failed"
-		if use amd64; then
-			emake XEN_TARGET_ARCH="x86_32" -C stubdom pv-grub || die "compile pv-grub_x86_32 failed"
-		fi
-	fi
-
 	if use doc; then
 		sh ./docs/check_pkgs || die "package check failed"
 		emake docs || die "compiling docs failed"
@@ -184,13 +159,6 @@ src_compile() {
 src_install() {
 	make DESTDIR="${D}" DOCDIR="/usr/share/doc/${PF}" XEN_PYTHON_NATIVE_INSTALL=y install-tools  \
 		|| die "install failed"
-
-	if use pvgrub; then
-		emake DESTDIR="${D}" -C stubdom install-grub || die "install pvgrub_${XEN_TARGET_ARCH} failed"
-		if use amd64; then
-			emake DESTDIR="${D}" XEN_TARGET_ARCH="x86_32" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
-		fi
-	fi
 
 	# Remove RedHat-specific stuff
 	rm -rf "${D}"/etc/sysconfig
