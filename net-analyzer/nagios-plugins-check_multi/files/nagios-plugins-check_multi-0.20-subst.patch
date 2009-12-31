@@ -1,0 +1,11 @@
+--- check_multi-0.20_old/subst.in       2009-12-30 10:50:31.104940778 +0100
++++ check_multi-0.20/subst.in   2009-12-30 10:50:52.135770465 +0100
+@@ -2,7 +2,7 @@
+
+ my ${prefix}="@prefix@";
+ my ${exec_prefix}="@exec_prefix@";
+-my ${libexecdir}="@prefix@/libexec";
++my ${libexecdir}="@libexecdir@";
+ my ${sbindir}="@sbindir@";
+ my ${datarootdir}="@datarootdir@";
+ my ${localstatedir}="@localstatedir@";
