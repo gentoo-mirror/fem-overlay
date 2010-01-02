@@ -37,7 +37,6 @@ src_unpack() {
 	# patch Makefiles
 	epatch "${FILESDIR}/${P}-subst.patch"
 	use examples && epatch "${FILESDIR}/${P}-examples.patch"
-
 }
 
 src_compile() {
@@ -55,8 +54,8 @@ src_compile() {
 src_install() {
 	emake DESTDIR="${D}" install || die "make install failed"
 	
-	use contrib && ( emake DESTDIR="${D}" install-contrib || die "make intall-contrib failed" )
-	use examples && emake DESTDIR="${D}" install-config || die "make intall-config failed"
+	use contrib && ( emake DESTDIR="${D}" install-contrib || die "make install-contrib failed" )
+	use examples && emake DESTDIR="${D}" install-config || die "make install-config failed"
 
 	dodoc Changelog README THANKS
 }
