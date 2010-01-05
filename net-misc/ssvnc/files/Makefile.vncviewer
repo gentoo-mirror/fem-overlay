@@ -1,0 +1,5 @@
+CPPFLAGS += -I. -I../include -D_GNU_SOURCE
+LDLIBS += ../libvncauth/libvncauth.a -lz -ljpeg -lX11 -lXt -lXaw
+include Makefile.in
+all: vncviewer
+vncviewer: $(SRCS:.c=.o)
