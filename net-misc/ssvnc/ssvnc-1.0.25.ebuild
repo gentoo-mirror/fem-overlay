@@ -1,6 +1,5 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/ssvnc/ssvnc-1.0.24.ebuild,v 1.1 2009/12/04 08:19:54 vapier Exp $
 
 EAPI="2"
 inherit eutils multilib toolchain-funcs
