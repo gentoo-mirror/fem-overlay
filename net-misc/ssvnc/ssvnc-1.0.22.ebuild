@@ -1,9 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/ssvnc/ssvnc-1.0.25.ebuild,v 1.1 2010/01/05 16:26:49 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/ssvnc/ssvnc-1.0.22.ebuild,v 1.3 2009/06/29 20:55:26 maekke Exp $
 
-EAPI="2"
-inherit eutils multilib toolchain-funcs
+inherit eutils multilib
 
 DESCRIPTION="VNC viewer that adds encryption security to VNC connections"
 HOMEPAGE="http://www.karlrunge.com/x11vnc/ssvnc.html"
@@ -11,14 +10,13 @@ SRC_URI="mirror://sourceforge/ssvnc/${P}.src.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="java"
 
 RDEPEND="sys-libs/zlib
 	media-libs/jpeg
 	dev-libs/openssl
 	dev-lang/tk
-	net-misc/stunnel
 	java? ( virtual/jre )
 	x11-libs/libICE
 	x11-libs/libSM
@@ -30,12 +28,14 @@ RDEPEND="sys-libs/zlib
 	x11-libs/libXpm
 	x11-libs/libXt"
 DEPEND="${RDEPEND}
-	java? ( virtual/jdk )"
+	java? ( virtual/jdk )
+	x11-misc/imake"
 
-src_prepare() {
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
 	epatch "${FILESDIR}"/${P}-build.patch
-	epatch "${FILESDIR}"/${PN}-1.0.24-optional-java.patch
-
+	epatch "${FILESDIR}"/${P}-optional-java.patch
 	sed -i \
 		-e '/CXXDEBUGFLAGS =/s:-O2:$(CXXFLAGS):' \
 		-e '/CDEBUGFLAGS =/s:-O2:$(CFLAGS):' \
@@ -44,9 +44,6 @@ src_prepare() {
 		-e "/^LIB/s:lib/:$(get_libdir)/:" \
 		-e "$(use java || echo '/^JSRC/s:=.*:=:')" \
 		Makefile
-	sed -i \
-		-e '/^CC/s:=.*:+= $(CFLAGS) $(CPPFLAGS) $(LDFLAGS):' \
-		vncstorepw/Makefile
 }
 
 src_compile() {
