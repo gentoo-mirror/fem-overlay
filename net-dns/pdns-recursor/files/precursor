@@ -1,0 +1,28 @@
+#!/sbin/runscript
+# Copyright 1999-2006 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-dns/pdns-recursor/files/precursor,v 1.4 2007/06/08 22:28:14 swegener Exp $
+
+opts="ping"
+
+depend() {
+	need net
+}
+
+start() {
+	ebegin "Starting PowerDNS Recursor"
+	/usr/sbin/pdns_recursor --daemon=yes &>/dev/null
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping PowerDNS Recursor"
+	/usr/sbin/rec_control quit &>/dev/null
+	eend $?
+}
+
+ping() {
+	ebegin "Pinging PowerDNS Recursor"
+	/usr/sbin/rec_control ping &>/dev/null
+	eend $?
+}
