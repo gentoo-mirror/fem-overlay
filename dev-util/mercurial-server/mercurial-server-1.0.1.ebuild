@@ -27,8 +27,8 @@ S="${WORKDIR}/${PN}_${PV}.orig"
 
 pkg_setup() {
 	enewgroup hg
-	enewuser hg -1 /bin/sh /home/hg hg
-	chmod 700 /home/hg
+	enewuser hg -1 /bin/sh /var/hg hg
+	chmod 700 /var/hg
 }
 
 src_compile() {
@@ -42,7 +42,7 @@ src_install() {
 
 pkg_postinst() {
 	#skip the comments if there is already a hgadmin repo
-	if [ ! -d /home/hg/repos/hgadmin/.hg ]; then
+	if [ ! -d /var/hg/repos/hgadmin/.hg ]; then
 		#Parts could be done automatically, but maybe there is a user hg 
 		elog "This seem to be a first time install, things you may want to do"
 		elog "-Add your public ssh key to root key folder"
