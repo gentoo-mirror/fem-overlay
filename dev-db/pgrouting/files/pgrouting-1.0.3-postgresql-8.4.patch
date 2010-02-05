@@ -1,0 +1,39 @@
+*** pgrouting/core/src/astar.c.orig	Fri Feb  5 13:47:19 2010
+--- pgrouting/core/src/astar.c	Fri Feb  5 13:48:05 2010
+***************
+*** 29,34 ****
+--- 29,36 ----
+  
+  #include "astar.h"
+  
++ #include "catalog/pg_type.h"
++ 
+  //-------------------------------------------------------------------------
+  
+  /*
+*** pgrouting/core/src/dijkstra.c.orig	Fri Feb  5 13:47:37 2010
+--- pgrouting/core/src/dijkstra.c	Fri Feb  5 13:46:28 2010
+***************
+*** 27,32 ****
+--- 27,34 ----
+  
+  #include "dijkstra.h"
+  
++ #include "catalog/pg_type.h"
++ 
+  Datum shortest_path(PG_FUNCTION_ARGS);
+  
+  #undef DEBUG
+*** pgrouting/core/src/shooting_star.c.orig	Fri Feb  5 13:47:19 2010
+--- pgrouting/core/src/shooting_star.c	Fri Feb  5 13:48:16 2010
+***************
+*** 32,37 ****
+--- 32,39 ----
+  
+  #include "shooting_star.h"
+  
++ #include "catalog/pg_type.h"
++ 
+  //-------------------------------------------------------------------------
+  
+  Datum shortest_path_shooting_star(PG_FUNCTION_ARGS);
