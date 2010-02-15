@@ -9,7 +9,7 @@ SRC_URI="http://svn.powerdns.com/snapshots/rc1/${PN}-3.2-rc1.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="lua"
 
 DEPEND="lua? ( >=dev-lang/lua-5.1 )"
