@@ -5,8 +5,8 @@
 inherit eutils toolchain-funcs
 
 DESCRIPTION="A wrapper library for using smartcard readers that support PCSC only (e.g. SCR24x) with any application that supports CTAPI."
-HOMEPAGE="http://pcsc-ctapi-wrapper.sourceforge.net/"
-SRC_URI="mirror://sourceforge/pcsc-ctapi-wrapper/${P}.tar.gz"
+HOMEPAGE="http://pcsc-ctapi.sourceforge.net/"
+SRC_URI="mirror://sourceforge/pcsc-ctapi/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"

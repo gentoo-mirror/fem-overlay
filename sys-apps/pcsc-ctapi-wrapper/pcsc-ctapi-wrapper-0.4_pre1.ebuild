@@ -5,8 +5,8 @@
 inherit eutils toolchain-funcs flag-o-matic
 
 DESCRIPTION="A wrapper library for using smartcard readers that support PCSC only (e.g. SCR24x) with any application that supports CTAPI."
-HOMEPAGE="http://pcsc-ctapi-wrapper.sourceforge.net/"
-SRC_URI="mirror://sourceforge/pcsc-ctapi-wrapper/${PN}-0.3.tar.gz"
+HOMEPAGE="http://pcsc-ctapi.sourceforge.net/"
+SRC_URI="mirror://sourceforge/pcsc-ctapi/${PN}-0.3.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="port0 port1 ctn0 ctn1"
