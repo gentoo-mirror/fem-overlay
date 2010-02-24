@@ -1,6 +1,5 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/openvpn/openvpn-2.1_rc21.ebuild,v 1.1 2009/11/15 14:23:26 cedk Exp $
 
 inherit eutils multilib toolchain-funcs autotools git
 
@@ -13,9 +12,9 @@ EGIT_COMMIT=${EGIT_BRANCH}
 HOMEPAGE="http://openvpn.net/"
 
 LICENSE="GPL-2"
-SLOT="0"
+SLOT="dev"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
-IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11 threads userland_BSD"
+IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11 threads userland_BSD eurephia"
 
 DEPEND=">=dev-libs/lzo-1.07
 	kernel_linux? (
@@ -44,14 +43,17 @@ src_unpack() {
 	cd "${S}"
 
 	epatch "${FILESDIR}/${PN}-2.1_rc13-peercred.patch"
-	epatch "${FILESDIR}"/openvpn-2.1_rc20-pkcs11.patch
+	epatch "${FILESDIR}/${PN}-2.1_rc20-pkcs11.patch"
 	sed -i \
 		-e "s/gcc \${CC_FLAGS}/\${CC} \${CFLAGS} -Wall/" \
 		-e "s/-shared/-shared \${LDFLAGS}/" \
 		plugin/*/Makefile || die "sed failed"
+	
+	# Add GIT commit ID to Product Version
 	sed -i \
 		-e "/^define(PRODUCT_VERSION/s/])/-git-${EGIT_VERSION}])/" \
 		version.m4	
+
 	eautoreconf
 }
 
@@ -71,6 +73,7 @@ src_compile() {
 		$(use_enable ssl crypto) \
 		$(use_enable threads pthread) \
 		$(use_enable iproute2) \
+		$(use_enable eurephia) \
 		|| die "configure failed"
 
 	use static && sed -i -e '/^LIBS/s/LIBS = /LIBS = -static /' Makefile
@@ -92,10 +95,15 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	#make DESTDIR="${D}" install || die "make install failed"
+	# Insert binary and manpage as openvpn-dev instead of using makefile
+	newsbin openvpn openvpn-${SLOT}
+	newman openvpn.8 openvpn-${SLOT}.8
 
 	# install documentation
 	dodoc AUTHORS ChangeLog PORTS README
+	# install additional IPv6-Documentation
+	dodoc README.IPv6 README.ipv6
 
 	# remove empty dir
 	rmdir "${D}/usr/share/doc/openvpn"
@@ -110,13 +118,13 @@ src_install() {
 	doexe "${FILESDIR}/down.sh"
 
 	# Install the init script and config file
-	newinitd "${FILESDIR}/${PN}-2.1.init" openvpn
-	newconfd "${FILESDIR}/${PN}-2.1.conf" openvpn
+	newinitd "${FILESDIR}/${PN}-${SLOT}.init" openvpn-${SLOT}
+	newconfd "${FILESDIR}/${PN}-2.1.conf" openvpn-${SLOT}
 
 	# install examples, controlled by the respective useflag
 	if use examples ; then
 		# dodoc does not supportly support directory traversal, #15193
-		insinto /usr/share/doc/${PF}/examples
+		insinto /usr/share/doc/${PF}-${SLOT}/examples
 		doins -r sample-{config-files,keys,scripts} contrib
 		prepalldocs
 	fi
@@ -124,10 +132,10 @@ src_install() {
 	# Install plugins and easy-rsa
 	if ! use minimal ; then
 		cd easy-rsa/2.0
-		make install "DESTDIR=${D}/usr/share/${PN}/easy-rsa"
+		make install "DESTDIR=${D}/usr/share/${PN}-${SLOT}/easy-rsa"
 		cd ../..
 
-		exeinto "/usr/$(get_libdir)/${PN}"
+		exeinto "/usr/$(get_libdir)/${PN}-${SLOT}"
 		doexe plugin/*/*.so
 	fi
 }
@@ -144,7 +152,7 @@ pkg_postinst() {
 		ewarn ""
 	fi
 
-	einfo "The openvpn init script expects to find the configuration file"
+	einfo "The openvpn-${SLOT} init script expects to find the configuration file"
 	einfo "openvpn.conf in /etc/openvpn along with any extra files it may need."
 	einfo ""
 	einfo "To create more VPNs, simply create a new .conf file for it and"
@@ -153,9 +161,9 @@ pkg_postinst() {
 	einfo "   cd /etc/openvpn"
 	einfo "   ${EDITOR##*/} foo.conf"
 	einfo "   cd /etc/init.d"
-	einfo "   ln -s openvpn openvpn.foo"
+	einfo "   ln -s openvpn-${SLOT} openvpn-${SLOT}.foo"
 	einfo ""
-	einfo "You can then treat openvpn.foo as any other service, so you can"
+	einfo "You can then treat openvpn-${SLOT}.foo as any other service, so you can"
 	einfo "stop one vpn and start another if you need to."
 
 	if grep -Eq "^[ \t]*(up|down)[ \t].*" "${ROOT}/etc/openvpn"/*.conf 2>/dev/null ; then
@@ -168,6 +176,6 @@ pkg_postinst() {
 
 	if ! use minimal ; then
 		einfo ""
-		einfo "plugins have been installed into /usr/$(get_libdir)/${PN}"
+		einfo "plugins have been installed into /usr/$(get_libdir)/${PN}-${SLOT}"
 	fi
 }
