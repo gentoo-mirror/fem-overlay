@@ -13,7 +13,7 @@ HOMEPAGE="http://openvpn.net/"
 
 LICENSE="GPL-2"
 SLOT="dev"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS=""
 IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11 threads userland_BSD eurephia"
 
 DEPEND=">=dev-libs/lzo-1.07
@@ -25,8 +25,6 @@ DEPEND=">=dev-libs/lzo-1.07
 	ssl? ( >=dev-libs/openssl-0.9.6 )
 	pkcs11? ( >=dev-libs/pkcs11-helper-1.05 )"
 RDEPEND="${DEPEND}"
-
-RESTRICT="test"
 
 pkg_setup() {
 	if use iproute2 ; then
@@ -178,4 +176,19 @@ pkg_postinst() {
 		einfo ""
 		einfo "plugins have been installed into /usr/$(get_libdir)/${PN}-${SLOT}"
 	fi
+
+	if use eurephia ; then
+		einfo ""
+		einfo "This build contains eurephia patch."
+		einfo "For more information please visit:"
+		einfo "http://www.eurephia.net/"
+	fi
+
+	ewarn ""
+	ewarn "You are using a live ebuild building from the sources of	openvpn-testing"
+	ewarn "repository from: http://openvpn.git.sourceforge.net"
+	ewarn ""
+	ewarn "For reporting bugs please contact:"
+	ewarn "openvpn-devel@lists.sourceforge.net"
+
 }
