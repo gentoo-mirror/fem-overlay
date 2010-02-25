@@ -72,6 +72,7 @@ src_compile() {
 		$(use_enable threads pthread) \
 		$(use_enable iproute2) \
 		$(use_enable eurephia) \
+		"--disable-depr-random-resolv" \
 		|| die "configure failed"
 
 	use static && sed -i -e '/^LIBS/s/LIBS = /LIBS = -static /' Makefile
