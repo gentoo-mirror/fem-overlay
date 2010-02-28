@@ -1,7 +1,7 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-inherit eutils multilib toolchain-funcs autotools git
+inherit eutils multilib toolchain-funcs autotools flag-o-matic git
 
 DESCRIPTION="OpenVPN is a robust and highly flexible tunneling application compatible with many OSes."
 
@@ -56,6 +56,13 @@ src_unpack() {
 }
 
 src_compile() {
+	# basic.h defines a type 'bool' that conflicts with the altivec
+	# keyword bool which has to be fixed upstream, see bugs #293840
+	# and #297854.
+	# For now, filter out -maltivec on ppc and append -mno-altivec, as
+	# -maltivec is enabled implicitly by -mcpu and similar flags.
+	use ppc && filter-flags -maltivec && append-flags -mno-altivec
+
 	local myconf=""
 
 	if use minimal ; then
