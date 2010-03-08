@@ -5,11 +5,11 @@ inherit toolchain-funcs flag-o-matic eutils
 
 DESCRIPTION="The PowerDNS Recursor"
 HOMEPAGE="http://www.powerdns.com/"
-SRC_URI="http://svn.powerdns.com/snapshots/rc2/${PN}-3.2-rc2.tar.bz2"
+SRC_URI="http://downloads.powerdns.com/releases/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="lua"
 
 DEPEND="lua? ( >=dev-lang/lua-5.1 )"
@@ -17,8 +17,6 @@ RDEPEND="${DEPEND}
 	!<net-dns/pdns-2.9.20-r1"
 DEPEND="${DEPEND}
 	>=dev-libs/boost-1.33.1"
-
-S="${WORKDIR}/${PN}-3.2-rc2"
 
 pkg_setup() {
 	filter-flags -ftree-vectorize
@@ -28,7 +26,7 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-	epatch "${FILESDIR}"/${PN}-3.1.7.2-error-message.patch
+	epatch "${FILESDIR}"/${P}-error-message.patch
 
 	sed -i -e s:/var/run/:/var/lib/powerdns: "${S}"/config.h || die
 }
