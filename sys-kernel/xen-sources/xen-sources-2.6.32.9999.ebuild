@@ -11,8 +11,8 @@ inherit kernel-2 git
 detect_version
 
 EGIT_REPO_URI="git://git.kernel.org/pub/scm/linux/kernel/git/jeremy/xen.git"
-EGIT_COMMIT="xen/next"
-EGIT_BRANCH="${EGIT_COMMIT}"
+EGIT_COMMIT="xen/stable-${PV/9999/x}"
+EGIT_BRANCH=${EGIT_COMMIT}
 
 DESCRIPTION="Full sources for a dom0/domU Linux kernel to run under Xen"
 HOMEPAGE="http://xen.org/"
