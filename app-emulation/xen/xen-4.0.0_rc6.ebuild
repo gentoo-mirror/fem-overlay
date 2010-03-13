@@ -8,11 +8,12 @@ DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
 REPO="xen-unstable.hg"
 EHG_REPO_URI="http://xenbits.xensource.com/${REPO}"
+EHG_REVISION="${PV/_/-}"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="debug custom-cflags pae acm flask xsm"
+IUSE="debug custom-cflags acm flask xsm"
 
 RDEPEND="|| ( sys-boot/grub
 		sys-boot/grub-static )
@@ -22,7 +23,7 @@ PDEPEND="~app-emulation/xen-tools-${PV}"
 RESTRICT="test"
 
 # Approved by QA team in bug #144032
-QA_WX_LOAD="boot/xen-syms-3.5-unstable"
+QA_WX_LOAD="boot/xen-syms-${PV/_/-}"
 
 S="${WORKDIR}/${REPO}"
 
@@ -71,7 +72,6 @@ src_unpack() {
 src_compile() {
 	local myopt
 	use debug && myopt="${myopt} debug=y"
-	use pae && myopt="${myopt} pae=y"
 
 	if use custom-cflags; then
 		filter-flags -fPIE -fstack-protector
@@ -87,7 +87,6 @@ src_compile() {
 src_install() {
 	local myopt
 	use debug && myopt="${myopt} debug=y"
-	use pae && myopt="${myopt} pae=y"
 
 	emake LDFLAGS="$(raw-ldflags)" DESTDIR="${D}" -C xen ${myopt} install || die "install failed"
 }
@@ -96,9 +95,4 @@ pkg_postinst() {
 	elog "Official Xen Guide and the unoffical wiki page:"
 	elog " http://www.gentoo.org/doc/en/xen-guide.xml"
 	elog " http://gentoo-wiki.com/HOWTO_Xen_and_Gentoo"
-
-	if use pae; then
-		echo
-		ewarn "This is a PAE build of Xen. It will *only* boot PAE kernels!"
-	fi
 }

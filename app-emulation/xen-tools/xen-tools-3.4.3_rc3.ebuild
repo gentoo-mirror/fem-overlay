@@ -6,14 +6,18 @@ EAPI="2"
 
 inherit flag-o-matic eutils multilib python mercurial git
 
+# TPMEMUFILE=tpm_emulator-0.4.tar.gz
+
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-MERC_REPO="xen-unstable.hg"
-GIT_REPO="qemu-xen-unstable.git"
+MERC_REPO="xen-3.4-testing.hg"
+GIT_REPO="qemu-xen-3.4-testing.git"
 
 EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
+EHG_REVISION="${PV/_/-}"
 EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
 EGIT_PROJECT="${GIT_REPO}"
+EGIT_TREE="xen-${PV/_/-}"
 
 S="${WORKDIR}/${MERC_REPO}"
 
@@ -27,6 +31,7 @@ CDEPEND="dev-lang/python[ncurses,threads]
 	hvm? ( media-libs/libsdl )
 	acm? ( dev-libs/libxml2 )
 	api? ( dev-libs/libxml2 net-misc/curl )"
+#	vtpm? ( dev-libs/gmp dev-libs/openssl )
 
 DEPEND="${CDEPEND}
 	sys-devel/gcc
@@ -67,7 +72,6 @@ QA_WX_LOAD="usr/lib/xen/boot/hvmloader
 	${OPENBIOS_FILES}"
 QA_EXECSTACK="${OPENBIOS_FILES}"
 QA_PRESTRIPPED="${OPENBIOS_FILES}"
-QA_TEXTRELS="usr/lib/libvhd.so.1.0.0"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -118,6 +122,8 @@ src_unpack() {
 
 src_prepare() {
 
+#	use vtpm && cp "${DISTDIR}"/${TPMEMUFILE}  tools/vtpm
+
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
 		einfo "User wants their own CFLAGS - removing defaults"
@@ -144,16 +150,20 @@ src_prepare() {
 
 	# patch ioemu/qemu
 	cd ${WORKDIR}
+
 	# Do not strip binaries
-	epatch "${FILESDIR}/${P}-nostrip.patch"
+	epatch "${FILESDIR}/${PN}-3.4.3-nostrip.patch"
 
 	# fix variable declaration to avoid sandbox issue, #253134
-	epatch "${FILESDIR}/${P}-sandbox-fix.patch"
+	epatch "${FILESDIR}/${PN}-3.4.3-sandbox-fix.patch"
 
 	cd ${S}
 
 	# Fix network broadcast on bridged networks
 	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
+
+	# Fix --as-needed issues, bug 296631
+	epatch "${FILESDIR}/${PN}-3.4.2-as-needed.patch"
 }
 
 src_compile() {

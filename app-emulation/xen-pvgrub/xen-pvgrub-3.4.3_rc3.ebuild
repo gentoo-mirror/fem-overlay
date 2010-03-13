@@ -14,12 +14,14 @@ SRC_URI="http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
         http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
         ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz"
 
-MERC_REPO="xen-unstable.hg"
-GIT_REPO="qemu-xen-unstable.git"
+MERC_REPO="xen-3.4-testing.hg"
+GIT_REPO="qemu-xen-3.4-testing.git"
 
 EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
+EHG_REVISION="${PV/_/-}"
 EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
 EGIT_PROJECT="${GIT_REPO}"
+EGIT_COMMIT="xen-${PV/_/-}"
 
 S="${WORKDIR}/${MERC_REPO}"
 
@@ -43,8 +45,6 @@ src_unpack() {
     
     # unpack xen
     mercurial_src_unpack
-
-    EGIT_TREE=$(sed -n -e "s/QEMU_TAG ?= \(.*\)/\1/p" "${S}"/Config.mk)
 
     # unpack ioemu repos
     S=${WORKDIR}/${GIT_REPO}
