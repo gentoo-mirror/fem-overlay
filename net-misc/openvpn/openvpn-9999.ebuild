@@ -14,7 +14,8 @@ HOMEPAGE="http://openvpn.net/"
 LICENSE="GPL-2"
 SLOT="dev"
 KEYWORDS=""
-IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11 threads userland_BSD eurephia"
+IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11
+threads userland_BSD eurephia debug"
 
 DEPEND=">=dev-libs/lzo-1.07
 	kernel_linux? (
@@ -40,7 +41,6 @@ src_unpack() {
 	git_src_unpack
 	cd "${S}"
 
-	epatch "${FILESDIR}/${PN}-2.1_rc13-peercred.patch"
 	epatch "${FILESDIR}/${PN}-2.1_rc20-pkcs11.patch"
 	sed -i \
 		-e "s/gcc \${CC_FLAGS}/\${CC} \${CFLAGS} -Wall/" \
