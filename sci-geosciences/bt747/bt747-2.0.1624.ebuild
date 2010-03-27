@@ -12,7 +12,6 @@ MY_P=${MY_PN}_${PV}
 
 DESCRIPTION="MTK GPS Datalogger Device Control"
 HOMEPAGE="http://bt747.free.fr/"
-SRC_URI="mirror://sourceforge/${PN}/${MY_P}_full.zip"
 SRC_URI="mirror://sourceforge/${PN}/BT747_2.X.1624_full.zip"
 
 LICENSE="GPL-3"
