@@ -1,5 +1,5 @@
---- xen-4.0.0/tools/ioemu-qemu-xen/xen-setup.orig	2010-04-09 13:45:44.000000000 +0200
-+++ xen-4.0.0/tools/ioemu-qemu-xen/xen-setup	2010-04-09 13:46:01.000000000 +0200
+--- qemu-xen-unstable.git/xen-setup.orig	2009-11-03 11:28:55.000000000 +0100
++++ qemu-xen-unstable.git/xen-setup		2009-11-03 11:29:07.000000000 +0100
 @@ -3,6 +3,8 @@
  
  # git-clean -x -d && ./xen-setup && make prefix=/usr CMDLINE_CFLAGS='-O0 -g' -j4 && make install DESTDIR=`pwd`/dist/ prefix=/usr && rsync -a --stats --delete . thule:shadow/qemu-iwj.git/ && rsync -a --stats dist/. root@thule:/
@@ -18,3 +18,4 @@
  if [ "x$XEN_ROOT" != x ]; then
  	echo "XEN_ROOT=$XEN_ROOT" >>config-host.mak
  fi
+

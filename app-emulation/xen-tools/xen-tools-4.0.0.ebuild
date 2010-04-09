@@ -4,26 +4,18 @@
 
 EAPI="2"
 
-inherit flag-o-matic eutils multilib python mercurial git
+inherit flag-o-matic eutils multilib python
 
 # TPMEMUFILE=tpm_emulator-0.4.tar.gz
 
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-MERC_REPO="xen-unstable.hg"
-GIT_REPO="qemu-xen-unstable.git"
-
-EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
-EHG_REVISION="${PV/_/-}"
-EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
-EGIT_PROJECT="${GIT_REPO}"
-EGIT_COMMIT="xen-${PV/_/-}"
-
-S="${WORKDIR}/${MERC_REPO}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
+S="${WORKDIR}/xen-${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc debug screen custom-cflags pygrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
@@ -99,28 +91,10 @@ pkg_setup() {
 	use api     && export "LIBXENAPI_BINDINGS=y"
 	use acm     && export "ACM_SECURITY=y"
 	use flask   && export "FLASK_ENABLE=y"
-
-	# use emerge to fetch qemu/ioemu
-	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
-}
-
-src_unpack() {
-    default_src_unpack
-    
-    # unpack xen
-    mercurial_src_unpack
-
-    # unpack ioemu repos
-    S=${WORKDIR}/${GIT_REPO}
-    git_src_unpack    
-    
-    S=${WORKDIR}/${MERC_REPO}
-    cd ${S}
 }
 
 src_prepare() {
-
-#	use vtpm && cp "${DISTDIR}"/${TPMEMUFILE}  tools/vtpm
+	cd "${S}"
 
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
@@ -150,10 +124,10 @@ src_prepare() {
 	cd ${WORKDIR}
 
 	# Do not strip binaries
-	epatch "${FILESDIR}/${PN}-4.0.0_rc-nostrip.patch"
+	epatch "${FILESDIR}/${PN}-4.0.0-nostrip.patch"
 
 	# fix variable declaration to avoid sandbox issue, #253134
-	epatch "${FILESDIR}/${PN}-4.0.0_rc-sandbox-fix.patch"
+	epatch "${FILESDIR}/${PN}-4.0.0-sandbox-fix.patch"
 
 	cd ${S}
 
@@ -161,7 +135,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
 
 	# fix compile error
-	epatch "${FILESDIR}/${PN}-4.0.0_rc-wrong-ldflags.patch"
+	epatch "${FILESDIR}/${PN}-4.0.0-wrong-ldflags.patch"
 
 	# Fix --as-needed issues, bug 296631
 	epatch "${FILESDIR}/${PN}-3.4.2-as-needed.patch"
