@@ -24,7 +24,7 @@ IUSE="doc debug screen custom-cflags pygrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
 	sys-libs/zlib
-	hvm? ( media-libs/libsdl )
+	hvm? ( media-libs/libsdl sys-power/iasl )
 	acm? ( dev-libs/libxml2 )
 	api? ( dev-libs/libxml2 net-misc/curl )"
 
