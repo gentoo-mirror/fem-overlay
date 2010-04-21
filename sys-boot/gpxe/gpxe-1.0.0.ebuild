@@ -43,6 +43,9 @@ src_unpack() {
 			-e "/^all/s:bin\/gpxe\.iso ::" \
 			Makefile
 	fi
+
+	# use localboot-patch
+	epatch ${FILESDIR}/${P}-localboot.patch
 }
 
 src_compile() {
