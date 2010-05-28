@@ -31,4 +31,7 @@ src_install() {
 	emake DESTDIR="${D}" install || die "Install Failed"
 	keepdir /var/lib/ceph
 	keepdir /var/log/ceph
+
+	newinitd "${FILESDIR}/ceph.init" ceph
+	newconfd "${FILESDIR}/ceph.conf" ceph
 }
