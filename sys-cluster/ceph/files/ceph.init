@@ -1,5 +1,8 @@
 #!/sbin/runscript
 
+##!/bin/bash
+
+
 # Start/stop ceph daemons
 # Start Ceph distributed file system daemons at boot time
 # Enable Ceph distributed file system services.
@@ -33,11 +36,15 @@ start() {
 	ebegin "Starting CEPH-Cluster:"
 	checkconfig || return 1
 	user=$(whoami)
+	if [ ! $NODE == "master" ]; then
+		CONF="/tmp/ceph.conf"
+	fi
 	# Wenn ich mon0 dann...
 	if [ $($BINDIR/cconf -c $CONF -s mon0 host) == $(hostname) ]; then
 		# each MON
 		for mon in $($BINDIR/cconf -c $CONF -l mon | egrep -v "^mon$"); do 
 			einfo "\tStarting Monitor $mon"
+			# wenn mon-hostname gleich der eigene hostname dann lokal starten sonst per ssh
 			if [ $($BINDIR/cconf -c $CONF -s $mon host) == $(hostname) ]; then
 				$BINDIR/cmon -i $(echo $mon | sed -e 's/[a-z]//g') -c $CONF
 			else
@@ -48,6 +55,7 @@ start() {
 		# each MDS
 		for mds in $($BINDIR/cconf -c $CONF -l mds | egrep -v "^mds$"); do 
 			einfo "\tStarting MDS $mds"
+			# wenn mds-hostname gleich der eigene hostname dann lokal starten sonst per ssh
 			if [ $($BINDIR/cconf -c $CONF -s $mds host) == $(hostname) ]; then
 				$BINDIR/cmds -i $(echo $mds | awk -F"." '{ print $2 }') -c $CONF
 			else
@@ -58,14 +66,29 @@ start() {
 		# each OSD
 		for osd in $($BINDIR/cconf -c $CONF -l osd | egrep -v "^osd$"); do 
 			einfo "\tStarting OSD $osd"
+			# wenn osd-hostname gleich der eigene hostname dann lokal starten sonst per ssh
 			if [ $($BINDIR/cconf -c $CONF -s $osd host) == $(hostname) ]; then
-				$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c $CONF
+				# check ob das btrfs gemountet ist
+				if [ $(mount | grep $(cconf -c $CONF -s $osd "btrfs devs") | awk '{ print $5 }') == "btrfs" ]; then
+					$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c $CONF
+				else
+					#eerror "OSD$osd auf lokalem Node ist kein btrfs"
+					file=$(cconf -c $CONF -s osd "btrfs devs")
+					id=$(echo $osd | sed -e 's/[a-z]//g')
+					if [ $(stat $file -c %F) == "regular file" ]; then
+						mount -o loop $file $(cconf -c $CONF -i $id -s osd "osd data")
+					else
+						mount $file $(cconf -c $CONF -i $id -s osd "osd data")
+					fi
+					$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c $CONF
+				fi
 			else
 				scp -q $CONF $user@$($BINDIR/cconf -c $CONF -s $osd "host"):/tmp/
-				ssh -l $user $($BINDIR/cconf -c $CONF -s $osd "host") "$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c /tmp/ceph.conf"
+				ssh -l $user $($BINDIR/cconf -c $CONF -s $osd "host") "if [ $(mount | grep $(cconf -c $CONF -s $osd "btrfs devs") | awk '{ print $5 }') == btrfs ]; then $BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c /tmp/ceph.conf; else echo \"$osd hat kein btrfs\"; fi"
 			fi
 		done
 	else
+		# Nur Lokal
 		for mon in $($BINDIR/cconf -c $CONF -l mon | egrep -v "^mon$"); do
 			if [ $($BINDIR/cconf -c $CONF -s $mon host) == $(hostname) ]; then
 				$BINDIR/cmon -i $(echo $mon | sed -e 's/[a-z]//g') -c $CONF
@@ -78,7 +101,18 @@ start() {
 		done
 		for osd in $($BINDIR/cconf -c $CONF -l osd | egrep -v "^osd$"); do 
 			if [ $($BINDIR/cconf -c $CONF -s $osd host) == $(hostname) ]; then
-				$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c $CONF
+				if [ $(mount | grep $(cconf -c $CONF -s $osd "btrfs devs") | awk '{ print $5 }') == "btrfs" ]; then
+					$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c $CONF
+				else
+					file=$(cconf -c $CONF -s osd "btrfs devs")
+					id=$(echo $osd | sed -e 's/[a-z]//g')
+					if [ $(stat $file -c %F) == "regular file" ]; then
+						mount -o loop $file $(cconf -c $CONF -i $id -s osd "osd data")
+					else
+						mount $file $(cconf -c $CONF -i $id -s osd "osd data")
+					fi
+					$BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c $CONF
+				fi
 			fi
 		done
 	fi
@@ -89,6 +123,7 @@ stop() {
 	user=$(whoami)
 	# Wenn ich mon0 dann...
 	if [ $($BINDIR/cconf -c $CONF -s mon0 host) == $(hostname) ]; then
+		# jeder Monitor
 		for mon in $($BINDIR/cconf -c $CONF -l mon | egrep -v "^mon$"); do 
 			einfo "\tStopping Monitor $mon"
 			if [ $($BINDIR/cconf -c $CONF -s $mon host) == $(hostname) ]; then
@@ -97,6 +132,7 @@ stop() {
 				ssh -l $user $($BINDIR/cconf -c $CONF -s $mon "host") "killall cmon" #$BINDIR/cmon -i $(echo $mon | sed -e 's/[a-z]//g') -c $CONF"
 			fi
 		done
+		# jeder MDS
 		for mds in $($BINDIR/cconf -c $CONF -l mds | egrep -v "^mds$"); do 
 			einfo "\tStopping MDS $mds"
 			if [ $($BINDIR/cconf -c $CONF -s $mds host) == $(hostname) ]; then
@@ -105,6 +141,7 @@ stop() {
 				ssh -l $user $($BINDIR/cconf -c $CONF -s $mds "host") "killall cmds" #$BINDIR/cmon -i $(echo $mon | sed -e 's/[a-z]//g') -c $CONF"
 			fi
 		done
+		# jeder OSD
 		for osd in $($BINDIR/cconf -c $CONF -l osd | egrep -v "^osd$"); do 
 			einfo "\tStopping OSD $osd"
 			if [ $($BINDIR/cconf -c $CONF -s $osd host) == $(hostname) ]; then
@@ -114,6 +151,7 @@ stop() {
 			fi
 		done
 	else
+		# Nur lokal
 		for mon in $($BINDIR/cconf -c $CONF -l mon | egrep -v "^mon$"); do
 			if [ $($BINDIR/cconf -c $CONF -s $mon host) == $(hostname) ]; then
 				killall cmon			#$BINDIR/cmon -i $(echo $mon | sed -e 's/[a-z]//g') -c $CONF
