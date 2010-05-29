@@ -37,11 +37,11 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "To use this node as master add the line "
+	elog "To use this node as master, add the line "
 	elog "  NODE=\"master\" "
 	elog "in /etc/conf.d/ceph "
 	elog
-	ewarn " ** WARNING: Ceph is still under heavy development, and is only suitable for ** "
-	ewarn " **          testing and review.  Do not trust it with important data.       ** "
+	ewarn " WARNING: Ceph is still under heavy development, and is only suitable for * "
+	ewarn "          testing and review.  Do not trust it with important data.       * "
 	elog
 }
