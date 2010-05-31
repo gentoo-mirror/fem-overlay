@@ -84,7 +84,7 @@ start() {
 				fi
 			else
 				scp -q $CONF $user@$($BINDIR/cconf -c $CONF -s $osd "host"):/tmp/
-				ssh -l $user $($BINDIR/cconf -c $CONF -s $osd "host") "if [ $(mount | grep $(cconf -c $CONF -s $osd "btrfs devs") | awk '{ print $5 }') == btrfs ]; then $BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c /tmp/ceph.conf; else echo \"$osd hat kein btrfs\"; fi"
+				ssh -l $user $($BINDIR/cconf -c $CONF -s $osd "host") "if [ \$(mount | grep $(cconf -c $CONF -s $osd "btrfs devs") | awk '{ print \$5 }') == btrfs ]; then $BINDIR/cosd -i $(echo $osd | sed -e 's/[a-z]//g') -c /tmp/ceph.conf; else echo \"$osd hat kein btrfs ($btrfs)\"; fi"
 			fi
 		done
 	else
