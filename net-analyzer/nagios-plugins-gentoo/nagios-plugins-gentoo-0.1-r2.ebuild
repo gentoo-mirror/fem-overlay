@@ -38,7 +38,7 @@ src_install() {
 		|| die "Failed chmod of ${D}usr/$(get_libdir)/nagios/plugins"
 
 	if use suid ; then
-		chmod 04750 "${D}"/usr/$(get_libdir)/nagios/plugins/check_gentoo_portage \
+		chmod 6750 "${D}"/usr/$(get_libdir)/nagios/plugins/check_gentoo_portage \
 			|| die "Failed setting the suid bit for various plugins"
 	fi
 }
