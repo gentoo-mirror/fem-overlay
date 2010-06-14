@@ -11,7 +11,7 @@ SRC_URI="http://www.luffy.cx/lldpd/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cdp fdp edp sonmp lldpmed dot1 dot3 snmp"
+IUSE="cdp fdp edp sonmp lldpmed dot1 dot3 snmp listenvlan"
 
 RDEPEND="snmp? ( net-analyzer/net-snmp )"
 DEPEND="${RDEPEND}"
@@ -23,6 +23,7 @@ pkg_setup() {
 src_compile() {
 	econf \
 		$(use_with snmp) \
+		$(use_enable listenvlan) \
 		$(use_enable cdp) \
 		$(use_enable fdp) \
 		$(use_enable edp) \
