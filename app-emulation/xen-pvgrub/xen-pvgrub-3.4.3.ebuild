@@ -1,58 +1,30 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.0-r1.ebuild,v 1.2 2009/06/27 07:12:39 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.1-r1.ebuild,v 1.2 2009/10/11 17:00:04 betelgeuse Exp $
 
 EAPI="2"
 
-inherit flag-o-matic eutils multilib mercurial git
+inherit flag-o-matic eutils multilib
 
 DESCRIPTION="allows to boot Xen domU kernels from a menu.lst laying inside guest filesystem"
 HOMEPAGE="http://xen.org/"
-SRC_URI="http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
-        http://www.zlib.net/zlib-1.2.3.tar.gz
-        http://www.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.tar.bz2
-        http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
-        ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz"
-
-MERC_REPO="xen-3.4-testing.hg"
-GIT_REPO="qemu-xen-3.4-testing.git"
-
-EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
-EHG_REVISION="${PV/_/-}"
-EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
-EGIT_PROJECT="${GIT_REPO}"
-EGIT_COMMIT="xen-${PV/_/-}"
-
-S="${WORKDIR}/${MERC_REPO}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz
+	http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
+	http://downloads.sourceforge.net/project/libpng/zlib/1.2.3/zlib-1.2.3.tar.gz
+	http://www.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.tar.bz2
+	http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
+	ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz"
+S="${WORKDIR}/xen-${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="custom-cflags"
 
 DEPEND="sys-devel/gettext
 	sys-devel/gcc"
 
 RDEPEND=">=app-emulation/xen-3.3.0"
-
-pkg_setup() {
-	# use emerge to fetch qemu/ioemu
-	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
-}
-
-src_unpack() {
-    default_src_unpack
-    
-    # unpack xen
-    mercurial_src_unpack
-
-    # unpack ioemu repos
-    S=${WORKDIR}/${GIT_REPO}
-    git_src_unpack    
-    
-    S=${WORKDIR}/${MERC_REPO}
-    cd ${S}
-}
 
 src_prepare() {
 	# if the user *really* wants to use their own custom-cflags, let them
@@ -75,11 +47,8 @@ src_prepare() {
 	-e 's;install-grub: pv-grub;install-grub:;' \
 	"${S}"/stubdom/Makefile
 
-	# patch ioemu/qemu
-	cd ${WORKDIR}
-
 	# fix variable declaration to avoid sandbox issue, #253134
-	epatch "${FILESDIR}/${P}-sandbox-fix.patch"
+	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
 }
 
 src_compile() {

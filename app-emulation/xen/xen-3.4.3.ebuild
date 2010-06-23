@@ -1,31 +1,27 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-3.3.0.ebuild,v 1.1 2008/09/01 00:30:53 rbu Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-3.4.2.ebuild,v 1.1 2009/12/01 13:38:55 patrick Exp $
 
-inherit mount-boot flag-o-matic toolchain-funcs mercurial
+inherit mount-boot flag-o-matic toolchain-funcs
 
 DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
-REPO="xen-unstable.hg"
-EHG_REPO_URI="http://xenbits.xensource.com/${REPO}"
-EHG_REVISION="${PV/_/-}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-IUSE="debug custom-cflags acm flask xsm"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug custom-cflags pae acm flask xsm"
 
 RDEPEND="|| ( sys-boot/grub
 		sys-boot/grub-static )
-		>=sys-kernel/xen-sources-2.6.${PV}"
+		>=sys-kernel/xen-sources-2.6.18"
 PDEPEND="~app-emulation/xen-tools-${PV}"
 
 RESTRICT="test"
 
 # Approved by QA team in bug #144032
-QA_WX_LOAD="boot/xen-syms-${PV/_/-}"
-
-S="${WORKDIR}/${REPO}"
+QA_WX_LOAD="boot/xen-syms-${PV}"
 
 pkg_setup() {
 	if [[ -z ${XEN_TARGET_ARCH} ]]; then
@@ -53,7 +49,8 @@ pkg_setup() {
 }
 
 src_unpack() {
-	mercurial_src_unpack
+	unpack ${A}
+	cd "${S}"
 
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
@@ -72,6 +69,7 @@ src_unpack() {
 src_compile() {
 	local myopt
 	use debug && myopt="${myopt} debug=y"
+	use pae && myopt="${myopt} pae=y"
 
 	if use custom-cflags; then
 		filter-flags -fPIE -fstack-protector
@@ -87,6 +85,7 @@ src_compile() {
 src_install() {
 	local myopt
 	use debug && myopt="${myopt} debug=y"
+	use pae && myopt="${myopt} pae=y"
 
 	emake LDFLAGS="$(raw-ldflags)" DESTDIR="${D}" -C xen ${myopt} install || die "install failed"
 }
@@ -94,5 +93,10 @@ src_install() {
 pkg_postinst() {
 	elog "Official Xen Guide and the unoffical wiki page:"
 	elog " http://www.gentoo.org/doc/en/xen-guide.xml"
-	elog " http://gentoo-wiki.com/HOWTO_Xen_and_Gentoo"
+	elog " http://en.gentoo-wiki.com/wiki/Xen/"
+
+	if use pae; then
+		echo
+		ewarn "This is a PAE build of Xen. It will *only* boot PAE kernels!"
+	fi
 }

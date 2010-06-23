@@ -1,29 +1,22 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.0-r1.ebuild,v 1.2 2009/06/27 07:12:39 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.2.ebuild,v 1.3 2010/01/16 17:25:45 fauli Exp $
 
 EAPI="2"
 
-inherit flag-o-matic eutils multilib python mercurial git
+inherit flag-o-matic eutils multilib python
 
 # TPMEMUFILE=tpm_emulator-0.4.tar.gz
 
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-MERC_REPO="xen-3.4-testing.hg"
-GIT_REPO="qemu-xen-3.4-testing.git"
-
-EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
-EHG_REVISION="${PV/_/-}"
-EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
-EGIT_PROJECT="${GIT_REPO}"
-EGIT_TREE="xen-${PV/_/-}"
-
-S="${WORKDIR}/${MERC_REPO}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
+#	vtpm? ( mirror://berlios/tpm-emulator/${TPMEMUFILE} )"
+S="${WORKDIR}/xen-${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 x86"
 IUSE="doc debug screen custom-cflags pygrub hvm api acm flask"
 
 CDEPEND="dev-lang/python[ncurses,threads]
@@ -34,6 +27,7 @@ CDEPEND="dev-lang/python[ncurses,threads]
 #	vtpm? ( dev-libs/gmp dev-libs/openssl )
 
 DEPEND="${CDEPEND}
+	sys-devel/gettext
 	sys-devel/gcc
 	dev-lang/perl
 	dev-lang/python[ssl]
@@ -64,14 +58,9 @@ PYTHON_MODNAME="xen grub"
 
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
-OPENBIOS_FILES="usr/share/xen/qemu/openbios-sparc32
-	usr/share/xen/qemu/openbios-sparc64
-	usr/share/xen/qemu/openbios-ppc"
-
-QA_WX_LOAD="usr/lib/xen/boot/hvmloader
-	${OPENBIOS_FILES}"
-QA_EXECSTACK="${OPENBIOS_FILES}"
-QA_PRESTRIPPED="${OPENBIOS_FILES}"
+QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
+QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
+	usr/share/xen/qemu/openbios-sparc64"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -99,29 +88,9 @@ pkg_setup() {
 	use api     && export "LIBXENAPI_BINDINGS=y"
 	use acm     && export "ACM_SECURITY=y"
 	use flask   && export "FLASK_ENABLE=y"
-
-	# use emerge to fetch qemu/ioemu
-	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
-}
-
-src_unpack() {
-    default_src_unpack
-    
-    # unpack xen
-    mercurial_src_unpack
-
-    EGIT_TREE=$(sed -n -e "s/QEMU_TAG ?= \(.*\)/\1/p" "${S}"/Config.mk)
-
-    # unpack ioemu repos
-    S=${WORKDIR}/${GIT_REPO}
-    git_src_unpack    
-    
-    S=${WORKDIR}/${MERC_REPO}
-    cd ${S}
 }
 
 src_prepare() {
-
 #	use vtpm && cp "${DISTDIR}"/${TPMEMUFILE}  tools/vtpm
 
 	# if the user *really* wants to use their own custom-cflags, let them
@@ -148,22 +117,20 @@ src_prepare() {
 		sed -i -e '/^SUBDIRS-$(PYTHON_TOOLS) += pygrub$/d' "${S}"/tools/Makefile
 	fi
 
-	# patch ioemu/qemu
-	cd ${WORKDIR}
-
-	# Do not strip binaries
-	epatch "${FILESDIR}/${PN}-3.4.3-nostrip.patch"
-
-	# fix variable declaration to avoid sandbox issue, #253134
-	epatch "${FILESDIR}/${PN}-3.4.3-sandbox-fix.patch"
-
-	cd ${S}
-
 	# Fix network broadcast on bridged networks
 	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
 
+	# Do not strip binaries
+	epatch "${FILESDIR}/${PN}-3.3.0-nostrip.patch"
+
+	# fix variable declaration to avoid sandbox issue, #253134
+	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
+
+	# fix gcc 4.4 failure
+	#epatch "${FILESDIR}/${PN}-3.4.1-xc_core-memset.patch"
+
 	# Fix --as-needed issues, bug 296631
-	epatch "${FILESDIR}/${PN}-3.4.2-as-needed.patch"
+	epatch "${FILESDIR}/${P}-as-needed.patch"
 }
 
 src_compile() {

@@ -10,7 +10,7 @@ DESCRIPTION="allows to boot Xen domU kernels from a menu.lst laying inside guest
 HOMEPAGE="http://xen.org/"
 SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz
 	http://alpha.gnu.org/gnu/grub/grub-0.97.tar.gz
-	http://www.zlib.net/zlib-1.2.3.tar.gz
+	http://downloads.sourceforge.net/project/libpng/zlib/1.2.3/zlib-1.2.3.tar.gz
 	http://www.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.tar.bz2
 	http://download.savannah.gnu.org/releases/lwip/lwip-1.3.0.tar.gz
 	ftp://sources.redhat.com/pub/newlib/newlib-1.16.0.tar.gz"
