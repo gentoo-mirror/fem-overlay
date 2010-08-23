@@ -17,7 +17,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86
 ~x86-macos"
 IUSE=""
 
-DEPEND=">=dev-util/subversion-1.1.3
+DEPEND=">=dev-vcs/subversion-1.1.3
 	dev-perl/HTML-Parser
 	perl-core/Getopt-Long
 	virtual/perl-libnet
