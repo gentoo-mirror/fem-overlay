@@ -3,6 +3,8 @@
 
 EAPI="2"
 
+inherit eutils
+
 DESCRIPTION="duply (grown out of ftplicity) is a shell frontend for duplicity."
 HOMEPAGE="http://duply.net"
 SRC_URI="mirror://sourceforge/ftplicity/${PN}_${PV}.tgz"
@@ -10,9 +12,17 @@ SRC_URI="mirror://sourceforge/ftplicity/${PN}_${PV}.tgz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
+IUSE="ftps"
 
-RDEPEND="app-backup/duplicity"
+RDEPEND="app-backup/duplicity
+	 ftps? ( app-backup/duplicity[ftps] )"
+
 DEPEND="${RDEPEND}"
+
+src_prepare() {
+	cd ${PN}_${PV}
+	use ftps && epatch "${FILESDIR}/${PN}-ftps.patch"
+}
 
 src_install() {
 	cd ${PN}_${PV}

@@ -1,0 +1,19 @@
+--- duply.old	2010-08-29 20:41:00.000000000 +0200
++++ duply	2010-08-29 20:42:03.000000000 +0200
+@@ -418,6 +418,7 @@
+ # probably one out of
+ #   file:///some_dir
+ #   ftp://user[:password]@other.host[:port]/some_dir
++#   ftps://user[:password]@other.host[:port]/some_dir
+ #   hsi://user[:password]@other.host/some_dir
+ #   cf+http://container_name
+ #   imap://user[:password]@host.com[/from_address_prefix]
+@@ -915,6 +916,8 @@
+ # check if backend specific software is in path
+ [ -n "$(echo ${TARGET_URL_PROT} | grep -i -e '^ftp://$')" ] && \
+ 	[ -z "$(which ncftp 2>/dev/null)" ] && error_path "Protocol 'ftp' needs ncftp. Installed und available in path?" 
++[ -n "$(echo ${TARGET_URL_PROT} | grep -i -e '^ftps://$')" ] && \
++	[ -z "$(which lftp 2>/dev/null)" ] && error_path "Protocol 'ftps' needs lftp. Installed und available in path?" 
+ 
+ # fetch commmand from parameters ########################################################
+ # Hint: cmds is also used to check if authentification info sufficient in the next step 
