@@ -10,7 +10,7 @@
                                       's3',
 --- src.old/backends/ftpsbackend.py	1970-01-01 01:00:00.000000000 +0100
 +++ src/backends/ftpsbackend.py		2010-08-30 09:50:52.000000000 +0200
-@@ -0,0 +1,121 @@
+@@ -0,0 +1,124 @@
 +# -*- Mode:Python; indent-tabs-mode:nil; tab-width:4 -*-
 +#
 +# Copyright 2002 Ben Escoto <ben@emerose.org>
@@ -89,6 +89,9 @@
 +        os.write(self.tempfile, "set net:timeout %s\n" % globals.timeout)
 +        os.write(self.tempfile, "set net:max-retries 1\n")
 +        os.write(self.tempfile, "set ftp:passive-mode %s\n" % self.conn_opt)
++        os.write(self.tempfile, "set ftp:ssl-allow true\n")
++        os.write(self.tempfile, "set ftp:ssl-protect-data true\n")
++        os.write(self.tempfile, "set ftp:ssl-protect-list true\n")
 +        os.write(self.tempfile, "open %s %s\n" % (self.portflag, self.parsed_url.hostname))
 +        os.write(self.tempfile, "user %s %s\n" % (self.parsed_url.username, self.password))
 +        os.close(self.tempfile)
