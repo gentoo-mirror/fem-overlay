@@ -133,6 +133,9 @@ src_unpack() {
 
 	# fix python-2.6 DeprecationWarnings
 	epatch "${FILESDIR}/${PN}-3.3.2-python.patch"
+
+	# fix compilation error
+	epatch "${FILESDIR}/${PN}-3.3.2-compile-fix.patch"
 }
 
 src_compile() {

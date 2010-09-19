@@ -1,0 +1,10 @@
+--- tools/blktap/drivers/blktapctrl.c.orig	2010-09-19 03:15:56.000000000 +0200
++++ tools/blktap/drivers/blktapctrl.c	2010-09-19 03:16:32.000000000 +0200
+@@ -39,6 +39,7 @@
+ #include <sys/mman.h>
+ #include <err.h>
+ #include <errno.h>
++#include <sys/stat.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+ #include <signal.h>
