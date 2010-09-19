@@ -17,7 +17,7 @@ EGIT_BRANCH=${EGIT_COMMIT}
 DESCRIPTION="Full sources for a dom0/domU Linux kernel to run under Xen"
 HOMEPAGE="http://xen.org/"
 IUSE=""
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="${DEPEND} >=sys-devel/binutils-2.17"
 
