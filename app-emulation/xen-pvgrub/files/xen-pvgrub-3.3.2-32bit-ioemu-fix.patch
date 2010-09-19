@@ -1,0 +1,17 @@
+--- tools/Makefile.orig	2010-09-19 03:55:53.000000000 +0200
++++ tools/Makefile	2010-09-19 03:57:36.000000000 +0200
+@@ -65,8 +65,13 @@
+ .PHONY: clean distclean
+ clean distclean: subdirs-clean
+ 
++GNU_TARGET_ARCH:=$(XEN_TARGET_ARCH)
++ifeq ($(XEN_TARGET_ARCH),x86_32)
++GNU_TARGET_ARCH:=i386
++endif
++
+ ifneq ($(XEN_COMPILE_ARCH),$(XEN_TARGET_ARCH))
+-IOEMU_CONFIGURE_CROSS ?= --cpu=$(XEN_TARGET_ARCH) \
++IOEMU_CONFIGURE_CROSS ?= --cpu=$(GNU_TARGET_ARCH) \
+ 			 --cross-prefix=$(CROSS_COMPILE) \
+ 			 --interp-prefix=$(CROSS_SYS_ROOT)
+ endif

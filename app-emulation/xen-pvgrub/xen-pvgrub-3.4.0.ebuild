@@ -49,6 +49,9 @@ src_prepare() {
 
 	# fix variable declaration to avoid sandbox issue, #253134
 	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
+
+	# fix wrong wrong arch flag for ioemu
+	epatch "${FILESDIR}/${PN}-3.3.2-32bit-ioemu-fix.patch"
 }
 
 src_compile() {
@@ -59,18 +62,16 @@ src_compile() {
 
 	emake -C tools/include || die "prepare libelf headers failed"
 
-	if use x86; then
-		emake XEN_TARGET_ARCH="x86_32" -C stubdom pv-grub || die "compile pv-grub_x86_32 failed"
-	fi
+	emake XEN_TARGET_ARCH="x86_32" -C stubdom pv-grub || die "compile pv-grub_x86_32 failed"
+
 	if use amd64; then
 		emake XEN_TARGET_ARCH="x86_64" -C stubdom pv-grub || die "compile pv-grub_x86_64 failed"
 	fi
 }
 
 src_install() {
-	if use x86; then
-		emake XEN_TARGET_ARCH="x86_32" DESTDIR="${D}" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
-	fi
+	emake XEN_TARGET_ARCH="x86_32" DESTDIR="${D}" -C stubdom install-grub || die "install pv-grub_x86_32 failed"
+
 	if use amd64; then
 		emake XEN_TARGET_ARCH="x86_64" DESTDIR="${D}" -C stubdom install-grub || die "install pv-grub_x86_64 failed"
 	fi
