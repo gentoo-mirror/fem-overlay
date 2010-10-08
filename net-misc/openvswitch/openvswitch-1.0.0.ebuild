@@ -10,14 +10,20 @@ SRC_URI="http://openvswitch.org/releases/${P}.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="ssl"
+IUSE="ssl datapath"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
 src_compile() {
+	linux-mod_pkg_setup
+
+	local myconf=""
+	use datapath && myconf="--with-l26="${KV_DIR}
+
 	econf \
 		$(use_enable ssl) \
+		${myconf} \
 		|| die "econf failed"
 
 	emake || die "emake failed"
@@ -27,10 +33,15 @@ src_install() {
 	make DESTDIR="${D}" install || die "make install failed"
 
 #	newinitd "${FILESDIR}/${PN}".init "${PN}"
-#	newconfd "${FILESDIR}/${PN}".conf "${PN}"
+	newinitd "${FILESDIR}/${PN}"-switch.init openvswitch-switch
+	newconfd "${FILESDIR}/${PN}"-switch.conf openvswitch-switch
 
-#	dodir /var/run/openvswitch
-#	keepdir /var/run/openvswitch
+	dodir /etc/openvswitch
+	keepdir /etc/openvswitch
+	dodir /var/run/openvswitch
+	keepdir /var/run/openvswitch
+	dodir /var/log/openvswitch
+	keepdir /var/log/openvswitch
 #	fowners root:root /var/run/openvswitch
 #	fperms 755 /var/run/openvswitch
 }

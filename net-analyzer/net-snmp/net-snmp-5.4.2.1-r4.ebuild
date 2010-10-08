@@ -62,7 +62,7 @@ src_prepare() {
 		die "sed fixproc failed"
 
 	if use python ; then
-		python_version
+		python_get_version
 		PYTHON_MODNAME="netsnmp"
 		PYTHON_DIR="/usr/$(get_libdir)/python${PYVER}/site-packages"
 		sed -i -e "s:\(install --basedir=\$\$dir\):\1 --root='${D}':" Makefile.in || \
