@@ -98,10 +98,8 @@ src_install() {
 	make DESTDIR="${D}" install || die
 
 	if ! use tools ; then
-		for tool in "maildirmake" "deliverquota"; do
-			rm "${D}/usr/bin/${tool}"
+		for tool in "maildirmake" "maildir"; do
 			rm "${D}/usr/share/man/man"[0-9]"/${tool}."[0-9]
-			rm "${D}/usr/share/maildrop/html/${tool}.html"
 		done
 		# rm "${D}/usr/bin/makedatprog"
 	fi
