@@ -17,7 +17,7 @@ IUSE="s3 ftps"
 DEPEND=">=dev-lang/python-2.3
 	>=net-libs/librsync-0.9.6
 	!ftps? ( >=net-ftp/ncftp-3.1.9 )
-	ftps? ( net-ftp/lftp )
+	ftps? ( net-ftp/lftp[gnutls] )
 	app-crypt/gnupg"
 RDEPEND="${DEPEND}
 	>=dev-python/py-gnupg-0.3.2
