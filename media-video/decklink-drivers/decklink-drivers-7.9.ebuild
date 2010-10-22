@@ -25,7 +25,9 @@ src_unpack() {
 	if [[ $(uname -m) == "x86_64" ]]; then
 		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-x86_64.tar.gz
 		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz DeckLink-7.9rc7-x86_64/usr/src/DeckLink-7.9rc7
+		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz DeckLink-7.9rc7-x86_64/etc
 		mv ${WORKDIR}/DeckLink-7.9rc7-x86_64/usr/src/DeckLink-7.9rc7/* .
+		mv ${WORKDIR}/DeckLink-7.9rc7-x86_64/etc .
 		rm ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz
 		rm -rf ${WORKDIR}/DeckLink-7.9rc7-x86_64
 	else
