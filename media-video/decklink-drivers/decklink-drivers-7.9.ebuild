@@ -31,7 +31,9 @@ src_unpack() {
 	else
 		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-i386.tar.gz
 		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz DeckLink-7.9rc7-i386/usr/src/DeckLink-7.9rc7
+		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz DeckLink-7.9rc7-i386/etc
 		mv ${WORKDIR}/DeckLink-7.9rc7-i386/usr/src/DeckLink-7.9rc7/* .
+		mv ${WORKDIR}/DeckLink-7.9rc7-i386/etc .
 		rm ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz
 		rm -rf ${WORKDIR}/DeckLink-7.9rc7-i386
 	fi
@@ -44,4 +46,5 @@ src_compile() {
 src_install() {
 	mkdir -p ${D}/lib/modules/$(uname -r)/extra
 	cp ${WORKDIR}/blackmagic.ko ${D}/lib/modules/$(uname -r)/extra
+	cp -a ${WORKDIR}/etc ${D}/etc
 }
