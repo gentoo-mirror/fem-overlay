@@ -7,7 +7,9 @@ inherit eutils multilib python linux-mod
 
 DESCRIPTION="everything you need to set up your Blackmagic DeckLink, Intensity or Multibridge"
 HOMEPAGE="http://www.blackmagic-design.com/"
-SRC_URI="http://www.blackmagic-design.com/downloads/software/DeckLink_Linux_${PV}.tar.gz"
+MY_PV=${PV/_rc*}
+MY_RC=${PV/_}
+SRC_URI="http://www.blackmagic-design.com/downloads/software/DeckLink_Linux_${MY_PV}.tar.gz"
 
 LICENSE="Blackmagic Design"
 SLOT="0"
@@ -17,23 +19,25 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
-X86_BM_PACKAGE="DeckLink-7.9rc7-i386"
-AMD64_BM_PACKAGE="DeckLink-7.9rc7-x86_64"
+#X86_BM_PACKAGE="DeckLink-7.9rc7-i386"
+#AMD64_BM_PACKAGE="DeckLink-7.9rc7-x86_64"
+X86_BM_PACKAGE="DeckLink-${MY_RC}-i386"
+AMD64_BM_PACKAGE="DeckLink-${MY_RC}-x86_64"
 
 S="${WORKDIR}"
 
 src_unpack() {
 	if use amd64 ; then
-		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz ${AMD64_BM_PACKAGE}.tar.gz
-		tar -xzf ${WORKDIR}/${AMD64_BM_PACKAGE}.tar.gz ${AMD64_BM_PACKAGE}/usr/src/DeckLink-7.9rc7
+		tar -xzf ${DISTDIR}/DeckLink_Linux_${MY_PV}.tar.gz ${AMD64_BM_PACKAGE}.tar.gz
+		tar -xzf ${WORKDIR}/${AMD64_BM_PACKAGE}.tar.gz ${AMD64_BM_PACKAGE}/usr/src/DeckLink-${MY_RC}
 		tar -xzf ${WORKDIR}/${AMD64_BM_PACKAGE}.tar.gz ${AMD64_BM_PACKAGE}/etc
-		KSRCDIR="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/src/DeckLink-7.9rc7/"
+		KSRCDIR="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/src/DeckLink-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${AMD64_BM_PACKAGE}"
 	else
-		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz ${X86_BM_PACKAGE}.tar.gz
-		tar -xzf ${WORKDIR}/${X86_BM_PACKAGE}.tar.gz ${X86_BM_PACKAGE}/usr/src/DeckLink-7.9rc7
+		tar -xzf ${DISTDIR}/DeckLink_Linux_${MY_PV}.tar.gz ${X86_BM_PACKAGE}.tar.gz
+		tar -xzf ${WORKDIR}/${X86_BM_PACKAGE}.tar.gz ${X86_BM_PACKAGE}/usr/src/DeckLink-${MY_RC}
 		tar -xzf ${WORKDIR}/${X86_BM_PACKAGE}.tar.gz ${X86_BM_PACKAGE}/etc
-		KSRCDIR="${WORKDIR}/${X86_BM_PACKAGE}/usr/src/DeckLink-7.9rc7/"
+		KSRCDIR="${WORKDIR}/${X86_BM_PACKAGE}/usr/src/DeckLink-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${X86_BM_PACKAGE}"
 	fi
 }
