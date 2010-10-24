@@ -14,29 +14,34 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="dev-lang/python"
+DEPEND=""
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/trunk
-instdir="/usr/share/${PN}"
+X86_BM_PACKAGE="DeckLink-7.9rc7-i386"
+AMD64_BM_PACKAGE="DeckLink-7.9rc7-x86_64"
+
+S="${WORKDIR}"
 
 src_unpack() {
-#	tar -xzf ${WORKDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-x86_64.tar.gz
-	if [[ $(uname -m) == "x86_64" ]]; then
-		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-x86_64.tar.gz
-		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz DeckLink-7.9rc7-x86_64/usr/lib64
-		mv ${WORKDIR}/DeckLink-7.9rc7-x86_64/usr .
-		rm ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz
-		rm -rf ${WORKDIR}/DeckLink-7.9rc7-x86_64
+	if use amd64 ; then
+		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz ${AMD64_BM_PACKAGE}.tar.gz
+		tar -xzf ${WORKDIR}/${AMD64_BM_PACKAGE}.tar.gz ${AMD64_BM_PACKAGE}/usr/lib64
+		LIBS="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/lib64"
 	else
-		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-i386.tar.gz
-		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz DeckLink-7.9rc7-i386/usr/lib
-		mv ${WORKDIR}/DeckLink-7.9rc7-i386/usr .
-		rm ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz
-		rm -rf ${WORKDIR}/DeckLink-7.9rc7-i386
+		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz ${X86_BM_PACKAGE}.tar.gz
+		tar -xzf ${WORKDIR}/${X86_BM_PACKAGE}.tar.gz ${X86_BM_PACKAGE}/usr/lib
+		LIBS="${WORKDIR}/${X86_BM_PACKAGE}/usr/lib"
 	fi
 }
 
 src_install() {
-	cp -a ${WORKDIR}/usr ${D}
+	if use amd64 ; then
+		insinto /usr/lib64
+		doins ${LIBS}/libDeckLinkAPI.so
+		doins ${LIBS}/libDeckLinkPreviewAPI.so
+	else
+		insinto /usr/lib
+		doins ${LIBS}/libDeckLinkAPI.so
+		doins ${LIBS}/libDeckLinkPreviewAPI.so
+	fi
 }
