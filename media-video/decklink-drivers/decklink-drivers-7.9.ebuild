@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils multilib python
+inherit eutils multilib python linux-mod
 
 DESCRIPTION="everything you need to set up your Blackmagic DeckLink, Intensity or Multibridge"
 HOMEPAGE="http://www.blackmagic-design.com/"
@@ -14,39 +14,46 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="dev-lang/python"
+DEPEND=""
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/trunk
-instdir="/usr/share/${PN}"
+X86_BM_PACKAGE="DeckLink-7.9rc7-i386"
+AMD64_BM_PACKAGE="DeckLink-7.9rc7-x86_64"
+
+S="${WORKDIR}"
 
 src_unpack() {
-#	tar -xzf ${WORKDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-x86_64.tar.gz
-	if [[ $(uname -m) == "x86_64" ]]; then
-		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-x86_64.tar.gz
-		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz DeckLink-7.9rc7-x86_64/usr/src/DeckLink-7.9rc7
-		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz DeckLink-7.9rc7-x86_64/etc
-		mv ${WORKDIR}/DeckLink-7.9rc7-x86_64/usr/src/DeckLink-7.9rc7/* .
-		mv ${WORKDIR}/DeckLink-7.9rc7-x86_64/etc .
-		rm ${WORKDIR}/DeckLink-7.9rc7-x86_64.tar.gz
-		rm -rf ${WORKDIR}/DeckLink-7.9rc7-x86_64
+	if use amd64 ; then
+		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz ${AMD64_BM_PACKAGE}.tar.gz
+		tar -xzf ${WORKDIR}/${AMD64_BM_PACKAGE}.tar.gz ${AMD64_BM_PACKAGE}/usr/src/DeckLink-7.9rc7
+		tar -xzf ${WORKDIR}/${AMD64_BM_PACKAGE}.tar.gz ${AMD64_BM_PACKAGE}/etc
+		KSRCDIR="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/src/DeckLink-7.9rc7/"
+		UDEVRULES="${WORKDIR}/${AMD64_BM_PACKAGE}"
 	else
-		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz DeckLink-7.9rc7-i386.tar.gz
-		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz DeckLink-7.9rc7-i386/usr/src/DeckLink-7.9rc7
-		tar -xzf ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz DeckLink-7.9rc7-i386/etc
-		mv ${WORKDIR}/DeckLink-7.9rc7-i386/usr/src/DeckLink-7.9rc7/* .
-		mv ${WORKDIR}/DeckLink-7.9rc7-i386/etc .
-		rm ${WORKDIR}/DeckLink-7.9rc7-i386.tar.gz
-		rm -rf ${WORKDIR}/DeckLink-7.9rc7-i386
+		tar -xzf ${DISTDIR}/DeckLink_Linux_${PV}.tar.gz ${X86_BM_PACKAGE}.tar.gz
+		tar -xzf ${WORKDIR}/${X86_BM_PACKAGE}.tar.gz ${X86_BM_PACKAGE}/usr/src/DeckLink-7.9rc7
+		tar -xzf ${WORKDIR}/${X86_BM_PACKAGE}.tar.gz ${X86_BM_PACKAGE}/etc
+		KSRCDIR="${WORKDIR}/${X86_BM_PACKAGE}/usr/src/DeckLink-7.9rc7/"
+		UDEVRULES="${WORKDIR}/${X86_BM_PACKAGE}"
 	fi
 }
 
 src_compile() {
-	make all
+	libdir="extra/"
+	BUILD_PARAMS=""
+	BUILD_TARGETS="all"
+	MODULE_NAMES="blackmagic(extra:${KSRCDIR}:${KSRCDIR})"
+	ebegin "Building blackmagic"
+	if use kernel_linux; then
+		linux-mod_src_compile
+	fi
+	eend $?
 }
 
 src_install() {
-	mkdir -p ${D}/lib/modules/$(uname -r)/extra
-	cp ${WORKDIR}/blackmagic.ko ${D}/lib/modules/$(uname -r)/extra
-	cp -a ${WORKDIR}/etc ${D}/etc
+	if use kernel_linux; then
+		linux-mod_src_install
+	fi
+	insinto /etc/udev/rules.d/
+	doins ${UDEVRULES}/etc/udev/rules.d/20-blackmagic.rules
 }
