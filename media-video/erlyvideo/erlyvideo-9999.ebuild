@@ -17,12 +17,14 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="dev-lang/erlang
+DEPEND="=dev-lang/erlang-14.1
 	dev-lang/ruby"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
 	git_src_unpack
+	git_submodules init
+	git_submodules update
 }
 
 src_install() {
