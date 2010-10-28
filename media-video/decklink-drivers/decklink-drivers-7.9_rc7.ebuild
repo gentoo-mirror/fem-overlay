@@ -44,7 +44,7 @@ src_unpack() {
 
 src_compile() {
 	libdir="extra/"
-	BUILD_PARAMS=""
+	BUILD_PARAMS="KERNELDIR=/lib/modules/${KV_FULL}/build"
 	BUILD_TARGETS="all"
 	MODULE_NAMES="blackmagic(extra:${KSRCDIR}:${KSRCDIR})"
 	ebegin "Building blackmagic"
