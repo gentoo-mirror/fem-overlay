@@ -27,7 +27,7 @@ function usage()
 function check_root()
 {                    
         # check suidbit for hddtemp
-        if [ ! -u ${HDDTEMP} ] && [[ "x${WHOAMI}" != "xroot" ]]; then
+        if [ ! -u ${HDDTEMP} ] && [[ "x$(${WHOAMI})" != "xroot" ]]; then
                 echo "SMART WARNING - script not running as root, so setuid-bit should set for ${HDDTEMP}, please run \"chmod +s ${HDDTEMP}\""
                 exit ${WARNING}
         fi
