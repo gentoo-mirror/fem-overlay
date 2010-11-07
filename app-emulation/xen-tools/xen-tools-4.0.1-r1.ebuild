@@ -51,8 +51,6 @@ RDEPEND="${CDEPEND}
 	)
 	|| ( sys-fs/udev sys-apps/hotplug )"
 
-PYTHON_MODNAME="xen grub"
-
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
 QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
@@ -266,9 +264,9 @@ pkg_postinst() {
 		elog "Please remove '${ROOT%/}/etc/conf.d/xend', as it is no longer needed."
 	fi
 
-	python_mod_optimize
+	python_mod_optimize $(use pygrub && echo grub) xen
 }
 
 pkg_postrm() {
-	python_mod_cleanup
+	python_mod_cleanup $(use pygrub && echo grub) xen
 }
