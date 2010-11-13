@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="=dev-lang/erlang-14.1
+DEPEND=">=dev-lang/erlang-14.1
 	dev-lang/ruby"
 RDEPEND="${DEPEND}"
 
