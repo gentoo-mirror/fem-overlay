@@ -5,15 +5,15 @@
 depend() {
        use logger net
 }
- 
+
 start() {
        ebegin "Starting UCARP"
-       start-stop-daemon --start --background --make-pidfile --pidfile ${UCARP_PIDFILE} --quiet --startas ${UCARP_EXEC} -- ${UCARP_OPTS}
+       start-stop-daemon --start --background --make-pidfile --pidfile /var/run/ucarp.pid --quiet --exec /usr/sbin/ucarp -- ${UCARP_OPTS}
        eend $?
 }
- 
+
 stop()  {
         ebegin "Stopping UCARP"
-        start-stop-daemon --stop --pidfile ${UCARP_PIDFILE}
+        start-stop-daemon --stop --pidfile /var/run/ucarp.pid
         eend $?
 }

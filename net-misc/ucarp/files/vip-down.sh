@@ -1,10 +1,8 @@
-#!/bin/bash
-# Copyright 2005 Mike Glenn & Homechicken Software
-# Distributed under the terms of the GNU General Public License v2
- 
+#!/bin/sh
+exec 2> /dev/null
+
 # read in the configuration file
 source /etc/conf.d/ucarp
- 
-# bring down the virtual interface
-$IFCONFIG $INTERFACE down
+
+/sbin/ip addr del $UCARP_VIRTUAL_ADDRESS/$UCARP_VIRTUAL_NETMASK dev $UCARP_VIRTUAL_INTERFACE
 
