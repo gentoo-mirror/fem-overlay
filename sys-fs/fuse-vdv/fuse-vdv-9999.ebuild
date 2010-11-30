@@ -12,17 +12,26 @@ HOMEPAGE="http://subversion.fem.tu-ilmenau.de/repository/cccongress/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE=""
+IUSE="avi avidemux"
 
 EAPI="2"
 
-DEPEND="sys-fs/fuse"
+DEPEND="sys-fs/fuse
+		dev-libs/mini-xml"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-    sed -i 's/build: hello /build: /' "${S}/Makefile"
+	if use avidemux; then
+		use avi || die "for avidemux support you need the avi USE flag enabled"
+	fi
+}
+
+src_configure() {
+	econf \
+		$(use_with avi) \
+		$(use_with avidemux)
 }
 
 src_install() {
-    dobin fuse-vdv || die
+	dobin fuse-vdv || die
 }
