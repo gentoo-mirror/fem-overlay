@@ -8,7 +8,8 @@ inherit autotools
 
 DESCRIPTION="Control groups, a new kernel feature in Linux 2.6.24 provides a file system interface to manipulate and control the details on task grouping including creation of new task groups (control groups), permission handling and task assignment."
 HOMEPAGE="http://libcg.sourceforge.net/"
-SRC_URI="http://downloads.sourceforge.net/project/libcg/libcgroup/v${PV}/${P}.tar.bz2"
+#SRC_URI="http://downloads.sourceforge.net/project/libcg/libcgroup/v${PV}/${P}.tar.bz2"
+SRC_URI="mirror://sourceforge/project/libcg/libcgroup/v${PV}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
