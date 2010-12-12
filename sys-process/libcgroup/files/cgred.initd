@@ -1,0 +1,20 @@
+#!/bin/bash
+
+start()
+{
+	ebegin "Starting CGroup Rules Engine Daemon"
+	if [ ! -s ${CGRED_CONF} ]; then
+		eend $? "not configured"
+	fi
+	if ! grep "^cgroup" /proc/mounts &>/dev/null; then
+		eend $? "Cannot find cgroups, is cgconfig service running?"
+	fi
+	start-stop-daemon --start --exec /usr/sbin/cgrulesengd --name cgred -- ${OPTIONS}
+	eend $?
+}
+
+stop() {
+  ebegin "Stopping CGroup Rules Engine Daemon..."
+  start-stop-daemon --stop --exec /usr/sbin/cgrulesengd
+  eend $?
+}
