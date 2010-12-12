@@ -3,7 +3,7 @@
 description="start and stop the WLM configuration"
 
 depend() {
-	need udev
+	after modules
 }
 
 start() {
