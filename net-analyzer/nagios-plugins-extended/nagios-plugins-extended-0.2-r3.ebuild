@@ -9,10 +9,10 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
-IUSE=""
+IUSE="tcptraffic"
 
-DEPEND="dev-perl/Nagios-Plugin
-	virtual/perl-version"
+DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin
+		virtual/perl-version )"
 
 RESTRICT="test"
 
@@ -23,8 +23,11 @@ PLUGIN_LIST="check_mdstat \
 			 check_raid \
 			 check_ram \
 			 check_smart_sectors \
-			 ssl-cert-check \
-			 check_tcptraffic"
+			 ssl-cert-check"
+
+if use tcptraffic; then 
+	PLUGIN_LIST="${PLUGIN_LIST} check_tcptraffic"
+fi
 
 pkg_setup() {
 	enewgroup nagios
