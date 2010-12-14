@@ -90,13 +90,13 @@ function prepare()
   [ -z ${DAYS} ] && DAYS=90
 
   # disable compression (default) if unset
-  ${COMPRESS} || COMPRESS=false
+  [ -z ${COMPRESS} ] && COMPRESS=false
 
   # check for installed SSH-Client
   which ssh > /dev/null 2>&1 || (echo "SSH not found! Skipping all backups!" >&2 && exit 1)
 
   # check for installed bzip2
-  ${COMPRESS} && (which bzip2 > /dev/null 2>&1 || (echo "bzip2 not found and compression enabled! Skipping all backups!" >&2 && exit 1))
+  ${COMPRESS:=true} && (which bzip2 > /dev/null 2>&1 || (echo "bzip2 not found and compression enabled! Skipping all backups!" >&2 && exit 1))
 
   # abort if too man errors occured
   [ ${ERROR} -ge 1 ] && echo -e "\nToo man errors occured. Aborting..." && exit 1
@@ -184,8 +184,8 @@ function dump_all_databases()
   do
     dump_database ${DATABASE}
     [[ $? -eq 0 ]] && check_database_dump ${DATABASE}
-    [[ $? -eq 0 ]] && ${COMPRESS} && compress_database ${DATABASE}
-    [[ $? -eq 0 ]] && ${COMPRESS} && check_compressed_database ${DATABASE}
+    [[ $? -eq 0 ]] && ${COMPRESS:=true} && compress_database ${DATABASE}
+    [[ $? -eq 0 ]] && ${COMPRESS:=true} && check_compressed_database ${DATABASE}
   done
 }
 
