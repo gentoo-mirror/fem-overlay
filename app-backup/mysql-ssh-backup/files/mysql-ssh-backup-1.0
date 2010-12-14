@@ -66,9 +66,6 @@ function prepare()
   # reset error counter
   ERROR=0
 
-  # change directory to userhome
-  cd ${HOME}
-
   # set SSH-user to current user if unset
   [ -z ${SSH_USER} ] && SSH_USER=$(id -u -n)
 
@@ -82,10 +79,10 @@ function prepare()
   [ -z ${MYSQL_HOST} ] && MYSQL_HOST=localhost
 
   # check if MySQL-user and -password is set
-  ([ -n ${MYSQL_USER} ] && [ -n ${MYSQL_PASSWORD} ]) && MYSQL_USER_OPTS="--user=${MYSQL_USER} --password=${MYSQL_PASSWORD}"
+  [ ${MYSQL_USER} ] && [ ${MYSQL_PASSWORD} ] && MYSQL_USER_OPTS="--user=${MYSQL_USER} --password=${MYSQL_PASSWORD}"
 
   # set Backupdirectory to default value if unset
-  [ -z ${BACKUPDIR} ] && BACKUPDIR=${SSH_HOST}
+  [ -z ${BACKUPDIR} ] && BACKUPDIR=${HOME}/${SSH_HOST}
   BACKUPDIR+=/$(date +%F)/
 
   # check number of days
