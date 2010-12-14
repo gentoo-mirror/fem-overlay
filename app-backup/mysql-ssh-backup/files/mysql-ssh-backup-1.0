@@ -1,0 +1,230 @@
+#!/bin/bash
+#
+# mysql-ssh-backup
+#
+# Create MySQL-Dumps via SSH using RSA or DSA authentication (private key).
+# Each database will be dumped as a single file and can be compressed optional.
+#
+# Copyright (c) 2010 Marcel Pennewiss (opensource@pennewiss.de)
+# Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
+#
+# Current Version: 1.0
+# Last Modified: 2010-12-14
+#
+# USAGE:
+#   Start mysql-ssh-backup with the "-h" option to show usage/help.
+#
+# REQUIREMENTS:
+#   ssh
+#   bzip2 (if compression enabled)
+#   mysql / mysqldump (on remote server)
+#
+# INSTALLATION: 
+#   Copy the shell script to a suitable location
+#
+# CHANGELOG:
+#   v1.0 - Initial Release (2010-12-14)
+#
+# LICENSE: GPL-2
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+##########################################################################
+
+# show usage information
+print_usage() {
+  echo "MySQL-SSH-Backup v1.0"
+  echo "Create MySQL-Dumps via SSH using RSA or DSA authentication (private key)."
+  echo "Each database will be dumped as a single file and can be compressed optional."
+  echo ""
+  echo "Usage $0 [-l <ssh-login>] -s <ssh-server> -i <identity-file> [-m <mysql-host>] [-d <backup-dir>] [-e <days>] [-c] [-h]"
+  echo ""
+  echo " -l <ssh-login>      User to log in as on the remote machine (defaul: current user)"
+  echo " -s <ssh-server>     Remote machine to log in"
+  echo " -i <identity-file>  File from which the identity (private key) for SSH is read"
+  echo " -m <mysql-host>     MySQL-Host to Dump (default: localhost)"
+  echo " -u <mysql-user>     MySQL-User (leave empty while using .my.cnf on remote server)"
+  echo " -p <mysql-password> MySQL-Password (leave empty while using .my.cnf on remote server)"
+  echo " -d <backup-dir>     Base-directory where dumps will be stored (default: {scriptpath}/{ssh-server})"
+  echo " -e <days>           Number of days after which old dumps will be deleted"
+  echo " -c                  Use bzip2 compression - dumps will be compressed on the local machine"
+  echo " -h                  Show this help"
+  echo ""
+}
+
+# check parameters and directories
+function prepare()
+{
+  # reset error counter
+  ERROR=0
+
+  # change directory to userhome
+  cd ${HOME}
+
+  # set SSH-user to current user if unset
+  [ -z ${SSH_USER} ] && SSH_USER=$(id -u -n)
+
+  # check ssh identity file
+  ([ -z ${SSH_IDENTITY} ] || [ ! -f ${SSH_IDENTITY} ]) && echo "SSH identity file (private key) not set or not found." && ERROR+=1
+
+  # check if remote server is set
+  [ -z ${SSH_HOST} ] && echo "Remote ssh server not set." && ERROR+=1
+
+  # set DB-Server to localhost if unset
+  [ -z ${MYSQL_HOST} ] && MYSQL_HOST=localhost
+
+  # check if MySQL-user and -password is set
+  ([ -n ${MYSQL_USER} ] && [ -n ${MYSQL_PASSWORD} ]) && MYSQL_USER_OPTS="--user=${MYSQL_USER} --password=${MYSQL_PASSWORD}"
+
+  # set Backupdirectory to default value if unset
+  [ -z ${BACKUPDIR} ] && BACKUPDIR=${SSH_HOST}
+  BACKUPDIR+=/$(date +%F)/
+
+  # check number of days
+  [[ ! "x${DAYS}" =~ ^x[0-9]*$ ]] && echo "Wrong number of days, use only numeric value." && ERROR+=1
+  [ -z ${DAYS} ] && DAYS=90
+
+  # disable compression (default) if unset
+  ${COMPRESS} || COMPRESS=false
+
+  # check for installed SSH-Client
+  which ssh > /dev/null 2>&1 || (echo "SSH not found! Skipping all backups!" >&2 && exit 1)
+
+  # check for installed bzip2
+  ${COMPRESS} && (which bzip2 > /dev/null 2>&1 || (echo "bzip2 not found and compression enabled! Skipping all backups!" >&2 && exit 1))
+
+  # abort if too man errors occured
+  [ ${ERROR} -ge 1 ] && echo -e "\nToo man errors occured. Aborting..." && exit 1
+
+  # 
+  if [ -d ${BACKUPDIR} ]; then
+    rm -f ${BACKUPDIR}/*
+  fi
+  if [ ! -d ${BACKUPDIR} ]; then
+    mkdir ${BACKUPDIR} -p
+    [[ $? -ne 0 ]] && echo "Can't create Backup-Directory ${BACKUPDIR}." >&2  && exit 1
+  fi
+}
+
+# connection-wrapper to execute mysqldump via ssh
+# param[in] $1 remote command to execute
+# param[in] $2 filename used to redirect stdout (optional)
+function connection_wrapper()
+{
+  # set SSH connection options	
+  SSH_OPTS="-C -i ${SSH_IDENTITY}"
+
+  if [ -z ${2} ]; then
+	  LAST_RETURN=$(ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" 2>&1)
+  else
+	  LAST_RETURN=$( { ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" >${2}; } 2>&1 )
+  fi
+  local ret=$?
+  [[ ${ret} -eq 255 ]] && echo "SSH-Connection failed." >&2 && echo ${LAST_RETURN} >&2 && exit 255
+  return ${ret}
+}
+
+# get full database-list
+function get_databaselist()
+{
+  connection_wrapper "mysql --host ${MYSQL_HOST} ${MYSQL_USER_OPTS} -Bse 'show databases'" 
+  [[ $? -ne 0 ]] && echo "$ret: Can't get database list:" >&2 && echo ${LAST_RETURN} >&2 && exit 1
+}
+
+# dump a database
+# param[in] $1 database-name
+function dump_database()
+{
+  connection_wrapper "mysqldump --single-transaction --extended-insert --host ${MYSQL_HOST} ${MYSQL_USER_OPTS} --no-autocommit --set-charset --user mysqldump ${1}" "${BACKUPDIR}/${1}.sql"
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "MySQL-Dump of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# check for complete database-dump
+# param[in] $1 database-name
+function check_database_dump()
+{
+  LAST_RETURN=$(tail "${BACKUPDIR}/${1}.sql" -n 1 | grep -e "^-- Dump completed o" 2>&1)
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "MySQL-Dump-Check of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# compress the dump file of a single database
+# param[in] $1 database-name
+function compress_database()
+{
+  LAST_RETURN=$(bzip2 "${BACKUPDIR}/${1}.sql" 2>&1)
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "Compaction of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# check the compressed dump
+# param[in] $1 database-name
+function check_compressed_database()
+{
+  LAST_RETURN=$(bzip2 --test "${BACKUPDIR}/${1}.sql.bz2" 2>&1)
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "Test of compacted database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# dump all databases
+# param[in] $1 list of databases (IFS-seperated)
+function dump_all_databases()
+{
+  for DATABASE in ${1}
+  do
+    dump_database ${DATABASE}
+    [[ $? -eq 0 ]] && check_database_dump ${DATABASE}
+    [[ $? -eq 0 ]] && ${COMPRESS} && compress_database ${DATABASE}
+    [[ $? -eq 0 ]] && ${COMPRESS} && check_compressed_database ${DATABASE}
+  done
+}
+
+# cleanup backup-directory
+# remove all subdirectories which are older then ${DAYS} days
+function cleanup()
+{
+  if [ -d ${BACKUPDIR} ]; then
+  	LAST_RETURN=$(find ${BACKUPDIR}/* -mtime +${DAYS} -delete 2>&1)
+  fi
+  [[ $? -ne 0 ]] && echo "Cleanup of old Backups failed:" >&2 && echo ${LAST_RETURN} >&2
+}
+
+# run main part
+while getopts ":hl:s:i:m:u:p:d:e:c" Option; do
+        case $Option in
+                h )     print_usage && exit 0;;
+		l )	SSH_USER=${OPTARG};;
+		s )	SSH_HOST=${OPTARG};;
+		i )	SSH_IDENTITY=${OPTARG};;
+		m )	MYSQL_HOST=${OPTARG};;
+		u )	MYSQL_USER=${OPTARG};;
+		p )	MYSQL_PASSWORD=${OPTARG};;
+		d )	BACKUPDIR=${OPTARG};;
+		e )	DAYS=${OPTARG};;
+		c )	COMPRESS=true;;
+                * )     echo -e "Unknown parameter \"-${OPTARG}\"!\n"; 
+			print_usage
+			exit 1
+			;;
+        esac
+done
+shift $(($OPTIND - 1)) 
+
+prepare
+get_databaselist
+dump_all_databases "${LAST_RETURN}"
+cleanup
+exit 0
