@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/files/eblits/src_install-v1.eblit,v 1.12 2010/10/27 10:33:18 olemarkus Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/files/eblits/src_install-v2.eblit,v 1.9 2010/11/02 17:12:42 olemarkus Exp $
 
 eblit-php-src_install() {
 	# see bug #324739 for what happens when we don't have that
@@ -51,7 +51,7 @@ eblit-php-src_install() {
 
 			if [[ "${file: -3}" == ".so" ]]; then 
 				if [[ "${sapi}" == "apache2" ]]; then
-					insinto "${PHP_DESTDIR}/../apache2/modules/"
+					insinto "${PHP_DESTDIR}/apache2/"
 					newins "${file}" "${file/*\/}"
 				else
 					dolib.so "${file}" || die "Unable to install ${sapi} sapi"
@@ -73,14 +73,16 @@ eblit-php-src_install() {
 	done
 
 	# Install env.d files
-	newenvd "${FILESDIR}/20php${PHP_MV}-envd" \
-		"20php${PHP_MV}"
+	newenvd "${FILESDIR}/20php5-envd" \
+		"20php${SLOT}"
 	sed -e "s|/lib/|/$(get_libdir)/|g" -i \
-		"${D}/etc/env.d/20php${PHP_MV}"
+		"${D}/etc/env.d/20php${SLOT}"
+	sed -e "s|php5|php${SLOT}|g" -i \
+		"${D}/etc/env.d/20php${SLOT}"
 
 	# set php-config variable correctly (bug #278439)
 	sed -e "s:^\(php_sapis=\)\".*\"$:\1\"${sapi_list}\":" -i \
-		"${D}/usr/$(get_libdir)/php5/bin/php-config"
+		"${D}/usr/$(get_libdir)/php${SLOT}/bin/php-config"
 }
 
 php_install_ini() {
@@ -111,6 +113,9 @@ php_install_ini() {
 	insinto "${PHP_INI_DIR}"
 	newins "${phpinisrc}" "${PHP_INI_FILE}"
 
+	elog "Installing php.ini for ${phpsapi} into ${PHP_INI_DIR}"
+	elog
+
 	dodir "${PHP_EXT_INI_DIR}"
 	dodir "${PHP_EXT_INI_DIR_ACTIVE}"
 
@@ -128,22 +133,9 @@ php_install_ini() {
 
 	# SAPI-specific handling
 	if [[ "${sapi}" == "apache2" ]] ; then
-		if use concurrentmodphp ; then
-			einfo "Installing Apache2 config file 70_mod_php${PHP_MV}_concurr.conf"
 			insinto "${APACHE_MODULES_CONFDIR}"
-			newins "${FILESDIR}/70_mod_php${PHP_MV}_concurr.conf-apache2" \
-				"70_mod_php${PHP_MV}_concurr.conf"
-
-			# Put the ld version script in the right place so
-			# it's always accessible
-			insinto "/var/lib/php-pkg/${CATEGORY}/${PN}-${PVR}/"
-			doins "${FILESDIR}/php${PHP_MV}-ldvs"
-		else
-			einfo "Installing Apache2 config 70_mod_php${PHP_MV}.conf"
-			insinto ${APACHE_MODULES_CONFDIR}
 			newins "${FILESDIR}/70_mod_php${PHP_MV}.conf-apache2" \
 				"70_mod_php${PHP_MV}.conf"
-		fi
 	fi
 
 	if [[ "${sapi}" == "fpm" ]] ; then
@@ -153,8 +145,19 @@ php_install_ini() {
 		doins "${WORKDIR}/sapis-build/fpm/sapi/fpm/php-fpm.conf"
 		dodir "/etc/init.d"
 		insinto "/etc/init.d"
-		newins  "${FILESDIR}/php-fpm.init" "php-fpm"
-		fperms 755 "/etc/init.d/php-fpm"
-		dosym "${PHP_DESTDIR}/bin/php-fpm" "/usr/bin/php-fpm"
+		newinitd "${FILESDIR}/php-fpm-r1.init" "php-fpm"
+#		dosym "${PHP_DESTDIR}/bin/php-fpm" "/usr/bin/php-fpm"
 	fi
+
+  # Install PHP ini files into /usr/share/php
+	if [[ ${SLOT} == '5.2' ]]; then
+		newdoc php.ini-dist php.ini-development
+		newdoc php.ini-recommended php.ini-production
+	fi
+
+	if [[ ${SLOT} == '5.3' ]]; then
+		dodoc php.ini-development
+		dodoc php.ini-production
+	fi
+
 }
