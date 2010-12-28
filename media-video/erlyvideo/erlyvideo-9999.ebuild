@@ -30,3 +30,7 @@ src_unpack() {
 src_install() {
 	emake DESTROOT="${D}" install || die "emake install failed"
 }
+
+pkg_preinst() {
+	enewuser erlyvideo -1 -1 /var/run/erlyvideo/
+}
