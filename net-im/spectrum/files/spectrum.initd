@@ -1,7 +1,8 @@
 #!/sbin/runscript
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+
+PROTOCOL=${SVCNAME#*.}
 
 depend() {
         need net
@@ -9,14 +10,20 @@ depend() {
 }
 
 start() {
-        ebegin "Starting S2P Spectrum Transport"
+        if [ -z "${PROTOCOL}" ] || [ ${SVCNAME} == "spectrum" ]; then
+                eerror "Please use /etc/init.d/spectrum.PROTOCOL instead of /etc/init.d/spectrum"
+                eerror "to start Spectrum for the desired protocol."
+                return 1
+        fi
+
+        ebegin "Starting ${PROTOCOL} Spectrum Transport"
         start-stop-daemon --start --pidfile ${PIDFILE} \
                  --chuid jabber:jabber --exec /usr/bin/spectrum -- ${CONFFILE}
         eend $?
 }
 
 stop() {
-        ebegin "Stopping S2P Spectrum Transport"
+        ebegin "Stopping ${PROTOCOL} Spectrum Transport"
         start-stop-daemon --stop --quiet --pidfile ${PIDFILE}
         eend $?
 }
