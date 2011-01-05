@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/files/eblits/src_install-v2.eblit,v 1.9 2010/11/02 17:12:42 olemarkus Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/files/eblits/src_install-v2.eblit,v 1.11 2010/12/19 22:45:22 mabi Exp $
 
 eblit-php-src_install() {
 	# see bug #324739 for what happens when we don't have that
@@ -53,6 +53,7 @@ eblit-php-src_install() {
 				if [[ "${sapi}" == "apache2" ]]; then
 					insinto "${PHP_DESTDIR}/apache2/"
 					newins "${file}" "${file/*\/}"
+                    keepdir "/usr/$(get_libdir)/apache2/modules"
 				else
 					dolib.so "${file}" || die "Unable to install ${sapi} sapi"
 				fi
@@ -140,12 +141,11 @@ php_install_ini() {
 
 	if [[ "${sapi}" == "fpm" ]] ; then
 		einfo "Installing FPM CGI config file php-fpm.conf"
-		epatch "${FILESDIR}/php-fpm-gentooified.patch"
 		insinto ${PHP_INI_DIR}
-		doins "${WORKDIR}/sapis-build/fpm/sapi/fpm/php-fpm.conf"
+		doins "${FILESDIR}/php-fpm.conf"
 		dodir "/etc/init.d"
 		insinto "/etc/init.d"
-		newinitd "${FILESDIR}/php-fpm-r1.init" "php-fpm"
+		newinitd "${FILESDIR}/php-fpm-r3.init" "php-fpm"
 #		dosym "${PHP_DESTDIR}/bin/php-fpm" "/usr/bin/php-fpm"
 	fi
 

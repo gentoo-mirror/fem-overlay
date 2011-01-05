@@ -1,6 +1,6 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/php-5.2.14-r2.ebuild,v 1.3 2010/11/09 13:20:12 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/php-5.2.16.ebuild,v 1.7 2011/01/02 17:52:05 klausman Exp $
 
 EAPI=2
 
@@ -9,10 +9,11 @@ interbase msql oci8 sapdb solid"
 
 inherit eutils autotools flag-o-matic versionator depend.apache apache-module db-use phpconfutils php-common-r1 libtool
 
-SUHOSIN_VERSION="$PV-0.9.7"
+#SUHOSIN_VERSION="$PV-0.9.7"
+SUHOSIN_VERSION=""
 EXPECTED_TEST_FAILURES=""
 
-KEYWORDS="~amd64 ~arm ~hppa ~x86"
+KEYWORDS="alpha amd64 ~arm hppa ppc64 x86"
 
 function php_get_uri ()
 {
@@ -44,7 +45,7 @@ PHP_RELEASE="php"
 PHP_P="${PN}-${PHP_PV}"
 PHP_SRC_URI="$(php_get_uri "${PHP_RELEASE}" "${PHP_P}.tar.bz2")"
 
-PHP_PATCHSET="2"
+PHP_PATCHSET="0"
 PHP_PATCHSET_URI="
 	$(php_get_uri gentoo "php-patchset-${PV}-r${PHP_PATCHSET}.tar.bz2")"
 
@@ -56,13 +57,19 @@ else
 	SUHOSIN_TYPE="suhosin"
 fi
 
-SUHOSIN_PATCH="suhosin-patch-${SUHOSIN_VERSION}.patch"
-SUHOSIN_URI="$(php_get_uri ${SUHOSIN_TYPE} ${SUHOSIN_PATCH}.gz )"
+if [[ -n ${SUHOSIN_VERSION} ]]; then
+	SUHOSIN_PATCH="suhosin-patch-${SUHOSIN_VERSION}.patch"
+	SUHOSIN_URI="$(php_get_uri ${SUHOSIN_TYPE} ${SUHOSIN_PATCH}.gz )"
+fi
 
 SRC_URI="
 	${PHP_SRC_URI}
-	${PHP_PATCHSET_URI}
-	suhosin? ( ${SUHOSIN_URI} )"
+	${PHP_PATCHSET_URI}"
+
+if [[ -n ${SUHOSIN_VERSION} ]]; then
+	SRC_URI="${SRC_URI}
+		suhosin? ( ${SUHOSIN_URI} )"
+fi
 
 DESCRIPTION="The PHP language runtime engine: CLI, CGI, Apache2 and embed SAPIs."
 HOMEPAGE="http://php.net/"
@@ -90,6 +97,9 @@ IUSE="${IUSE} adabas bcmath berkdb birdstep bzip2 calendar cdb cjk
 	+simplexml snmp soap sockets solid spell spl sqlite ssl suhosin
 	sybase-ct sysvipc tidy +tokenizer truetype unicode wddx
 	xml xmlreader xmlwriter xmlrpc xpm xsl yaz zip zlib"
+
+# Enable suhosin if available
+[[ -n $SUHOSIN_VERSION ]] && IUSE="${IUSE} suhosin"
 
 DEPEND="app-admin/eselect-php
 	pcre? ( >=dev-libs/libpcre-7.9[unicode] )
@@ -218,6 +228,8 @@ RDEPEND="${DEPEND}
 	json? ( !dev-php${PHP_MV}/pecl-json )
 	zip? ( !dev-php${PHP_MV}/pecl-zip )"
 
+[[ -n $SUHOSIN_VERSION ]] && DEPEND="${DEPEND} suhosin? ( $php[unicode] )"
+
 DEPEND="${DEPEND}
 	sys-devel/flex
 	>=sys-devel/m4-1.4.3
@@ -228,6 +240,8 @@ PDEPEND="doc? ( app-doc/php-docs )
 	suhosin? ( dev-php${PHP_MV}/suhosin )
 	mcve? ( dev-php${PHP_MV}/pecl-mcve )
 	yaz? ( dev-php${PHP_MV}/pecl-yaz )"
+
+[[ -n $SUHOSIN_VERSION ]] && PDEPEND="${PDEPEND} suhosin? ( dev-php${PHP_MV}/suhosin )"
 
 # Portage doesn't support setting PROVIDE based on the USE flags that
 # have been enabled, so we have to PROVIDE everything for now and hope

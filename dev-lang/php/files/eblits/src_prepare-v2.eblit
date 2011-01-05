@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/files/eblits/src_prepare-v2.eblit,v 1.1 2010/10/08 18:25:10 olemarkus Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-lang/php/files/eblits/src_prepare-v2.eblit,v 1.2 2010/12/19 14:24:49 mabi Exp $
 
 eblit-php-src_prepare() {
 	# USE=sharedmem (session/mod_mm to be exact) tries to mmap() this path
@@ -46,8 +46,10 @@ eblit-php-src_prepare() {
 	fi
 
 	# Suhosin support
-	if use suhosin ; then
-		epatch "${WORKDIR}/${SUHOSIN_PATCH}"
+	if [[ -n $SUHOSIN_VERSION ]] ; then
+		if use suhosin ; then
+			epatch "${WORKDIR}/${SUHOSIN_PATCH}"
+		fi
 	fi
 
 	# rebuild the whole autotools stuff as we are heavily patching it

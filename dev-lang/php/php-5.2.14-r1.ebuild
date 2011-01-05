@@ -89,8 +89,8 @@ IUSE="${IUSE} adabas bcmath berkdb birdstep bzip2 calendar cdb cjk
 	interbase iodbc ipv6 +json kerberos ldap ldap-sasl libedit
 	maillog mcve mhash msql mssql mysql mysqli ncurses nls oci8
 	oci8-instant-client odbc pcntl +pcre pdo pic +posix postgres qdbm
-	readline recode reflection sapdb +session sharedext sharedmem
-	+simplexml snmp soap sockets solid spell spl sqlite ssl suhosin
+	readline recode +reflection sapdb +session sharedext sharedmem
+	+simplexml snmp soap sockets solid spell +spl sqlite ssl suhosin
 	sybase-ct sysvipc tidy +tokenizer truetype unicode wddx
 	+xml +xmlreader +xmlwriter xmlrpc xpm xsl yaz zip zlib"
 
