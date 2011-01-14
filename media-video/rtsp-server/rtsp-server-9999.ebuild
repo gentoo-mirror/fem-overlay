@@ -17,7 +17,12 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=dev-lang/perl-5.12.2"
+DEPEND="
+	dev-perl/namespace-autoclean
+	dev-perl/Moose
+	dev-perl/AnyEvent
+	dev-perl/MooseX-Getopt
+	>=dev-lang/perl-5.12.2"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
