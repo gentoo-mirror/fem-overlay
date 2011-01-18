@@ -35,7 +35,14 @@ php_sapi_copy() {
 			source="sapi/cgi/php-cgi"
 			;;
 		fpm)
-			source="sapi/fpm/php-fpm"
+			if [[ ${SLOT} == '5.2' ]]; then
+				# renaming hack
+				mv "sapi/cgi/php-cgi" "sapi/cgi/php-fpm"
+
+				source="sapi/cgi/php-fpm"
+			else
+				source="sapi/fpm/php-fpm"
+			fi
 			;;
 		embed)
 			source="libs/libphp${PHP_MV}.so"

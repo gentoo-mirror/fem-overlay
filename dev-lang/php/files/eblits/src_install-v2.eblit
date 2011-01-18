@@ -141,12 +141,23 @@ php_install_ini() {
 
 	if [[ "${sapi}" == "fpm" ]] ; then
 		einfo "Installing FPM CGI config file php-fpm.conf"
+
 		insinto ${PHP_INI_DIR}
-		doins "${FILESDIR}/php-fpm.conf"
+                if [[ ${SLOT} == '5.2' ]]; then
+                        # use old xml style config file
+                        newins "${FILESDIR}/php-fpm-5.2.conf" "php-fpm.conf"
+                else
+                        doins "${FILESDIR}/php-fpm.conf"
+                fi
+
 		dodir "/etc/init.d"
 		insinto "/etc/init.d"
 		newinitd "${FILESDIR}/php-fpm-r3.init" "php-fpm"
-#		dosym "${PHP_DESTDIR}/bin/php-fpm" "/usr/bin/php-fpm"
+
+		# hack to start fpm correctly with PHP 5.2
+                if [[ ${SLOT} == '5.2' ]]; then
+			sed -i -e 's/-y/-x -y/'	"${D}/etc/init.d/php-fpm"
+		fi
 	fi
 
   # Install PHP ini files into /usr/share/php

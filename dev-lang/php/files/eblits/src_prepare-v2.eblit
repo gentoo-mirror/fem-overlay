@@ -54,6 +54,10 @@ eblit-php-src_prepare() {
 		ewarn "Please note that this version of PHP does not yet come with a suhosin patch"
 	fi
 
+	# FPM support for PHP 5.2
+	if [[ ${SLOT} == '5.2' ]] && use fpm ; then
+		epatch "${WORKDIR}/${FPM_PATCH}"
+	fi
 
 	# rebuild the whole autotools stuff as we are heavily patching it
 	# (suhosin, fastbuild, ...)

@@ -248,11 +248,14 @@ eblit-php-src_configure() {
 					fi
 					;;
 
-				cgi)
+				cgi|fpm)
 					if [[ "${one_sapi}" == "${sapi}" ]] ; then
 						sapi_conf+=" --enable-cgi --enable-fastcgi"
 						use discard-path && sapi_conf+=" --enable-discard-path"
 						use force-cgi-redirect && sapi_conf+=" --enable-force-cgi-redirect"
+						if use fpm ; then
+							sapi_conf+=" --enable-fpm"
+						fi
 					else
 						sapi_conf+=" --disable-${sapi}"
 					fi
