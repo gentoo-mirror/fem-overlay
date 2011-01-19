@@ -13,6 +13,11 @@ PHP_FPM_CONF="/etc/php/fpm-${PHPSLOT}/php-fpm.conf"
 
 PHP_FPM_PID="/var/run/php-fpm.pid"
 
+PHP_FPM_OPTS=""
+if [[ $PHPSLOT == "php5.2" ]]; then
+    PHP_FPM_OPTS="${PHP_FPM_OPTS} -x"
+fi
+
 opts="depend start stop reload"
 
 depend() {
@@ -22,7 +27,7 @@ depend() {
 
 start() {
         ebegin "Starting PHP FastCGI Process Manager"
-        start-stop-daemon --start --pidfile ${PHP_FPM_PID} --exec /usr/bin/php-fpm -- -y "${PHP_FPM_CONF}"
+        start-stop-daemon --start --pidfile ${PHP_FPM_PID} --exec /usr/bin/php-fpm -- ${PHP_FPM_OPTS} -y "${PHP_FPM_CONF}"
         local i=0
         local timeout=5
         while [[ ! -f ${PHP_FPM_PID} ]] && [[ $i -le $timeout ]]; do
