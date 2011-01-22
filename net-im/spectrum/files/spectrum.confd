@@ -1,5 +1,8 @@
 # /etc/conf.d/spectrum.PROTOCOL config file for spectrum PROTOCOL transport
 
+# Start Transport when starting /etc/init.d/spectrum
+AUTOSTART="yes"
+
 # Configfile
 CONFFILE="/etc/spectrum/PROTOCOL.cfg"
 
