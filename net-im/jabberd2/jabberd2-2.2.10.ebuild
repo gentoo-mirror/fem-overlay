@@ -77,7 +77,7 @@ src_install() {
 	dodoc AUTHORS README UPGRADE
 	docinto tools
 	dodoc tools/db-setup{.mysql,.pgsql,.sqlite}
-	dodoc tools/{migrate.pl,pipe-auth.pl}
+	dodoc tools/pipe-auth.pl
 
 	cd "${D}/etc/jabber/"
 	sed -i \
