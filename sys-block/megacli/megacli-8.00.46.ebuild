@@ -47,7 +47,7 @@ src_install() {
 	esac
 	doexe opt/MegaRAID/MegaCli/${MegaCli}
 	dosym /opt/MegaRAID/MegaCli/${MegaCli} /usr/sbin/MegaCli
-	doexe opt/lsi/3rdpartylibs/${libsysfs}
+	dolib.so opt/lsi/3rdpartylibs/${libsysfs}
 	dodoc ${PV}_Linux_MegaCLI.txt
 }
 
