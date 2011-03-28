@@ -1,40 +1,71 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/cwiid/cwiid-20110107-r1.ebuild,v 1.2 2011/03/28 01:04:35 ssuominen Exp $
 
-EAPI=2
-inherit eutils multilib python git autotools
+EAPI="3"
 
-DESCRIPTION="a collection of Linux tools written in C for interfacing to the Nintendo Wiimote"
-HOMEPAGE="http://http://abstrakraft.org/cwiid/wiki"
+if [[ ${PV} == "9999" ]]; then
+	EGIT_REPO_URI="git://github.com/abstrakraft/cwiid.git"
+	SRC_URI=""
+	KEYWORDS=""
+	inherit git
+else
+	# git archive --prefix=cwiid-$(date +%Y%m%d)/ \
+	#	--format=tar HEAD | bzip2 > cwiid-$(date +%Y%m%d).tar.bz2
+	SRC_URI="http://dev.gentoo.org/~lxnay/cwiid/cwiid-${PV}.tar.bz2"
+	KEYWORDS="~x86 ~amd64"
+fi
 
-EGIT_REPO_URI="git://github.com/abstrakraft/cwiid"
-#EGIT_COMMIT="master"
-#EGIT_BRANCH="${EGIT_COMMIT}"
+inherit eutils linux-mod autotools python
 
-LICENSE="GPL-3"
+DESCRIPTION="Library, input driver, and utilities for the Nintendo Wiimote"
+HOMEPAGE="http://abstrakraft.org/cwiid"
+
+LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="python"
+PYTHON_DEPEND="2"
 
-DEPEND=">=x11-libs/gtk+-2.20.1-r1
-	dev-libs/glib
-	>=net-wireless/bluez-4.77
-	sys-kernel/linux-headers"
-RDEPEND="${DEPEND}"
+DEPEND="sys-apps/gawk
+	sys-apps/sed
+	sys-devel/bison
+	>=sys-devel/flex-2.5.35"
 
-src_unpack() {
-	git_src_unpack
-	git_submodules init
-	git_submodules update
+RDEPEND="net-wireless/bluez
+	x11-libs/gtk+:2
+	python? ( >=dev-lang/python-2.4 )"
+
+pkg_setup() {
+	CONFIG_CHECK="BT_L2CAP INPUT_UINPUT"
+	linux-mod_pkg_setup
+	python_set_active_version 2
 }
 
+src_unpack() {
+	if [[ ${PV} == "9999" ]]; then
+		git_src_unpack
+	else
+		unpack ${A}
+	fi
+}
+
+src_prepare() {
+	# Fix broken build system
+	sed -i "s:--disable-ldconfig:--without-ldconfig:g" "${S}"/configure.ac || die
+	sed -i "s:enable_ldconfig:with_ldconfig:g" "${S}"/configure.ac || die
+	eautoreconf
+}
 src_configure() {
-	eaclocal
-	eautoconf
-	econf
+	econf $(use_with python) --without-ldconfig || die "configure failed"
+}
+
+src_compile() {
+	emake || die "emake failed"
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
+	dodoc AUTHORS ChangeLog NEWS README
+	insinto /lib/udev/rules.d
+	doins "${FILESDIR}/60-${PN}.rules"
 }
