@@ -5,7 +5,7 @@
 EAPI="3"
 PYTHON_DEPEND="2"
 
-inherit distutils
+inherit distutils eutils
 
 DESCRIPTION="duplicity is a secure backup system using gnupg to encrypt data"
 HOMEPAGE="http://www.nongnu.org/duplicity/"
@@ -26,9 +26,13 @@ RDEPEND="${DEPEND}
 	>=dev-python/pexpect-2.1
 	s3? ( dev-python/boto )"
 
+src_prepare() {
+	use ftps && epatch "${FILESDIR}/${P}-ftps.patch"
+}
+
 pkg_setup() {
-        python_set_active_version 2
-        python_pkg_setup
+	python_set_active_version 2
+	python_pkg_setup
 }
 
 src_install() {
