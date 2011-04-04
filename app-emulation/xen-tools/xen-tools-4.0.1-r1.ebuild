@@ -18,6 +18,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc debug screen custom-cflags pygrub hvm api acm flask ioemu"
 
+PYTHON_DEPEND="2::2.6"
+
 CDEPEND="dev-lang/python
 	sys-libs/zlib
 	hvm? ( media-libs/libsdl
@@ -58,6 +60,9 @@ QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
 	usr/share/xen/qemu/openbios-sparc64"
 
 pkg_setup() {
+	python_set_active_version 2
+	python_pkg_setup
+
 	export "CONFIG_LOMOUNT=y"
 
 	if use ioemu; then
