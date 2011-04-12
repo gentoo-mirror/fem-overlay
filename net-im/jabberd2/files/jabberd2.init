@@ -1,7 +1,6 @@
 #!/sbin/runscript
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-im/jabberd2/files/jabberd2-2.2.8.init,v 1.1 2009/05/08 15:24:09 gentoofan23 Exp $
 
 depend() {
 	need net
@@ -9,69 +8,79 @@ depend() {
 	provide jabber-server
 }
 
-stopJabberServices() {
-
-	eindent
-	for pidfile in /var/run/jabber/*.pid; do
-		if [ -f "${pidfile}" ]; then
-			service=$(basename ${pidfile} .pid)
-			ebegin "Stopping ${service}"
-			start-stop-daemon \
-				--stop \
-				--pidfile ${pidfile}
-			eend $?
-		fi
-	done
-	eoutdent
-
-}
+SERVICES_CONF="/etc/jabber/jabberd.cfg"
 
 start() {
-
-	einfo "Starting Jabber Server ..."
-	local services
-	services=$(grep -v ^# /etc/jabber/jabberd.cfg | grep '..*' | awk '{print $1 ":" $2}')
+	if [ ! -r "${SERVICES_CONF}" ]; then
+		eerror "You didn't configure services in ${SERVICES_CONF} file or file is not readable"
+		return 1
+	fi
+	einfo "Starting Jabber Services ..."
+	local pid_name pid_path services
+	services="$(grep -v "^ *#" "${SERVICES_CONF}" | grep '..*' | awk '{print $1 ":" $2}')"
 	eindent
 	for service in ${services}; do
-
 		cfgfile=$(echo ${service} | cut -d ':' -f 2)
 		service=$(echo ${service} | cut -d ':' -f 1)
+		ebegin "Starting ${service} (${cfgfile})"
 		if [ ! -f "${cfgfile}" ]; then
-			if [ -f "/etc/jabber/${service}.xml" ]; then
-				cfgfile="/etc/jabber/${service}.xml"
-			else
-				eerror "Can't find: ${cfgfile} or default /etc/jabber/${service}.xml"
-				stopJabberServices
-				return 1
-			fi
-		fi
-
-		executable=/usr/bin/${service}
-
-		if [ ! -f "${executable}" ]; then
-			eerror "Can't find executable: ${executable}"
-			stopJabberServices
+			eerror "Can't find: ${cfgfile}"
+			stop
 			return 1
 		fi
 
-		ebegin "Starting ${service} (${cfgfile})"
+		executable=/usr/bin/${service}
+		if [ ! -f "${executable}" ]; then
+			eerror "Can't find executable: ${executable}"
+			stop
+			return 1
+		fi
+
+		pid_path="$(xmllint --nonet --xpath /${service}/pidfile ${cfgfile} 2>/dev/null )"
+		if [ "$?" -ne "0" ] ; then
+			eerror "Can't find pidfile in ${cfgfile}, did you set it?"
+			stop
+			return 1
+		fi
+		pid_name="$(echo ${pid_path} | sed -e 's@<[^>]*>@@g' -e 's@/.*/@@' )"
 		start-stop-daemon \
 			--background \
 			--start  \
 			--chuid jabber:jabber \
-			--exec /usr/bin/${service} \
-			--pid /var/run/jabber/$(basename ${cfgfile%.xml}).pid \
+			--exec ${executable} \
+			--pidfile /var/run/jabber/${pid_name} \
 			-- -c ${cfgfile}
 		eend $?
-
 	done
 	eoutdent
-
 }
 
 stop() {
+	einfo "Stopping Jabber Services ..."
+	eindent
+	local pid_name pid_path services
+	services="$(grep -v "^ *#" "${SERVICES_CONF}" | grep '..*' | awk '{print $1 ":" $2}' | tac)"
+	for service in ${services}; do
+		cfgfile=$(echo ${service} | cut -d ':' -f 2)
+		service=$(echo ${service} | cut -d ':' -f 1)
+		ebegin "Stopping ${service} (${cfgfile})"
+		if [ ! -f "${cfgfile}" ]; then
+			eerror "Can't find: ${cfgfile}"
+			return 1
+		fi
 
-	einfo "Stopping Jabber Server"
-	stopJabberServices
-
+		pid_path="$(xmllint --nonet --xpath /${service}/pidfile ${cfgfile} 2>/dev/null )"
+		if [ "$?" -ne "0" ] ; then
+			eerror "Can't find pidfile in ${cfgfile}, did you set it?"
+			return 1
+		fi
+		pid_name="$(echo ${pid_path} | sed -e 's@<[^>]*>@@g' -e 's@/.*/@@' )"
+		start-stop-daemon \
+			--stop  \
+			--user jabber \
+			--name  "${service}" \
+			--pidfile /var/run/jabber/${pid_name}
+		eend $?
+	done
+	eoutdent
 }

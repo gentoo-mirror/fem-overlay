@@ -29,7 +29,8 @@ DEPEND="dev-libs/expat
 	zlib? ( sys-libs/zlib )"
 RDEPEND="${DEPEND}
 	>=net-im/jabber-base-0.01
-	!net-im/jabberd"
+	!net-im/jabberd
+	dev-libs/libxml2"
 
 S="${WORKDIR}/jabberd-${PV}"
 
