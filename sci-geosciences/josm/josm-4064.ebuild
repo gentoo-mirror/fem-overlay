@@ -8,7 +8,8 @@ inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="Java-based editor for the OpenStreetMap project"
 HOMEPAGE="http://josm.openstreetmap.de/"
-SRC_URI="http://josm.fabian-fingerle.de/${P}.tar.xz"
+SRC_URI="http://josm.fabian-fingerle.de/${P}.tar.xz
+		 http://opensource.pennewiss.de/josm/${P}.tar.xz"
 LICENSE="GPL-2"
 SLOT="0"
 
