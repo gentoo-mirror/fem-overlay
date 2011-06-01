@@ -13,23 +13,24 @@ SRC_URI="http://ftp.xiaoka.com/${PN}/releases/jabberd-${PV}.tar.bz2"
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-IUSE="berkdb debug memdebug mysql ldap pam postgres sqlite ssl zlib"
+IUSE="berkdb debug memdebug mysql ldap pam postgres sqlite3 ssl zlib"
 
 DEPEND="dev-libs/expat
 	net-libs/udns
-	>=net-dns/libidn-0.3
+	net-dns/libidn
 	>=virtual/gsasl-0.2.27
 	berkdb? ( >=sys-libs/db-4.1.25 )
-	mysql? ( virtual/mysql )
+	mysql? ( virtual/mysql dev-libs/libgcrypt )
 	ldap? ( >=net-nds/openldap-2.1.0 )
 	pam? ( virtual/pam )
 	postgres? ( dev-db/postgresql-base )
 	ssl? ( >=dev-libs/openssl-0.9.6b )
-	sqlite? ( >=dev-db/sqlite-3 )
+	sqlite3? ( dev-db/sqlite:3 )
 	zlib? ( sys-libs/zlib )"
 RDEPEND="${DEPEND}
 	>=net-im/jabber-base-0.01
-	!net-im/jabberd"
+	!net-im/jabberd
+	dev-libs/libxml2"
 
 S="${WORKDIR}/jabberd-${PV}"
 
@@ -60,7 +61,7 @@ src_configure() {
 		$(use_enable mysql) \
 		$(use_enable pam) \
 		$(use_enable postgres pgsql) \
-		$(use_enable sqlite) \
+		$(use_enable sqlite3 sqlite) \
 		$(use_enable ssl) \
 		$(use_with zlib)
 }
@@ -73,11 +74,13 @@ src_install() {
 
 	newinitd "${FILESDIR}/${PN}.init" jabberd || die "newinitd failed"
 	newpamd "${FILESDIR}/${PN}.pamd" jabberd || die "newpamd failed"
+	insinto /etc/logrotate.d
+	newins "${FILESDIR}/jabberd2-logrotate.conf" "jabberd" || die "newins logrotate failed"
 
 	dodoc AUTHORS README UPGRADE
 	docinto tools
 	dodoc tools/db-setup{.mysql,.pgsql,.sqlite}
-	dodoc tools/{migrate.pl,pipe-auth.pl}
+	dodoc tools/pipe-auth.pl
 
 	cd "${D}/etc/jabber/"
 	sed -i \
@@ -91,6 +94,8 @@ src_install() {
 	sed -i \
 		-e 's,<driver>mysql</driver>,<driver>db</driver>,' \
 		sm.xml* || die "sed failed"
+	rm jabberd.cfg || die "rm failed"
+	find "${D}" -type f -name '*.la' -exec rm -rf '{}' '+' || die "removing .la files died"
 }
 
 pkg_postinst() {
