@@ -20,7 +20,7 @@ DEPEND="dev-libs/expat
 	net-dns/libidn
 	>=virtual/gsasl-0.2.27
 	berkdb? ( >=sys-libs/db-4.1.25 )
-	mysql? ( virtual/mysql dev-libs/libgcrypt )
+	mysql? ( virtual/mysql )
 	ldap? ( >=net-nds/openldap-2.1.0 )
 	pam? ( virtual/pam )
 	postgres? ( dev-db/postgresql-base )
