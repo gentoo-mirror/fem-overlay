@@ -12,16 +12,14 @@ SRC_URI="mirror://sourceforge/ftplicity/${PN}_${PV}.tgz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="ftps"
 
-RDEPEND="app-backup/duplicity
-	 ftps? ( app-backup/duplicity[ftps] )"
+RDEPEND="app-backup/duplicity"
 
 DEPEND="${RDEPEND}"
 
 src_prepare() {
 	cd ${PN}_${PV}
-	use ftps && epatch "${FILESDIR}/${PN}-ftps.patch"
+	epatch "${FILESDIR}/${PN}-ftps.patch"
 }
 
 src_install() {
