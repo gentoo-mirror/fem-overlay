@@ -16,7 +16,7 @@ SRC_URI="http://nodeload.github.com/${GITHUB_AUTHOR}/${GITHUB_PROJECT}/tarball/v
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 hppa ~ppc ~x86"
+KEYWORDS="amd64 hppa ~ppc x86"
 IUSE=""
 
 DEPEND=""
