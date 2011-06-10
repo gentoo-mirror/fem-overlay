@@ -196,7 +196,7 @@ function dump_all_databases()
 function cleanup()
 {
   if [ -d ${BACKUPDIR_ORIG} ]; then
-  	LAST_RETURN=$(find ${BACKUPDIR_ORIG}/* -type d -mtime +${DAYS} -delete 2>&1)
+  	LAST_RETURN=$(find ${BACKUPDIR_ORIG}/* -type d -mtime +${DAYS} | xargs /bin/rm -r 2>&1)
   fi
   [[ $? -ne 0 ]] && echo "Cleanup of old Backups failed:" >&2 && echo ${LAST_RETURN} >&2
 }
