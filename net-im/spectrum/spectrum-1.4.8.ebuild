@@ -1,14 +1,15 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
 EAPI=2
 
 inherit cmake-utils
 
-DESCRIPTION="Spectrum is an XMPP transport/gateway"
+DESCRIPTION="XMPP transport/gateway"
 HOMEPAGE="http://spectrum.im"
 
-SRC_URI="http://spectrum.im/attachments/download/34/spectrum-${PV}.tar.gz"
+SRC_URI="http://spectrum.im/attachments/download/43/spectrum-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -16,13 +17,15 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="mysql sqlite symlinks tools staticport"
 
-RDEPEND=">=dev-libs/poco-1.3.3[mysql?,sqlite?]
-	>=net-im/pidgin-2.6.0
-	>=net-libs/gloox-1.0
-	dev-python/xmpppy"
+RDEPEND="dev-libs/libev
+		>=dev-libs/poco-1.3.3[mysql?,sqlite?]
+		dev-python/xmpppy
+		media-gfx/imagemagick[cxx]
+		>=net-im/pidgin-2.6.0
+		>=net-libs/gloox-1.0"
 DEPEND="${RDEPEND}
-	sys-devel/gettext
-	dev-util/cmake"
+		dev-util/cmake
+		sys-devel/gettext"
 
 PROTOCOL_LIST="aim facebook gg icq irc msn msn_pecan myspace qq simple sipe twitter xmpp yahoo"
 
@@ -40,6 +43,7 @@ src_install () {
 	# Install transports with seperate config files (default).
 	# If USE="symlinks" is set, install one config file with symlinks to all transports.
 
+	# Declare (start) port
 	port=5347
 
 	# prepare config for mysql or just copy
@@ -70,7 +74,7 @@ src_install () {
 				"${FILESDIR}"/spectrum.confd > "${WORKDIR}"/spectrum.confd
 		else
 			sed -e 's,\$filename:protocol,'${protocol}',g' \
-			    -e 's,\$filename:port,'${port}',g' \
+				-e 's,\$filename:port,'${port}',g' \
 				"${WORKDIR}"/spectrum.cfg > "${WORKDIR}/${protocol}.cfg" || die
 			sed -e 's,PROTOCOL,'${protocol}',g' \
 				"${FILESDIR}"/spectrum.confd > "${WORKDIR}"/spectrum.confd
@@ -117,6 +121,10 @@ src_install () {
 }
 
 pkg_postinst() {
+	# Create jabber-user
+	enewgroup jabber
+	enewuser jabber -1 -1 -1 jabber
+
 	# Set correct rights
 	chown jabber:jabber -R "/etc/spectrum" || die
 	chown jabber:jabber -R "/var/lib/spectrum" || die
