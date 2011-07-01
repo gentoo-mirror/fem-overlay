@@ -5,11 +5,11 @@
 # Create MySQL-Dumps via SSH using RSA or DSA authentication (private key).
 # Each database will be dumped as a single file and can be compressed optional.
 #
-# Copyright (c) 2010 Marcel Pennewiss (opensource@pennewiss.de)
+# Copyright (c) 2010-2011 Marcel Pennewiss (opensource@pennewiss.de)
 # Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
 #
-# Current Version: 1.1
-# Last Modified: 2011-06-07
+# Current Version: 1.2
+# Last Modified: 2011-07-01
 #
 # USAGE:
 #   Start mysql-ssh-backup with the "-h" option to show usage/help.
@@ -25,6 +25,7 @@
 # CHANGELOG:
 #   v1.0 - Initial Release (2010-12-14)
 #   v1.1 - Fix Cleanup Directory (2011-06-07)
+#   v1.2 - Ignore cleanup directory list if empty (2011-07-01)
 #
 # LICENSE: GPL-2
 #
@@ -42,7 +43,7 @@
 
 # show usage information
 print_usage() {
-  echo "MySQL-SSH-Backup v1.1"
+  echo "MySQL-SSH-Backup v1.2"
   echo "Create MySQL-Dumps via SSH using RSA or DSA authentication (private key)."
   echo "Each database will be dumped as a single file and can be compressed optional."
   echo ""
@@ -196,7 +197,7 @@ function dump_all_databases()
 function cleanup()
 {
   if [ -d ${BACKUPDIR_ORIG} ]; then
-  	LAST_RETURN=$(find ${BACKUPDIR_ORIG}/* -type d -mtime +${DAYS} | xargs /bin/rm -r 2>&1)
+  	LAST_RETURN=$(find ${BACKUPDIR_ORIG}/* -type d -mtime +${DAYS} | xargs --no-run-if-empty /bin/rm -r 2>&1)
   fi
   [[ $? -ne 0 ]] && echo "Cleanup of old Backups failed:" >&2 && echo ${LAST_RETURN} >&2
 }
