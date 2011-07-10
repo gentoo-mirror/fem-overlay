@@ -159,12 +159,6 @@ src_prepare() {
 	# fix --as-needed, #320339
 	epatch "${FILESDIR}/${P}-asneeded.patch"
 
-	# fix #351503
-	epatch "${FILESDIR}/${P}-headers.patch"
-
-	# fix gcc 4.4 failure
-	#epatch "${FILESDIR}/${PN}-3.4.1-xc_core-memset.patch"
-	
 	# ipv6-support in xen-scripts
 	epatch "${FILESDIR}"/${PN}-4.0.0-vif-ipv6.patch
 }

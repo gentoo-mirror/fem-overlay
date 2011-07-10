@@ -1,5 +1,6 @@
---- qemu-xen-unstable.git/xen-setup.old	2009-07-26 19:30:30.000000000 +0200
-+++ qemu-xen-unstable.git/xen-setup	2009-07-26 19:30:47.000000000 +0200
+diff -Nru a/tools/ioemu-qemu-xen/xen-setup b/tools/ioemu-qemu-xen/xen-setup
+--- a/tools/ioemu-qemu-xen/xen-setup	2008-08-22 17:56:41.000000000 +0800
++++ b/tools/ioemu-qemu-xen/xen-setup	2009-02-20 10:55:37.000000000 +0800
 @@ -3,6 +3,8 @@
  
  # git-clean -x -d && ./xen-setup && make prefix=/usr CMDLINE_CFLAGS='-O0 -g' -j4 && make install DESTDIR=`pwd`/dist/ prefix=/usr && rsync -a --stats --delete . thule:shadow/qemu-iwj.git/ && rsync -a --stats dist/. root@thule:/
@@ -9,9 +10,9 @@
  rm -f $target/Makefile
  rm -f $target/config.mak
  rm -f config-host.mak
-@@ -18,8 +20,6 @@
+@@ -11,8 +13,6 @@
  
- ./configure --disable-gfx-check --disable-curses --disable-slirp "$@" --prefix=${PREFIX}
+ ./configure --disable-gfx-check --disable-gcc-check --disable-curses --disable-slirp "$@" --prefix=/usr
  
 -target=i386-dm
 -

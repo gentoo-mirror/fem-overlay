@@ -1,30 +1,28 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-3.3.0.ebuild,v 1.1 2008/09/01 00:30:53 rbu Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-4.1.0.ebuild,v 1.2 2011/03/26 19:18:35 alexxy Exp $
 
-inherit mount-boot flag-o-matic toolchain-funcs mercurial
+EAPI="3"
+
+inherit mount-boot flag-o-matic toolchain-funcs
 
 DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
-REPO="xen-unstable.hg"
-EHG_REPO_URI="http://xenbits.xensource.com/${REPO}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="debug custom-cflags pae acm flask xsm"
 
 RDEPEND="|| ( sys-boot/grub
-		sys-boot/grub-static )
-		>=sys-kernel/xen-sources-2.6.${PV}"
+		sys-boot/grub-static )"
 PDEPEND="~app-emulation/xen-tools-${PV}"
 
 RESTRICT="test"
 
 # Approved by QA team in bug #144032
 QA_WX_LOAD="boot/xen-syms-${PV}"
-
-S="${WORKDIR}/${REPO}"
 
 pkg_setup() {
 	if [[ -z ${XEN_TARGET_ARCH} ]]; then
@@ -51,9 +49,9 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
-	mercurial_src_unpack
-
+src_prepare() {
+	# Drop .config
+	sed -e '/-include $(XEN_ROOT)\/.config/d' -i Config.mk || die "Couldn't	drop"
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
 		einfo "User wants their own CFLAGS - removing defaults"
@@ -68,8 +66,7 @@ src_unpack() {
 	fi
 }
 
-src_compile() {
-	local myopt
+src_configure() {
 	use debug && myopt="${myopt} debug=y"
 	use pae && myopt="${myopt} pae=y"
 
@@ -79,7 +76,9 @@ src_compile() {
 	else
 		unset CFLAGS
 	fi
+}
 
+src_compile() {
 	# Send raw LDFLAGS so that --as-needed works
 	emake CC="$(tc-getCC)" LDFLAGS="$(raw-ldflags)" -C xen ${myopt} || die "compile failed"
 }
@@ -95,7 +94,7 @@ src_install() {
 pkg_postinst() {
 	elog "Official Xen Guide and the unoffical wiki page:"
 	elog " http://www.gentoo.org/doc/en/xen-guide.xml"
-	elog " http://gentoo-wiki.com/HOWTO_Xen_and_Gentoo"
+	elog " http://en.gentoo-wiki.com/wiki/Xen/"
 
 	if use pae; then
 		echo

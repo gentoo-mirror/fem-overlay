@@ -1,25 +1,19 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-3.4.0-r1.ebuild,v 1.2 2009/06/27 07:12:39 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-4.1.0-r1.ebuild,v 1.2 2011/04/05 21:25:03 alexxy Exp $
 
 EAPI="3"
 
-inherit flag-o-matic eutils multilib python mercurial git
+inherit flag-o-matic eutils multilib python
 
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-MERC_REPO="xen-unstable.hg"
-GIT_REPO="qemu-xen-unstable.git"
-
-EHG_REPO_URI="http://xenbits.xensource.com/${MERC_REPO}"
-EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
-EGIT_PROJECT="${GIT_REPO}"
-
-S="${WORKDIR}/${MERC_REPO}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
+S="${WORKDIR}/xen-${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc debug screen custom-cflags pygrub hvm api acm flask ioemu"
 
 CDEPEND="dev-lang/python
@@ -33,6 +27,7 @@ DEPEND="${CDEPEND}
 	sys-devel/gcc
 	dev-lang/perl
 	app-misc/pax-utils
+	dev-ml/findlib
 	doc? (
 		app-doc/doxygen
 		dev-tex/latex2html
@@ -54,19 +49,11 @@ RDEPEND="${CDEPEND}
 	)
 	|| ( sys-fs/udev sys-apps/hotplug )"
 
-PYTHON_MODNAME="xen grub"
-
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
-OPENBIOS_FILES="usr/share/xen/qemu/openbios-sparc32
-	usr/share/xen/qemu/openbios-sparc64
-	usr/share/xen/qemu/openbios-ppc"
-
-QA_WX_LOAD="usr/lib/xen/boot/hvmloader
-	${OPENBIOS_FILES}"
-QA_EXECSTACK="${OPENBIOS_FILES}"
-QA_PRESTRIPPED="${OPENBIOS_FILES}"
-QA_TEXTRELS="usr/lib/libvhd.so.1.0.0"
+QA_WX_LOAD="usr/lib/xen/boot/hvmloader"
+QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
+	usr/share/xen/qemu/openbios-sparc64"
 
 pkg_setup() {
 	export "CONFIG_LOMOUNT=y"
@@ -115,33 +102,15 @@ pkg_setup() {
 		die "python is missing threads flags"
 	fi
 
-#	use vtpm    && export "VTPM_TOOLS=y"
 	use api     && export "LIBXENAPI_BINDINGS=y"
 	use acm     && export "ACM_SECURITY=y"
 	use flask   && export "FLASK_ENABLE=y"
-
-	# use emerge to fetch qemu/ioemu
-	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
-}
-
-src_unpack() {
-    default_src_unpack
-    
-    # unpack xen
-    mercurial_src_unpack
-
-    EGIT_COMMIT=$(sed -n -e "s/QEMU_TAG := \(.*\)/\1/p" "${S}"/Config.mk)
-
-    # unpack ioemu repos
-    S=${WORKDIR}/${GIT_REPO}
-    git_src_unpack    
-    
-    S=${WORKDIR}/${MERC_REPO}
-    cd ${S}
 }
 
 src_prepare() {
-
+	sed -e 's/-Wall//' -i Config.mk || die "Couldn't sanitize CFLAGS"
+	# Drop .config
+	sed -e '/-include $(XEN_ROOT)\/.config/d' -i Config.mk || die "Couldn't drop"
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
 		einfo "User wants their own CFLAGS - removing defaults"
@@ -158,33 +127,27 @@ src_prepare() {
 	# Disable hvm support on systems that don't support x86_32 binaries.
 	if ! use hvm; then
 		chmod 644 tools/check/check_x11_devel
-		sed -i -e '/^CONFIG_IOEMU := y$/d' "${S}"/config/*.mk
-		sed -i -e '/SUBDIRS-$(CONFIG_X86) += firmware/d' "${S}"/tools/Makefile
+		sed -e '/^CONFIG_IOEMU := y$/d' -i config/*.mk
+		sed -e '/SUBDIRS-$(CONFIG_X86) += firmware/d' -i tools/Makefile
 	fi
 
 	if ! use pygrub; then
-		sed -i -e '/^SUBDIRS-$(PYTHON_TOOLS) += pygrub$/d' "${S}"/tools/Makefile
+		sed -e '/^SUBDIRS-$(PYTHON_TOOLS) += pygrub$/d' -i tools/Makefile
 	fi
-
 	# Don't bother with ioemu, only needed for fully virtualised guests
 	if ! use ioemu; then
-		sed -i -e "/^CONFIG_IOEMU := y$/d" "${S}"/config/*.mk
-		sed -i -e "s:install-tools\: tools/ioemu-dir:install-tools\: :g" \
-			"${S}/Makefile"
+		sed -e "/^CONFIG_IOEMU := y$/d" -i config/*.mk
+		sed -e "s:install-tools\: tools/ioemu-dir:install-tools\: :g" \
+			-i Makefile
 	fi
 
-	# patch ioemu/qemu
-	cd ${WORKDIR}
-	# Do not strip binaries
-	epatch "${FILESDIR}/${P}-nostrip.patch"
-
-	# fix variable declaration to avoid sandbox issue, #253134
-	epatch "${FILESDIR}/${P}-sandbox-fix.patch"
-
-	cd ${S}
-
+	# Fix build for gcc-4.6
+	sed -e "s:-Werror::g" -i  tools/xenstat/xentop/Makefile
 	# Fix network broadcast on bridged networks
 	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
+
+	# Do not strip binaries
+	epatch "${FILESDIR}/${PN}-3.3.0-nostrip.patch"
 }
 
 src_compile() {
@@ -197,6 +160,7 @@ src_compile() {
 		append-flags -fno-strict-overflow
 	fi
 
+	unset LDFLAGS
 	emake -C tools ${myopt} || die "compile failed"
 
 	if use doc; then
@@ -213,7 +177,7 @@ src_install() {
 		|| die "install failed"
 
 	# Remove RedHat-specific stuff
-	rm -rf "${D}"/etc/sysconfig
+	rm -r "${D}"/etc/default "${D}"/etc/init.d/xen* || die
 
 	dodoc README docs/README.xen-bugtool docs/ChangeLog
 	if use doc; then
@@ -230,12 +194,20 @@ src_install() {
 
 	doman docs/man?/*
 
-	newinitd "${FILESDIR}"/xend.initd-r1 xend \
+	newinitd "${FILESDIR}"/xend.initd-r2 xend \
 		|| die "Couldn't install xen.initd"
 	newconfd "${FILESDIR}"/xendomains.confd xendomains \
 		|| die "Couldn't install xendomains.confd"
-	newinitd "${FILESDIR}"/xendomains.initd-r1 xendomains \
+	newinitd "${FILESDIR}"/xendomains.initd-r2 xendomains \
 		|| die "Couldn't install xendomains.initd"
+	newinitd "${FILESDIR}"/xenstored.initd xenstored \
+		|| die "Couldn't install xenstored.initd"
+	newconfd "${FILESDIR}"/xenstored.confd xenstored \
+		|| die "Couldn't install xenstored.confd"
+	newinitd "${FILESDIR}"/xenconsoled.initd xenconsoled \
+		|| die "Couldn't install xenconsoled.initd"
+	newconfd "${FILESDIR}"/xenconsoled.confd xenconsoled \
+		|| die "Couldn't install xenconsoled.confd"
 
 	if use screen; then
 		cat "${FILESDIR}"/xendomains-screen.confd >> "${D}"/etc/conf.d/xendomains
@@ -253,7 +225,7 @@ src_install() {
 pkg_postinst() {
 	elog "Official Xen Guide and the unoffical wiki page:"
 	elog " http://www.gentoo.org/doc/en/xen-guide.xml"
-	elog " http://en.gentoo-wiki.com/wiki/Xen/"
+	elog " http://gentoo-wiki.com/HOWTO_Xen_and_Gentoo"
 
 	if [[ "$(scanelf -s __guard -q $(type -P python))" ]] ; then
 		echo
@@ -289,9 +261,9 @@ pkg_postinst() {
 		elog "Please remove '${ROOT%/}/etc/conf.d/xend', as it is no longer needed."
 	fi
 
-	python_mod_optimize
+	python_mod_optimize $(use pygrub && echo grub) xen
 }
 
 pkg_postrm() {
-	python_mod_cleanup
+	python_mod_cleanup $(use pygrub && echo grub) xen
 }

@@ -126,9 +126,6 @@ src_prepare() {
 	# fix variable declaration to avoid sandbox issue, #253134
 	epatch "${FILESDIR}/${PN}-3.3.1-sandbox-fix.patch"
 
-	# fix gcc 4.4 failure
-	#epatch "${FILESDIR}/${PN}-3.4.1-xc_core-memset.patch"
-
 	# Fix --as-needed issues, bug 296631
 	epatch "${FILESDIR}/${P}-as-needed.patch"
 }
