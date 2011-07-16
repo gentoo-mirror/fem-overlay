@@ -1,6 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 depend() {
 	need net
@@ -46,7 +47,7 @@ start() {
 		start-stop-daemon \
 			--background \
 			--start  \
-			--chuid jabber:jabber \
+			--user jabber:jabber \
 			--exec ${executable} \
 			--pidfile /var/run/jabber/${pid_name} \
 			-- -c ${cfgfile}
@@ -56,6 +57,7 @@ start() {
 }
 
 stop() {
+	# całosc do przerobki
 	einfo "Stopping Jabber Services ..."
 	eindent
 	local pid_name pid_path services

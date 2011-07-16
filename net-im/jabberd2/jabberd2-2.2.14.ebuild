@@ -18,19 +18,19 @@ IUSE="berkdb debug memdebug mysql ldap pam postgres sqlite3 ssl zlib"
 DEPEND="dev-libs/expat
 	net-libs/udns
 	net-dns/libidn
-	>=virtual/gsasl-0.2.27
-	berkdb? ( >=sys-libs/db-4.1.25 )
+	>=virtual/gsasl-0.2.28
+	berkdb? ( >=sys-libs/db-4.2 )
 	mysql? ( virtual/mysql )
-	ldap? ( >=net-nds/openldap-2.1.0 )
+	ldap? ( net-nds/openldap )
 	pam? ( virtual/pam )
 	postgres? ( dev-db/postgresql-base )
-	ssl? ( >=dev-libs/openssl-0.9.6b )
+	ssl? ( dev-libs/openssl )
 	sqlite3? ( dev-db/sqlite:3 )
 	zlib? ( sys-libs/zlib )"
 RDEPEND="${DEPEND}
+	dev-libs/libxml2
 	>=net-im/jabber-base-0.01
-	!net-im/jabberd
-	dev-libs/libxml2"
+	!net-im/jabberd"
 
 S="${WORKDIR}/jabberd-${PV}"
 
@@ -94,7 +94,7 @@ src_install() {
 	sed -i \
 		-e 's,<driver>mysql</driver>,<driver>db</driver>,' \
 		sm.xml* || die "sed failed"
-	rm jabberd.cfg || die "rm failed"
+	rm jabberd.cfg jabberd-{c2s,router,s2s,sm}.conf || die "rm failed"
 	find "${D}" -type f -name '*.la' -exec rm -rf '{}' '+' || die "removing .la files died"
 }
 
