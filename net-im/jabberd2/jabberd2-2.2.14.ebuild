@@ -95,6 +95,7 @@ src_install() {
 		-e 's,<driver>mysql</driver>,<driver>db</driver>,' \
 		sm.xml* || die "sed failed"
 	rm jabberd.cfg jabberd-{c2s,router,s2s,sm}.conf || die "rm failed"
+	rm -r "${D}/usr/etc" || die "rm2 failed"
 	find "${D}" -type f -name '*.la' -exec rm -rf '{}' '+' || die "removing .la files died"
 }
 
