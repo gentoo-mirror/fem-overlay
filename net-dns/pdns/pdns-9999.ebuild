@@ -1,6 +1,5 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-dns/pdns/pdns-2.9.22-r1.ebuild,v 1.3 2009/07/22 18:21:58 ssuominen Exp $
 
 EAPI=2
 inherit eutils autotools multilib subversion
@@ -23,7 +22,8 @@ RDEPEND="mysql? ( virtual/mysql )
 	opendbx? ( dev-db/opendbx )
 	>=dev-libs/boost-1.31"
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen )"
+	doc? ( app-doc/doxygen )
+	dev-util/ragel"
 
 src_unpack() {
 	# Copy the subversion files
