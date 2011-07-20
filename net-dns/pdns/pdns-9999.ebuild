@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug doc ldap mysql postgres sqlite sqlite3 static opendbx"
 
 RDEPEND="mysql? ( virtual/mysql )
-	postgres? ( >=dev-cpp/libpqpp-4.0-r1 )
+	postgres? ( dev-db/postgresql-base )
 	ldap? ( >=net-nds/openldap-2.0.27-r4 )
 	sqlite? ( =dev-db/sqlite-2.8* )
 	sqlite3? ( =dev-db/sqlite-3* )
@@ -34,7 +34,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-gcc44.patch
 	eautoreconf --install || die "autoconf failed"
 }
 
