@@ -38,7 +38,7 @@ start() {
         else
         	ebegin "Starting ${PROTOCOL} Spectrum Transport"
         	start-stop-daemon --start --pidfile ${PIDFILE} \
-	        	          --chuid jabber:jabber --exec /usr/bin/spectrum -- ${CONFFILE}
+	        	          --user jabber:jabber --exec /usr/bin/spectrum -- ${CONFFILE}
 		eend $?
 	fi
 

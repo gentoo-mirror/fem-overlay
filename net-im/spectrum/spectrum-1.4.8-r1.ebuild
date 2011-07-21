@@ -1,12 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="4"
 
 inherit cmake-utils
 
-DESCRIPTION="XMPP transport/gateway"
+DESCRIPTION="Spectrum is an XMPP transport/gateway"
 HOMEPAGE="http://spectrum.im"
 
 SRC_URI="http://spectrum.im/attachments/download/43/spectrum-${PV}.tar.gz"
@@ -22,12 +22,14 @@ RDEPEND="dev-libs/libev
 		dev-python/xmpppy
 		media-gfx/imagemagick[cxx]
 		>=net-im/pidgin-2.6.0
-		>=net-libs/gloox-1.0"
+		>=net-libs/gloox-1.0
+		<dev-lang/python-3"
 DEPEND="${RDEPEND}
 		dev-util/cmake
 		sys-devel/gettext"
 
 PROTOCOL_LIST="aim facebook gg icq irc msn msn_pecan myspace qq simple sipe twitter xmpp yahoo"
+mycmakeargs=( -DPYTHON_EXECUTABLE=/usr/bin/python2 )
 
 pkg_setup() {
 	if ! ( use sqlite || use mysql ); then
@@ -118,20 +120,18 @@ src_install () {
 		insinto "/usr/share/spectrum/tools"
 		doins tools/* || die
 	fi
-}
 
-pkg_postinst() {
 	# Create jabber-user
 	enewgroup jabber
 	enewuser jabber -1 -1 -1 jabber
 
 	# Set correct rights
-	chown jabber:jabber -R "/etc/spectrum" || die
-	chown jabber:jabber -R "/var/lib/spectrum" || die
-	chown jabber:jabber -R "/var/log/spectrum" || die
-	chown jabber:jabber -R "/var/run/spectrum" || die
-	chmod 750 "/etc/spectrum" || die
-	chmod 750 "/var/lib/spectrum" || die
-	chmod 750 "/var/log/spectrum" || die
-	chmod 750 "/var/run/spectrum" || die
+	fowners jabber:jabber -R "/etc/spectrum" || die
+	fowners jabber:jabber -R "/var/lib/spectrum" || die
+	fowners jabber:jabber -R "/var/log/spectrum" || die
+	fowners jabber:jabber -R "/var/run/spectrum" || die
+	fperms 750 "/etc/spectrum" || die
+	fperms 750 "/var/lib/spectrum" || die
+	fperms 750 "/var/log/spectrum" || die
+	fperms 750 "/var/run/spectrum" || die
 }

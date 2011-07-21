@@ -1,16 +1,15 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-EAPI=2
 
-inherit cmake-utils git
+EAPI="4"
+
+inherit cmake-utils git-2
 
 DESCRIPTION="Spectrum is an XMPP transport/gateway"
 HOMEPAGE="http://spectrum.im"
 
-EGIT_REPO_URI="http://github.com/hanzz/spectrum.git"
-#EGIT_COMMIT="master"
-#EGIT_BRANCH="${EGIT_COMMIT}"
+EGIT_REPO_URI="git://github.com/hanzz/${PN}.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,15 +19,17 @@ IUSE="mysql sqlite symlinks tools staticport"
 
 RDEPEND=">=dev-libs/poco-1.3.3[mysql?,sqlite?]
 	media-gfx/imagemagick[cxx]
-        >=net-im/pidgin-2.6.0
-        >=net-libs/gloox-1.0
-        dev-python/xmpppy
-		dev-libs/libev"
+	>=net-im/pidgin-2.6.0
+	>=net-libs/gloox-1.0
+	dev-python/xmpppy
+	dev-libs/libev
+	<dev-lang/python-3"
 DEPEND="${RDEPEND}
-        sys-devel/gettext
-        dev-util/cmake"
+	dev-util/cmake
+	sys-devel/gettext"
 
 PROTOCOL_LIST="aim facebook gg icq irc msn msn_pecan myspace qq simple sipe twitter xmpp yahoo"
+mycmakeargs=( -DPYTHON_EXECUTABLE=/usr/bin/python2 )
 
 pkg_setup() {
 	if ! ( use sqlite || use mysql ); then
@@ -36,12 +37,6 @@ pkg_setup() {
 		ewarn "You need to enable the mysql or sqlite use flag!"
 		die
 	fi
-}
-
-src_unpack() {
-	git_src_unpack
-	git_submodules init
-	git_submodules update
 }
 
 src_install () {
@@ -124,16 +119,14 @@ src_install () {
 		insinto "/usr/share/spectrum/tools"
 		doins tools/* || die
 	fi
-}
 
-pkg_postinst() {
 	# Set correct rights
-	chown jabber:jabber -R "/etc/spectrum" || die
-	chown jabber:jabber -R "/var/lib/spectrum" || die
-	chown jabber:jabber -R "/var/log/spectrum" || die
-	chown jabber:jabber -R "/var/run/spectrum" || die
-	chmod 750 "/etc/spectrum" || die
-	chmod 750 "/var/lib/spectrum" || die
-	chmod 750 "/var/log/spectrum" || die
-	chmod 750 "/var/run/spectrum" || die
+	fowners jabber:jabber -R "/etc/spectrum" || die
+	fowners jabber:jabber -R "/var/lib/spectrum" || die
+	fowners jabber:jabber -R "/var/log/spectrum" || die
+	fowners jabber:jabber -R "/var/run/spectrum" || die
+	fperms 750 "/etc/spectrum" || die
+	fperms 750 "/var/lib/spectrum" || die
+	fperms 750 "/var/log/spectrum" || die
+	fperms 750 "/var/run/spectrum" || die
 }
