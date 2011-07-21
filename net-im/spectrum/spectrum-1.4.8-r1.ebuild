@@ -120,7 +120,9 @@ src_install () {
 		insinto "/usr/share/spectrum/tools"
 		doins tools/* || die
 	fi
+}
 
+pkg_postinst() {
 	# Create jabber-user
 	enewgroup jabber
 	enewuser jabber -1 -1 -1 jabber
