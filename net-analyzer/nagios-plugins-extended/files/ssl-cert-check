@@ -1,14 +1,36 @@
-#!/bin/bash
+#!/bin/bash 
 #
 # Program: SSL Certificate Check <ssl-cert-check>
 #
 # Source code home: http://prefetch.net/code/ssl-cert-check
 #
+# Documentation: http://prefetch.net/articles/checkcertificate.html
+#
 # Author: Matty < matty91 at gmail dot com >
 #
-# Current Version: 3.17
+# Current Version: 3.23
 #
 # Revision History:
+#
+# Version 3.23
+#   - Fixed typo in date2julian routine -- Ken Cook
+#
+# Version 3.22
+#   - Change the validation option to "-V"
+#   - Add a "-v" option to specify a specific protocol version (ssl2, ssl3 or tls)
+#
+# Version 3.21
+#   - Adjust e-mail checking to avoid exiting if notifications aren't enabled -- Nick Anderson
+#   - Added the number of days until expiration to the Nagios output -- Nick Anderson
+#
+# Version 3.20
+#   - Fixed a bug in certificate length checking -- Tim Nowaczyk
+#
+# Version 3.19
+#   - Added check to verify the certificate retrieved is valid
+#
+# Version 3.18
+#   - Add support for connecting to FTP servers -- Paul A Sand 
 #
 # Version 3.17
 #   - Add support for connecting to imap servers -- Joerg Pareigis
@@ -121,7 +143,7 @@
 #  Version 1.0
 #      Initial Release
 #
-# Last Updated: 01-22-2010
+# Last Updated: 04-01-2010
 #
 # Purpose: 
 #  ssl-cert-check checks to see if a digital certificate in X.509 format
@@ -129,7 +151,6 @@
 #  and provides facilities to alarm if a certificate is about to expire.
 #
 # License: 
-#  Copyright (C) 2007 Ryan Matteson <matty91 at gmail dot com>
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
@@ -152,7 +173,7 @@
 #  -- OS X 10.4.2 using /bin/sh
 #  -- OpenBSD using /bin/sh
 #  -- FreeBSD using /bin/sh
-#  -- Redhat advanced server 3.0MU3 using /bin/sh 
+#  -- Redhat Enterprise Linux 3, 4, 5 & 6
 # 
 # Usage:
 #  Refer to the usage() sub-routine, or invoke ssl-cert-check 
@@ -164,7 +185,8 @@
 #      http://prefetch.net/articles/checkcertificate.html
 #
 
-PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/ssl/bin:/usr/sfw/bin ; export PATH
+PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/ssl/bin:/usr/sfw/bin
+export PATH
 
 # Who to page when an expired certificate is detected (cmdline: -e)
 ADMIN="root"
@@ -193,15 +215,11 @@ PRINTF=$(which printf)
 SED=$(which sed)
 MKTEMP=$(which mktemp)
 
-if [ -f /usr/bin/mailx ]
-then
-    MAIL="/usr/bin/mailx"
-else
-    MAIL=$(which mail)
-fi
-
 # Return code used by nagios. Initialize to 0.
 RETCODE=0
+
+# Protocol version to use
+VERSION=""
 
 # Set the default umask to be somewhat restrictive
 umask 077
@@ -218,7 +236,7 @@ umask 077
 #############################################################################
 date2julian() {
 
-    if [ "${1} != "" ] && [ "${2} != ""  ] && [ "${3}" != "" ]
+    if [ "${1}" != "" ] && [ "${2}" != ""  ] && [ "${3}" != "" ]
     then
         ## Since leap years add aday at the end of February, 
         ## calculations are done from 1 March 0000 (a fictional year)
@@ -292,8 +310,12 @@ prints()
     if [ "${QUIET}" != "TRUE" ] && [ "${ISSUER}" = "TRUE" ] && [ "${VALIDATION}" != "TRUE" ]
     then
         MIN_DATE=$(echo $4 | ${AWK} '{ print $1, $2, $4 }')
-        ${PRINTF} "%-35s %-17s %-8s %-11s %-4s %-30s\n" "$1:$2" "$6" "$3" "$MIN_DATE" "$5" 
-
+        if [ "${NAGIOS}" == "TRUE" ]
+        then
+            ${PRINTF} "%-35s %-17s %-8s %-11s %-4s %-30s\n" "$1:$2" "$6" "$3" "$MIN_DATE" \|days="$5" 
+        else
+            ${PRINTF} "%-35s %-17s %-8s %-11s %-4s %-30s\n" "$1:$2" "$6" "$3" "$MIN_DATE" "$5" 
+        fi
     elif [ "${QUIET}" != "TRUE" ] && [ "${ISSUER}" = "TRUE" ] && [ "${VALIDATION}" == "TRUE" ]
     then
         ${PRINTF} "%-35s %-35s %-32s %-17s\n" "$1:$2" "$7" "$8" "$6"
@@ -301,8 +323,12 @@ prints()
     elif [ "${QUIET}" != "TRUE" ] && [ "${VALIDATION}" != "TRUE" ]
     then
         MIN_DATE=$(echo $4 | ${AWK} '{ print $1, $2, $4 }')
-        ${PRINTF} "%-47s %-12s %-12s %-4s %-30s\n" "$1:$2" "$3" "$MIN_DATE" "$5" 
-    
+        if [ "${NAGIOS}" == "TRUE" ]
+        then
+            ${PRINTF} "%-47s %-12s %-12s %-4s %-30s\n" "$1:$2" "$3" "$MIN_DATE" \|days="$5" 
+        else
+            ${PRINTF} "%-47s %-12s %-12s %-4s %-30s\n" "$1:$2" "$3" "$MIN_DATE" "$5" 
+        fi  
     elif [ "${QUIET}" != "TRUE" ] && [ "${VALIDATION}" == "TRUE" ]
     then
         ${PRINTF} "%-35s %-35s %-32s\n" "$1:$2" "$7" "$8"
@@ -365,7 +391,8 @@ usage()
     echo "  -p port           : Port to connect to (interactive mode)"
     echo "  -s commmon name   : Server to connect to (interactive mode)"
     echo "  -q                : Don't print anything on the console"
-    echo "  -v                : Only print validation data"
+    echo "  -v                : Specify a specific protocol version to use (tls, ssl2, ssl3)"
+    echo "  -V                : Only print validation data"
     echo "  -x days           : Certificate expiration interval (eg. if cert_date < days)"
     echo ""
 }
@@ -380,9 +407,15 @@ usage()
 ##########################################################################
 check_server_status() {
 
+
+
     if [ "_${2}" = "_smtp" -o "_${2}" = "_25" ]
     then
         TLSFLAG="-starttls smtp"
+
+    elif [ "_${2}" = "_ftp" -o "_${2}" = "_21" ]
+    then
+        TLSFLAG="-starttls ftp"
 
     elif [ "_${2}" = "_pop3" -o "_${2}" = "_110" ]
     then
@@ -399,7 +432,12 @@ check_server_status() {
         TLSFLAG=""
     fi
 
-    echo "" | ${OPENSSL} s_client -connect ${1}:${2} ${TLSFLAG} 2> ${ERROR_TMP} 1> ${CERT_TMP}
+    if [ "${VERSION}" != "" ]
+    then
+        VER="-${VERSION}"
+    fi
+
+    echo "" | ${OPENSSL} s_client ${VER} -connect ${1}:${2} ${TLSFLAG} 2> ${ERROR_TMP} 1> ${CERT_TMP}
 
     if ${GREP} -i  "Connection refused" ${ERROR_TMP} > /dev/null
     then
@@ -420,6 +458,7 @@ check_server_status() {
     elif ${GREP} -i "connect: Connection timed out" ${ERROR_TMP} > /dev/null
     then
         prints ${1} ${2} "Connection timed out" "Unknown"  
+
     else
         check_file_status ${CERT_TMP} $1 $2
     fi
@@ -439,9 +478,10 @@ check_file_status() {
     PORT=${3}
 
     ### Check to make sure the certificate file exists
-    if [ ! -r ${CERTFILE} ]
+    if [ ! -r ${CERTFILE} ] || [ -z ${CERTFILE} ]
     then
         echo "ERROR: The file named ${CERTFILE} is unreadable or doesn't exist"
+        echo "ERROR: Please check to make sure the certificate for ${HOST}:${PORT} is valid"
         RETCODE=1
         return
     fi
@@ -527,7 +567,7 @@ check_file_status() {
 #################################
 ### Start of main program
 #################################
-while getopts abinve:f:c:hk:p:s:qx: option
+while getopts abinv:e:f:c:hk:p:s:qx:V option
 do
     case "${option}"
     in
@@ -544,12 +584,26 @@ do
         p) PORT=$OPTARG;;
         s) HOST=$OPTARG;;
         q) QUIET="TRUE";;
-        v) VALIDATION="TRUE";;
+        v) VERSION=$OPTARG;;
+        V) VALIDATION="TRUE";;
         x) WARNDAYS=$OPTARG;;
        \?) usage
            exit 1;;
     esac
 done
+
+if [ -f /usr/bin/mailx ]
+then
+    MAIL="/usr/bin/mailx"
+else
+    if [ "${ALARM}" == "FALSE" ]
+    then
+        MAIL=$(which mail 2>/dev/null)
+    else
+        MAIL=$(which mail)
+    fi
+fi
+
 
 ### Check to make sure a openssl utility is available
 if [ ! -f ${OPENSSL} ]
