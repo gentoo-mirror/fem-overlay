@@ -55,7 +55,7 @@ src_install() {
 
 	insinto /etc/stunnel
 	doins "${FILESDIR}"/stunnel.conf
-	newinitd "${FILESDIR}"/stunnel.old.initd stunnel
+	newinitd "${FILESDIR}"/stunnel.initd stunnel
 
 	keepdir /var/run/stunnel
 	fowners stunnel:stunnel /var/run/stunnel

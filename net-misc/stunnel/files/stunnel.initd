@@ -1,73 +1,39 @@
 #!/sbin/runscript
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-# Default pidfile location
-DEFAULT_PIDFILE="/var/run/stunnel/stunnel.pid"
-FILES="/etc/stunnel/*.conf"
-DAEMON="/usr/sbin/stunnel"
+SERVICENAME=${SVCNAME#*.}
+SERVICENAME=${SERVICENAME:-stunnel}
+STUNNEL_CONFIGFILE=${STUNNEL_CONFIGFILE:-/etc/stunnel/${SERVICENAME}.conf}
 
 depend() {
 	need net
-    before logger
+	before logger
 }
 
-get_pids() {
-    local file=${1}
-    if test -f ${file} ; then
-        CHROOT=$(grep "^chroot" ${file} | sed "s;.*= *;;")
-        PIDFILE=$(grep "^pid" ${file} | sed "s;.*= *;;")
-        if [ "${PIDFILE}" == "" ] ; then
-            PIDFILE="${DEFAULT_PIDFILE}"
+get_config() {
+	if [ ! -e ${STUNNEL_CONFIGFILE} ] ; then
+		eerror "You need to create ${STUNNEL_CONFIGFILE} first."
+		return 1
         fi
-        if test -f ${CHROOT}/${PIDFILE} ; then
-            cat ${CHROOT}/${PIDFILE}
-        fi
-    fi
+        CHROOT=$(grep "^chroot" ${STUNNEL_CONFIGFILE} | sed "s;.*= *;;")
+        [ -n "${CHROOT}" ] && CHROOT="--chroot ${CHROOT}"
+	PIDFILE=$(grep "^pid" ${STUNNEL_CONFIGFILE} | sed "s;.*= *;;")
+        PIDFILE=${PIDFILE:-/var/run/stunnel/${SERVICENAME}.pid}
 }
 
 start() {
-    rm -rf /var/run/stunnel/*.pid
-	ebegin "Starting stunnel"
-    for file in ${FILES} ; do
-        if test -f "${file}" ; then
-            ARGS="${file} ${STUNNEL_OPTIONS}"
-            PROCLIST="$(get_pids ${file})"
-            CHROOT=$(grep "^chroot" ${file} | sed "s;.*= *;;")
-            PIDFILE=$(grep "^pid" ${file} | sed "s;.*= *;;")
-            if [ "${PROCLIST}" ] && kill -0 ${PROCLIST} 2> /dev/null ; then
-                ewarn "  already running: ${file} "
-            elif ${DAEMON} ${ARGS} ; then
-                if ! test -f ${CHROOT}/${PIDFILE} ; then
-                    # give the daemon time to create the pid file
-                    # See bug #308931 for more details
-                    sleep 0.5s
-                fi
-                if test -f ${CHROOT}/${PIDFILE} ; then
-                    einfo "   ${file}"
-                else
-                    eerror "   error starting: ${file}"
-                fi
-            fi
-        fi
-    done
-    eend $?
+	get_config || return 1
+        ebegin "Starting ${SVCNAME}"
+        start-stop-daemon --start --pidfile "${PIDFILE}" ${CHROOT} \
+	                --exec /usr/bin/stunnel -- ${STUNNEL_CONFIGFILE} ${STUNNEL_OPTIONS}
+        eend $? "Failed to start ${SVCNAME}"
 }
 
 stop() {
-	ebegin "Stopping stunnel"
-    for file in ${FILES} ; do
-        PROCLIST=$(get_pids ${file})
-        if [ "${PROCLIST}" ] && kill -0 ${PROCLIST} 2> /dev/null ; then
-            kill ${PROCLIST}
-            einfo "  ${file} "
-        fi
-    done
-    eend $?
+	get_config || return 1
+        ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --stop --quiet --pidfile ${PIDFILE}
+        eend $? "Failed to stop ${SVCNAME}"
 }
 
-restart() {
-    svc_stop
-    sleep 1
-    svc_start
-}
