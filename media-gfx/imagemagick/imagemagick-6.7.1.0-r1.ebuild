@@ -151,7 +151,7 @@ src_install() {
 		LOCAL_PHP_BIN_DIR="/usr/local/php/bin"
 		dodir ${LOCAL_PHP_BIN_DIR} || die
 		for UTILITY in composite convert identify; do
-			dohard /usr/bin/${UTILITY} ${LOCAL_PHP_BIN_DIR}/${UTILITY}
+			ln -s ${D}/usr/bin/${UTILITY} ${D}/${LOCAL_PHP_BIN_DIR}/${UTILITY}
 		done
 		chown -R apache:apache ${D}${LOCAL_PHP_BIN_DIR}
 	fi
