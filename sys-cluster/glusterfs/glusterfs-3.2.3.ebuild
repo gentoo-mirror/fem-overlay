@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/glusterfs/glusterfs-3.2.0.ebuild,v 1.2 2011/05/16 10:35:55 ultrabug Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/glusterfs/glusterfs-3.2.3.ebuild,v 1.1 2011/08/31 15:16:39 alexxy Exp $
 
 EAPI=4
 
@@ -26,7 +26,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-3.1.0-parallel-build.patch" \
 		"${FILESDIR}/${PN}-docdir.patch" \
 		"${FILESDIR}/glusterd-3.2.0-workdir.patch" \
-		"${FILESDIR}/${PN}-3.2.0-BUG-2456-Glusterd-IPV6-support-for-glusterfs.patch"
+		"${FILESDIR}/${P}-BUG-2456-Glusterd-IPV6-support-for-glusterfs.patch"
 	sed -i -e "s/ -ggdb3//g" -e "s/ -m64//g" argp-standalone/configure.ac || die
 	eautoreconf
 }

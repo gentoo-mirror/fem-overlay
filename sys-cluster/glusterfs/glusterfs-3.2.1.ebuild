@@ -26,7 +26,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-3.1.0-parallel-build.patch" \
 		"${FILESDIR}/${PN}-docdir.patch" \
 		"${FILESDIR}/glusterd-3.2.0-workdir.patch" \
-		"${FILESDIR}/BUG-2456-Glusterd-IPV6-support-for-glusterfs.patch"
+		"${FILESDIR}/${PN}-3.2.0-BUG-2456-Glusterd-IPV6-support-for-glusterfs.patch"
 	sed -i -e "s/ -ggdb3//g" -e "s/ -m64//g" argp-standalone/configure.ac || die
 	eautoreconf
 }
