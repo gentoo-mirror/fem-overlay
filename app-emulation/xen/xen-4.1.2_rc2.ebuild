@@ -1,14 +1,16 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-4.1.0.ebuild,v 1.2 2011/03/26 19:18:35 alexxy Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-4.1.1.ebuild,v 1.1 2011/07/29 22:41:29 patrick Exp $
 
 EAPI="3"
 
-inherit mount-boot flag-o-matic toolchain-funcs
+inherit mount-boot flag-o-matic toolchain-funcs mercurial
 
 DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
-SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
+REPO="xen-4.1-testing.hg"
+EHG_REPO_URI="http://xenbits.xen.org/hg/${REPO}"
+EHG_REVISION="${PV/_/-}"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -22,7 +24,9 @@ PDEPEND="~app-emulation/xen-tools-${PV}"
 RESTRICT="test"
 
 # Approved by QA team in bug #144032
-QA_WX_LOAD="boot/xen-syms-${PV}"
+QA_WX_LOAD="boot/xen-syms-${PV/_/-}"
+
+S="${WORKDIR}/${REPO}"
 
 pkg_setup() {
 	if [[ -z ${XEN_TARGET_ARCH} ]]; then

@@ -4,12 +4,20 @@
 
 EAPI="3"
 
-inherit flag-o-matic eutils multilib python
+inherit flag-o-matic eutils multilib python git-2 mercurial
 
 DESCRIPTION="Xend daemon and tools"
 HOMEPAGE="http://xen.org/"
-SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
-S="${WORKDIR}/xen-${PV}"
+
+MERC_REPO="xen-4.1-testing.hg"
+GIT_REPO="qemu-xen-4.1-testing.git"
+
+EHG_REPO_URI="http://xenbits.xensource.com/hg/${MERC_REPO}"
+EHG_REVISION="${PV/_/-}"
+EGIT_REPO_URI="git://xenbits.xensource.com/${GIT_REPO}"
+#EGIT_COMMIT="xen-${PV/_/-}"
+EGIT_COMMIT="xen-4.1.2-rc1"
+EGIT_SOURCEDIR="${WORKDIR}/${GIT_REPO}"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -105,9 +113,27 @@ pkg_setup() {
 	use api     && export "LIBXENAPI_BINDINGS=y"
 	use acm     && export "ACM_SECURITY=y"
 	use flask   && export "FLASK_ENABLE=y"
+
+	# use emerge to fetch qemu/ioemu
+	export "CONFIG_QEMU=${WORKDIR}/${GIT_REPO}"
+}
+
+src_unpack() {
+	# unpack xen
+	mercurial_src_unpack
+
+	# unpack ioemu repos
+	git-2_src_unpack
+    
+#	S=${WORKDIR}/${MERC_REPO}
+#	cd ${S}
+
+	default
 }
 
 src_prepare() {
+	default_src_prepare
+
 	sed -e 's/-Wall//' -i Config.mk || die "Couldn't sanitize CFLAGS"
 	# Drop .config
 	sed -e '/-include $(XEN_ROOT)\/.config/d' -i Config.mk || die "Couldn't drop"
@@ -141,13 +167,18 @@ src_prepare() {
 			-i Makefile
 	fi
 
+	# patch ioemu/qemu
+	cd "${EGIT_SOURCEDIR}"
+
+	# Do not strip binaries
+	epatch "${FILESDIR}/${PN}-4.0.0-nostrip.patch"
+
+	cd ${S}
+
 	# Fix build for gcc-4.6
 	sed -e "s:-Werror::g" -i  tools/xenstat/xentop/Makefile
 	# Fix network broadcast on bridged networks
 	epatch "${FILESDIR}/${PN}-3.4.0-network-bridge-broadcast.patch"
-
-	# Do not strip binaries
-	epatch "${FILESDIR}/${PN}-3.3.0-nostrip.patch"
 }
 
 src_compile() {
