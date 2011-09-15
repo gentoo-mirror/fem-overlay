@@ -31,7 +31,7 @@ if use tcptraffic; then
 fi
 
 if use corosync; then 
-	PLUGIN_LIST="${PLUGIN_LIST} check_corosync"
+	PLUGIN_LIST="${PLUGIN_LIST} check_corosync check_corosync_rings"
 fi
 
 pkg_setup() {
