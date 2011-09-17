@@ -9,10 +9,11 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
-IUSE="tcptraffic corosync"
+IUSE="tcptraffic corosync haproxy"
 
 DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version )
-		corosync? ( dev-perl/Nagios-Plugin )"
+		corosync? ( dev-perl/Nagios-Plugin )
+		haproxy? ( dev-perl/Nagios-Plugin dev-perl/LWP-UserAgent-Determined )"
 
 RESTRICT="test"
 
@@ -32,6 +33,10 @@ fi
 
 if use corosync; then 
 	PLUGIN_LIST="${PLUGIN_LIST} check_corosync check_corosync_rings"
+fi
+
+if use haproxy; then 
+	PLUGIN_LIST="${PLUGIN_LIST} check_haproxy"
 fi
 
 pkg_setup() {
