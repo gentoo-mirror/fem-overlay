@@ -17,7 +17,7 @@ SRC_URI="http://code.launchpad.net/${PN}/0.6-series/${PV}/+download/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
-IUSE="ftps s3"
+IUSE="ftp ftps s3"
 
 DEPEND="
 	>=net-libs/librsync-0.9.6
@@ -27,7 +27,8 @@ RDEPEND="${DEPEND}
 	>=dev-python/py-gnupg-0.3.2
 	>=dev-python/pexpect-2.1
 	s3? ( dev-python/boto )
-	ftps? ( net-ftp/lftp[ssl] )
+	ftp? ( net-lftp/ncftp )
+	ftps? ( || ( net-ftp/lftp[ssl] net-ftp/lftp[gnutls] ) )
 "
 
 src_prepare() {
