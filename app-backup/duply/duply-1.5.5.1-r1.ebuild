@@ -10,9 +10,9 @@ SRC_URI="mirror://sourceforge/ftplicity/${PN}_${PV}.tgz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
-IUSE="ftps"
+IUSE="ftp ftps"
 
-RDEPEND="app-backup/duplicity[ftps=]"
+RDEPEND="app-backup/duplicity[ftp=,ftps=]"
 
 DEPEND="${RDEPEND}"
 
