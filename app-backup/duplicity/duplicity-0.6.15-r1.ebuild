@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}
 	>=dev-python/py-gnupg-0.3.2
 	>=dev-python/pexpect-2.1
 	s3? ( dev-python/boto )
-	ftp? ( net-lftp/ncftp )
+	ftp? ( net-ftp/ncftp )
 	ftps? ( || ( net-ftp/lftp[ssl] net-ftp/lftp[gnutls] ) )
 "
 
