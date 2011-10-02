@@ -2,7 +2,7 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-VPNDIR=${VPNDIR:-/etc/openvpn}
+VPNDIR=${VPNDIR:-/etc/openvpn-dev}
 VPN=${SVCNAME#*.}
 if [ -n "${VPN}" ] && [ ${SVCNAME} != "openvpn-dev" ]; then
 	VPNPID="/var/run/openvpn-dev.${VPN}.pid"

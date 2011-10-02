@@ -1,25 +1,26 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
+EAPI=4
+
 inherit eutils multilib toolchain-funcs autotools flag-o-matic git
 
 DESCRIPTION="OpenVPN is a robust and highly flexible tunneling application compatible with many OSes."
 
 EGIT_REPO_URI="git://openvpn.git.sourceforge.net/gitroot/openvpn/openvpn-testing.git"
-EGIT_BRANCH="allmerged"
+EGIT_BRANCH="master"
 EGIT_COMMIT=${EGIT_BRANCH}
 
 HOMEPAGE="http://openvpn.net/"
 
 LICENSE="GPL-2"
 SLOT="dev"
-KEYWORDS=""
-IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11
-threads userland_BSD eurephia debug"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd ~x86-linux"
+IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11 userland_BSD"
 
 DEPEND=">=dev-libs/lzo-1.07
 	kernel_linux? (
-		iproute2? ( sys-apps/iproute2 ) !iproute2? ( sys-apps/net-tools )
+		iproute2? ( sys-apps/iproute2[-minimal] ) !iproute2? ( sys-apps/net-tools )
 	)
 	!minimal? ( pam? ( virtual/pam ) )
 	selinux? ( sec-policy/selinux-openvpn )
@@ -27,41 +28,31 @@ DEPEND=">=dev-libs/lzo-1.07
 	pkcs11? ( >=dev-libs/pkcs11-helper-1.05 )"
 RDEPEND="${DEPEND}"
 
-pkg_setup() {
-	if use iproute2 ; then
-		if built_with_use sys-apps/iproute2 minimal ; then
-			eerror "iproute2 support requires that sys-apps/iproute2 was not"
-			eerror "built with the minimal USE flag"
-			die "iproute2 support not available"
-		fi
-	fi
-}
-
 src_unpack() {
 	git_src_unpack
 	cd "${S}"
 
-	epatch "${FILESDIR}/${PN}-2.1_rc20-pkcs11.patch"
+	epatch "${FILESDIR}/${PN}-9999-pkcs11.patch"
 	sed -i \
 		-e "s/gcc \${CC_FLAGS}/\${CC} \${CFLAGS} -Wall/" \
 		-e "s/-shared/-shared \${LDFLAGS}/" \
 		plugin/*/Makefile || die "sed failed"
-	
+
 	# Add GIT commit ID to Product Version
 	sed -i \
 		-e "/^define(PRODUCT_VERSION/s/])/-git-${EGIT_VERSION}])/" \
-		version.m4	
+		version.m4
 
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	# basic.h defines a type 'bool' that conflicts with the altivec
 	# keyword bool which has to be fixed upstream, see bugs #293840
 	# and #297854.
 	# For now, filter out -maltivec on ppc and append -mno-altivec, as
 	# -maltivec is enabled implicitly by -mcpu and similar flags.
-	use ppc && filter-flags -maltivec && append-flags -mno-altivec
+	(use ppc || use ppc64) && filter-flags -maltivec && append-flags -mno-altivec
 
 	local myconf=""
 
@@ -76,25 +67,26 @@ src_compile() {
 		$(use_enable passwordsave password-save) \
 		$(use_enable ssl) \
 		$(use_enable ssl crypto) \
-		$(use_enable threads pthread) \
 		$(use_enable iproute2) \
-		$(use_enable eurephia) \
 		"--disable-depr-random-resolv" \
+		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
 		|| die "configure failed"
+}
 
-	use static && sed -i -e '/^LIBS/s/LIBS = /LIBS = -static /' Makefile
+src_compile() {
+	if use static ; then
+		sed -i -e '/^LIBS/s/LIBS = /LIBS = -static /' Makefile || die "sed failed"
+	fi
 
 	emake || die "make failed"
 
 	if ! use minimal ; then
 		cd plugin
-		for i in $( ls 2>/dev/null ); do
+		for i in *; do
 			[[ ${i} == "README" || ${i} == "examples" || ${i} == "defer" ]] && continue
 			[[ ${i} == "auth-pam" ]] && ! use pam && continue
 			einfo "Building ${i} plugin"
-			cd "${i}"
-			emake CC=$(tc-getCC) || die "make failed"
-			cd ..
+			emake -C "${i}" CC=$(tc-getCC) || die "make failed"
 		done
 		cd ..
 	fi
@@ -109,19 +101,16 @@ src_install() {
 	# install documentation
 	dodoc AUTHORS ChangeLog PORTS README
 	# install additional IPv6-Documentation
-	dodoc README.IPv6 README.ipv6
+	dodoc README.IPv6 TODO.IPv6
 
 	# remove empty dir
-	rmdir "${D}/usr/share/doc/openvpn"
-
-	# Empty dir
-	dodir /etc/openvpn
-	keepdir /etc/openvpn
+	### rmdir "${D}/usr/share/doc/openvpn"
 
 	# Install some helper scripts
-	exeinto /etc/openvpn
-	doexe "${FILESDIR}/up.sh"
-	doexe "${FILESDIR}/down.sh"
+	keepdir /etc/openvpn-dev
+	exeinto /etc/openvpn-dev
+	doexe "${FILESDIR}/up.sh" || die "doexe failed"
+	doexe "${FILESDIR}/down.sh" || die "doexe failed"
 
 	# Install the init script and config file
 	newinitd "${FILESDIR}/${PN}-${SLOT}.init" openvpn-${SLOT}
@@ -132,13 +121,13 @@ src_install() {
 		# dodoc does not supportly support directory traversal, #15193
 		insinto /usr/share/doc/${PF}-${SLOT}/examples
 		doins -r sample-{config-files,keys,scripts} contrib
-		prepalldocs
 	fi
 
 	# Install plugins and easy-rsa
+	doenvd "${FILESDIR}/65openvpn-dev" # config-protect easy-rsa
 	if ! use minimal ; then
 		cd easy-rsa/2.0
-		make install "DESTDIR=${D}/usr/share/${PN}-${SLOT}/easy-rsa"
+		make install "DESTDIR=${D}" "PREFIX=${EPREFIX}/usr/share/${PN}-${SLOT}/easy-rsa"
 		cd ../..
 
 		exeinto "/usr/$(get_libdir)/${PN}-${SLOT}"
@@ -153,24 +142,25 @@ pkg_postinst() {
 	enewgroup openvpn
 	enewuser openvpn "" "" "" openvpn
 
-	if [[ -n $(ls /etc/openvpn/*/local.conf 2>/dev/null) ]] ; then
+
+	if [ path_exists -o "${ROOT}/etc/openvpn/*/local.conf" ] ; then
 		ewarn "WARNING: The openvpn init script has changed"
 		ewarn ""
 	fi
 
-	einfo "The openvpn-${SLOT} init script expects to find the configuration file"
-	einfo "openvpn.conf in /etc/openvpn along with any extra files it may need."
-	einfo ""
-	einfo "To create more VPNs, simply create a new .conf file for it and"
-	einfo "then create a symlink to the openvpn init script from a link called"
-	einfo "openvpn.newconfname - like so"
-	einfo "   cd /etc/openvpn"
-	einfo "   ${EDITOR##*/} foo.conf"
-	einfo "   cd /etc/init.d"
-	einfo "   ln -s openvpn-${SLOT} openvpn-${SLOT}.foo"
-	einfo ""
-	einfo "You can then treat openvpn-${SLOT}.foo as any other service, so you can"
-	einfo "stop one vpn and start another if you need to."
+	elog "The openvpn-${SLOT} init script expects to find the configuration file"
+	elog "openvpn.conf in /etc/openvpn along with any extra files it may need."
+	elog ""
+	elog "To create more VPNs, simply create a new .conf file for it and"
+	elog "then create a symlink to the openvpn init script from a link called"
+	elog "openvpn.newconfname - like so"
+	elog "   cd /etc/openvpn"
+	elog "   ${EDITOR##*/} foo.conf"
+	elog "   cd /etc/init.d"
+	elog "   ln -s openvpn-${SLOT} openvpn-${SLOT}.foo"
+	elog ""
+	elog "You can then treat openvpn-${SLOT}.foo as any other service, so you can"
+	elog "stop one vpn and start another if you need to."
 
 	if grep -Eq "^[ \t]*(up|down)[ \t].*" "${ROOT}/etc/openvpn"/*.conf 2>/dev/null ; then
 		ewarn ""
@@ -192,11 +182,15 @@ pkg_postinst() {
 		einfo "http://www.eurephia.net/"
 	fi
 
+	einfo ""
+	einfo "This build contains a community-maintained IPv6 patch."
+	einfo "For more information please visit:"
+	einfo "http://www.greenie.net/ipv6/openvpn.html"
+
 	ewarn ""
-	ewarn "You are using a live ebuild building from the sources of	openvpn-testing"
+	ewarn "You are using a live ebuild building from the sources of	openvpn"
 	ewarn "repository from: http://openvpn.git.sourceforge.net"
 	ewarn ""
 	ewarn "For reporting bugs please contact:"
 	ewarn "openvpn-devel@lists.sourceforge.net"
-
 }
