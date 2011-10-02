@@ -2,12 +2,12 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-VPNDIR=${VPNDIR:-/etc/openvpn-dev}
+VPNDIR=${VPNDIR:-/etc/openvpn-testing}
 VPN=${SVCNAME#*.}
-if [ -n "${VPN}" ] && [ ${SVCNAME} != "openvpn-dev" ]; then
-	VPNPID="/var/run/openvpn-dev.${VPN}.pid"
+if [ -n "${VPN}" ] && [ ${SVCNAME} != "openvpn-testing" ]; then
+	VPNPID="/var/run/openvpn-testing.${VPN}.pid"
 else
-	VPNPID="/var/run/openvpn-dev.pid"
+	VPNPID="/var/run/openvpn-testing.pid"
 fi
 VPNCONF="${VPNDIR}/${VPN}.conf"
 
@@ -40,7 +40,7 @@ checkconfig() {
 	# per vpn instance
 	local ifname=$(sed -n -e 's/[[:space:]]*dev[[:space:]][[:space:]]*\([^[:space:]]*\).*/\1/p' "${VPNCONF}")
 	if [ -z ${ifname} ] ; then
-		eerror "You need to specify the interface that this openvpn" \
+		eerror "You need to specify the interface that this openvpn-testing" \
 			"instance should use" \
 			"by using the dev option in ${VPNCONF}"
 		return 1
@@ -81,15 +81,15 @@ start() {
 		reenter="yes"
 		args="${args} --up-delay --up-restart"
 		args="${args} --script-security 2"
-		args="${args} --up /etc/openvpn/up.sh"
-		args="${args} --down-pre --down /etc/openvpn/down.sh"
+		args="${args} --up /etc/openvpn-testing/up.sh"
+		args="${args} --down-pre --down /etc/openvpn-testing/down.sh"
 
 		# Warn about setting scripts as we override them
 		if grep -Eq "^[ 	]*(up|down)[ 	].*" "${VPNCONF}" ; then
 			ewarn "WARNING: You have defined your own up/down scripts"
 			ewarn "As you're running as a client, we now force Gentoo specific"
 			ewarn "scripts to be run for up and down events."
-			ewarn "These scripts will call /etc/openvpn/${SVCNAME}-{up,down}.sh"
+			ewarn "These scripts will call /etc/openvpn-testing/${SVCNAME}-{up,down}.sh"
 			ewarn "where you can put your own code."
 		fi
 
@@ -97,7 +97,7 @@ start() {
 		# dropping privs
 		if grep -q "^[ 	]*user[ 	].*" "${VPNCONF}" ; then
 			ewarn "WARNING: You are dropping root privileges!"
-			ewarn "As such openvpn may not be able to change ip, routing"
+			ewarn "As such openvpn-testing may not be able to change ip, routing"
 			ewarn "or DNS configuration."
 		fi
 	else
@@ -110,7 +110,7 @@ start() {
 	[ -n "${PEER_DNS}" ] && args="${args} --setenv PEER_DNS ${PEER_DNS}"
 
 	[ "${reenter}" = "yes" ] && mark_service_inactive "${SVCNAME}"
-	start-stop-daemon --start --exec /usr/sbin/openvpn-dev --pidfile "${VPNPID}" \
+	start-stop-daemon --start --exec /usr/sbin/openvpn-testing --pidfile "${VPNPID}" \
 		-- --config "${VPNCONF}" --writepid "${VPNPID}" --daemon \
 		--setenv SVCNAME "${SVCNAME}" ${args}
 	eend $? "Check your logs to see why startup failed"
@@ -126,7 +126,7 @@ stop() {
 
 	ebegin "Stopping ${SVCNAME}"
 	start-stop-daemon --stop --quiet \
-		--exec /usr/sbin/openvpn-dev --pidfile "${VPNPID}"
+		--exec /usr/sbin/openvpn-testing --pidfile "${VPNPID}"
 	eend $?
 }
 
