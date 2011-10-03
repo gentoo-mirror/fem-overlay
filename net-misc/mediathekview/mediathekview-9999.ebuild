@@ -19,7 +19,8 @@ EGIT_REPO_URI="git://zdfmediathk.git.sourceforge.net/gitroot/zdfmediathk/zdfmedi
 
 COMMON_DEPS="dev-java/jdom
 	     dev-java/commons-lang
-	     dev-java/rome"
+	     dev-java/rome
+	     dev-java/commons-compress"
 
 DEPEND="${COMMON_DEPS}
 	>=virtual/jdk-1.5.0
@@ -28,7 +29,10 @@ DEPEND="${COMMON_DEPS}
 RDEPEND="${COMMON_DEPS}
 	virtual/jre
 	vlc? ( media-video/vlc )
-	mplayer? ( media-video/mplayer )
+	mplayer? ( || (
+		media-video/mplayer
+		media-video/mplayer2
+	) )
 	flvstreamer? ( media-video/flvstreamer )"
 
 pkg_setup() {
@@ -41,16 +45,16 @@ pkg_setup() {
 
 java_prepare() {
 	cd "${S}/libs"
-	rm -v commons-lang-* jdom-* rome-*  || die
+	rm -v commons-* jdom-* rome-*  || die
 
 	java-pkg_jar-from jdom-1.0
 	java-pkg_jar-from commons-lang-2.1 commons-lang.jar commons-lang-2.5.jar
+	java-pkg_jar-from commons-compress commons-compress.jar commons-compress-1.1.jar
 	java-pkg_jar-from rome rome.jar rome-1.0.jar
 }
 
 src_install() {
 	java-pkg_newjar dist/Mediathek.jar
-	java-pkg_dojar libs/commons-compress-1.1.jar
 	java-pkg_dolauncher ${PN} --main mediathek.Main
 
 	newicon ${FILESDIR}/java.png ${PN}.png || die "newicon failed"
