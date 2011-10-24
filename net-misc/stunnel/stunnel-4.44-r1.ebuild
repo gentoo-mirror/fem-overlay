@@ -1,5 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-misc/stunnel/stunnel-4.44.ebuild,v 1.5 2011/10/22 18:59:28 hwoarang Exp $
 
 EAPI="2"
 
@@ -11,7 +12,7 @@ SRC_URI="ftp://ftp.stunnel.org/stunnel/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ppc ppc64 ~s390 ~sparc x86"
 IUSE="ipv6 selinux tcpd xforward listen-queue"
 
 DEPEND="tcpd? ( sys-apps/tcp-wrappers )
@@ -25,8 +26,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	use xforward && epatch "${FILESDIR}/stunnel-4.41-xforwarded-for.diff"
-	use listen-queue && epatch "${FILESDIR}/stunnel-4.41-listen-queue.diff"
+	use xforward && epatch "${FILESDIR}/stunnel-4.44-xforwarded-for.diff"
+	use listen-queue && epatch "${FILESDIR}/stunnel-4.44-listen-queue.diff"
 	eautoreconf
 
 	# Hack away generation of certificate
@@ -55,7 +56,7 @@ src_install() {
 
 	insinto /etc/stunnel
 	doins "${FILESDIR}"/stunnel.conf
-	newinitd "${FILESDIR}"/stunnel.old.initd stunnel
+	newinitd "${FILESDIR}"/stunnel.initd stunnel
 
 	keepdir /var/run/stunnel
 	fowners stunnel:stunnel /var/run/stunnel
