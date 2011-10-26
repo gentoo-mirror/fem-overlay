@@ -16,7 +16,9 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86
 IUSE=""
 RESTRICT="test"
 
-DEPEND="net-misc/socat
+DEPEND="net-misc/vde
+	app-emulation/qemu-kvm
+	net-misc/socat
 	sys-process/lsof"
 
 src_install() {
