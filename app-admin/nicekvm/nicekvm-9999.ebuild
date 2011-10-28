@@ -6,7 +6,7 @@ EAPI=2
 inherit autotools fixheadtails eutils multilib subversion
 
 MY_PV=${PV/_/}
-DESCRIPTION="syslog replacement with advanced filtering features"
+DESCRIPTION="makes QEMU/KVM/VDE easy to use"
 HOMEPAGE="http://wiki.fem.tu-ilmenau.de/technik/tools/nicekvm"
 ESVN_REPO_URI="https://subversion.fem.tu-ilmenau.de/repository/kvm-management-tools"
 
@@ -22,6 +22,6 @@ DEPEND="net-misc/vde
 	sys-process/lsof"
 
 src_install() {
-	dobin scripte/nkvm
-	newinitd scripte/init.d/nicekvm nkvm
+	dosbin scripte/nkvm
+	newinitd "${FILESDIR}"/nicekvm.initd nkvm
 }
