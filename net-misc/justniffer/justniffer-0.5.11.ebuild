@@ -16,9 +16,9 @@ KEYWORDS="amd64 hppa ppc ppc64 sparc x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x8
 IUSE=""
 RESTRICT="fetch"
 
-DEPEND="dev-util/boost-build
+DEPEND="dev-util/boost
 	net-libs/libpcap"
-RDEPEND="dev-util/boost-build
+RDEPEND="dev-util/boost
 	net-libs/libpcap"
 
 pkg_nofetch() {
