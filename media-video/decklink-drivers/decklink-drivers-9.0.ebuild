@@ -40,6 +40,7 @@ src_unpack() {
 		KSRCDIR="${WORKDIR}/${X86_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${X86_BM_PACKAGE}"
 	fi
+	epatch "${FILESDIR}/${P}-dmabits-fix.patch"
 }
 
 src_compile() {
