@@ -37,6 +37,10 @@ src_compile() {
 	emake -j1
 }
 
+src_prepare() {
+	epatch "${FILESDIR}/fixmemleak.diff"
+}
+
 src_install() {
 	default
 	use static-libs || find "${ED}" -name '*.la' -exec rm -f {} +
