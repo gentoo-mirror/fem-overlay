@@ -17,7 +17,10 @@ IUSE="emacs extras +fuse infiniband static-libs vim-syntax"
 
 DEPEND="emacs? ( virtual/emacs )
 		fuse? ( >=sys-fs/fuse-2.7.0 )
-		infiniband? ( sys-infiniband/libibverbs )"
+		infiniband? ( sys-infiniband/libibverbs )
+		sys-devel/flex
+		sys-devel/bison
+		dev-util/pkgconfig"
 RDEPEND="${DEPEND}"
 
 SITEFILE="50${PN}-mode-gentoo.el"
