@@ -1,0 +1,219 @@
+#!/bin/bash
+#
+# pgsql-ssh-backup
+#
+# Create PostgreSQL-Dumps via SSH using RSA or DSA authentication (private key).
+# Each database will be dumped as a single file and can be uncompressed optional.
+#
+# Copyright (c) 2011 Peter Grosse (gentoo@friiks.de)
+# Copyright (c) 2010-2011 Marcel Pennewiss (opensource@pennewiss.de)
+# Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
+#
+# Current Version: 1.2
+# Last Modified: 2011-07-01
+#
+# USAGE:
+#   Start pgsql-ssh-backup with the "-h" option to show usage/help.
+#
+# REQUIREMENTS:
+#   ssh
+#   psql / pg_dump (on remote server)
+#
+# INSTALLATION: 
+#   Copy the shell script to a suitable location
+#
+# CHANGELOG:
+#   v1.0 - Initial Release (2011-04-14)
+#   v1.1 - Fix Cleanup Directory (2011-06-07)
+#   v1.2 - Ignore cleanup directory list if empty (2011-07-01)
+#
+# LICENSE: GPL-2
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+##########################################################################
+
+# show usage information
+print_usage() {
+  echo "PostgreSQL-SSH-Backup v1.2"
+  echo "Create PostgreSQL-Dumps via SSH using RSA or DSA authentication (private key)."
+  echo "Each database will be dumped as a single file and can be uncompressed optional."
+  echo ""
+  echo "Usage $0 [-l <ssh-login>] -s <ssh-server> -i <identity-file> [-m <pgsql-host>] [-d <backup-dir>] [-e <days>] [-c] [-h]"
+  echo ""
+  echo " -l <ssh-login>      User to log in as on the remote machine (defaul: current user)"
+  echo " -s <ssh-server>     Remote machine to log in"
+  echo " -i <identity-file>  File from which the identity (private key) for SSH is read"
+  echo " -m <pgsql-host>     PostgreSQL-Host to Dump (default: localhost)"
+  echo " -u <pgsql-user>     PostgreSQL-User (leave empty while using .psqlrc on remote server)"
+  echo " -d <backup-dir>     Base-directory where dumps will be stored (default: {scriptpath}/{ssh-server})"
+  echo " -e <days>           Number of days after which old dumps will be deleted"
+  echo " -p                  Don't use custom dump file format, instead save uncompressed plain SQL files"
+  echo " -h                  Show this help"
+  echo ""
+}
+
+# check parameters and directories
+function prepare()
+{
+  # reset error counter
+  ERROR=0
+
+  # set SSH-user to current user if unset
+  [ -z ${SSH_USER} ] && SSH_USER=$(id -u -n)
+
+  # check ssh identity file
+  ([ -z ${SSH_IDENTITY} ] || [ ! -f ${SSH_IDENTITY} ]) && echo "SSH identity file (private key) not set or not found." && ERROR+=1
+
+  # check if remote server is set
+  [ -z ${SSH_HOST} ] && echo "Remote ssh server not set." && ERROR+=1
+
+  # set DB-Server to localhost if unset
+  [ -z ${PGSQL_HOST} ] && PGSQL_HOST=localhost
+
+  # check if PostgreSQL-user is set
+  [ ${PGSQL_USER} ] && PGSQL_USER_OPTS="--username=${PGSQL_USER}"
+
+  # set Backupdirectory to default value if unset
+  [ -z ${BACKUPDIR} ] && BACKUPDIR=${HOME}/${SSH_HOST}
+  BACKUPDIR_ORIG=${BACKUPDIR}
+  BACKUPDIR+=/$(date +%F)/
+
+  # check number of days
+  [[ ! "x${DAYS}" =~ ^x[0-9]*$ ]] && echo "Wrong number of days, use only numeric value." && ERROR+=1
+  [ -z ${DAYS} ] && DAYS=90
+
+
+  # use custom dump format if plainfile option unset
+  if [ -z ${PLAINFILES} ]; then
+    PGSQL_DUMP_OPTS="--format custom"
+    BACKUPEXT="dump"
+  else
+    BACKUPEXT="sql"
+  fi
+
+  # check for installed SSH-Client
+  which ssh > /dev/null 2>&1 || (echo "SSH not found! Skipping all backups!" >&2 && exit 1)
+
+  # abort if too man errors occured
+  [ ${ERROR} -ge 1 ] && echo -e "\nToo man errors occured. Aborting..." && exit 1
+
+  # 
+  if [ -d ${BACKUPDIR} ]; then
+    rm -f ${BACKUPDIR}/*
+  fi
+  if [ ! -d ${BACKUPDIR} ]; then
+    mkdir ${BACKUPDIR} -p
+    [[ $? -ne 0 ]] && echo "Can't create Backup-Directory ${BACKUPDIR}." >&2  && exit 1
+  fi
+}
+
+# connection-wrapper to execute psql/pg_dump via ssh
+# param[in] $1 remote command to execute
+# param[in] $2 filename used to redirect stdout (optional)
+function connection_wrapper()
+{
+  # set SSH connection options	
+  SSH_OPTS="-C -i ${SSH_IDENTITY}"
+
+  if [ -z ${2} ]; then
+	  LAST_RETURN=$(ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" 2>&1)
+  else
+	  LAST_RETURN=$( { ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" >${2}; } 2>&1 )
+  fi
+  local ret=$?
+  [[ ${ret} -eq 255 ]] && echo "SSH-Connection failed." >&2 && echo ${LAST_RETURN} >&2 && exit 255
+  return ${ret}
+}
+
+# dump global objects only
+function dump_globals()
+{
+  connection_wrapper "pg_dumpall --globals-only --host ${PGSQL_HOST} ${PGSQL_USER_OPTS}" "${BACKUPDIR}/_globals.sql"
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "pg_dump of global database objects failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# get full database-list
+function get_databaselist()
+{
+  connection_wrapper "psql --host ${PGSQL_HOST} ${PGSQL_USER_OPTS} --tuples-only --no-align --dbname postgres --command 'SELECT datname FROM pg_database WHERE datistemplate IS FALSE;'"
+  [[ $? -ne 0 ]] && echo "$ret: Can't get database list:" >&2 && echo ${LAST_RETURN} >&2 && exit 1
+}
+
+# dump a database
+# param[in] $1 database-name
+function dump_database()
+{
+  connection_wrapper "pg_dump --blobs --create --encoding UTF-8 --host ${PGSQL_HOST} ${PGSQL_USER_OPTS} ${PGSQL_DUMP_OPTS} ${1}" "${BACKUPDIR}/${1}.${BACKUPEXT}"
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "pg_dump of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# check for complete database-dump
+# param[in] $1 database-name
+function check_database_dump()
+{
+  [ -z ${PLAINFILES} ] || LAST_RETURN=$(tail -3 "${BACKUPDIR}/${1}.${BACKUPEXT}" | head -1 | grep -e "^-- PostgreSQL database dump complete" 2>&1)
+  local ret=$?
+  [[ ${ret} -ne 0 ]] && echo "PgSQL-Dump-Check of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# dump all databases
+# param[in] $1 list of databases (IFS-seperated)
+function dump_all_databases()
+{
+  for DATABASE in ${1}
+  do
+    dump_database ${DATABASE}
+    [[ $? -eq 0 ]] && check_database_dump ${DATABASE}
+  done
+}
+
+# cleanup backup-directory
+# remove all subdirectories which are older then ${DAYS} days
+function cleanup()
+{
+  if [ -d ${BACKUPDIR_ORIG} ]; then
+  	LAST_RETURN=$(find ${BACKUPDIR_ORIG}/* -type d -mtime +${DAYS} | xargs --no-run-if-empty /bin/rm -r 2>&1)
+  fi
+  [[ $? -ne 0 ]] && echo "Cleanup of old Backups failed:" >&2 && echo ${LAST_RETURN} >&2
+}
+
+# run main part
+while getopts ":hl:s:i:m:u:d:e:p" Option; do
+        case $Option in
+                h )     print_usage && exit 0;;
+		l )	SSH_USER=${OPTARG};;
+		s )	SSH_HOST=${OPTARG};;
+		i )	SSH_IDENTITY=${OPTARG};;
+		m )	PGSQL_HOST=${OPTARG};;
+		u )	PGSQL_USER=${OPTARG};;
+		d )	BACKUPDIR=${OPTARG};;
+		e )	DAYS=${OPTARG};;
+		p )	PLAINFILES=true;;
+                * )     echo -e "Unknown parameter \"-${OPTARG}\"!\n"; 
+			print_usage
+			exit 1
+			;;
+        esac
+done
+shift $(($OPTIND - 1)) 
+
+prepare
+dump_globals
+get_databaselist
+dump_all_databases "${LAST_RETURN}"
+cleanup
+exit 0
