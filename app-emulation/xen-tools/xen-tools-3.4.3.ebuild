@@ -128,6 +128,9 @@ src_prepare() {
 
 	# Fix --as-needed issues, bug 296631
 	epatch "${FILESDIR}/${P}-as-needed.patch"
+
+	# Fix include for blktap
+	epatch "${FILESDIR}/${P}-blktap-include.patch"
 }
 
 src_compile() {
