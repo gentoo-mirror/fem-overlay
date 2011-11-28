@@ -15,10 +15,11 @@ SRC_URI="http://www.blackmagic-design.com/media/2432845/Blackmagic_Desktop_Video
 LICENSE="Blackmagic Design"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="X"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="dev-libs/libxml2
+         X? ( x11-libs/libXrender )"
 
 X86_BM_PACKAGE="desktopvideo-${MY_RC}-i386"
 AMD64_BM_PACKAGE="desktopvideo-${MY_RC}-x86_64"
@@ -42,7 +43,11 @@ src_unpack() {
 src_install() {
 	exeinto /usr/bin
 	doexe ${LIBS}/../bin/BlackmagicFirmwareUpdater
-	doexe ${LIBS}/../bin/BlackmagicControlPanel
+
+	if use X ; then
+		doexe ${LIBS}/../bin/BlackmagicControlPanel
+	fi
+
 	if use amd64 ; then
 		insinto /usr/lib64
 		doins ${LIBS}/libDeckLinkAPI.so
