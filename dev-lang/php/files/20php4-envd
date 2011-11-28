@@ -1,2 +1,0 @@
-MANPATH="/usr/lib/php4/man/"
-CONFIG_PROTECT_MASK="/etc/php/cli-php4/ext-active/ /etc/php/cgi-php4/ext-active/ /etc/php/apache2-php4/ext-active/"
