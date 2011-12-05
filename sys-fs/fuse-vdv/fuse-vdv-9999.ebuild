@@ -12,7 +12,7 @@ HOMEPAGE="http://subversion.fem.tu-ilmenau.de/repository/cccongress/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="avi avidemux"
+IUSE="avi avidemux wavdemux"
 
 EAPI="2"
 
@@ -29,7 +29,8 @@ src_prepare() {
 src_configure() {
 	econf \
 		$(use_with avi) \
-		$(use_with avidemux)
+		$(use_with avidemux) \
+		$(use_with wavdemux)
 }
 
 src_install() {
