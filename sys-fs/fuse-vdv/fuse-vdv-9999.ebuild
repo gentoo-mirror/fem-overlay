@@ -17,7 +17,7 @@ IUSE="avi avidemux wavdemux"
 EAPI="2"
 
 DEPEND="sys-fs/fuse
-		dev-libs/mini-xml"
+	>=dev-libs/mini-xml-2.6"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
