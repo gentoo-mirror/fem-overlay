@@ -25,5 +25,5 @@ src_compile() {
 }
 
 src_install() {
-	exeinto /usr/bin
+	dobin segmenter
 }
