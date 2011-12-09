@@ -20,7 +20,10 @@ DEPEND="
 	media-video/ffmpeg
 	${RDEPEND}"
 
+src_compile() {
+	emake || die "econf failed"
+}
 
 src_install() {
-	emake DESTDIR="${D}" install || die "econf failed"
+	exeinto /usr/bin
 }
