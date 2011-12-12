@@ -16,8 +16,8 @@ IUSE=""
 
 EAPI="2"
 
-DEPEND="media-video/decklink-libs"
-RDEPEND="media-libs/decklink-drivers"
+DEPEND="media-libs/decklink-libs"
+RDEPEND="media-video/decklink-drivers"
 
 src_install() {
 	dobin Capture || die
