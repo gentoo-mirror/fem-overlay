@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils multilib python git
+inherit eutils multilib python git-2
 
 DESCRIPTION="an RTMP flash streaming server, written in erlang"
 HOMEPAGE="http://erlyvideo.org/"
@@ -21,16 +21,32 @@ DEPEND=">=dev-lang/erlang-14.1
 	dev-lang/ruby"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	git_src_unpack
-	git_submodules init
-	git_submodules update
+QA_PRESTRIPPED="/opt/erlyvideo/.*"
+
+src_compile() {
+	emake -j1 release || die "emake release failed"
 }
 
 src_install() {
-	emake DESTROOT="${D}" install || die "emake install failed"
+	insinto /opt
+	doins -r erlyvideo
+
+	dodir /opt/erlyvideo/lib/erl_interface/ebin
+	dodir /opt/erlyvideo/lib/erl_interface/include
+
+	insinto /etc/init.d
+	newinitd contrib/erlyvideo erlyvideo
+
+	insinto /etc/erlyvideo
+	doins priv/*.conf.sample
 }
 
 pkg_preinst() {
-	enewuser erlyvideo -1 -1 /var/run/erlyvideo/
+	enewuser erlyvideo -1 -1 /opt/erlyvideo/
+}
+
+pkg_postinst() {
+	if [[ ! -f ${EROOT}etc/erlyvideo/erlyvideo.conf ]] ; then
+		einfo "Please create ${EROOT}etc/erlyvideo.conf from ${EROOT}etc/erlyvideo.conf.sample."
+	fi
 }
