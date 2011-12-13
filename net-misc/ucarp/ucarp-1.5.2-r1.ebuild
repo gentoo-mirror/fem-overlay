@@ -1,7 +1,7 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="2"
+EAPI="4"
 
 inherit base
 
@@ -16,12 +16,8 @@ IUSE="nls"
 
 DEPEND="nls? ( sys-devel/gettext )"
 RDEPEND="${DEPEND}
-	virtual/libpcap
+	net-libs/libpcap
 	sys-apps/iproute2"
-
-
-DOCS=( "README" "NEWS" "AUTHORS" "ChangeLog"
-	"examples/linux/vip-up.sh" "examples/linux/vip-down.sh" )
 
 src_configure() {
 	econf $(use_enable nls)
@@ -30,9 +26,9 @@ src_configure() {
 src_install() {
 	emake DESTDIR=${D} install || die
 
-#	dodoc README INSTALL NEWS ChangeLog || die
-#	dodoc examples/linux/vip-up.sh examples/linux/vip-down.sh
-	
+	dodoc README INSTALL NEWS ChangeLog || die
+	dodoc examples/linux/vip-up.sh examples/linux/vip-down.sh
+
 	newconfd "${FILESDIR}/ucarp.conf" ucarp
 	newinitd "${FILESDIR}/ucarp.init" ucarp
 
