@@ -1,0 +1,62 @@
+#!/bin/bash  
+
+# Check nginx
+#                                 
+#http://nagiosplug.sourceforge.net/developer-guidelines.html                                              
+#http://wiki.nginx.org/HttpStubStatusModule 
+#                                   
+#  lynx -dump http://127.0.0.1/nginx_status                                                               
+# Active connections: 6                                  
+# server accepts handled requests     
+#  2666 2666 4851         
+# Reading: 0 Writing: 1 Waiting: 5     
+ 
+# active connections -- number of all open connections including connections to backends                  
+# server accepts handled requests  
+#      -- nginx accepted 2666 connections,                                                                
+#      -- nginx handled 2666 connections (no one was closed just it was accepted), and                    
+#      -- nginx handles 4851 requests (1.8 requests per connection)                                       
+# reading -- nginx reads request header                                                                   
+# writing -- nginx reads request body, processes request, or writes response to a client                  
+# waiting -- keep-alive connections, actually it is active - (reading + writing)                          
+                  
+HOSTNAME=`hostname`            
+STATUS="nginx_status"           
+SERVER="$1"                           
+WARN=$2                               
+CRIT=$3                            
+MIN=$4                            
+MAX=$5                            
+STATUSFILE="/tmp/.nginx_status"
+FILECONTENT=""               
+NGINX_STATUS="OK"                  
+                           
+if [ ! -x /usr/bin/wget ]; then "NGINX CRITICAL - /usr/bin/wget not found! | ;$WARN;$CRIT;$MIN;$MAX"; exit 2; fi                                                                
+if [ ! -x /usr/bin/bc ]; then echo "NGINX CRITICAL - /usr/bin/bc not found! | ;$WARN;$CRIT;$MIN;$MAX"; exit 2; fi                                                                  
+if [ -z $1 ]; then SERVER="localhost"; fi                                                                 
+if [ -z $2 ];  then WARN=1000; fi     
+if [ -z $3 ];  then CRIT=10000; fi 
+if [ -z $4 ];  then MIN=0; fi  
+if [ -z $5 ];  then MAX=0; fi    
+                                      
+wget -q http://$SERVER/$STATUS -O $STATUSFILE; if [ $? -ne 0 ]; then exit 3; fi                           
+                                     
+while read line; do FILECONTENT="$FILECONTENT $line"; done < $STATUSFILE                                  
+
+ACTIVE=$( echo "$(echo $FILECONTENT | cut -d " " -f 3)-1" | bc)
+accepted=$(echo $FILECONTENT | cut -d " " -f 8)
+handled=$(echo $FILECONTENT | cut -d " " -f 9)
+requests=$(echo $FILECONTENT | cut -d " " -f 10)
+REQperCONN=$(echo "scale=2;${requests}/${handled}" | bc)
+READING=$(echo $FILECONTENT | cut -d " " -f 12)
+WRITING=$( echo "$(echo $FILECONTENT | cut -d " " -f 14)-1" | bc)
+WAITING=$(echo $FILECONTENT | cut -d " " -f 16)
+
+echo "NGINX ${NGINX_STATUS} - Active connections: $ACTIVE Reading: $READING Writing: $WRITING Waiting: $WAITING  | \
+'Total'=$ACTIVE[c] 'Active'=$ACTIVE 'Reading'=$READING 'Writing'=$WRITING 'Waiting'=$WAITING \
+'ReqPerConnection'=$REQperCONN[%];$WARN;$CRIT;$MIN;$MAX"
+
+rm ${STATUSFILE}
+
+exit 0
+
