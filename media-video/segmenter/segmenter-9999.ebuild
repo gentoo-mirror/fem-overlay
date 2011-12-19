@@ -7,7 +7,8 @@ inherit libtool flag-o-matic eutils multilib autotools subversion
 
 DESCRIPTION="MPEGTS to HTTP segmenter"
 HOMEPAGE="http://svn.assembla.com/svn/legend/segmenter/"
-ESVN_REPO_URI="http://svn.assembla.com/svn/legend/segmenter/"
+# ESVN_REPO_URI="http://svn.assembla.com/svn/legend/segmenter/"
+ESVN_REPO_URI="http://subversion.fem.tu-ilmenau.de/repository/cccongress/trunk/tools/MPEGTS-Segmenter/"
 
 LICENSE="GPL-2"
 SLOT="0"
