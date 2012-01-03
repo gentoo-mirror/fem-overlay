@@ -43,7 +43,7 @@ src_configure() {
 	econf ${myconf} \
 		--host=${CHOST} \
 		--prefix=/usr \
-		--libexecdir=/usr/$(get_libdir)/icinga/plugins \
+		--libexecdir=/usr/$(get_libdir)/nagios/plugins \
 		--localstatedir=/var/lib/icinga \
 		--sysconfdir=/etc/icinga \
 		--with-nrpe-user=icinga \
@@ -82,7 +82,7 @@ src_install() {
 	keepdir /var/run/icinga
 	fowners icinga:icinga /var/run/icinga
 	sed -i -e \
-		"s#pid_file=/var/run/nrpe.pid#pid_file=/var/run/icinga/nrpe.pid#" \
+		"s#pid_file=/var/run/icinga-nrpe.pid#pid_file=/var/run/icinga/nrpe.pid#" \
 		"${D}"/etc/icinga/nrpe.cfg || die "sed failed"
 }
 
