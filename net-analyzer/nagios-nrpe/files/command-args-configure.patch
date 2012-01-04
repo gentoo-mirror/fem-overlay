@@ -1,0 +1,16 @@
+--- configure.old	2008-03-10 22:04:41.000000000 +0100
++++ configure	2012-01-04 09:09:52.000000000 +0100
+@@ -6802,10 +6802,11 @@
+ # Check whether --enable-command-args or --disable-command-args was given.
+ if test "${enable_command_args+set}" = set; then
+   enableval="$enable_command_args"
+-  cat >>confdefs.h <<_ACEOF
++    if test x$enableval = xyes; then
++      cat >>confdefs.h <<_ACEOF
+ #define ENABLE_COMMAND_ARGUMENTS 1
+ _ACEOF
+-
++    fi;
+ fi;
+ 
+ 
