@@ -13,7 +13,7 @@ RESTRICT="mirror"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~hppa ~ppc ~ppc64 ~sparc x86"
 
 IUSE="ssl command-args ipv6"
 DEPEND=">=net-analyzer/nagios-plugins-1.3.0
