@@ -1,6 +1,6 @@
 #!/sbin/runscript
 
-opts="${opts} reload"
+extra_commands="reload"
 
 depend() {
 	need net
@@ -8,17 +8,13 @@ depend() {
 
 start() {
 	ebegin "Starting nrpe"
-	start-stop-daemon --start --quiet --name nrpe \
-	--startas /usr/bin/nrpe \
-		-c icinga:icinga \
-		-- -c /etc/icinga/nrpe.cfg \
-		--daemon
+	start-stop-daemon --start --quiet --name nrpe --exec /usr/bin/nrpe --user icinga:icinga -- -c /etc/icinga/nrpe.cfg --daemon
 	eend $? "Failed to Start nrpe"
 }
 
 stop() {
 	ebegin "Stopping nrpe"
-	start-stop-daemon --stop --quiet -n nrpe
+	start-stop-daemon --stop --quiet --name nrpe
 	eend $? "Failed to Stop nrpe"
 }
 
