@@ -28,6 +28,13 @@ RDEPEND="!net-analyzer/nagios-nrpe"
 
 S="${WORKDIR}/nrpe-${PV}"
 
+src_prepare() {
+	epatch "${FILESDIR}/command-args-configure.patch"
+	epatch "${FILESDIR}/command-args-configure.in.patch"
+	epatch "${FILESDIR}/nrpe_ssl_fix.patch"
+}
+
+
 pkg_setup() {
 	enewgroup icinga
 	enewgroup nagios
