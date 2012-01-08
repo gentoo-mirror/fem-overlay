@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=2
@@ -15,9 +15,11 @@ SLOT="0"
 
 KEYWORDS="~alpha amd64 ~hppa ~ppc ~ppc64 ~sparc x86"
 
-IUSE="ssl command-args ipv6"
+IUSE="ssl command-args tcpd ipv6"
 DEPEND=">=net-analyzer/nagios-plugins-1.3.0
-	ssl? ( dev-libs/openssl )"
+	ssl? ( dev-libs/openssl )
+	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )"
+
 S="${WORKDIR}/nrpe-${PV}"
 
 pkg_setup() {
@@ -33,6 +35,9 @@ src_prepare() {
 	# Fix Command-Arguments in configure (Bug #397603)
 	epatch "${FILESDIR}/command-args-configure.in.patch"
 
+	# Fix tcp-wrapper dependency (Bug #326367)
+	epatch "${FILESDIR}/tcp-wrapper-configure.in.patch"
+
 	# Add IPv6
 	use ipv6 && epatch "${FILESDIR}/nrpe-ipv6.patch"
 
@@ -43,10 +48,11 @@ src_configure() {
 	local myconf
 
 	myconf="${myconf} $(use_enable ssl) \
-					  $(use_enable command-args)"
+					  $(use_enable command-args) \
+					  $(use_enable tcpd tcp-wrapper)"
 
 	# Generate the dh.h header file for better security (2005 Mar 20 eldad)
-	if useq ssl ; then
+	if use ssl ; then
 		openssl dhparam -C 512 | sed -n '1,/BEGIN DH PARAMETERS/p' | grep -v "BEGIN DH PARAMETERS" > "${S}"/src/dh.h
 	fi
 
@@ -100,7 +106,7 @@ pkg_postinst() {
 	einfo "the config file /etc/nagios/nrpe.cfg"
 	einfo
 
-	if use command-args ; then
+	if useq command-args ; then
 		ewarn "You have enabled command-args for NRPE. This enables"
 		ewarn "the ability for clients to supply arguments to commands"
 		ewarn "which should be run. "

@@ -4,7 +4,7 @@
 EAPI=4
 
 [[ ${PV} == "9999" ]] && GIT_ECLASS="git-2"
-inherit eutils toolchain-funcs ${GIT_ECLASS}
+inherit autotools eutils toolchain-funcs ${GIT_ECLASS}
 unset GIT_ECLASS
 
 DESCRIPTION="Icinga NRPE - advancement of Nagios Remote Plugin Executor"
@@ -20,18 +20,21 @@ LICENSE="GPL-2"
 SLOT="0"
 
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
-IUSE="ssl command-args"
+IUSE="ssl command-args tcpd"
 
 DEPEND=">=net-analyzer/nagios-plugins-1.3.0
-	ssl? ( dev-libs/openssl )"
+	ssl? ( dev-libs/openssl )
+	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )"
+
 RDEPEND="!net-analyzer/nagios-nrpe"
 
 S="${WORKDIR}/nrpe-${PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}/command-args-configure.patch"
 	epatch "${FILESDIR}/command-args-configure.in.patch"
+	epatch "${FILESDIR}/tcp-wrapper-configure.in.patch"
 	epatch "${FILESDIR}/nrpe_ssl_fix.patch"
+	eautoconf
 }
 
 
@@ -45,7 +48,8 @@ src_configure() {
 	local myconf
 
 	myconf="${myconf} $(use_enable ssl) \
-					  $(use_enable command-args)"
+					  $(use_enable command-args) \
+					  $(use_enable tcpd tcp-wrapper)"
 
 	econf ${myconf} \
 		--host=${CHOST} \
