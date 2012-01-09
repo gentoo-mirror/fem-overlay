@@ -24,7 +24,7 @@ DEPEND="${RDEPEND}"
 src_compile() {
 	#libdir="extra/"
 	BUILD_PARAMS="KERNELDIR=/lib/modules/${KV_FULL}/build"
-	# BUILD_TARGETS="modules"
+	BUILD_TARGETS="modules"
 	MODULE_NAMES="ipn(extra:${KSRCDIR}:${KSRCDIR})"
 	ebegin "Building IPN"
 	if use kernel_linux; then
