@@ -23,18 +23,21 @@ DEPEND="${RDEPEND}"
 
 src_compile() {
 	#libdir="extra/"
-	cd kvde_switch
+	#cd kvde_switch
+	cd "${S}"/kvde_switch/
 	BUILD_PARAMS="KERNELDIR=/lib/modules/${KV_FULL}/build -C kvde_switch/"
 	BUILD_TARGETS="default"
-	MODULE_NAMES="ipn(extra:${KSRCDIR}:${KSRCDIR})"
-	ebegin "Building IPN"
+	MODULE_NAMES="kvde_switch(extra:${KSRCDIR}:${KSRCDIR})"
+	ebegin "Building kvde_switch"
 	if use kernel_linux; then
 		linux-mod_src_compile
 	fi
 	eend $?
+	cp "${S}"/kvde_switch/kvde_switch.ko "${S}"
 }
 
 src_install() {
+	objdir=${objdir}/kvde_switch/
 	if use kernel_linux; then
 		linux-mod_src_install
 	fi
