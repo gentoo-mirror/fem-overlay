@@ -1,9 +1,10 @@
 #!/sbin/runscript
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-dns/pdns/files/pdns,v 1.10 2007/05/07 20:19:18 swegener Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-dns/pdns/files/pdns,v 1.11 2011/12/04 10:12:32 swegener Exp $
 
-opts="reload monitor dump"
+extra_commands="monitor"
+extra_started_commands="reload dump"
 
 PDNS_INSTANCE="${SVCNAME#pdns[.-]}"
 PDNS_CONFIG=""
