@@ -1,0 +1,20 @@
+--- pdns-2.9.22.5/pdns/dnsparser.cc.orig	2012-01-11 10:59:41.627794969 +0100
++++ pdns-2.9.22.5/pdns/dnsparser.cc	2012-01-11 10:59:23.684463418 +0100
+@@ -16,6 +16,7 @@
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+ 
++#include <stdio.h>
+ #include "dnsparser.hh"
+ #include "dnswriter.hh"
+ #include <boost/lexical_cast.hpp>
+--- pdns-2.9.22.5/pdns/rcpgenerator.cc.orig	2012-01-11 11:00:23.544457230 +0100
++++ pdns-2.9.22.5/pdns/rcpgenerator.cc	2012-01-11 11:00:39.114453728 +0100
+@@ -16,6 +16,7 @@
+     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+ 
++#include <stdio.h>
+ #include "rcpgenerator.hh"
+ #include "dnsparser.hh"
+ #include "misc.hh"
