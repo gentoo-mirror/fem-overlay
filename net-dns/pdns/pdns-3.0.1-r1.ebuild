@@ -1,8 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/net-dns/pdns/pdns-3.0.1.ebuild,v 1.2 2012/01/12 17:29:56 phajdan.jr Exp $
 
 EAPI=2
-inherit eutils multilib
+
+inherit eutils multilib autotools
 
 DESCRIPTION="The PowerDNS Daemon"
 SRC_URI="http://downloads.powerdns.com/releases/${P}.tar.gz"
@@ -10,7 +12,7 @@ HOMEPAGE="http://www.powerdns.com/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 x86"
 IUSE="debug doc ldap mysql postgres sqlite sqlite3 static opendbx"
 
 RDEPEND="mysql? ( virtual/mysql )
@@ -19,14 +21,14 @@ RDEPEND="mysql? ( virtual/mysql )
 	sqlite? ( =dev-db/sqlite-2.8* )
 	sqlite3? ( =dev-db/sqlite-3* )
 	opendbx? ( dev-db/opendbx )
-	>=dev-libs/boost-1.31"
+	>=dev-libs/boost-1.34"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 src_prepare() {
-	epatch "${FILESDIR}"/2.9.18-default-mysql-options.patch \
-		"${FILESDIR}"/${P}-gcc44.patch \
-		"${FILESDIR}"/${P}-CVE-2012-0206.patch
+	epatch "${FILESDIR}"/${PN}-3.0-lua-config.patch
+	epatch "${FILESDIR}"/${P}-nameserver.patch
+	eautoreconf
 }
 
 src_configure() {
@@ -50,7 +52,7 @@ src_configure() {
 		--with-pgsql-lib=/usr/$(get_libdir) \
 		--with-mysql-lib=/usr/$(get_libdir) \
 		--with-sqlite-lib=/usr/$(get_libdir) \
-		--with-sqlite3-lib=/usr/$(get_libdir) \
+		--without-lua \
 		$(use_enable static static-binaries) \
 		${myconf} \
 		|| die "econf failed"
