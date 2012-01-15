@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=2
-inherit eutils autotools multilib subversion
+
+inherit eutils multilib autotools subversion
 
 DESCRIPTION="The PowerDNS Daemon"
 ESVN_REPO_URI="svn://svn.powerdns.com/pdns/trunk/pdns"
@@ -12,7 +13,7 @@ HOMEPAGE="http://www.powerdns.com/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc ldap mysql postgres sqlite sqlite3 static opendbx"
+IUSE="debug doc ldap mysql postgres sqlite sqlite3 static opendbx lua"
 
 RDEPEND="mysql? ( virtual/mysql )
 	postgres? ( dev-db/postgresql-base )
@@ -20,6 +21,7 @@ RDEPEND="mysql? ( virtual/mysql )
 	sqlite? ( =dev-db/sqlite-2.8* )
 	sqlite3? ( =dev-db/sqlite-3* )
 	opendbx? ( dev-db/opendbx )
+    lua? ( >=dev-lang/lua-5.1 )
 	>=dev-libs/boost-1.31"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
@@ -58,7 +60,7 @@ src_configure() {
 		--with-pgsql-lib=/usr/$(get_libdir) \
 		--with-mysql-lib=/usr/$(get_libdir) \
 		--with-sqlite-lib=/usr/$(get_libdir) \
-		--with-sqlite3-lib=/usr/$(get_libdir) \
+		$(use_with lua) \
 		$(use_enable static static-binaries) \
 		${myconf} \
 		|| die "econf failed"
