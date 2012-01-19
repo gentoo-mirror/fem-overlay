@@ -15,10 +15,10 @@ IUSE=""
 
 EAPI=4
 
-RDEPEND=">=net-dialup/radiusclient-ng-0.5.6[add_tunel]
-	 >=net-misc/openvpn-testing-vlan-9999[no_priority]"
+DEPEND=">=net-dialup/radiusclient-ng-0.5.6[add_tunnel]"
 
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}
+	>=net-misc/openvpn-testing-vlan-9999[no_priority]"
 
 src_compile() {
 	emake || die "Error: emake failed!"
