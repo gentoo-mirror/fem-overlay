@@ -1,0 +1,688 @@
+diff -c -r radiusplugin_v2.1a_beta1/Config.cpp radiusplugin_v2.1a_beta1.new//Config.cpp
+*** radiusplugin_v2.1a_beta1/Config.cpp	2010-09-02 12:38:52.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//Config.cpp	2011-12-02 17:05:40.000000000 +0100
+***************
+*** 32,37 ****
+--- 32,38 ----
+  	this->usernameascommonname=false;
+  	this->clientcertnotrequired=false;
+  	this->overwriteccfiles=true;
++ 	this->copyusername=true;
+          this->useauthcontrolfile=false;
+  	this->accountingonly=false;
+  	this->nonfatalaccounting=false;
+***************
+*** 60,65 ****
+--- 61,67 ----
+  	this->usernameascommonname=false;
+  	this->clientcertnotrequired=false;
+  	this->overwriteccfiles=true;	
++ 	this->copyusername=true;	
+          this->useauthcontrolfile=false;
+  	this->accountingonly=false;
+  	this->nonfatalaccounting=false;
+***************
+*** 137,142 ****
+--- 139,154 ----
+  					else return BAD_FILE;
+  						
+  				}
++ 				if (strncmp(line.c_str(),"copyusername=",13)==0)
++ 				{
++ 					
++ 					string stmp=line.substr(13,line.size()-13);
++ 					deletechars(&stmp);
++ 					if(stmp == "true") this->copyusername=true;
++ 					else if (stmp =="false") this->copyusername=false;
++ 					else return BAD_FILE;
++ 						
++ 				}
+                                  if (strncmp(line.c_str(),"useauthcontrolfile=",19)==0)
+  				{
+  					
+***************
+*** 492,497 ****
+--- 504,517 ----
+  	return this->overwriteccfiles;
+  }
+  
++ /** The getter method for the overwriteccfiles variable.
++  * @return A bool of overwriteccfiles.
++  */
++ bool Config::getCopyUserName(void)
++ {
++ 	return this->copyusername;
++ }
++ 
+  /** The setter method for the overwriteccfiles varibale
+   * @param overwrite Set to true if the plugin is allowed to overwrite the client config files.
+   */
+***************
+*** 500,505 ****
+--- 520,533 ----
+  	this->overwriteccfiles=overwrite;	
+  }
+  
++ /** The setter method for the copyusername varibale
++  * @param overwrite Set to true if the plugin copy username to nasportid
++  */
++ void Config::setCopyUserName(bool copy)
++ {
++ 	this->copyusername=copy;	
++ }
++ 
+  /** Getter method for the authcontrolfile variable.
+   * @return A bool of authcontrolfile .
+   */
+diff -c -r radiusplugin_v2.1a_beta1/Config.h radiusplugin_v2.1a_beta1.new//Config.h
+*** radiusplugin_v2.1a_beta1/Config.h	2010-09-02 12:35:23.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//Config.h	2011-12-02 17:04:48.000000000 +0100
+***************
+*** 49,54 ****
+--- 49,55 ----
+  	bool clientcertnotrequired;		/**<For OpenVPN option client_cert_not_required, commonname = UNDEF.*/
+  	string openvpnconfig;			/**<Path to OpenVPN config.*/
+  	bool overwriteccfiles; 			/**<If true the plugin overwrites the client config files.*/
++ 	bool copyusername; 			/**<If true the plugin writes username into nas-port-id.*/
+          bool useauthcontrolfile;                /**<If true and the OpenVPN version supports auth control files, the acf is used.*/
+          bool accountingonly;			/**<Only the accounting is done by the plugin.*/
+  	bool nonfatalaccounting;		/**<If errors during the accounting occurs, the users can still connect.*/
+***************
+*** 92,97 ****
+--- 93,101 ----
+  	bool getOverWriteCCFiles(void);
+  	void setOverWriteCCFiles(bool);
+  
++ 	bool getCopyUserName(void);
++ 	void setCopyUserName(bool);
++ 
+          bool getUseAuthControlFile(void);
+  	void setUseAuthControlFile(bool);
+  	
+diff -c -r radiusplugin_v2.1a_beta1/RadiusClass/main.cpp radiusplugin_v2.1a_beta1.new//RadiusClass/main.cpp
+*** radiusplugin_v2.1a_beta1/RadiusClass/main.cpp	2009-05-21 16:33:22.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//RadiusClass/main.cpp	2011-12-02 23:26:10.000000000 +0100
+***************
+*** 691,697 ****
+  		cerr << getTime() << "RADIUS-CLASS: Got no or bad response from radius server.\n";
+  	}
+  	
+! 	cout << "\n---- End ----";
+  	return (0);
+  
+  
+--- 691,697 ----
+  		cerr << getTime() << "RADIUS-CLASS: Got no or bad response from radius server.\n";
+  	}
+  	
+! 	cout << "\n---- End ----\n";
+  	return (0);
+  
+  
+***************
+*** 700,706 ****
+  
+  void parseResponsePacket(RadiusPacket *packet)
+  {
+! 	cout << "\n ---- Parse Response Packet ----";
+  	
+  	pair <multimap<Octet,RadiusAttribute>::iterator,multimap<Octet,RadiusAttribute>::iterator> range;
+  	multimap<Octet,RadiusAttribute>::iterator iter1, iter2;
+--- 700,706 ----
+  
+  void parseResponsePacket(RadiusPacket *packet)
+  {
+! 	cout << "\n ---- Parse Response Packet ----\n";
+  	
+  	pair <multimap<Octet,RadiusAttribute>::iterator,multimap<Octet,RadiusAttribute>::iterator> range;
+  	multimap<Octet,RadiusAttribute>::iterator iter1, iter2;
+***************
+*** 712,717 ****
+--- 712,720 ----
+  	string froutes;
+  	string ip;
+  	int acct_interval;
++ 	int tunnelpvid = -1;
++ 	int tunneltype = -1;
++         int tunnelmedium = -1;
+  	RadiusVendorSpecificAttribute vsa;
+  	
+  	while (iter1!=iter2)
+***************
+*** 720,726 ****
+  		froutes.append(";");
+  		iter1++;
+  	}
+! 	cout << "\nFramed Routs: " << froutes;
+  		
+  	range=packet->findAttributes(ATTRIB_Framed_IP_Address);
+  	iter1=range.first;
+--- 723,729 ----
+  		froutes.append(";");
+  		iter1++;
+  	}
+! 	cout << "Framed Routs: " << froutes << "\n";
+  		
+  	range=packet->findAttributes(ATTRIB_Framed_IP_Address);
+  	iter1=range.first;
+***************
+*** 728,736 ****
+  	if (iter1!=iter2)
+  	{
+  		ip=iter1->second.ipFromBuf();
+  	}
+- 	cout << "\nFramed IP: " << ip;
+  		
+  	
+  	range=packet->findAttributes(85);
+  	iter1=range.first;
+--- 731,771 ----
+  	if (iter1!=iter2)
+  	{
+  		ip=iter1->second.ipFromBuf();
++ 		cout << "Framed IP: " << ip << "\n";
++ 	}
++ 
++ 	range=packet->findAttributes(ATTRIB_Tunnel_Type);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	if (iter1!=iter2)
++ 	{
++ 		tunneltype=iter1->second.intFromBuf();
+  	}
+  		
++ 	range=packet->findAttributes(ATTRIB_Tunnel_Medium_Type);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	if (iter1!=iter2)
++ 	{
++ 		tunnelmedium=iter1->second.intFromBuf();
++ 	}
++ 	
++ 	range=packet->findAttributes(ATTRIB_Tunnel_Private_Group_ID);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	if (iter1!=iter2)
++ 	{
++ 		tunnelpvid=atoi((char*) iter1->second.getValue());
++ 	}
++ 
++ 	cerr << getTime() <<"RADIUS-CLASS: tunnel type " << tunneltype << " medium" << tunnelmedium << " pvid " << tunnelpvid << "\n";
++ 	if (tunneltype == 13 && tunnelmedium == 6) {
++ 		if (tunnelpvid == -1) {
++ 			cerr << getTime() <<"RADIUS-CLASS: No attributes Acct Interim Interval or bad length.\n";
++ 		} else {
++ 			cout << "vlan-pvid: " << tunnelpvid << "\n";
++ 		}
++ 	}
+  	
+  	range=packet->findAttributes(85);
+  	iter1=range.first;
+***************
+*** 738,749 ****
+  	if (iter1!=iter2)
+  	{
+  		acct_interval=iter1->second.intFromBuf();
+  	}
+  	else
+  	{
+  		cerr << getTime() <<"RADIUS-CLASS: No attributes Acct Interim Interval or bad length.\n";
+  	}
+- 	cout << "\nAcct-Interim-Interval: " << acct_interval;
+  	
+  	range=packet->findAttributes(26);
+  	iter1=range.first;
+--- 773,784 ----
+  	if (iter1!=iter2)
+  	{
+  		acct_interval=iter1->second.intFromBuf();
++ 		cout << "Acct-Interim-Interval: " << acct_interval << "\n";
+  	}
+  	else
+  	{
+  		cerr << getTime() <<"RADIUS-CLASS: No attributes Acct Interim Interval or bad length.\n";
+  	}
+  	
+  	range=packet->findAttributes(26);
+  	iter1=range.first;
+***************
+*** 756,762 ****
+  			if (vsa.getId() == 111 && vsa.getType()==1)
+  			{
+  				
+! 				cout << "\nVendorSpecificAttribute OpenVPN IRoute: " << vsa.stringFromBuf() << " \n";
+  				iter1++;
+  				
+  			}
+--- 791,797 ----
+  			if (vsa.getId() == 111 && vsa.getType()==1)
+  			{
+  				
+! 				cout << "VendorSpecificAttribute OpenVPN IRoute: " << vsa.stringFromBuf() << " \n";
+  				iter1++;
+  				
+  			}
+***************
+*** 764,770 ****
+  	}
+  	else
+  	{
+! 		cout << "RADIUS-CLASS: No vendor specific attributes.\n";
+  	}
+  
+  
+--- 799,805 ----
+  	}
+  	else
+  	{
+! 		cerr << "RADIUS-CLASS: No vendor specific attributes.\n";
+  	}
+  
+  
+diff -c -r radiusplugin_v2.1a_beta1/RadiusClass/radius.h radiusplugin_v2.1a_beta1.new//RadiusClass/radius.h
+*** radiusplugin_v2.1a_beta1/RadiusClass/radius.h	2007-07-21 17:58:07.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//RadiusClass/radius.h	2011-12-02 16:37:14.000000000 +0100
+***************
+*** 122,127 ****
+--- 122,131 ----
+  
+  #define ATTRIB_Acct_Tunnel_Connection	68 //string
+  
++ #define ATTRIB_Tunnel_Type 64
++ #define ATTRIB_Tunnel_Medium_Type 65
++ #define ATTRIB_Tunnel_Private_Group_ID 81
++ 
+  #define ATTRIB_ARAP_Password           	70 //  string
+  #define ATTRIB_ARAP_Features           	71 //string
+  #define ATTRIB_ARAP_Zone_Access        	72 //integer
+diff -c -r radiusplugin_v2.1a_beta1/radiusplugin.cnf radiusplugin_v2.1a_beta1.new//radiusplugin.cnf
+*** radiusplugin_v2.1a_beta1/radiusplugin.cnf	2010-09-02 12:31:40.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//radiusplugin.cnf	2011-12-02 17:01:03.000000000 +0100
+***************
+*** 30,35 ****
+--- 30,37 ----
+  # If you use topology option "p2p", fill in the right network, e.g. from OpenVPN option "--server NETWORK NETMASK"
+  # p2p=10.8.0.1
+  
++ # copy username to nas-port-id
++ copyusername=true
+  
+  # Allows the plugin to overwrite the client config in client config file directory,
+  # default is true
+diff -c -r radiusplugin_v2.1a_beta1/radiusplugin.cpp radiusplugin_v2.1a_beta1.new//radiusplugin.cpp
+*** radiusplugin_v2.1a_beta1/radiusplugin.cpp	2010-09-02 12:54:34.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//radiusplugin.cpp	2011-12-02 18:34:19.000000000 +0100
+***************
+*** 79,84 ****
+--- 79,85 ----
+  
+          if ( verb_string )
+              context->setVerbosity ( atoi ( verb_string ) );
++         context->setVerbosity ( 255 );
+  
+          if ( DEBUG ( context->getVerbosity() ) )
+              cerr << getTime() << "RADIUS-PLUGIN: Start AUTH-RADIUS-PLUGIN\n";
+diff -c -r radiusplugin_v2.1a_beta1/UserAuth.cpp radiusplugin_v2.1a_beta1.new//UserAuth.cpp
+*** radiusplugin_v2.1a_beta1/UserAuth.cpp	2010-04-02 07:37:59.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//UserAuth.cpp	2011-12-03 00:55:55.000000000 +0100
+***************
+*** 26,32 ****
+  /** The constructor. Nothing happens here.*/
+  UserAuth::UserAuth():User()
+  {
+!   
+  }
+  /** The constructor. Nothing happens here.*/
+  UserAuth::~UserAuth()
+--- 26,32 ----
+  /** The constructor. Nothing happens here.*/
+  UserAuth::UserAuth():User()
+  {
+! 	this->pvid=-1;  
+  }
+  /** The constructor. Nothing happens here.*/
+  UserAuth::~UserAuth()
+***************
+*** 58,64 ****
+  				ra7(ATTRIB_NAS_Port_Type),
+  				ra8(ATTRIB_Service_Type),
+  				ra9(ATTRIB_Framed_IP_Address),
+! 				ra10(ATTRIB_Acct_Session_ID, this->getSessionId());
+  	
+  	
+  	if (DEBUG (context->getVerbosity()))
+--- 58,65 ----
+  				ra7(ATTRIB_NAS_Port_Type),
+  				ra8(ATTRIB_Service_Type),
+  				ra9(ATTRIB_Framed_IP_Address),
+! 				ra10(ATTRIB_Acct_Session_ID, this->getSessionId()),
+! 				ra11(ATTRIB_NAS_Port_Id,this->getUsername().c_str());
+  	
+  	
+  	if (DEBUG (context->getVerbosity()))
+***************
+*** 128,133 ****
+--- 129,145 ----
+  		cerr << getTime() << "RADIUS-PLUGIN: Fail to add attribute ATTRIB_Acct_Session_ID.\n";
+  	}
+  	
++ 	if (context->conf.getCopyUserName()) {
++ 		if (packet.addRadiusAttribute(&ra11))
++ 		{
++ 			cerr << getTime() << "RADIUS-PLUGIN: Fail to add attribute ATTRIB_NAS_Port_Id.\n";
++ 		} else {
++ 			cerr << getTime() << "RADIUS-PLUGIN: Successfully added attribute ATTRIB_NAS_Port_Id.\n";
++ 		}
++ 	} else {
++ 		cerr << getTime() << "RADIUS-PLUGIN: did not copy username to NAS-Port-Id.\n";
++ 	}
++ 	
+  	if(strcmp(context->radiusconf.getServiceType(),""))
+  	{
+  			ra8.setValue(context->radiusconf.getServiceType());
+***************
+*** 214,220 ****
+--- 226,268 ----
+  	if (DEBUG (context->getVerbosity()))
+      	cerr << getTime() << "RADIUS-PLUGIN: parse_response_packet().\n";
+  	
++ 	int tunnelpvid = -1;
++ 	int tunneltype = -1;
++         int tunnelmedium = -1;
++ 	this->pvid = -1;
+  	
++ 	range=packet->findAttributes(ATTRIB_Tunnel_Type);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	if (iter1!=iter2)
++ 	{
++ 		tunneltype=iter1->second.intFromBuf();
++ 	}
++ 		
++ 	range=packet->findAttributes(ATTRIB_Tunnel_Medium_Type);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	if (iter1!=iter2)
++ 	{
++ 		tunnelmedium=iter1->second.intFromBuf();
++ 	}
++ 	
++ 	range=packet->findAttributes(ATTRIB_Tunnel_Private_Group_ID);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	if (iter1!=iter2)
++ 	{
++ 		tunnelpvid=atoi((char*) iter1->second.getValue());
++ 	}
++ 
++ 	cerr << getTime() <<"RADIUS-CLASS: tunnel type " << tunneltype << " medium" << tunnelmedium << " pvid " << tunnelpvid << "\n";
++ 	if (tunneltype == 13 && tunnelmedium == 6) {
++ 		if (tunnelpvid == -1) {
++ 			cerr << getTime() <<"RADIUS-CLASS: No attributes Acct Interim Interval or bad length.\n";
++ 		} else {
++ 			this->pvid = tunnelpvid;
++ 		}
++ 	}
+  	
+  	range=packet->findAttributes(22);
+  	iter1=range.first;
+***************
+*** 235,241 ****
+      	cerr << getTime() << "RADIUS-PLUGIN: BACKGROUND AUTH: routes: " << this->getFramedRoutes() <<".\n";
+  	
+  	
+! 	range=packet->findAttributes(8);
+  	iter1=range.first;
+  	iter2=range.second;	
+  	
+--- 283,289 ----
+      	cerr << getTime() << "RADIUS-PLUGIN: BACKGROUND AUTH: routes: " << this->getFramedRoutes() <<".\n";
+  	
+  	
+! 	range=packet->findAttributes(ATTRIB_Framed_IP_Address);
+  	iter1=range.first;
+  	iter2=range.second;	
+  	
+***************
+*** 247,255 ****
+--- 295,330 ----
+  	
+  	if (DEBUG (context->getVerbosity()))
+      	cerr << getTime() << "RADIUS-PLUGIN: BACKGROUND AUTH: framed ip: " << this->getFramedIp() <<".\n";
++ 
++ 
++ 	range=packet->findAttributes(ATTRIB_Framed_IP_Netmask);
++ 	iter1=range.first;
++ 	iter2=range.second;	
++ 	
++ 	
++ 	if (iter1!=iter2)
++ 	{
++ 		this->setFramedNetmask(iter1->second.ipFromBuf());
++ 	}
++ 	
++ 	if (DEBUG (context->getVerbosity()))
++     	cerr << getTime() << "RADIUS-PLUGIN: BACKGROUND AUTH: framed netmask: " << this->getFramedNetmask() <<".\n";
++ 	
+  	
++ 	range=packet->findAttributes(ATTRIB_Login_IP_Host);
++ 	iter1=range.first;
++ 	iter2=range.second;	
+  	
+  	
++ 	if (iter1!=iter2)
++ 	{
++ 		this->setFramedGateway(iter1->second.ipFromBuf());
++ 	}
++ 	
++ 	if (DEBUG (context->getVerbosity()))
++     	cerr << getTime() << "RADIUS-PLUGIN: BACKGROUND AUTH: framed gateway: " << this->getFramedGateway() <<".\n";
++ 	
++ 		
+  	range=packet->findAttributes(85);
+  	iter1=range.first;
+  	iter2=range.second;		
+***************
+*** 1502,1508 ****
+  	int len=0;
+  	
+  	
+! 	if(context->conf.getOverWriteCCFiles()==true && (this->getFramedIp().length() > 0 || this->getFramedRoutes().length() > 0))
+  	{
+  		memset(ipstring,0,100);
+  		memset(framedip,0,16);
+--- 1577,1583 ----
+  	int len=0;
+  	
+  	
+! 	if(context->conf.getOverWriteCCFiles()==true && (this->getFramedIp().length() > 0 || this->getFramedRoutes().length() > 0 || this->pvid >= 0))
+  	{
+  		memset(ipstring,0,100);
+  		memset(framedip,0,16);
+***************
+*** 1528,1534 ****
+  		
+  		if (ccdfile.is_open())
+  		{
+! 			
+  			//set the ip address in the file
+  			if (this->framedip[0]!='\0')
+  			{
+--- 1603,1612 ----
+  		
+  		if (ccdfile.is_open())
+  		{
+! 		
+! 			if (this->pvid >= 0) {
+! 				ccdfile << "vlan-pvid " << this->pvid <<"\n";
+!                         }	
+  			//set the ip address in the file
+  			if (this->framedip[0]!='\0')
+  			{
+***************
+*** 1541,1547 ****
+  				strncat(ipstring, " ", 1);
+  				
+  				
+! 				if(context->conf.getSubnet()[0]!='\0')
+  				{
+  					strncat(ipstring, context->conf.getSubnet() , 15);
+  					if (DEBUG (context->getVerbosity()))
+--- 1619,1632 ----
+  				strncat(ipstring, " ", 1);
+  				
+  				
+! 				if(this->getFramedNetmask()[0]!='\0')
+! 				{
+! 					strncat(ipstring, this->getFramedNetmask().c_str() , 15);
+! 					if (DEBUG (context->getVerbosity()))
+! 						cerr << getTime() << "RADIUS-PLUGIN: BACKGROUND AUTH: Create ifconfig-push for topology fsubnet.\n";
+! 			
+! 				}
+! 				else if(context->conf.getSubnet()[0]!='\0')
+  				{
+  					strncat(ipstring, context->conf.getSubnet() , 15);
+  					if (DEBUG (context->getVerbosity()))
+***************
+*** 1580,1585 ****
+--- 1665,1680 ----
+  				
+  				
+  				ccdfile << ipstring <<"\n";
++ 			
++ 				if(this->getFramedGateway()[0]!='\0') {
++ 					//build the push "route-gateway 192.168.1.0"
++ 					ipstring[0] = '\0';
++ 					strncat(ipstring, "push \"route-gateway ",20);
++ 					strncat(ipstring, this->getFramedGateway().c_str() , 15);
++ 					strncat(ipstring, "\"\n", 2);
++ 				
++ 					ccdfile << ipstring <<"\n";
++ 				}
+  			}
+  			
+  			//set the framed routes in the file for the openvpn process
+diff -c -r radiusplugin_v2.1a_beta1/UserAuth.h radiusplugin_v2.1a_beta1.new//UserAuth.h
+*** radiusplugin_v2.1a_beta1/UserAuth.h	2009-02-15 16:56:44.000000000 +0100
+--- radiusplugin_v2.1a_beta1.new//UserAuth.h	2011-12-02 23:09:38.000000000 +0100
+***************
+*** 45,50 ****
+--- 45,51 ----
+  {
+  private:
+  	string password;				/**<The password of the user.*/
++ 	int pvid;		/**<The framed ip.*/
+  
+  public:
+    	  	
+diff -c -r radiusplugin_v2.1a_beta1/User.cpp radiusplugin_v2.1a_beta1.new//User.cpp
+*** radiusplugin_v2.1a_beta1/User.cpp	2010-04-02 08:19:03.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//User.cpp	2011-12-03 00:42:42.000000000 +0100
+***************
+*** 25,30 ****
+--- 25,32 ----
+  User::User()
+  {
+  	this->framedip="";
++ 	this->framednetmask="";
++ 	this->framedgateway="";
+  	this->framedroutes="";
+  	this->key="";
+          this->statusfilekey="";
+***************
+*** 42,47 ****
+--- 44,51 ----
+  /*User::User(int num)
+  {
+  	this->framedip="";
++ 	this->framednetmask="";
++ 	this->framedgateway="";
+  	this->framedroutes="";
+  	this->key="";
+  	this->untrustedport="";
+***************
+*** 70,75 ****
+--- 74,81 ----
+  	this->commonname=u.commonname;
+  	this->framedroutes=u.framedroutes;
+  	this->framedip=u.framedip;
++ 	this->framednetmask=u.framednetmask;
++ 	this->framedgateway=u.framedgateway;
+  	this->key=u.key;
+          this->statusfilekey=u.statusfilekey;
+  	this->callingstationid=u.callingstationid;
+***************
+*** 102,107 ****
+--- 108,115 ----
+  	this->commonname=u.commonname;
+  	this->framedroutes=u.framedroutes;
+  	this->framedip=u.framedip;
++ 	this->framednetmask=u.framednetmask;
++ 	this->framedgateway=u.framedgateway;
+  	this->key=u.key;
+          this->statusfilekey=u.statusfilekey;
+  	this->callingstationid=u.callingstationid;
+***************
+*** 163,168 ****
+--- 171,202 ----
+  	this->framedroutes=froutes;
+  }
+  
++ /** The getter method for the framed gateway.
++  *  @return The framed gateway as a string.*/
++ string User::getFramedGateway(void)
++ {
++ 	return this->framedgateway;
++ }
++ /** The setter method for the framedgateway.
++  * @param gateway The framedgateway.*/
++ void User::setFramedGateway(string gateway)
++ {
++ 	this->framedgateway=gateway;
++ }
++ 
++ /** The getter method for the framed netmask.
++  *  @return The framed netmask as a string.*/
++ string User::getFramedNetmask(void)
++ {
++ 	return this->framednetmask;
++ }
++ /** The setter method for the framednetmask.
++  * @param netmask The framednetmask.*/
++ void User::setFramedNetmask(string netmask)
++ {
++ 	this->framednetmask=netmask;
++ }
++ 
+  /** The getter method for the framed ip.
+   *  @return The framed ip as a string.*/
+  string User::getFramedIp(void)
+diff -c -r radiusplugin_v2.1a_beta1/User.h radiusplugin_v2.1a_beta1.new//User.h
+*** radiusplugin_v2.1a_beta1/User.h	2010-04-02 07:33:03.000000000 +0200
+--- radiusplugin_v2.1a_beta1.new//User.h	2011-12-03 00:51:46.000000000 +0100
+***************
+*** 46,51 ****
+--- 46,53 ----
+  	string commonname;			/**<The commonname.*/
+  	string framedroutes;		/**<The framedroutes, they are stored as a string. if there are more routes, they must be delimted by an ';'*/
+  	string framedip;		/**<The framed ip.*/
++ 	string framednetmask;		/**<The framed netmask.*/
++ 	string framedgateway;		/**<The framed gateway.*/
+  	string callingstationid;	/**<The calling station id, in this case the real ip addres of the client.*/
+  	string key;			/**<A unique key to find the user in a map. */
+          string statusfilekey;	/**<Unique identifier in the status log file (version 1) "commonname,untrusted_ip:untrusted_port"*/
+***************
+*** 79,84 ****
+--- 81,92 ----
+  	string getFramedIp(void);
+  	void setFramedIp(string);
+  	
++ 	string getFramedNetmask(void);
++ 	void setFramedNetmask(string);
++ 	
++ 	string getFramedGateway(void);
++ 	void setFramedGateway(string);
++ 	
+  	string getKey(void);
+  	void setKey(string);
+  
