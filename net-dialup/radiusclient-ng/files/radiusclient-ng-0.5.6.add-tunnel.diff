@@ -1,0 +1,146 @@
+diff -c -r radiusclient-ng-0.5.6.old/etc/dictionary radiusclient-ng-0.5.6/etc/dictionary
+*** radiusclient-ng-0.5.6.old/etc/dictionary	2004-09-16 01:24:34.000000000 +0200
+--- radiusclient-ng-0.5.6/etc/dictionary	2011-12-06 18:28:18.097558779 +0100
+***************
+*** 76,86 ****
+--- 76,92 ----
+  ATTRIBUTE	Acct-Multi-Session-Id	50	string
+  ATTRIBUTE	Acct-Link-Count		51	integer
+  ATTRIBUTE	Event-Timestamp		55	integer
++ ATTRIBUTE      Ingress-Filters                         57      integer
+  ATTRIBUTE	CHAP-Challenge		60	string
+  ATTRIBUTE	NAS-Port-Type		61	integer
+  ATTRIBUTE	Port-Limit		62	integer
+  ATTRIBUTE	Login-LAT-Port		63	integer
++ ATTRIBUTE	Tunnel-Type		64	integer
++ ATTRIBUTE	Tunnel-Medium-Type	65	integer
++ ATTRIBUTE	Tunnel-Password		69	string
+  ATTRIBUTE	Connect-Info		77	string
++ ATTRIBUTE	Tunnel-Private-Group-ID	81	string
++ ATTRIBUTE       Chargeable-User-Identity        89      string
+  
+  #
+  #	RFC3162 IPv6 attributes
+***************
+*** 231,236 ****
+--- 237,279 ----
+  VALUE		Add-Port-To-IP-Address	Yes			1
+  
+  #
++ #	Tunnel Type
++ #
++ VALUE		Tunnel-Type		PPTP			1
++ VALUE		Tunnel-Type		L2F			2
++ VALUE		Tunnel-Type		L2TP			3
++ VALUE		Tunnel-Type		ATMP			4
++ VALUE		Tunnel-Type		VTP			5
++ VALUE		Tunnel-Type		AH			6
++ VALUE		Tunnel-Type		IP-IP			7
++ VALUE		Tunnel-Type		MIN-IP-IP		8
++ VALUE		Tunnel-Type		ESP			9
++ VALUE		Tunnel-Type		GRE			10
++ VALUE		Tunnel-Type		DVS			11
++ VALUE		Tunnel-Type		TUNNEL-IP-IP		12
++ VALUE		Tunnel-Type		VLAN			13
++ 
++ #
++ #	Tunnel-Medium-Type
++ #
++ 
++ VALUE		Tunnel-Medium-Type	IPv4			1
++ VALUE		Tunnel-Medium-Type	IPv6			2
++ VALUE		Tunnel-Medium-Type	NSAP			3
++ VALUE		Tunnel-Medium-Type	HDLC			4
++ VALUE		Tunnel-Medium-Type	BBN-1822		5
++ VALUE		Tunnel-Medium-Type	802			6
++ VALUE		Tunnel-Medium-Type	E.163			7
++ VALUE		Tunnel-Medium-Type	E.164			8
++ VALUE		Tunnel-Medium-Type	F.69			9
++ VALUE		Tunnel-Medium-Type	X.121			10
++ VALUE		Tunnel-Medium-Type	IPX			11
++ VALUE		Tunnel-Medium-Type	Appletalk		12
++ VALUE		Tunnel-Medium-Type	Decnet-IV		13
++ VALUE		Tunnel-Medium-Type	Banyan-Vines		14
++ VALUE		Tunnel-Medium-Type	E.164			15
++ 
++ #
+  #	Configuration Values
+  #	uncomment these two lines to turn account expiration on
+  #
+diff -c -r radiusclient-ng-0.5.6.old/include/radiusclient-ng.h radiusclient-ng-0.5.6/include/radiusclient-ng.h
+*** radiusclient-ng-0.5.6.old/include/radiusclient-ng.h	2007-04-16 22:27:32.000000000 +0200
+--- radiusclient-ng-0.5.6/include/radiusclient-ng.h	2011-12-04 19:23:21.532523785 +0100
+***************
+*** 169,175 ****
+--- 169,178 ----
+  #define	PW_NAS_PORT_TYPE                61      /* integer */
+  #define	PW_PORT_LIMIT                   62      /* integer */
+  #define PW_LOGIN_LAT_PORT               63      /* string */
++ #define PW_TUNNEL_TYPE                  64      /* integer */
++ #define PW_TUNNEL_MEDIUM_TYPE           65      /* integer */
+  #define PW_CONNECT_INFO                 77      /* string */
++ #define PW_TUNNEL_PRIVATE_GROUP_ID      81      /* string */
+  
+  /* RFC3162 IPv6 attributes */
+  
+***************
+*** 316,321 ****
+--- 319,356 ----
+  #define PW_LOCAL	2
+  #define PW_REMOTE	3
+  
++ /*  Tunnel Type */
++ #define PW_TUNNEL_TYPE_PPTP                    1
++ #define PW_TUNNEL_TYPE_L2F                     2
++ #define PW_TUNNEL_TYPE_L2TP                    3
++ #define PW_TUNNEL_TYPE_ATMP                    4
++ #define PW_TUNNEL_TYPE_VTP                     5
++ #define PW_TUNNEL_TYPE_AH                      6
++ #define PW_TUNNEL_TYPE_IP_IP                   7
++ #define PW_TUNNEL_TYPE_MIN_IP_IP               8
++ #define PW_TUNNEL_TYPE_ESP                     9
++ #define PW_TUNNEL_TYPE_GRE                     10
++ #define PW_TUNNEL_TYPE_DVS                     11
++ #define PW_TUNNEL_TYPE_TUNNEL_IP_IP            12
++ #define PW_TUNNEL_TYPE_VLAN                    13
++ 
++ /*	Tunnel_Medium_Type */
++ #define PW_TUNNEL_MEDIUM_TYPE_IPv4                    1
++ #define PW_TUNNEL_MEDIUM_TYPE_IPv6                    2
++ #define PW_TUNNEL_MEDIUM_TYPE_NSAP                    3
++ #define PW_TUNNEL_MEDIUM_TYPE_HDLC                    4
++ #define PW_TUNNEL_MEDIUM_TYPE_BBN_1822                5
++ #define PW_TUNNEL_MEDIUM_TYPE_802                     6
++ #define PW_TUNNEL_MEDIUM_TYPE_E_163                   7
++ #define PW_TUNNEL_MEDIUM_TYPE_E_164                   8
++ #define PW_TUNNEL_MEDIUM_TYPE_F_69                    9
++ #define PW_TUNNEL_MEDIUM_TYPE_X_121                   10
++ #define PW_TUNNEL_MEDIUM_TYPE_IPX                     11
++ #define PW_TUNNEL_MEDIUM_TYPE_Appletalk               12
++ #define PW_TUNNEL_MEDIUM_TYPE_Decnet_IV               13
++ #define PW_TUNNEL_MEDIUM_TYPE_Banyan_Vines            14
++ #define PW_TUNNEL_MEDIUM_TYPE_E_164_NSAP              15
++ 
+  /* Server data structures */
+  
+  typedef struct dict_attr
+diff -c -r radiusclient-ng-0.5.6.old/lib/avpair.c radiusclient-ng-0.5.6/lib/avpair.c
+*** radiusclient-ng-0.5.6.old/lib/avpair.c	2007-07-24 02:16:16.000000000 +0200
+--- radiusclient-ng-0.5.6/lib/avpair.c	2011-12-06 18:34:12.031732191 +0100
+***************
+*** 241,247 ****
+  			    "length %d: 0x%s", attribute & 0xffff,
+  			    VENDOR(attribute), attrlen + 2, buffer);
+  		}
+! 		goto shithappens;
+  	}
+  
+  	rpair = malloc(sizeof(*rpair));
+--- 241,247 ----
+  			    "length %d: 0x%s", attribute & 0xffff,
+  			    VENDOR(attribute), attrlen + 2, buffer);
+  		}
+! 		return pair;
+  	}
+  
+  	rpair = malloc(sizeof(*rpair));
