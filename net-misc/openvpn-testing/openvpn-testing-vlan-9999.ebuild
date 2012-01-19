@@ -13,7 +13,7 @@ EGIT_BRANCH="feat_vlan_tagging"
 HOMEPAGE="http://openvpn.net/"
 
 LICENSE="GPL-2"
-SLOT="0"
+SLOT="testing-vlan"
 
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd ~x86-linux"
 IUSE="examples iproute2 minimal pam passwordsave selinux ssl static pkcs11 userland_BSD -no_priority"
