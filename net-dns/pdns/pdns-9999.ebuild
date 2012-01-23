@@ -13,7 +13,7 @@ HOMEPAGE="http://www.powerdns.com/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc ldap mysql postgres sqlite sqlite3 static opendbx lua"
+IUSE="debug doc ldap mysql postgres sqlite sqlite3 static opendbx lua extras"
 
 RDEPEND="mysql? ( virtual/mysql )
 	postgres? ( dev-db/postgresql-base )
@@ -36,6 +36,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	use extras && epatch "${FILESDIR}"/pdns-9999-ipv6-notify.patch
 	eautoreconf --install || die "autoconf failed"
 }
 
