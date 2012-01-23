@@ -1,16 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-4.1.1.ebuild,v 1.1 2011/07/29 22:41:29 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-4.0.0.ebuild,v 1.1 2010/05/03 19:47:29 alexxy Exp $
 
-EAPI="3"
-
-inherit mount-boot flag-o-matic toolchain-funcs mercurial
+inherit mount-boot flag-o-matic toolchain-funcs python
 
 DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
-REPO="xen-4.1-testing.hg"
-EHG_REPO_URI="http://xenbits.xen.org/hg/${REPO}"
-EHG_REVISION="${PV/_/-}"
+SRC_URI="http://bits.xensource.com/oss-xen/release/${PV}/xen-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -24,9 +20,7 @@ PDEPEND="~app-emulation/xen-tools-${PV}"
 RESTRICT="test"
 
 # Approved by QA team in bug #144032
-QA_WX_LOAD="boot/xen-syms-${PV/_/-}"
-
-S="${WORKDIR}/${REPO}"
+QA_WX_LOAD="boot/xen-syms-${PV}"
 
 pkg_setup() {
 	if [[ -z ${XEN_TARGET_ARCH} ]]; then
@@ -51,11 +45,15 @@ pkg_setup() {
 	elif use acm || use flask ; then
 		ewarn "acm and flask require USE=xsm to be set, dropping use flags"
 	fi
+
+	# fix build error with python 3
+	python_set_active_version 2
+	python_pkg_setup
 }
 
-src_prepare() {
-	# Drop .config
-	sed -e '/-include $(XEN_ROOT)\/.config/d' -i Config.mk || die "Couldn't	drop"
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
 		einfo "User wants their own CFLAGS - removing defaults"
@@ -70,7 +68,8 @@ src_prepare() {
 	fi
 }
 
-src_configure() {
+src_compile() {
+	local myopt
 	use debug && myopt="${myopt} debug=y"
 	use pae && myopt="${myopt} pae=y"
 
@@ -80,9 +79,7 @@ src_configure() {
 	else
 		unset CFLAGS
 	fi
-}
 
-src_compile() {
 	# Send raw LDFLAGS so that --as-needed works
 	emake CC="$(tc-getCC)" LDFLAGS="$(raw-ldflags)" -C xen ${myopt} || die "compile failed"
 }
