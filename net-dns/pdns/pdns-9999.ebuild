@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=2
@@ -22,8 +22,9 @@ RDEPEND="mysql? ( virtual/mysql )
 	sqlite3? ( =dev-db/sqlite-3* )
 	opendbx? ( dev-db/opendbx )
     lua? ( >=dev-lang/lua-5.1 )
-	>=dev-libs/boost-1.31"
+	!static? ( >=dev-libs/boost-1.34 )"
 DEPEND="${RDEPEND}
+	static? ( >=dev-libs/boost-1.34[static-libs] )
 	doc? ( app-doc/doxygen )
 	dev-util/ragel"
 
@@ -77,7 +78,7 @@ src_compile() {
 }
 
 src_install () {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "make install failed"
 
 	mv "${D}"/etc/powerdns/pdns.conf{-dist,}
 
@@ -98,6 +99,8 @@ src_install () {
 	doins pdns/*.hh
 	insinto /usr/include/pdns/backends/gsql
 	doins pdns/backends/gsql/*.hh
+
+	rm -f "${D}"/usr/$(get_libdir)/powerdns/*.{a,la}
 }
 
 pkg_preinst() {
