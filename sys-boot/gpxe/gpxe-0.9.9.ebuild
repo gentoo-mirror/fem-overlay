@@ -29,14 +29,11 @@ src_unpack() {
 	sed -i \
 		-e "/^ISOLINUX_BIN/s:lib:share:" \
 		arch/i386/Makefile
-	
+
 	# Fix mkisofs parameters
 	sed -i \
 		-e "/^mkisofs/s:-q:--quiet:" \
-		util/genliso	
-	sed -i \
-		-e "/^mkisofs/s:-q:--quiet:" \
-		util/geniso	
+		util/genliso
 
 	if ! use iso; then
 		# delete build of iso from Makefile
@@ -48,7 +45,7 @@ src_unpack() {
 
 src_compile() {
 	cd "src"
-	emake || die "emake failed"
+	emake
 }
 
 src_install() {
