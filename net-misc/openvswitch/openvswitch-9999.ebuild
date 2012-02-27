@@ -74,6 +74,7 @@ src_install() {
 	newconfd "${FILESDIR}"/ovs-vswitchd_conf ovs-vswitchd || die "install failed"
 	doinitd "${FILESDIR}"/ovsdb-server || die "install failed"
 	doinitd "${FILESDIR}"/ovs-vswitchd || die "install failed"
+	doinitd "${FILESDIR}"/ovs-brcompatd || die "install failed"
 }
 
 pkg_postinst() {

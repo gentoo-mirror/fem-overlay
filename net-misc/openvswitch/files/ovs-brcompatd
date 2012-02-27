@@ -1,0 +1,17 @@
+#!/sbin/runscript
+
+depend() {
+	need ovsdb-server ovs-vswitchd
+}
+
+start() {
+	ebegin "Starting Open vSwitch bridge compatibility daemon"
+	start-stop-daemon --start --quiet --exec /usr/sbin/ovs-brcompatd -- --pidfile --detach ${DB_SOCKET}
+	eend ${?}
+}
+
+stop() {
+	ebegin "Stopping Open vSwitch bridge compatibility daemon"
+	start-stop-daemon --stop --quiet --name ovs-brcompatd
+	eend ${?}
+}
