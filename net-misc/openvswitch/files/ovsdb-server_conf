@@ -7,7 +7,7 @@
 
 OVS_CONF_DIR="/etc/openvswitch"
 
-DB_SOCKET="/var/lib/run/openvswitch/db.sock"
+DB_SOCKET="/var/run/openvswitch/db.sock"
 REMOTE_DB="Open_vSwitch,manager_options"
 PRIVATE_KEY="db:SSL,private_key"
 CERTIFICATE="db:SSL,certificate"

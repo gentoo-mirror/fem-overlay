@@ -18,7 +18,7 @@ local_start() {
 	local bootstrap_ca_cert=${BOOTSTRAP_CA_CERT:+"--bootstrap-ca-cert=${BOOTSTRAP_CA_CERT}"}
 
 	ebegin "Starting Open vSwitch DB server"
-	checkpath ${DB_SOCKET%/*}
+	checkpath -d ${DB_SOCKET%/*}
 	start-stop-daemon --start --quiet --exec /usr/sbin/ovsdb-server -- ${remote_punix} ${remote_db} ${private_key} ${certificate} ${bootstrap_ca_cert} --pidfile --detach
 	eend ${?}
 }
