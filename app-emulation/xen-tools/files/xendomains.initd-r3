@@ -3,7 +3,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/files/xendomains.initd-r2,v 1.4 2012/01/12 13:40:01 alexxy Exp $
 
-opts="start stop status restart"
+extra_commands="status"
 
 depend() {
 	need xenstored
@@ -20,8 +20,16 @@ get_domname() {
 	fi
 }
 
+check_cmdline_tool() {
+    xen_cmdline_tool=xm
+    if [[ -z "$(which ${xen_cmdline_tool} 2>/dev/null)" ]]; then
+        xen_cmdline_tool=xl
+    fi
+}
+
 is_running() {
-	/usr/sbin/xl list "${1}" >/dev/null 2>&1
+	check_cmdline_tool
+	${xen_cmdline_tool} list "${1}" >/dev/null 2>&1
 }
 
 using_screen() {
@@ -34,6 +42,7 @@ set_screen_cmd() {
 
 start() {
 	set_screen_cmd
+	check_cmdline_tool
 
 	einfo "Starting Xen domains from ${AUTODIR:=/etc/xen/auto}"
 	if using_screen ; then
@@ -58,9 +67,9 @@ start() {
 		if ! is_running ${name} ; then
 			ebegin "  Starting domain ${name}"
 			if using_screen ; then
-				${screen_cmd} screen -t ${name} xl create ${dom} -c
+				${screen_cmd} screen -t ${name} ${xen_cmdline_tool} create ${dom} -c
 			else
-				xl create --quiet ${dom}
+				${xen_cmdline_tool} create --quiet ${dom}
 			fi
 			eend $?
 		else
@@ -71,6 +80,7 @@ start() {
 
 stop() {
 	set_screen_cmd
+	check_cmdline_tool
 
 	einfo "Shutting down Xen domains from ${AUTODIR:=/etc/xen/auto}"
 	# Stop all domains with config files in AUTODIR.
@@ -81,7 +91,7 @@ stop() {
 			name=$(get_domname ${dom})
 			if is_running ${name} ; then
 				ebegin "  Asking domain ${name} to shutdown in the background..."
-				xl shutdown -w ${name} >/dev/null &
+				${xen_cmdline_tool} shutdown -w ${name} >/dev/null &
 			else
 				einfo "  Not stopping domain ${name} - not running"
 			fi
@@ -94,7 +104,7 @@ stop() {
 			name=$(get_domname ${dom})
 			if is_running ${name} ; then
 				ebegin "  Waiting for domain ${name} to shutdown"
-				xl shutdown -w ${name} >/dev/null
+				${xen_cmdline_tool} shutdown -w ${name} >/dev/null
 				eend $?
 			else
 				einfo "  Not stopping domain ${name} - not running"
@@ -113,5 +123,6 @@ stop() {
 }
 
 status() {
-	/usr/sbin/xl list
+	check_cmdline_tool
+	${xen_cmdline_tool} list
 }

@@ -1,0 +1,234 @@
+--- /dev/null	2012-02-27 20:00:36.803658547 +0100
++++ tools/hotplug/Linux/vif-openvswitch	2012-02-28 03:08:49.000000000 +0100
+@@ -0,0 +1,98 @@
++#!/bin/bash 
++#============================================================================ 
++# ${XEN_SCRIPT_DIR}/vif-openvswitch 
++# 
++# Script for configuring a vif using Open vSwitch. 
++# 
++# Usage: 
++# vif-openvswitch (add|remove|online|offline) 
++# 
++# Environment vars: 
++# vif         vif interface name (required). 
++# XENBUS_PATH path to this device's details in the XenStore (required). 
++# 
++# Read from the store: 
++# bridge  bridge to add the vif to (optional).  Defaults to searching for the 
++#         bridge itself. 
++# 
++# up: 
++# Enslaves the vif interface to the bridge. 
++# 
++# down: 
++# Removes the vif interface from the bridge. 
++#============================================================================ 
++
++dir=$(dirname "$0") 
++. "$dir/vif-common.sh" 
++
++bridge=${bridge:-} 
++bridge=$(xenstore_read_default "$XENBUS_PATH/bridge" "$bridge") 
++
++if [ -z "${bridge}" ] 
++then 
++  bridge=$(ovs-vsctl listbr | cut -d " 
++" -f 1) 
++
++  if [ -z "${bridge}" ] 
++  then 
++    fatal "Could not find bridge and none was specified" 
++  fi 
++fi 
++
++tag=${tag:-} 
++
++# Domain on VLAN tagged bridge? 
++RET=0 
++ovs-vsctl list-br | grep -c ${bridge} 1>/dev/null 2>&1 || RET=1 
++if [ $RET -eq 1 ] 
++then 
++  if [[ $bridge =~ \.[[:digit:]]{1,4}$ ]] 
++  then 
++    tag=$(echo ${bridge} | cut -d "." -f 2) 
++    bridge=$(echo ${bridge} | cut -d "." -f 1) 
++  else 
++    fatal "Could not find bridge device ${bridge}" 
++  fi 
++fi 
++
++RET=0 
++ovs-vsctl list-br | grep -c ${bridge} 1>/dev/null 2>&1 || RET=1 
++if [ $RET -eq 1 ] 
++then 
++  fatal "Could not find bridge device ${bridge}" 
++fi 
++
++case "$command" in 
++  online) 
++    setup_virtual_bridge_port "${dev}"
++    ip link set dev ${dev} up
++    if [ -z $tag ] 
++    then 
++      ovs-vsctl -- --may-exist add-port ${bridge} ${dev} 
++    else 
++      ovs-vsctl -- --may-exist add-port ${bridge} ${dev} tag=${tag} 
++    fi 
++    ;; 
++
++  offline) 
++    do_without_error ovs-vsctl -- --if-exists del-port ${bridge} ${dev} 
++    do_without_error ip link set dev ${dev} down 
++    ;; 
++
++  add) 
++    setup_virtual_bridge_port "${dev}"
++    ;; 
++
++esac 
++
++if [ -z "${tag}" ] 
++then 
++  log debug "Successful vif-openvswitch $command for ${dev}, bridge ${bridge}." 
++else 
++  log debug "Successful vif-openvswitch $command for ${dev}, bridge ${bridge}, tag ${tag}." 
++fi 
++
++if [ "$type_if" = vif -a "$command" = "online" ] 
++then 
++  success 
++fi 
+--- /dev/null	2012-02-27 20:00:36.803658547 +0100
++++ tools/hotplug/Linux/network-openvswitch	2012-02-27 16:18:12.000000000 +0100
+@@ -0,0 +1,120 @@
++#!/bin/bash
++#============================================================================
++# Default Xen network start/stop script.
++# Xend calls a network script when it starts.
++# The script name to use is defined in ${XEN_CONFIG_DIR}/xend-config.sxp
++# in the network-script field.
++#
++# This script creates a virtual switch (default ${netdev}) and adds a
++# device (defaults to eth0) to it.  The interface that this Open vSwitch
++# is created on should not have a working IP address and will be used as
++# a switch for Xen domU's.
++#
++# Usage:
++# network-openvswitch (start|stop|status) {VAR=VAL}*
++#
++# Vars:
++# bridge     The bridge to use (default xenvs0).
++# netdev     The interface to add to the bridge (default eth0).
++#
++# start:
++# Creates the bridge as bridge
++# Enslaves netdev to bridge
++#
++# stop:
++# Removes netdev from the bridge
++# Deletes bridge
++#
++# status:
++# Print addresses, interfaces
++#
++#============================================================================
++
++dir=$(dirname "$0")
++. "$dir/logging.sh"
++. "$dir/xen-script-common.sh"
++. "$dir/xen-network-common.sh"
++. "$dir/locking.sh"
++
++findCommand "$@"
++evalVariables "$@"
++
++netdev=${netdev:-eth0}
++bridge=${bridge:-ovs0}
++
++addr=`ip addr show dev ${netdev} | egrep '^ *inet' | sed -e 's/ *inet
++//' -e 's/ .*//'`
++if [ -n "$addr" ]; then
++    echo "Invalid device: ${netdev} is up and has a valid IP address!" >&2
++    exit 1
++fi
++
++show_status () {
++    local dev=$1
++    local bridge=$2
++
++    echo '============================================================'
++    echo 'vSwitch interfaces'
++    ovs-vsctl list-ifaces ${bridge}
++    echo ' '
++    echo 'vSwitch ports'
++    ovs-vsctl list-ports ${bridge}
++    echo '============================================================'
++}
++
++op_start () {
++    if [ "${bridge}" = "null" ] ; then
++        return
++    fi
++
++    ifconfig "${netdev}" down
++    ifconfig "${netdev}" 0.0.0.0 up
++    ovs-vsctl -- --may-exist add-br ${bridge}
++    ifconfig "${bridge}" 0.0.0.0 up
++    ovs-vsctl -- --may-exist add-port ${bridge} ${netdev}
++
++    # Remove any stale ports from last time virtual switch was running
++    for port in $(ovs-vsctl list-ports ${bridge})
++    do
++        if [ "${port}" != "${netdev}" ]
++        then
++            ifconfig "${port}" down
++            ovs-vsctl del-port ${port}
++        fi
++    done
++}
++
++op_stop () {
++    if [ "${bridge}" = "null" ]; then
++        return
++    fi
++
++    # Remove all ports from virtual switch
++    for port in $(ovs-vsctl list-ports ${bridge})
++    do
++        ifconfig "${port}" down
++        ovs-vsctl del-port ${port}
++    done
++
++    ifconfig "${bridge}" down
++    ovs-vsctl -- --if-exists del-br ${bridge}
++}
++
++case "$command" in
++    start)
++        op_start
++        ;;
++
++    stop)
++        op_stop
++        ;;
++
++    status)
++        show_status ${netdev} ${bridge}
++        ;;
++
++    *)
++        echo "Unknown command: $command" >&2
++        echo 'Valid commands are: start, stop, status' >&2
++        exit 1
++esac
+--- tools/hotplug/Linux/Makefile.orig	2012-02-28 04:05:50.028016949 +0100
++++ tools/hotplug/Linux/Makefile	2012-02-28 04:06:21.555452911 +0100
+@@ -13,6 +13,7 @@
+ XEN_SCRIPTS = network-bridge vif-bridge
+ XEN_SCRIPTS += network-route vif-route
+ XEN_SCRIPTS += network-nat vif-nat
++XEN_SCRIPTS += network-openvswitch vif-openvswitch
+ XEN_SCRIPTS += vif2
+ XEN_SCRIPTS += vif-setup
+ XEN_SCRIPTS += block
