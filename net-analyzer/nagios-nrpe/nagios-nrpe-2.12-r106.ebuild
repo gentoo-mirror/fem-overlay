@@ -106,7 +106,7 @@ pkg_postinst() {
 	einfo "the config file /etc/nagios/nrpe.cfg"
 	einfo
 
-	if useq command-args ; then
+	if use command-args ; then
 		ewarn "You have enabled command-args for NRPE. This enables"
 		ewarn "the ability for clients to supply arguments to commands"
 		ewarn "which should be run. "
