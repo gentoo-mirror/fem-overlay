@@ -3,7 +3,7 @@ EAPI="4"
 PYTHON_DEPEND="monitor? 2"
 
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="debug monitor tcpdump +pyside +ssl"
 LICENSE="Apache-2.0"
 
