@@ -31,10 +31,11 @@ RDEPEND="!net-analyzer/nagios-nrpe"
 S="${WORKDIR}/nrpe-${PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}/command-args-configure.in.patch"
 	epatch "${FILESDIR}/tcp-wrapper-configure.in.patch"
-	epatch "${FILESDIR}/nrpe_ssl_fix.patch"
 	eautoconf
+	sed -i -e \
+		"s#AIX.\\\n\";#AIX.\\\n\");#" \
+		src/nrpe.c|| die "sed failed"
 }
 
 
