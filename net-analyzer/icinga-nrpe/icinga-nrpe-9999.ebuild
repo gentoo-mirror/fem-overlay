@@ -30,15 +30,6 @@ RDEPEND="!net-analyzer/nagios-nrpe"
 
 S="${WORKDIR}/nrpe-${PV}"
 
-src_prepare() {
-	epatch "${FILESDIR}/tcp-wrapper-configure.in.patch"
-	eautoconf
-	sed -i -e \
-		"s#AIX.\\\n\";#AIX.\\\n\");#" \
-		src/nrpe.c|| die "sed failed"
-}
-
-
 pkg_setup() {
 	enewgroup icinga
 	enewgroup nagios
