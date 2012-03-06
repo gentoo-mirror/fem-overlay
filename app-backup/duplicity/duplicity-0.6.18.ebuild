@@ -1,14 +1,14 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-backup/duplicity/duplicity-0.6.15.ebuild,v 1.1 2011/09/06 19:33:01 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-backup/duplicity/duplicity-0.6.18.ebuild,v 1.2 2012/03/04 10:51:17 jlec Exp $
 
-EAPI="3"
+EAPI="4"
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.* *-jython"
+RESTRICT_PYTHON_ABIS="3.* *-jython 2.7-pypy-*"
 
-inherit distutils eutils
+inherit distutils
 
 DESCRIPTION="duplicity is a secure backup system using gnupg to encrypt data"
 HOMEPAGE="http://www.nongnu.org/duplicity/"
@@ -32,7 +32,6 @@ RDEPEND="${DEPEND}
 "
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-sign-passphrase.patch"
 	distutils_src_prepare
 	sed -i -r "s/'COPYING',//" setup.py || die "Couldn't remove unnecessary COPYING file."
 }
