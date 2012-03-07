@@ -1,0 +1,86 @@
+#!/bin/bash
+# $Header: $
+# vim:nu:ai:sw=4:ts=4:
+#
+# Nagios check script for GLSAs (Gentoo Linux Security Advisories)
+# Created by Wolfram Schlich <wschlich@gentoo.org>
+# Distributed under the terms of the GNU General Public License v3
+#
+# External dependencies:
+# - glsa-check from gentoolkit
+# - sed
+#
+
+##
+## nagios state specific exit codes
+##
+
+declare -i state_ok=0
+declare -i state_warning=1
+declare -i state_critical=2
+declare -i state_unknown=3
+declare -i state_dependent=4
+
+##
+## settings
+##
+
+declare -i msg_cut=150
+
+##
+## functions
+##
+
+function usage() {
+	echo
+	echo "Usage: ${0##*/}"
+	echo
+	echo " CRIT when the amount of GLSAs affecting the system is >= 1"
+	echo
+}
+
+##
+## main()
+##
+
+if [[ ! -x "$(type -p glsa-check 2>/dev/null)" ]]; then
+	echo "ERROR - 'glsa-check' not executable"
+	exit ${state_unknown}
+fi
+
+if [[ ! -x "$(type -p sed 2>/dev/null)" ]]; then
+	echo "ERROR - 'sed' not executable"
+	exit ${state_unknown}
+fi
+
+declare -a glsa_aff_ids=( $(glsa-check -n -t affected 2>/dev/null) )
+if [[ ${?} -ne 0 ]]; then
+	echo "ERROR - trouble running glsa-check to get list of GLSAs"
+	exit ${state_unknown}
+fi
+for ((i=0; i<${#glsa_aff_ids[*]}; i++)); do
+	glsa_id=${glsa_aff_ids[${i}]}
+	glsa_pkg=$(glsa-check -n -l ${glsa_id} 2>/dev/null | sed -e 's/^.*[[:space:]]([[:space:]]\(.*\)[[:space:]]).*$/\1/g')
+	if [[ ${?} -ne 0 ]]; then
+		echo "ERROR - trouble running glsa-check to get package name for GLSA ${glsa_id}"
+		exit ${state_unknown}
+	fi
+	#glsa_aff_str="${glsa_aff_str:+${glsa_aff_str} }${glsa_id}:${glsa_pkg}"
+	glsa_aff_str="${glsa_aff_str:+${glsa_aff_str} }${glsa_pkg}"
+done
+if [[ ${#glsa_aff_ids[@]} -gt 0 ]]; then
+	msg="CRITICAL - affecting GLSAs: ${glsa_aff_str}"
+	if [[ ${#msg} -ge ${msg_cut} ]]; then
+		echo "${msg:0:${msg_cut}}[...]"
+	else
+		echo "${msg}"
+	fi
+	exit ${state_critical}
+else
+	echo "OK - system not affected by any GLSAs"
+	exit ${state_ok}
+fi
+
+## should never reach this
+echo "ERROR - there's an error in the matrix!"
+exit ${state_unknown}
