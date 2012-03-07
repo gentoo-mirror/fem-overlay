@@ -10,7 +10,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
 IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn
-temp"
+temp hddtemp"
 
 DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version )
 		corosync? ( dev-perl/Nagios-Plugin )
@@ -19,14 +19,14 @@ DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version )
 		megaraid? ( sys-block/megarc )
 		nginx? ( sys-devel/bc net-misc/wget )
 		portage? ( app-portage/gentoolkit )
-		temp? ( net-analyzer/netcat sys-devel/bc )"
+		temp? ( net-analyzer/netcat sys-devel/bc )
+		hddtemp? ( app-admin/hddtemp )"
 
 RESTRICT="test"
 
 RDEPEND="${DEPEND}"
 
-PLUGIN_LIST="check_hddtemp.sh \
-			 check_mdstat \
+PLUGIN_LIST="check_mdstat \
 			 check_mount \
 			 check_raid \
 			 check_ram \
@@ -63,6 +63,10 @@ fi
 
 if use temp; then 
 	PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
+fi
+
+if use temp; then 
+	PLUGIN_LIST="${PLUGIN_LIST} check_hddtemp.sh"
 fi
 
 pkg_setup() {
