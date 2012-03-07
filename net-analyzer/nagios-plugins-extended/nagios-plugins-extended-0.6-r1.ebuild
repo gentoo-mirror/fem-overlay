@@ -9,7 +9,8 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
-IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn"
+IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn
+temp"
 
 DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version )
 		corosync? ( dev-perl/Nagios-Plugin )
@@ -17,7 +18,8 @@ DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version )
 		apache?	( sys-devel/bc )
 		megaraid? ( sys-block/megarc )
 		nginx? ( sys-devel/bc net-misc/wget )
-		portage? ( app-portage/gentoolkit )"
+		portage? ( app-portage/gentoolkit )
+		temp? ( net-analyzer/netcat sys-devel/bc )"
 
 RESTRICT="test"
 
@@ -57,6 +59,10 @@ fi
 
 if use portage; then 
 	PLUGIN_LIST="${PLUGIN_LIST} check_glsa check_gentoo_portage"
+fi
+
+if use temp; then 
+	PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
 fi
 
 pkg_setup() {
