@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-php/phpunit-selenium/phpunit-selenium-1.0.1.ebuild,v 1.1 2011/09/18 11:05:52 olemarkus Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-php/PHPUnit_Selenium/PHPUnit_Selenium-1.0.1.ebuild,v 1.1 2012/03/10 15:24:10 olemarkus Exp $
 
 EAPI="2"
 inherit php-pear-lib-r1
