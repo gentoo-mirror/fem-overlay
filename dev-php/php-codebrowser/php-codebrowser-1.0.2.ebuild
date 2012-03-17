@@ -16,5 +16,5 @@ HOMEPAGE="http://pear.phpunit.de"
 
 RDEPEND="${RDEPEND}
 	>=dev-php/PEAR-Console_CommandLine-1.1.3
-	>=dev-php/file-iterator-1.2.1
+	>=dev-php/File_Iterator-1.2.1
 	>=dev-php/PEAR-Log-1.12.1"

@@ -16,5 +16,5 @@ HOMEPAGE="http://www.phpunit.de"
 
 RDEPEND="${RDEPEND}
 	>=dev-php/ezc-ConsoleTools-1.6
-	>=dev-php/file-iterator-1.1.0
-	dev-php/php-timer"
+	>=dev-php/File_Iterator-1.1.0
+	dev-php/PHP_Timer"
