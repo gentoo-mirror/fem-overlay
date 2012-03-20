@@ -34,20 +34,28 @@ src_prepare() {
 }
 
 pkg_setup() {
-	linux-mod_pkg_setup
-	linux_chkconfig_module BRIDGE || die "CONFIG_BRIDGE must be built as a _module_ !"
+	if ! linux_chkconfig_present OPENVSWITCH; then
+		linux-mod_pkg_setup
+		linux_chkconfig_module BRIDGE || die "CONFIG_BRIDGE must be built as a _module_ !"
+	fi
 }
 
 src_configure() {
+	local myconf
+
 	set_arch_to_kernel
 	use pyside || export ovs_cv_pyuic4="no"
-	econf \
-		--with-linux="${KERNEL_DIR}" \
-		--with-rundir=/var/run/openvswitch \
+	
+	myconf="--with-rundir=/var/run/openvswitch \
 		--with-logdir=/var/log/openvswitch \
 		--with-pkidir=/etc/openvswitch/pki \
 		$(use_enable ssl) \
-		$(use_enable !debug ndebug)
+		$(use_enable !debug ndebug)"
+
+	if ! linux_chkconfig_present OPENVSWITCH; then
+		myconf="${myconf} --with-linux=${KERNEL_DIR}"
+	fi
+	econf ${myconf}
 }
 
 src_compile() {
@@ -57,9 +65,11 @@ src_compile() {
 src_install() {
 	default
 
-	MODULE_NAMES="openvswitch_mod(misc:${S}:datapath/linux/) brcompat_mod(misc:${S}:datapath/linux/)"
-	linux-mod_src_install
-
+	if ! linux_chkconfig_present OPENVSWITCH; then
+		MODULE_NAMES="openvswitch_mod(misc:${S}:datapath/linux/) brcompat_mod(misc:${S}:datapath/linux/)"
+		linux-mod_src_install
+	fi
+	
 	keepdir /var/log/openvswitch
 	keepdir /etc/openvswitch/pki
 	rmdir "${D}/usr/share/openvswitch/ovsdbmonitor"
@@ -68,11 +78,20 @@ src_install() {
 	newconfd "${FILESDIR}"/ovs-vswitchd_conf ovs-vswitchd || die "install failed"
 	doinitd "${FILESDIR}"/ovsdb-server || die "install failed"
 	doinitd "${FILESDIR}"/ovs-vswitchd || die "install failed"
-	doinitd "${FILESDIR}"/ovs-brcompatd || die "install failed"
+
+	# compatiblity with upstream module untested
+	if ! linux_chkconfig_present OPENVSWITCH; then
+		doinitd "${FILESDIR}"/ovs-brcompatd || die "install failed"
+	fi
 }
 
 pkg_postinst() {
-	linux-mod_pkg_postinst
+	if linux_chkconfig_present OPENVSWITCH; then
+		elog "Openvswitch kernel support detected, no extra module was build."
+	else
+		elog "No openvswitch kernel support detected, installing build modules."
+		linux-mod_pkg_postinst
+	fi
 
 	elog "Please add needed modules to:"
 	if has_version sys-apps/openrc; then
