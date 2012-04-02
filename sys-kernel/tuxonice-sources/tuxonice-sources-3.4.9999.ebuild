@@ -18,7 +18,7 @@ IUSE=""
 
 EGIT_REPO_URI="git://github.com/NigelCunningham/tuxonice-kernel.git
 		https://github.com/NigelCunningham/tuxonice-kernel.git"
-EGIT_BRANCH="tuxonice-${PV/.9999/}"
+EGIT_BRANCH="tuxonice-head"
 
 UNIPATCH_STRICTORDER="yes"
 
