@@ -42,8 +42,10 @@ src_install() {
 	
 	dosym /usr/libexec/gitolite/gitolite /usr/bin/gitolite
 
+	insinto /etc/git/
+	doins "${FILESDIR}/gitweb-gitolite.conf"
+
 	dodoc -r doc/*
-	dodoc "${FILESDIR}/gitweb_config.perl"
 
 	keepdir /var/lib/gitolite
 	fowners git:git /var/lib/gitolite
@@ -58,6 +60,11 @@ pkg_postinst() {
 	elog ""
 	elog "Please run as user git: gitolite setup -pk <yourname>.pub"
 	elog ""
-	elog "For using gitweb with gitolite, see provided gitweb_config.perl"
+	elog "For using gitweb (from git >= 1.7.5) with gitolite, add"
+	elog ""
+	elog "  read_config_file(\"/etc/git/gitweb-gitolite.conf\")"
+	elog ""
+	elog "to your gitweb configuration (see GITWEB_CONFIG). For older versions of gitweb"
+	elog "just prepend contents of /etc/git/gitweb-gitolite.conf to your gitweb config."
 	ewarn
 }
