@@ -21,6 +21,6 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "The command line option to select the database type has been altered."
-	einfo "Use sql-ssh-config -h for further information!"
+	elog "The command line option to select the database type has been altered."
+	elog "Use sql-ssh-config -h for further information!"
 }
