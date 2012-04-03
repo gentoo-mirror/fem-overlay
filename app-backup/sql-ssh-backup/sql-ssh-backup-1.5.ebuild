@@ -19,3 +19,8 @@ DEPEND="${RDEPEND}"
 src_install() {
 	newbin ${FILESDIR}/${P} ${PN} || die "Installation failed."
 }
+
+pkg_postinst() {
+	einfo "The command line option to select the database type has been altered."
+	einfo "Use sql-ssh-config -h for further information!"
+}
