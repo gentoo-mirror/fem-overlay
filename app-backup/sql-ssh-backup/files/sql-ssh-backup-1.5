@@ -36,6 +36,7 @@
 #   v1.4 - add option for time (hh:mm) in backup directory
 #   v1.5 - create temporary my.cnf-config for username/password in mysql
 #	   fix output of failed ssh/scp-session
+#	   add flag for ssh port
 #
 # LICENSE: GPL-2
 #
@@ -63,6 +64,7 @@ print_usage() {
   echo " -P                  Use for PostgreSQL-Dumps"
   echo " -l <ssh-login>      User to log in as on the remote machine (defaul: current user)"
   echo " -s <ssh-server>     Remote machine to log in"
+  echo " -k <ssh-port>       Remote port for ssh"
   echo " -i <identity-file>  File from which the identity (private key) for SSH is read"
   echo " -m <sql-host>       MySQL-/PgSQL-Host to Dump (default: localhost)"
   echo " -u <sql-user>       MySQL-/PgSQL-User (leave empty while using .my.cnf on remote server)"
@@ -143,9 +145,14 @@ function prepare()
     [[ $? -ne 0 ]] && echo "Can't create Backup-Directory ${BACKUPDIR}." >&2  && exit 1
   fi
 
+  # check ssh port
+  [[ ! "x${SSH_PORT}" =~ ^x[0-9]*$ ]] && echo "SSH-Port wrong, use only numeric value." && ERROR+=1
+
   # set SSH/SCP connection options	
   SSH_OPTS="-C -i ${SSH_IDENTITY}"
   SCP_OPTS=${SSH_OPTS}
+  [ ${SSH_PORT} ] && SSH_OPTS="${SSH_OPTS} -p ${SSH_PORT}"
+  [ ${SSH_PORT} ] && SCP_OPTS="${SCP_OPTS} -P ${SSH_PORT}"
 
   # check if MySQL-user and -password is set
   if ${MYSQL} && [ ${SQL_USER} ] && [ ${SQL_PASSWORD} ]; then
@@ -284,13 +291,14 @@ function cleanup()
 }
 
 # run main part
-while getopts ":hMPl:s:i:m:u:p:d:te:c" Option; do
+while getopts ":hMPl:s:k:i:m:u:p:d:te:c" Option; do
         case $Option in
                 h )     print_usage && exit 0;;
 		M )	MYSQL=true;;
 		P )	POSTGRESQL=true;;
 		l )	SSH_USER=${OPTARG};;
 		s )	SSH_HOST=${OPTARG};;
+		k )	SSH_PORT=${OPTARG};;
 		i )	SSH_IDENTITY=${OPTARG};;
 		m )	SQL_HOST=${OPTARG};;
 		u )	SQL_USER=${OPTARG};;
