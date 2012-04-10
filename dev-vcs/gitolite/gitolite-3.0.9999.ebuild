@@ -20,6 +20,7 @@ IUSE=""
 DEPEND="dev-lang/perl
 	>=dev-vcs/git-1.6.6"
 RDEPEND="${DEPEND}
+	net-misc/openssh
 	!dev-vcs/gitolite-gentoo"
 
 pkg_setup() {
@@ -29,8 +30,8 @@ pkg_setup() {
 
 src_install() {
 	insinto "${VENDOR_LIB}"
-	doins -r src/Gitolite || die
-	rm -r src/Gitolite
+	doins -r src/lib/Gitolite || die
+	rm -r src/lib/Gitolite
 
 	exeinto /usr/libexec/gitolite || die
 	doexe src/gitolite* || die
