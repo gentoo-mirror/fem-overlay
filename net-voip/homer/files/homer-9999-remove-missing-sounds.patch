@@ -1,0 +1,10 @@
+--- HomerBuild/CMakeLists.old	2012-04-12 08:12:20.371389661 +0200
++++ HomerBuild/CMakeLists.txt	2012-04-12 08:12:30.628147946 +0200
+@@ -14,7 +14,6 @@
+ ADD_SUBDIRECTORY(../HomerConference ${CMAKE_CURRENT_BINARY_DIR}/HomerConference)
+ ADD_SUBDIRECTORY(../HomerSoundOutput ${CMAKE_CURRENT_BINARY_DIR}/HomerSoundOutput)
+ ADD_SUBDIRECTORY(../Homer ${CMAKE_CURRENT_BINARY_DIR}/Homer)
+-ADD_SUBDIRECTORY(../../Homer-Release/HomerSounds ${CMAKE_CURRENT_BINARY_DIR}/HomerSounds)
+ 
+ ##############################################################################
+ # include CPack configuration to generate installers for Win/OSX

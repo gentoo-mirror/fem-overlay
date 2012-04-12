@@ -1,35 +1,41 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=4
 [[ ${PV} == "9999" ]] && GIT_ECLASS="git-2"
-inherit eutils flag-o-matic ${GIT_ECLASS}
+inherit eutils flag-o-matic multilib ${GIT_ECLASS}
 unset GIT_ECLASS
 
-DESCRIPTION="Homer is a free cross-platform SIP softphone, which also supports video conferencing."
+MY_PN="Homer"
+
+DESCRIPTION="Homer is a free cross-platform SIP softphone, which also supports video conferencing"
 HOMEPAGE="http://www.homer-conferencing.com"
 
 if [[ ${PV} == "9999" ]]; then
-	EGIT_REPO_URI="git://github.com/Homer-Conferencing/Homer-Conferencing.git"
+	EGIT_REPO_URI="git://github.com/${MY_PN}-Conferencing/${MY_PN}-Conferencing.git"
 else
-	SRC_URI="http://www.homer-conferencing.com/releases/${PV}/Homer-Source.tar.bz2"
+	SRC_URI="http://www.homer-conferencing.com/releases/${PV}/${MY_PN}-Source.tar.bz2"
 fi
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
-DEPEND="virtual/ffmpeg
-	media-libs/x264
+DEPEND="dev-libs/openssl:0
 	media-libs/alsa-lib
-	net-libs/sofia-sip
-	>=dev-libs/openssl-1.0
-	media-libs/libsdl
+	media-libs/libsdl[X,audio,video,alsa]
 	media-libs/sdl-mixer
 	media-libs/sdl-sound
-	x11-libs/qt-core
-"
+	media-libs/x264
+	net-libs/sofia-sip
+	virtual/ffmpeg[X]
+	x11-libs/qt-core:4
+	x11-libs/qt-gui:4
+	x11-libs/qt-multimedia:4
+	x11-libs/qt-webkit:4"
+
 RDEPEND="${DEPEND}"
 
 if [[ ${PV} != "9999" ]]; then
@@ -37,19 +43,16 @@ if [[ ${PV} != "9999" ]]; then
 fi
 
 src_prepare() {
-	# Instead of filtering --as-needed, append --no-as-needed
-	append-ldflags $(no-as-needed)
+	epatch "${FILESDIR}"/${PN}-0.22-as-needed.patch
+	epatch "${FILESDIR}"/${P}-remove-missing-sounds.patch
 }
 
 src_install() {
-	cd HomerBuild
-
-	emake \
+	emake -C HomerBuild \
 		INSTALL_PREFIX=/usr \
 		INSTALL_LIBDIR=/usr/$(get_libdir) \
 		install DESTDIR="${D}"
 
-	cd ..
-	newicon Homer/Homer.png Homer.png
-	make_desktop_entry "${PN}" "Homer Conferencing" Homer "Telephony;VideoConference"
+	newicon ${MY_PN}/${MY_PN}.png ${MY_PN}.png
+	make_desktop_entry "${PN}" "${MY_PN} Conferencing" ${MY_PN} "Telephony;VideoConference"
 }
