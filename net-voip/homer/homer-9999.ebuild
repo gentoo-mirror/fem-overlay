@@ -31,11 +31,6 @@ DEPEND="dev-libs/openssl:0
 	x11-libs/qt-webkit:4"
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-0.22-as-needed.patch
-	epatch "${FILESDIR}"/${P}-remove-missing-sounds.patch
-}
-
 src_install() {
 	emake -C HomerBuild \
 		INSTALL_PREFIX=/usr \
