@@ -1,5 +1,12 @@
---- HomerBuild/CMakeLists.old	2012-04-12 08:12:20.371389661 +0200
-+++ HomerBuild/CMakeLists.txt	2012-04-12 08:12:30.628147946 +0200
+From: Marcel Pennewiss <gentoo@pennewiss.de>
+Date: Thu Apr 12 12:20:15 CEST 2012
+Subject: Fixes compilation
+
+HomerSounds is not included in git repository
+(based on #d16df92655)
+
+--- HomerBuild/CMakeLists.txt
++++ HomerBuild/CMakeLists.txt
 @@ -14,7 +14,6 @@
  ADD_SUBDIRECTORY(../HomerConference ${CMAKE_CURRENT_BINARY_DIR}/HomerConference)
  ADD_SUBDIRECTORY(../HomerSoundOutput ${CMAKE_CURRENT_BINARY_DIR}/HomerSoundOutput)
