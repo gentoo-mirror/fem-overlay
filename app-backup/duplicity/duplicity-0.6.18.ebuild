@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-backup/duplicity/duplicity-0.6.18.ebuild,v 1.2 2012/03/04 10:51:17 jlec Exp $
+# $Header: $
 
 EAPI="4"
 

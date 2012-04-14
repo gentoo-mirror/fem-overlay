@@ -6,7 +6,7 @@ EAPI="4"
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.* *-jython"
+RESTRICT_PYTHON_ABIS="3.* *-jython 2.7-pypy-*"
 
 inherit distutils
 
@@ -16,7 +16,7 @@ SRC_URI="http://code.launchpad.net/${PN}/0.6-series/${PV}/+download/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64 ~ppc ~sparc x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
+KEYWORDS="~amd64 ~ppc ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 IUSE="ftp ftps s3"
 
 DEPEND="
@@ -24,8 +24,9 @@ DEPEND="
 	app-crypt/gnupg
 "
 RDEPEND="${DEPEND}
-	>=dev-python/py-gnupg-0.3.2
+	dev-python/paramiko
 	>=dev-python/pexpect-2.1
+	>=dev-python/py-gnupg-0.3.2
 	s3? ( dev-python/boto )
 	ftp? ( net-ftp/ncftp )
 	ftps? ( || ( net-ftp/lftp[ssl] net-ftp/lftp[gnutls] ) )
