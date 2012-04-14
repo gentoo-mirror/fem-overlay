@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-portage/porticron/porticron-0.6.ebuild,v 1.3 2011/05/19 03:22:24 jer Exp $
+# $Header: $
 
 EAPI="3"
 
@@ -25,7 +25,7 @@ RDEPEND=""
 S="${WORKDIR}"/${GITHUB_AUTHOR}-${GITHUB_PROJECT}-${GITHUB_COMMIT}
 
 src_prepare() {
-	epatch ${FILESDIR}/remove-dig.patch
+	epatch "${FILESDIR}"/remove-dig.patch
 }
 
 src_install() {
