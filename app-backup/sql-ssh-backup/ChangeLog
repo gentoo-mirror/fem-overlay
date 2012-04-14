@@ -1,0 +1,12 @@
+# ChangeLog for app-backup/sql-ssh-backup
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*sql-ssh-backup-1.5.1 (14 Apr 2012)
+
+  14 Apr 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  sql-ssh-backup-1.3.1.ebuild, files/sql-ssh-backup-1.4.1,
+  sql-ssh-backup-1.4.1.ebuild, sql-ssh-backup-1.5.ebuild,
+  +files/sql-ssh-backup-1.5.1, +sql-ssh-backup-1.5.1.ebuild, +metadata.xml:
+  version bump, cleanup and fix all ebuilds, add metadata
+

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=1
+EAPI=4
 
 inherit eutils
 
@@ -12,13 +12,15 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 IUSE=""
 
 RESTRICT="test"
 
 RDEPEND="net-misc/openssh"
 DEPEND="${RDEPEND}"
+
+S=${WORKDIR}
 
 src_install() {
 	newbin "${FILESDIR}"/${P} ${PN} || die "Installation failed."
