@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
+	</maintainer>
+	<maintainer>
+		<email>gentoo@friiks.de</email>
+		<name>Peter Grosse</name>
+	</maintainer>
+	<use>
+		<flag name="ftps">Support for backing up on FTPS</flag>
+	</use>
+</pkgmetadata>
