@@ -1,10 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-php/phpcpd/phpcpd-1.3.2.ebuild,v 1.4 2011/12/14 22:51:50 mabi Exp $
+# $Header: $
 
-EAPI="3"
+EAPI="4"
+
 PHP_PEAR_CHANNEL="pear.phpunit.de"
 PHP_PEAR_PN="phpcpd"
+
 inherit php-pear-lib-r1
 
 DESCRIPTION="Copy/Paste Detector (CPD) for PHP code"

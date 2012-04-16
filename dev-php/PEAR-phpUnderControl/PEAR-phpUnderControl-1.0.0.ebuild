@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="4"
 
 PHP_PEAR_PKG_NAME="phpUnderControl"
 
@@ -14,11 +14,10 @@ DESCRIPTION="CruiseControl addon for PHP"
 LICENSE="BSD"
 HOMEPAGE="pear.phpundercontrol.org"
 SRC_URI="http://pear.phpundercontrol.org/get/${PEAR_PN}.tgz"
+IUSE=""
 
-DEPEND="|| ( <dev-lang/php-5.3[pcre,xml,spl]     >=dev-lang/php-5.3[xml] )
-    >=dev-lang/php-5.2.0
-    >=dev-php/PEAR-PEAR-1.6.0
-    >=dev-php/ezc-Base-1.7
-    >=dev-php/ezc-Graph-1.4.3"
+DEPEND="dev-lang/php[xml]
+	>=dev-php/PEAR-PEAR-1.6.0
+	>=dev-php/ezc-Base-1.7
+	>=dev-php/ezc-Graph-1.4.3"
 RDEPEND="${DEPEND}"
-

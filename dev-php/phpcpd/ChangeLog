@@ -1,0 +1,8 @@
+# ChangeLog for dev-php/phpcpd
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 Apr 2012; Peter Grosse <gentoo@friiks.de> phpcpd-1.3.5.ebuild,
+  +metadata.xml:
+  Ebuild cleanup
+

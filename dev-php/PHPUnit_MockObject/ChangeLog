@@ -1,0 +1,8 @@
+# ChangeLog for dev-php/PHPUnit_MockObject
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 Apr 2012; Peter Grosse <gentoo@friiks.de> PHPUnit_MockObject-1.1.1.ebuild,
+  +metadata.xml:
+  Ebuild cleanup
+

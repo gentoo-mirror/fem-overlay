@@ -1,8 +1,9 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-php/PHPUnit_MockObject/PHPUnit_MockObject-1.1.0.ebuild,v 1.1 2012/03/10 15:17:52 olemarkus Exp $
+# $Header: $
 
-EAPI="2"
+EAPI="4"
+
 inherit php-pear-lib-r1
 
 KEYWORDS="~amd64 ~x86"

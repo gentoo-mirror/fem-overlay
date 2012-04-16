@@ -1,0 +1,11 @@
+# ChangeLog for dev-php/PEAR-XML_Feed_Parser
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*PEAR-XML_Feed_Parser-1.0.5 (16 Apr 2012)
+
+  16 Apr 2012; Peter Grosse <gentoo@friiks.de>
+  -PEAR-XML_Feed_Parser-1.0.4.ebuild, +PEAR-XML_Feed_Parser-1.0.5.ebuild,
+  +metadata.xml:
+  Version bump.
+

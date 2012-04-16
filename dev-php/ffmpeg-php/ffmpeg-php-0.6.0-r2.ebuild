@@ -1,8 +1,8 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-php/ffmpeg-php/ffmpeg-php-0.6.0-r1.ebuild,v 1.3 2012/01/09 15:26:53 aballier Exp $
+# $Header: $
 
-EAPI="3"
+EAPI="4"
 
 PHP_EXT_NAME="ffmpeg"
 PHP_EXT_INI="yes"
@@ -11,7 +11,7 @@ USE_PHP="php5-3 php5-4"
 
 inherit php-ext-source-r2 eutils
 
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 
 DESCRIPTION="PHP extension that provides access to movie info."
 HOMEPAGE="http://sourceforge.net/projects/ffmpeg-php/"
@@ -21,7 +21,7 @@ SLOT="0"
 IUSE=""
 
 DEPEND="virtual/ffmpeg
-		|| ( dev-lang/php[gd] dev-lang/php[gd-external] )"
+	dev-lang/php[gd]"
 RDEPEND="${DEPEND}"
 
 # The test breaks with the test movie, but it the same code works fine with
