@@ -14,8 +14,7 @@ LICENSE="BSD"
 SLOT="0"
 IUSE=""
 
-DEPEND="!dev-php/phpunit
-	>=dev-php/PEAR-PEAR-1.9.1"
+DEPEND=">=dev-php/PEAR-PEAR-1.9.1"
 RDEPEND="${DEPEND}
 	dev-lang/php[simplexml,xml,tokenizer]
 	>=dev-php/PEAR-Testing_Selenium-0.2.0"
