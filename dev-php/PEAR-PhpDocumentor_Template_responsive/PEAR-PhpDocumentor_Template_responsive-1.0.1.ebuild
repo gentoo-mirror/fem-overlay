@@ -21,3 +21,5 @@ SRC_URI="http://pear.phpdoc.org/get/${PHP_PEAR_PKG_NAME}-${PEAR_PV}.tgz"
 
 DEPEND=">=dev-php/pear-1.9.4"
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}/${PHP_PEAR_PKG_NAME}-${PV}"
