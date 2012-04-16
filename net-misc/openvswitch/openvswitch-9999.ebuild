@@ -1,3 +1,6 @@
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
 EAPI="4"
 
 PYTHON_DEPEND="monitor? 2"
@@ -7,16 +10,16 @@ KEYWORDS=""
 IUSE="debug monitor tcpdump +pyside +ssl"
 LICENSE="Apache-2.0"
 
-DESCRIPTION=""
+DESCRIPTION="Multilayer virtual switch for VM environments"
 HOMEPAGE="http://openvswitch.org/"
 
 if [[ ${PV} == 9999* ]] ; then
-        SRC_URI=""
-        EGIT_REPO_URI="git://openvswitch.org/openvswitch"
-        inherit linux-info linux-mod python autotools git-2
+	SRC_URI=""
+	GIT_REPO_URI="git://openvswitch.org/openvswitch"
+	inherit linux-info linux-mod python autotools git-2
 else
-        inherit linux-info linux-mod python autotools
-        SRC_URI="http://openvswitch.org/releases/${P}.tar.gz"
+	inherit linux-info linux-mod python autotools
+	SRC_URI="http://openvswitch.org/releases/${P}.tar.gz"
 fi
 
 CONFIG_CHECK="~NET_CLS_ACT ~NET_CLS_U32 ~NET_SCH_INGRESS ~NET_ACT_POLICE ~IPV6 ~TUN"

@@ -1,17 +1,20 @@
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
 EAPI="4"
 
 PYTHON_DEPEND="monitor? 2"
 
 inherit linux-mod linux-info python autotools
 
+DESCRIPTION="Multilayer virtual switch for VM environments"
+HOMEPAGE="http://openvswitch.org/"
+SRC_URI="http://openvswitch.org/releases/${P}.tar.gz"
+
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="debug monitor tcpdump +pyside +ssl"
-LICENSE="Apache-2.0"
-
-DESCRIPTION=""
-HOMEPAGE="http://openvswitch.org/"
-SRC_URI="http://openvswitch.org/releases/${P}.tar.gz"
 
 CONFIG_CHECK="~NET_CLS_ACT ~NET_CLS_U32 ~NET_SCH_INGRESS ~NET_ACT_POLICE ~IPV6 ~TUN"
 
@@ -45,7 +48,7 @@ src_configure() {
 
 	set_arch_to_kernel
 	use pyside || export ovs_cv_pyuic4="no"
-	
+
 	myconf="--with-rundir=/var/run/openvswitch \
 		--with-logdir=/var/log/openvswitch \
 		--with-pkidir=/etc/openvswitch/pki \
@@ -69,7 +72,7 @@ src_install() {
 		MODULE_NAMES="openvswitch_mod(misc:${S}:datapath/linux/) brcompat_mod(misc:${S}:datapath/linux/)"
 		linux-mod_src_install
 	fi
-	
+
 	keepdir /var/log/openvswitch
 	keepdir /etc/openvswitch/pki
 	rmdir "${D}/usr/share/openvswitch/ovsdbmonitor"

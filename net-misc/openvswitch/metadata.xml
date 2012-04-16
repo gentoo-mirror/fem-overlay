@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
+	</maintainer>
+	<maintainer>
+		<email>gentoo@friiks.de</email>
+		<name>Peter Grosse</name>
+	</maintainer>
+	<use>
+		<flag name="monitor">Enables compilation of ovsdbmonitor, a GUI tool for remotely viewing OVS databases and OpenFlow flow tables</flag>
+		<flag name="tcpdump">Enable dependency on tcpdump</flag>
+		<flag name="pyside">Enable dependency on pyside as GUI toolkit instead of pyuic4 (pyqt)</flag>
+	</use>
+</pkgmetadata>
