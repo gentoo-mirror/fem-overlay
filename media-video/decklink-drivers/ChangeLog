@@ -1,0 +1,9 @@
+# ChangeLog for media-video/decklink-drivers
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 Apr 2012; Peter Grosse <gentoo@friiks.de>
+  -decklink-drivers-7.9_rc7.ebuild, -decklink-drivers-7.9.3.ebuild,
+  decklink-drivers-9.0.ebuild, decklink-drivers-9.2.ebuild, +metadata.xml:
+  Ebuild cleanup
+

@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,7 @@ MY_PV=${PV/_rc*}
 MY_RC=${PV/_}"a31"
 SRC_URI="http://www.blackmagic-design.com/media/3397912/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz"
 
-LICENSE="Blackmagic Design"
+LICENSE="BlackMagicDesign"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
@@ -26,15 +26,15 @@ S="${WORKDIR}"
 
 src_unpack() {
 	if use amd64 ; then
-		tar -xzf ${DISTDIR}/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz desktopvideo-${MY_PV}-x86_64.tar.gz
-		tar -xzf ${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz ${AMD64_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}
-		tar -xzf ${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz ${AMD64_BM_PACKAGE}/etc
+		tar -xzf "${DISTDIR}/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz" "desktopvideo-${MY_PV}-x86_64.tar.gz"
+		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz" "${AMD64_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}"
+		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz" "${AMD64_BM_PACKAGE}/etc"
 		KSRCDIR="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${AMD64_BM_PACKAGE}"
 	else
-		tar -xzf ${DISTDIR}/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz desktopvideo-${MY_PV}-i386.tar.gz
-		tar -xzf ${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz ${X86_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}
-		tar -xzf ${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz ${X86_BM_PACKAGE}/etc
+		tar -xzf "${DISTDIR}/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz" "desktopvideo-${MY_PV}-i386.tar.gz"
+		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz" "${X86_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}"
+		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz" "${X86_BM_PACKAGE}/etc"
 		KSRCDIR="${WORKDIR}/${X86_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${X86_BM_PACKAGE}"
 	fi

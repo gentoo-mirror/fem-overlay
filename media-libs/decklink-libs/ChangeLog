@@ -1,0 +1,9 @@
+# ChangeLog for media-libs/decklink-libs
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 Apr 2012; Peter Grosse <gentoo@friiks.de> -decklink-libs-7.9_rc7.ebuild,
+  -decklink-libs-7.9.3.ebuild, decklink-libs-9.0-r1.ebuild,
+  decklink-libs-9.2.ebuild, +metadata.xml:
+  Ebuild cleanup
+
