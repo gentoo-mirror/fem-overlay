@@ -1,10 +1,11 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=4
 
 [[ ${PV} == "9999" ]] && GIT_ECLASS="git-2"
-inherit autotools eutils toolchain-funcs ${GIT_ECLASS}
+inherit eutils toolchain-funcs ${GIT_ECLASS}
 unset GIT_ECLASS
 
 DESCRIPTION="Icinga NRPE - advancement of Nagios Remote Plugin Executor"
@@ -19,7 +20,7 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS=""
 IUSE="ssl command-args tcpd"
 
 DEPEND=">=net-analyzer/nagios-plugins-1.3.0
