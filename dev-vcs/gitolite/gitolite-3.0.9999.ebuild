@@ -10,7 +10,6 @@ DESCRIPTION="Highly flexible server for git directory version tracker"
 HOMEPAGE="http://github.com/sitaramc/gitolite"
 
 EGIT_REPO_URI="https://github.com/sitaramc/gitolite"
-EGIT_BRANCH="g3"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -35,12 +34,12 @@ src_install() {
 
 	exeinto /usr/libexec/gitolite || die
 	doexe src/gitolite* || die
-	
+
 	for dir in VREF commands triggers triggers/post-compile syntactic-sugar; do
-	    exeinto /usr/libexec/gitolite/${dir} || die
-	    doexe src/${dir}/*
+		exeinto /usr/libexec/gitolite/${dir} || die
+		doexe src/${dir}/*
 	done
-	
+
 	dosym /usr/libexec/gitolite/gitolite /usr/bin/gitolite
 
 	insinto /etc/git/
