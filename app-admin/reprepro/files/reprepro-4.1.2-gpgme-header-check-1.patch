@@ -1,0 +1,46 @@
+Submitted By: Mario Fetka (mario dot fetka at gmail dot com)
+Date: 2010-05-09
+Initial Package Version: 3.5.2
+Origin: hron@hronszoft.dyndns.biz
+Upstream Status: gentoo specific
+Description: find gpgme.h
+ 
+diff -Naur reprepro-4.1.2.orig//configure.ac reprepro-4.1.2/configure.ac
+--- reprepro-4.1.2.orig//configure.ac	2010-05-09 07:52:52.745525639 +0200
++++ reprepro-4.1.2/configure.ac	2010-05-09 07:53:15.806524726 +0200
+@@ -46,20 +46,20 @@
+ 	no)
+ 	;;
+ 	yes)
+-	AC_CHECK_HEADER(gpgme.h,,[AC_MSG_ERROR(["no gpgme.h found"])])
++	AC_CHECK_HEADER(gpgme/gpgme.h,,[AC_MSG_ERROR(["no gpgme/gpgme.h found"])])
+ 	AC_CHECK_LIB(gpg-error,gpg_strsource,,[AC_MSG_ERROR(["no libgpg-error found"])],)
+ 	AC_CHECK_LIB(gpgme,gpgme_get_protocol_name,,[AC_MSG_ERROR(["no libgpgme found (need at least 0.4.1)"])],)
+ 	;;
+ 	*)
+ 	CPPFLAGS="$CPPFLAGS -I$withval/include"
+ 	LIBS="$LIBS -L$withval/lib"
+-	AC_CHECK_HEADER(gpgme.h,,[AC_MSG_ERROR(["no gpgme.h found"])])
++	AC_CHECK_HEADER(gpgme/gpgme.h,,[AC_MSG_ERROR(["no gpgme/gpgme.h found"])])
+ 	AC_CHECK_LIB(gpg-error,gpg_strsource,,[AC_MSG_ERROR(["no libgpg-error found"])],)
+ 	AC_CHECK_LIB(gpgme,gpgme_get_protocol_name,,[AC_MSG_ERROR(["no libgpgme found (need at least 0.4.1)"])],)
+ 	;;
+ 	esac
+ ],[dnl default is to behave like yes (for libgpgme only)
+-	AC_CHECK_HEADER(gpgme.h,,[AC_MSG_ERROR(["no gpgme.h found (to disable run with --without-libgpgme)"])])
++	AC_CHECK_HEADER(gpgme/gpgme.h,,[AC_MSG_ERROR(["no gpgme/gpgme.h found (to disable run with --without-libgpgme)"])])
+ 	AC_CHECK_LIB(gpg-error,gpg_strsource,,[AC_MSG_ERROR(["no libgpg-error found (to disable run with --without-libgpgme)"])],)
+ 	AC_CHECK_LIB(gpgme,gpgme_get_protocol_name,,[AC_MSG_ERROR(["did not find libgpgme versoion 0.4.1 or later (to disable run with --without-libgpgme)"])],)
+ ])
+diff -Naur reprepro-4.1.2.orig//signature_p.h reprepro-4.1.2/signature_p.h
+--- reprepro-4.1.2.orig//signature_p.h	2010-05-09 07:52:52.745525639 +0200
++++ reprepro-4.1.2/signature_p.h	2010-05-09 07:56:11.732524503 +0200
+@@ -3,7 +3,7 @@
+ 
+ #ifdef HAVE_LIBGPGME
+ #include <gpg-error.h>
+-#include <gpgme.h>
++#include <gpgme/gpgme.h>
+ 
+ extern gpgme_ctx_t context;
+ #endif
