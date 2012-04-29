@@ -1,6 +1,10 @@
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
 EAPI=1
 
-inherit eutils autotools
+inherit eutils
 
 DESCRIPTION="Nagios $PV plugins - Pack of plugins to make Nagios work properly"
 HOMEPAGE="http://www.nagios.org/"
@@ -11,11 +15,11 @@ SLOT="0"
 KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
 IUSE="tcptraffic corosync haproxy apache megaraid nginx"
 
-DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version )
-		corosync? ( dev-perl/Nagios-Plugin )
-		haproxy? ( dev-perl/Nagios-Plugin dev-perl/LWP-UserAgent-Determined )
-		apache?	( sys-devel/bc )
-		megaraid? ( sys-block/megarc )
+DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version ) \
+		corosync? ( dev-perl/Nagios-Plugin ) \
+		haproxy? ( dev-perl/Nagios-Plugin dev-perl/LWP-UserAgent-Determined ) \
+		apache?	( sys-devel/bc ) \
+		megaraid? ( sys-block/megarc ) \
 		nginx? ( sys-devel/bc net-misc/wget )"
 
 RESTRICT="test"
@@ -30,27 +34,27 @@ PLUGIN_LIST="check_mdstat \
 			 check_smart_sectors \
 			 ssl-cert-check"
 
-if use tcptraffic; then 
+if use tcptraffic; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_tcptraffic"
 fi
 
-if use corosync; then 
+if use corosync; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_corosync check_corosync_rings"
 fi
 
-if use haproxy; then 
+if use haproxy; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_haproxy"
 fi
 
-if use apache; then 
+if use apache; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_apache2"
 fi
 
-if use megaraid; then 
+if use megaraid; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_lsi_megaraid"
 fi
 
-if use nginx; then 
+if use nginx; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_nginx"
 fi
 

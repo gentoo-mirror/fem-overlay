@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
+	</maintainer>
+	<maintainer>
+		<email>gentoo@friiks.de</email>
+		<name>Peter Grosse</name>
+	</maintainer>
+	<use>
+	    <flag name='tcptraffic'>Install TCP-Traffic plugin</flag>
+	    <flag name='corosync'>Install Corosync plugins</flag>
+		<flag name='haproxy'>Install HA-Proxy plugin</flag>
+		<flag name='apache'>Install Apache plugin</flag>
+		<flag name='megaraid'>Install LSI Megaraid plugin</flag>
+		<flag name='nginx'>Install Nginx plugin</flag>
+		<flag name='portage'>Install Portage plugins</flag>
+		<flag name='portageagewarn'>Patch Portage plugin to report age from critical to warn state</flag>
+		<flag name='temp'>Install Temperature-sensor plugin</flag>
+		<flag name='hddtemp'>Install HDD-Temp plugin</flag>
+		<flag name='suid'>Set SUID-Flag for several plugins</flag>
+	</use>
+</pkgmetadata>
