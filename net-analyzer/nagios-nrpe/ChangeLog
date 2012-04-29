@@ -1,0 +1,8 @@
+# ChangeLog for net-analyzer/nagios-nrpe
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 Apr 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  nagios-nrpe-2.12-r105.ebuild, nagios-nrpe-2.12-r106.ebuild, +metadata.xml:
+  fix many qa issues in ebuilds
+

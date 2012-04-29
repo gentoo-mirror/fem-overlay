@@ -1,5 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=2
 
@@ -19,6 +20,7 @@ IUSE="ssl command-args tcpd ipv6"
 DEPEND=">=net-analyzer/nagios-plugins-1.3.0
 	ssl? ( dev-libs/openssl )
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/nrpe-${PV}"
 

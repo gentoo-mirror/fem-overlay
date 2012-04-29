@@ -1,5 +1,6 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=2
 
@@ -18,6 +19,8 @@ KEYWORDS="~alpha amd64 ~hppa ~ppc ~ppc64 ~sparc x86"
 IUSE="ssl command-args ipv6"
 DEPEND=">=net-analyzer/nagios-plugins-1.3.0
 	ssl? ( dev-libs/openssl )"
+RDEPEND="${DEPEND}"
+
 S="${WORKDIR}/nrpe-${PV}"
 
 pkg_setup() {
@@ -46,7 +49,7 @@ src_configure() {
 					  $(use_enable command-args)"
 
 	# Generate the dh.h header file for better security (2005 Mar 20 eldad)
-	if useq ssl ; then
+	if use ssl ; then
 		openssl dhparam -C 512 | sed -n '1,/BEGIN DH PARAMETERS/p' | grep -v "BEGIN DH PARAMETERS" > "${S}"/src/dh.h
 	fi
 
