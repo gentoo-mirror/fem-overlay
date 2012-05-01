@@ -11,8 +11,8 @@
 #
 # Copyright (c) 2012 Marcel Pennewiss, Werbeagentur Pennewiﬂ (opensource@pennewiss.de)
 #
-# Current Version: 1.5.1
-# Last Modified: 2012-04-14
+# Current Version: 1.5.2
+# Last Modified: 2012-05-01
 #
 # USAGE:
 #   Start sql-ssh-backup with the "-h" option to show usage/help.
@@ -39,6 +39,7 @@
 #	     fix output of failed ssh/scp-session
 #	     add flag for ssh port (database-type selection changed!)
 #   1.5.1 - remove many bashisms
+#   1.5.2 - fix some syntax errors
 #
 # LICENSE: GPL-2
 #
@@ -56,7 +57,7 @@
 
 # show usage information
 print_usage() {
-  echo "SQL-SSH-Backup v1.5.1"
+  echo "SQL-SSH-Backup v1.5.2"
   echo "Create MySQL-/PosgreSQL-Dumps via SSH using RSA or DSA authentication (private key)."
   echo "Each database will be dumped as a single file and can be compressed optional."
   echo ""
@@ -104,10 +105,10 @@ prepare()
   ( ! ${MYSQL} && ! ${POSTGRESQL} ) && echo "You should either select MySQL or PostgreSQL as database type." && echo "Start sql-ssh-backup with the \"-h\" option to show usage/help." && exit 1
 
   # check ssh identity file
-  ([ -z ${SSH_IDENTITY} ] || [ ! -f ${SSH_IDENTITY} ]) && echo "SSH identity file (private key) not set or not found." && ERROR=$(( $ERROR + 1 )
+  ([ -z ${SSH_IDENTITY} ] || [ ! -f ${SSH_IDENTITY} ]) && echo "SSH identity file (private key) not set or not found." && ERROR=$(( $ERROR + 1 ))
 
   # check if remote server is set
-  [ -z ${SSH_HOST} ] && echo "Remote ssh server not set." && ERROR=$(( $ERROR + 1 )
+  [ -z ${SSH_HOST} ] && echo "Remote ssh server not set." && ERROR=$(( $ERROR + 1 ))
 
   # set DB-Server to localhost if unset
   [ -z ${SQL_HOST} ] && SQL_HOST=localhost
@@ -121,7 +122,7 @@ prepare()
   ${BACKUPDIR_TIME} && BACKUPDIR="${BACKUPDIR}$(date +%R)/"
 
   # check number of days
-  [ ! "x${DAYS}" =~ ^x[0-9]*$ ] && echo "Wrong number of days, use only numeric value." && ERROR=$(( $ERROR + 1 )
+  [[ ! "x${DAYS}" =~ ^x[0-9]*$ ]] && echo "Wrong number of days, use only numeric value." && ERROR=$(( $ERROR + 1 ))
   [ -z ${DAYS} ] && DAYS=90
 
   # BackupExtension
@@ -149,7 +150,7 @@ prepare()
   fi
 
   # check ssh port
-  [ ! "x${SSH_PORT}" =~ ^x[0-9]*$ ] && echo "SSH-Port wrong, use only numeric value." && ERROR=$(( $ERROR + 1 ))
+  [[ ! "x${SSH_PORT}" =~ ^x[0-9]*$ ]] && echo "SSH-Port wrong, use only numeric value." && ERROR=$(( $ERROR + 1 ))
 
   # set SSH/SCP connection options	
   SSH_OPTS="-C -i ${SSH_IDENTITY}"
