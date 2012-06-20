@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:
 
+EAPI="4"
+
 inherit subversion eutils
 
 ESVN_REPO_URI="http://subversion.fem.tu-ilmenau.de/repository/cccongress/trunk/tools/fuse-vdv"
@@ -13,8 +15,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE="avi avidemux wavdemux"
-
-EAPI="2"
 
 DEPEND="sys-fs/fuse
 	>=dev-libs/mini-xml-2.6"
