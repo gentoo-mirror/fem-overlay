@@ -2,6 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
-		<email>maintainer-wanted@gentoo.org</email>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
 	</maintainer>
 </pkgmetadata>
