@@ -34,6 +34,11 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}/jabberd-${PV}"
 
+src_prepare() {
+	# http://www.mail-archive.com/jabberd2@lists.xiaoka.com/msg01762.html
+	epatch "${FILESDIR}/${P}-s2s-ipv6.patch"
+}
+
 src_configure() {
 	# https://bugs.gentoo.org/show_bug.cgi?id=207655#c3
 	replace-flags -O[3s] -O2

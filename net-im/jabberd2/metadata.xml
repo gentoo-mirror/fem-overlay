@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
+	</maintainer>
+	<herd>net-im</herd>
+	<use>
+		<flag name='memdebug'>Enable nad and pool debug. Requires USE="debug" to
+			be set.
+		</flag>
+	</use>
+</pkgmetadata>

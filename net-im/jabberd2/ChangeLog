@@ -1,0 +1,11 @@
+# ChangeLog for net-im/jabberd2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*jabberd2-2.2.14-r1 (25 Jun 2012)
+
+  25 Jun 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +jabberd2-2.2.14-r1.ebuild, +files/jabberd2-2.2.14-s2s-ipv6.patch,
+  +metadata.xml:
+  Add Workaround-Patch for IPv6 with kernel 3.1 and above
+
