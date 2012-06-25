@@ -1,0 +1,348 @@
+#!/bin/bash
+#
+# sql-ssh-backup
+#
+# Create MySQL- or PostgreSQL-Dumps via SSH using RSA or DSA authentication (private key).
+# Each database will be dumped as a single file and can be compressed optional.
+#
+# Copyright (c) 2011 Peter Grosse (gentoo@friiks.de)
+# Copyright (c) 2010-2012 Marcel Pennewiss (opensource@pennewiss.de)
+# Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
+#
+# Copyright (c) 2012 Marcel Pennewiss, Werbeagentur Pennewiﬂ (opensource@pennewiss.de)
+#
+# Current Version: 1.6
+# Last Modified: 2012-05-27
+#
+# USAGE:
+#   Start sql-ssh-backup with the "-h" option to show usage/help.
+#
+# REQUIREMENTS:
+#   * ssh
+#   * bash-4.x
+#   MySQL:
+#     * bzip2 (if compression enabled)
+#     * mysql / mysqldump (on remote server)
+#   PostgreSQL:
+#     * psql / pg_dump (on remote server)
+#
+# INSTALLATION: 
+#   Copy the shell script to a suitable location
+#
+# CHANGELOG:
+#     1.0 - Initial Release (2010-12-14/mysql and 2011-04-14/pgsql)
+#     1.1 - Fix Cleanup Directory (2011-06-07)
+#     1.2 - Ignore cleanup directory list if empty (2011-07-01)
+#     1.3 - merge release supporting MySQL and PostgreSQL
+#     1.4 - add option for time (hh:mm) in backup directory
+#     1.5 - create temporary my.cnf-config for username/password in mysql
+#	     fix output of failed ssh/scp-session
+#	     add flag for ssh port (database-type selection changed!)
+#   1.5.1 - remove many bashisms
+#   1.5.2 - fix some syntax errors
+#     1.6 - create temporary pgpass-config for username/password in pgsql
+#           if pgsql-username _and_ passphrase are given
+#
+# LICENSE: GPL-2
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+##########################################################################
+
+# show usage information
+print_usage() {
+  echo "SQL-SSH-Backup v1.6"
+  echo "Create MySQL-/PosgreSQL-Dumps via SSH using RSA or DSA authentication (private key)."
+  echo "Each database will be dumped as a single file and can be compressed optional."
+  echo ""
+  echo "Usage $0 [OPTIONS]"
+  echo ""
+  echo " -T [type]           Type of Database (type: mysql or pgsql)"
+  echo " -l <ssh-login>      User to log in as on the remote machine (defaul: current user)"
+  echo " -s <ssh-server>     Remote machine to log in"
+  echo " -P <ssh-port>       Remote port for ssh"
+  echo " -i <identity-file>  File from which the identity (private key) for SSH is read"
+  echo " -m <sql-host>       MySQL-/PgSQL-Host to Dump (default: localhost)"
+  echo " -u <sql-user>       MySQL-/PgSQL-User (leave empty while using .my.cnf/.pgpass on remote server)"
+  echo " -p <sql-password>   MySQL-/PgSQL-Password (leave empty while using .my.cnf/.pgpass on remote server)"
+  echo " -d <backup-dir>     Base-directory where dumps will be stored (default: {scriptpath}/{ssh-server})"
+  echo " -t                  Add subdirectory (hh-mm) to backup directory to allow multiple backups a day"
+  echo " -e <days>           Number of days after which old dumps will be deleted"
+  echo " -c                  MySQL: Use bzip2 compression - dumps will be compressed on the local machine"
+  echo "                     PgSQL: Use custom dump file format, instead of save uncompressed plain SQL files"
+  echo " -h                  Show this help"
+  echo ""
+}
+
+# check parameters and directories
+prepare()
+{
+  # reset error counter
+  ERROR=0
+
+  # set databasetype if unset
+  MYSQL=false
+  POSTGRESQL=false
+  [ "${DATABASE_TYPE,,}" = "mysql" ] && MYSQL=true
+  [ "${DATABASE_TYPE,,}" = "pgsql" ] && POSTGRESQL=true
+
+  # disable time-subdirectory (default) if unset
+  [ -t ${BACKUPDIR_TIME} ] && BACKUPDIR_TIME=false
+
+  # disable compression (default) if unset
+  [ -z ${COMPRESS} ] && COMPRESS=false
+
+  # set SSH-user to current user if unset
+  [ -z ${SSH_USER} ] && SSH_USER=$(id -u -n)
+  
+  # check if mysql or posgresql selected
+  ( ! ${MYSQL} && ! ${POSTGRESQL} ) && echo "You should either select MySQL or PostgreSQL as database type." && echo "Start sql-ssh-backup with the \"-h\" option to show usage/help." && exit 1
+
+  # check ssh identity file
+  ([ -z ${SSH_IDENTITY} ] || [ ! -f ${SSH_IDENTITY} ]) && echo "SSH identity file (private key) not set or not found." && ERROR=$(( $ERROR + 1 ))
+
+  # check if remote server is set
+  [ -z ${SSH_HOST} ] && echo "Remote ssh server not set." && ERROR=$(( $ERROR + 1 ))
+
+  # set DB-Server to localhost if unset
+  [ -z ${SQL_HOST} ] && SQL_HOST=localhost
+
+  # set Backupdirectory to default value if unset
+  [ -z ${BACKUPDIR} ] && BACKUPDIR=${HOME}/${SSH_HOST}
+  BACKUPDIR_ORIG=${BACKUPDIR}
+  BACKUPDIR="${BACKUPDIR}/$(date +%F)/"
+
+  # set time-subdirectory
+  ${BACKUPDIR_TIME} && BACKUPDIR="${BACKUPDIR}$(date +%R)/"
+
+  # check number of days
+  [[ ! "x${DAYS}" =~ ^x[0-9]*$ ]] && echo "Wrong number of days, use only numeric value." && ERROR=$(( $ERROR + 1 ))
+  [ -z ${DAYS} ] && DAYS=90
+
+  # BackupExtension
+  BACKUPEXT="sql"
+
+  # use custom dump format if plainfile option unset
+  ${POSTGRESQL} && ${COMPRESS} && SQL_DUMP_OPTS="--format custom" && BACKUPEXT="dump"
+
+  # check for installed SSH-Client
+  which ssh > /dev/null 2>&1 || (echo "SSH not found! Skipping all backups!" >&2 && exit 1)
+
+  # check for installed bzip2 while using mysql
+  ${MYSQL} && ${COMPRESS} && (which bzip2 > /dev/null 2>&1 || (echo "bzip2 not found and compression enabled! Skipping all backups!" >&2 && exit 1))
+
+  # abort if too man errors occured
+  [ ${ERROR} -ge 1 ] && echo && echo "Too man errors occured. Aborting..." && exit 1
+
+  # 
+  if [ -d ${BACKUPDIR} ]; then
+    rm -f ${BACKUPDIR}/*
+  fi
+  if [ ! -d ${BACKUPDIR} ]; then
+    mkdir ${BACKUPDIR} -p
+    [ $? -ne 0 ] && echo "Can't create Backup-Directory ${BACKUPDIR}." >&2  && exit 1
+  fi
+
+  # check ssh port
+  [[ ! "x${SSH_PORT}" =~ ^x[0-9]*$ ]] && echo "SSH-Port wrong, use only numeric value." && ERROR=$(( $ERROR + 1 ))
+
+  # set SSH/SCP connection options	
+  SSH_OPTS="-C -i ${SSH_IDENTITY}"
+  SCP_OPTS=${SSH_OPTS}
+  [ ${SSH_PORT} ] && SSH_OPTS="${SSH_OPTS} -p ${SSH_PORT}"
+  [ ${SSH_PORT} ] && SCP_OPTS="${SCP_OPTS} -P ${SSH_PORT}"
+
+  # check if MySQL-user and -password is set
+  if ${MYSQL} && [ ${SQL_USER} ] && [ "${SQL_PASSWORD}" ]; then
+
+    # create temporary my.cnf-file
+    TEMP_CONFIG=$(mktemp)
+    cat > ${TEMP_CONFIG} << EOF_TEMP_CONFIG
+[client]
+user="${SQL_USER}"
+pass="${SQL_PASSWORD}"
+EOF_TEMP_CONFIG
+
+    LAST_RETURN=$(scp ${SCP_OPTS} ${TEMP_CONFIG} ${SSH_USER}@${SSH_HOST}:~/ 2>&1)
+    local ret=$?
+    [ ${ret} -ne 0 ] && echo "SCP-Connection failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
+
+    # strip directories from temporary my.cnf-file
+    TEMP_CONFIG=$(basename ${TEMP_CONFIG})
+    SQL_OPTS="--defaults-extra-file=~/${TEMP_CONFIG}"
+  fi
+
+  # check if Postgres-user and -password is set
+  if ${POSTGRESQL} && [ ${SQL_USER} ] && [ "${SQL_PASSWORD}" ]; then
+
+    # create temporary pgpass-file
+    TEMP_CONFIG=$(mktemp)
+    cat > ${TEMP_CONFIG} << EOF_TEMP_CONFIG
+localhost:5432:*:${SQL_USER}:${SQL_PASSWORD}
+EOF_TEMP_CONFIG
+
+    LAST_RETURN=$(scp ${SCP_OPTS} ${TEMP_CONFIG} ${SSH_USER}@${SSH_HOST}:~/ 2>&1)
+    local ret=$?
+    [ ${ret} -ne 0 ] && echo "SCP-Connection failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
+
+    # strip directories from temporary pgpass-file
+    TEMP_CONFIG=$(basename ${TEMP_CONFIG})
+    SQL_OPTS_ENVIRONMENT="export PGPASSFILE=~/${TEMP_CONFIG}; "
+  elif ${POSTGRESQL} && [ ${SQL_USER} ]; then
+    # only PostgreSQL-user is set
+    SQL_OPTS="--username=${SQL_USER}"
+  fi
+  # check if PostgreSQL-user is set
+  #${POSTGRESQL} && [ ${SQL_USER} ] && SQL_OPTS="--username=${SQL_USER}"
+}
+
+# connection-wrapper to execute mysqldump/pgsql/pg_dump via ssh
+# param[in] $1 remote command to execute
+# param[in] $2 filename used to redirect stdout (optional)
+connection_wrapper()
+{
+  if [ -z ${2} ]; then
+	  LAST_RETURN=$(ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" 2>&1)
+  else
+	  LAST_RETURN=$( { ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" >${2}; } 2>&1 )
+  fi
+  local ret=$?
+  [ ${ret} -eq 255 ] && echo "SSH-Connection failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
+  return ${ret}
+}
+
+# dump global objects only
+dump_globals()
+{
+  connection_wrapper "${SQL_OPTS_ENVIRONMENT}pg_dumpall --globals-only --host ${SQL_HOST} ${SQL_OPTS}" "${BACKUPDIR}/_globals.sql"
+  local ret=$?
+  [ ${ret} -ne 0 ] && echo "pg_dump of global database objects failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+  LAST_RETURN=$(tail -3 "${BACKUPDIR}/_globals.sql" | head -1 | grep -e "^-- PostgreSQL database dump complete" 2>&1)
+  local ret=$?
+  [ ${ret} -ne 0 ] && echo "Dump-Check of global database objects failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# get full database-list
+get_databaselist()
+{
+  ${MYSQL} && local GET_DATABASE_LIST_COMMAND="mysql ${SQL_OPTS} --host ${SQL_HOST} -Bse 'show databases'"
+  ${POSTGRESQL} && local GET_DATABASE_LIST_COMMAND="${SQL_OPTS_ENVIRONMENT}psql --host ${SQL_HOST} ${SQL_OPTS} --tuples-only --no-align --dbname postgres --command 'SELECT datname FROM pg_database WHERE datistemplate IS FALSE;'"
+  connection_wrapper "${GET_DATABASE_LIST_COMMAND}" 
+  [ $? -ne 0 ] && echo "$ret: Can't get database list:" >&2 && echo ${LAST_RETURN} >&2 && exit 1
+}
+
+# dump a database
+# param[in] $1 database-name
+dump_database()
+{
+  ${MYSQL} && local DUMP_DATABASE_COMMAND="mysqldump ${SQL_OPTS} --single-transaction --extended-insert --host ${SQL_HOST} --no-autocommit --set-charset ${1}"
+  ${POSTGRESQL} && local DUMP_DATABASE_COMMAND="${SQL_OPTS_ENVIRONMENT}pg_dump --blobs --create --encoding UTF-8 --host ${SQL_HOST} ${SQL_OPTS} ${SQL_DUMP_OPTS} ${1}"
+  connection_wrapper "${DUMP_DATABASE_COMMAND}" "${BACKUPDIR}/${1}.${BACKUPEXT}"
+  local ret=$?
+  [ ${ret} -ne 0 ] && echo "Dump of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# check for complete database-dump
+# param[in] $1 database-name
+check_database_dump()
+{
+  if ${MYSQL}; then
+    LAST_RETURN=$(tail "${BACKUPDIR}/${1}.${BACKUPEXT}" -n 1 | grep -e "^-- Dump completed o" 2>&1)
+  elif ${POSTGRESQL}; then
+    ${COMPRESS} || LAST_RETURN=$(tail -3 "${BACKUPDIR}/${1}.${BACKUPEXT}" | head -1 | grep -e "^-- PostgreSQL database dump complete" 2>&1)
+  fi
+  local ret=$?
+  [ ${ret} -ne 0 ] && echo "Dump-Check of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# compress the dump file of a single database (for mysql)
+# param[in] $1 database-name
+compress_database()
+{
+  LAST_RETURN=$(bzip2 "${BACKUPDIR}/${1}.${BACKUPEXT}" 2>&1)
+  local ret=$?
+  [ ${ret} -ne 0 ] && echo "Compaction of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# check the compressed dump
+# param[in] $1 database-name
+check_compressed_database()
+{
+  LAST_RETURN=$(bzip2 --test "${BACKUPDIR}/${1}.${BACKUPEXT}.bz2" 2>&1)
+  local ret=$?
+  [ ${ret} -ne 0 ] && echo "Test of compacted database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
+  return ${ret}
+}
+
+# dump all databases
+# param[in] $1 list of databases (IFS-seperated)
+dump_all_databases()
+{
+  for DATABASE in ${1}
+  do
+    dump_database ${DATABASE}
+    [ $? -eq 0 ] && check_database_dump ${DATABASE}
+    [ $? -eq 0 ] && ${MYSQL} && ${COMPRESS} && compress_database ${DATABASE}
+    [ $? -eq 0 ] && ${MYSQL} && ${COMPRESS} && check_compressed_database ${DATABASE}
+  done
+}
+
+# cleanup local and remote
+cleanup()
+{
+  # remove temporary my.cnf-config if used
+  if [ ${TEMP_CONFIG} ]; then
+    connection_wrapper "rm ${TEMP_CONFIG}"
+  fi
+
+  # cleanup backup-directory
+  # remove all subdirectories which are older then ${DAYS} days
+  if [ -d ${BACKUPDIR_ORIG} ]; then
+  	LAST_RETURN=$(find ${BACKUPDIR_ORIG}/* -type d -mtime +${DAYS} | xargs --no-run-if-empty /bin/rm -r 2>&1)
+  fi
+  [ $? -ne 0 ] && echo "Cleanup of old Backups failed:" >&2 && echo ${LAST_RETURN} >&2
+}
+
+# run main part
+while getopts ":hT:l:s:P:i:m:u:p:d:te:c" Option; do
+        case $Option in
+                h )     print_usage && exit 0;;
+		T )	DATABASE_TYPE=${OPTARG};;
+		l )	SSH_USER=${OPTARG};;
+		s )	SSH_HOST=${OPTARG};;
+		P )	SSH_PORT=${OPTARG};;
+		i )	SSH_IDENTITY=${OPTARG};;
+		m )	SQL_HOST=${OPTARG};;
+		u )	SQL_USER=${OPTARG};;
+		p )	SQL_PASSWORD=${OPTARG};;
+		d )	BACKUPDIR=${OPTARG};;
+		t )	BACKUPDIR_TIME=true;;
+		e )	DAYS=${OPTARG};;
+		c )	COMPRESS=true;;
+                * )     echo "Unknown parameter \"-${OPTARG}\"!"; 
+			print_usage
+			exit 1
+			;;
+        esac
+done
+shift $(($OPTIND - 1)) 
+
+prepare
+${POSTGRESQL} && dump_globals
+get_databaselist
+dump_all_databases "${LAST_RETURN}"
+cleanup
+exit 0
