@@ -20,6 +20,7 @@ IUSE=""
 DEPEND="dev-libs/openssl:0
 	media-libs/alsa-lib
 	media-libs/libsdl[X,audio,video,alsa]
+	media-libs/portaudio
 	media-libs/sdl-mixer
 	media-libs/sdl-sound
 	media-libs/x264
@@ -31,10 +32,18 @@ DEPEND="dev-libs/openssl:0
 	x11-libs/qt-webkit:4"
 RDEPEND="${DEPEND}"
 
+src_prepare() {
+	# Add GIT commit ID to Version
+	sed -i \
+		-e "/^\#define RELEASE_VERSION_STRING/s/\([0-9]\)\"/\1-git-${EGIT_VERSION}]\"/" \
+		Homer/include/Configuration.h
+}
+
 src_install() {
 	emake -C HomerBuild \
 		INSTALL_PREFIX=/usr \
 		INSTALL_LIBDIR=/usr/$(get_libdir) \
+		INSTALL_DATADIR=/usr/share/{PN} \
 		install DESTDIR="${D}"
 
 	doicon ${MY_PN}/${MY_PN}.png
