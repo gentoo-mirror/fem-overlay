@@ -1,12 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/iperf/iperf-2.0.5.ebuild,v 1.6 2010/10/10 18:48:12 armin76 Exp $
-
-inherit eutils python
+# $Header: $
 
 EAPI="4"
 
-DESCRIPTION="tcp packet sniffer which can log network traffic in a 'standard' (web server like) or in a customized way"
+inherit eutils python
+
+DESCRIPTION="tcp packet sniffer which can log network traffic in a 'standard' (web server like)"
 HOMEPAGE="http://justsniffer.sourceforge.net/"
 SRC_URI="${P/-/_}.tar.gz"
 
@@ -29,15 +29,15 @@ pkg_nofetch() {
 	einfo "and move it to ${DISTDIR}"
 }
 
-src_unpack() {
-	unpack "${A}"
-	cd "${S}"
+src_prepare() {
+#	unpack ${A}
+#	cd "${S}"
 	epatch "${FILESDIR}/libnet_configure_fix.patch"
 }
 
 pkg_setup() {
-    python_set_active_version 2
-    python_pkg_setup
+	python_set_active_version 2
+	python_pkg_setup
 }
 
 src_install() {
