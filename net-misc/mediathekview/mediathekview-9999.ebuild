@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 WANT_ANT_TASKS="ant-nodeps"
 
 inherit eutils git java-pkg-2 java-ant-2
@@ -15,19 +15,18 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="vlc mplayer flvstreamer"
 
-EGIT_REPO_URI="git://zdfmediathk.git.sourceforge.net/gitroot/zdfmediathk/zdfmediathk"
+EGIT_REPO_URI="git://zdfmediathk.git.sourceforge.net/gitroot/zdfmediathk/MediathekView-3"
 
-COMMON_DEPS="dev-java/jdom
-	     dev-java/commons-lang
-	     dev-java/rome
-	     dev-java/commons-compress"
+COMMON_DEPS=" dev-java/jdom:1.0
+			  dev-java/commons-lang:3.1
+			>=dev-java/commons-compress-1.4"
 
 DEPEND="${COMMON_DEPS}
-	>=virtual/jdk-1.5.0
+	>=virtual/jdk-1.4.0
 	dev-java/ant-nodeps"
 
 RDEPEND="${COMMON_DEPS}
-	virtual/jre
+	>=virtual/jre-1.4
 	vlc? ( media-video/vlc )
 	mplayer? ( || (
 		media-video/mplayer
@@ -44,19 +43,25 @@ pkg_setup() {
 }
 
 java_prepare() {
-	cd "${S}/libs"
-	rm -v commons-* jdom-* rome-*  || die
+	# skip post_jar.sh
+	sed -i -e "s#post-jar#post-jar-disabled#g" "${S}"/build.xml
 
-	java-pkg_jar-from jdom-1.0
-	java-pkg_jar-from commons-lang-2.1 commons-lang.jar commons-lang-2.5.jar
-	java-pkg_jar-from commons-compress commons-compress.jar commons-compress-1.1.jar
-	java-pkg_jar-from rome rome.jar rome-1.0.jar
+	cd "${S}/libs"
+	rm -v commons-* || die
+
+#	java-pkg_jar-from jdom-1.0
+	java-pkg_jar-from commons-lang-3.1 commons-lang3.jar commons-lang3-3.1.jar
+	java-pkg_jar-from commons-compress commons-compress.jar commons-compress-1.4.jar
 }
 
 src_install() {
-	java-pkg_newjar dist/Mediathek.jar
+	java-pkg_newjar dist/MediathekView.jar
+	java-pkg_jarinto /usr/share/${PN}/lib/lib
+	java-pkg_dojar libs/jdom-2.0.0.jar
+	java-pkg_dojar libs/commons-lang3-3.1.jar
+	java-pkg_dojar libs/commons-compress-1.4.jar
 	java-pkg_dolauncher ${PN} --main mediathek.Main
 
-	newicon ${FILESDIR}/java.png ${PN}.png || die "newicon failed"
+	newicon "${FILESDIR}/java.png" ${PN}.png || die "newicon failed"
 	make_desktop_entry "${PN}" "MediathekView" mediathekview "Network"
 }

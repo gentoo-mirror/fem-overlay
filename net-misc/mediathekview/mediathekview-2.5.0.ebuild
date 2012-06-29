@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,6 +14,7 @@ DESCRIPTION="Download files from the public broadcasting services"
 HOMEPAGE="http://zdfmediathek.sourceforge.net"
 SRC_URI="http://users.minet.uni-jena.de/~veelai/${P}.tar.bz2"
 
+IUSE=""
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
