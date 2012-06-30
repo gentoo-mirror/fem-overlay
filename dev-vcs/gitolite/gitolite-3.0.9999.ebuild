@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils perl-module git-2
+inherit eutils perl-module git-2 user
 
 DESCRIPTION="Highly flexible server for git directory version tracker"
 HOMEPAGE="http://github.com/sitaramc/gitolite"

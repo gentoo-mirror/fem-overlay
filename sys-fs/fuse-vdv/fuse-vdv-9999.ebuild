@@ -1,6 +1,6 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header:
+# $Header: $
 
 EAPI="4"
 
@@ -15,6 +15,8 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE="avi avidemux wavdemux"
+
+REQUIRED_USE="avidemux? ( avi )"
 
 DEPEND="sys-fs/fuse
 	>=dev-libs/mini-xml-2.6"

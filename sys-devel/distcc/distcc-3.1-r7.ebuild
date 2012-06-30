@@ -1,11 +1,11 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-devel/distcc/distcc-3.1-r5.ebuild,v 1.1 2010/12/22 21:16:55 arfrever Exp $
 
 EAPI="3"
 PYTHON_DEPEND="2"
 
-inherit eutils fdo-mime flag-o-matic multilib python toolchain-funcs
+inherit eutils fdo-mime flag-o-matic multilib python toolchain-funcs user
 
 DESCRIPTION="a program to distribute compilation of C code across several machines on a network"
 HOMEPAGE="http://distcc.org/"
@@ -23,14 +23,14 @@ RDEPEND="dev-libs/popt
 	gnome? (
 		>=gnome-base/libgnome-2
 		>=gnome-base/libgnomeui-2
-		>=x11-libs/gtk+-2
+		x11-libs/gtk+:2
 		x11-libs/pango
 	)
 	gtk? (
-		>=x11-libs/gtk+-2
+		x11-libs/gtk+:2
 	)"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 RDEPEND="${RDEPEND}
 	!net-misc/pump
 	>=sys-devel/gcc-config-1.4.1
@@ -55,6 +55,8 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-freedesktop.patch"
 	# bug #258364
 	epatch "${FILESDIR}/${P}-python.patch"
+	# bug #351979
+	epatch "${FILESDIR}/${P}-argc-fix.patch"
 
 	sed -i -e "/PATH/s:\$distcc_location:${DCCC_PATH}:" pump.in || die
 
@@ -119,7 +121,7 @@ src_install() {
 			dosym "${DCCC_PATH}/${CTARGET:-${CHOST}}-wrapper" "${DCCC_PATH}/${f}"
 		else
 			dosym /usr/bin/distcc "${DCCC_PATH}/${f}"
-		fi	
+		fi
 		if [ "${f}" != "cc" ]; then
 			dosym /usr/bin/distcc "${DCCC_PATH}/${CTARGET:-${CHOST}}-${f}"
 		fi

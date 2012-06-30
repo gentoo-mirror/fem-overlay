@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/imagemagick/imagemagick-6.7.6.4.ebuild,v 1.7 2012/04/08 16:58:38 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/imagemagick/imagemagick-6.7.6.4.ebuild,v 1.12 2012/06/16 16:32:07 ssuominen Exp $
 
 EAPI=4
 inherit multilib toolchain-funcs versionator
@@ -13,8 +13,8 @@ SRC_URI="mirror://${PN}/${MY_P}.tar.xz"
 
 LICENSE="imagemagick"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ~ppc ~ppc64 s390 sh sparc x86 ~ppc-aix ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="autotrace bzip2 corefonts cxx djvu fftw fontconfig fpx graphviz gs hdri jbig jpeg jpeg2k lcms lqr lzma opencl openexr openmp pango perl png q32 q64 q8 raw static-libs svg test tiff truetype webp wmf X xml zlib php-safemode-bin"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+IUSE="autotrace bzip2 corefonts cxx djvu fftw fontconfig fpx graphviz hdri jbig jpeg jpeg2k lcms lqr lzma opencl openexr openmp pango perl php-safemode-bin png postscript q32 q64 q8 raw static-libs svg test tiff truetype webp wmf X xml zlib"
 
 RDEPEND=">=sys-devel/libtool-2.2.6b
 	autotrace? ( >=media-gfx/autotrace-0.31.1 )
@@ -25,7 +25,6 @@ RDEPEND=">=sys-devel/libtool-2.2.6b
 	fontconfig? ( media-libs/fontconfig )
 	fpx? ( >=media-libs/libfpx-1.3.0-r1 )
 	graphviz? ( >=media-gfx/graphviz-2.6 )
-	gs? ( app-text/ghostscript-gpl )
 	jbig? ( media-libs/jbigkit )
 	jpeg? ( virtual/jpeg )
 	jpeg2k? ( media-libs/jasper )
@@ -35,7 +34,9 @@ RDEPEND=">=sys-devel/libtool-2.2.6b
 	openexr? ( media-libs/openexr )
 	pango? ( x11-libs/pango )
 	perl? ( >=dev-lang/perl-5.8.6-r6 )
+	php-safemode-bin? ( dev-lang/php )
 	png? ( media-libs/libpng:0 )
+	postscript? ( app-text/ghostscript-gpl )
 	raw? ( media-gfx/ufraw )
 	svg? ( >=gnome-base/librsvg-2.9.0 )
 	tiff? ( media-libs/tiff:0 )
@@ -53,12 +54,11 @@ RDEPEND=">=sys-devel/libtool-2.2.6b
 	)
 	xml? ( >=dev-libs/libxml2-2.4.10 )
 	lzma? ( app-arch/xz-utils )
-	zlib? ( sys-libs/zlib )
-	php-safemode-bin? ( dev-lang/php )"
+	zlib? ( sys-libs/zlib )"
 DEPEND="${RDEPEND}
 	!media-gfx/graphicsmagick[imagemagick]
 	app-arch/xz-utils
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	>=sys-apps/sed-4
 	X? ( x11-proto/xextproto )"
 
@@ -101,14 +101,14 @@ src_configure() {
 		$(use_with X x) \
 		$(use_with zlib) \
 		$(use_with autotrace) \
-		$(use_with gs dps) \
+		$(use_with postscript dps) \
 		$(use_with djvu) \
 		--with-dejavu-font-dir="${EPREFIX}/usr/share/fonts/dejavu" \
 		$(use_with fftw) \
 		$(use_with fpx) \
 		$(use_with fontconfig) \
 		$(use_with truetype freetype) \
-		$(use_with gs gslib) \
+		$(use_with postscript gslib) \
 		$(use_with graphviz gvc) \
 		$(use_with jbig) \
 		$(use_with jpeg) \
@@ -150,10 +150,10 @@ src_install() {
 	# install hardlinks for php safemode
 	if use php-safemode-bin; then
 		LOCAL_PHP_BIN_DIR="/usr/local/php/bin"
-		dodir ${LOCAL_PHP_BIN_DIR} || die
+		dodir "${LOCAL_PHP_BIN_DIR}" || die
 		for UTILITY in composite convert identify; do
-			ln -s ${D}/usr/bin/${UTILITY} ${D}/${LOCAL_PHP_BIN_DIR}/${UTILITY}
+			ln -s "${D}/usr/bin/${UTILITY}" "${D}/${LOCAL_PHP_BIN_DIR}/${UTILITY}"
 		done
-		chown -R apache:apache ${D}${LOCAL_PHP_BIN_DIR}
+		chown -R apache:apache "${D}${LOCAL_PHP_BIN_DIR}"
 	fi
 }

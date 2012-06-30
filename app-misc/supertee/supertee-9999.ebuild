@@ -1,6 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/tpipe/tpipe-1.6.ebuild,v 1.5 2009/12/25 02:26:07 darkside Exp $
+# $Header: $
+
+EAPI="4"
 
 inherit mercurial cmake-utils
 
@@ -11,8 +13,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
-
-EAPI="2"
 
 DEPEND="dev-util/cmake
 	dev-libs/boost"
@@ -36,4 +36,3 @@ src_compile() {
 src_install() {
 	dobin ${CMAKE_BUILD_DIR}/supertee
 }
-
