@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*reprepro-4.12.3 (30 Jun 2012)
+
+  30 Jun 2012; Peter Grosse <gentoo@friiks.de> +reprepro-4.12.3.ebuild:
+  version bump
+
 *reprepro-4.10.0 (26 Apr 2012)
 *reprepro-4.3.0-r1 (26 Apr 2012)
 
