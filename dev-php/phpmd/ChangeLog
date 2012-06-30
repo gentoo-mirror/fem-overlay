@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jun 2012; Peter Grosse <gentoo@friiks.de> metadata.xml:
+  fix maintainer list
+
 *phpmd-1.3.3 (16 Apr 2012)
 
   16 Apr 2012; Peter Grosse <gentoo@friiks.de> -phpmd-1.3.2.ebuild,

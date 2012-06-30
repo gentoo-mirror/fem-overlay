@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jun 2012; Peter Grosse <gentoo@friiks.de> -phpdepend-1.0.4.ebuild,
+  +phpdepend-1.0.7.ebuild, metadata.xml:
+  version bump
+
+*phpdepend-1.0.7 (07 May 2012)
+
+  07 May 2012; Peter Grosse <gentoo@friiks.de> +phpdepend-1.0.7.ebuild:
+  Version bump.
+
 *phpdepend-1.0.5 (16 Apr 2012)
 
   16 Apr 2012; Peter Grosse <gentoo@friiks.de> phpdepend-1.0.4.ebuild,

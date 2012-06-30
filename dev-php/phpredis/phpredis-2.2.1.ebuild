@@ -1,3 +1,6 @@
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI="4"
 SLOT="0"
@@ -11,6 +14,8 @@ DESCRIPTION="The phpredis extension provides an API for communicating with the R
 HOMEPAGE="https://github.com/nicolasff/phpredis"
 SRC_URI=""
 
+LICENSE="PHP-3.01"
+IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 PHP_EXT_NAME="redis"
@@ -23,7 +28,7 @@ inherit git-2 php-ext-source-r2 confutils
 
 src_unpack() {
 	git-2_src_unpack
-	
+
 	for slot in $(php_get_slots); do
 		cp -r "${S}" "${WORKDIR}/${slot}"
 	done

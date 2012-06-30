@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jun 2012; Peter Grosse <gentoo@friiks.de> metadata.xml:
+  fix maintainer list
+
   16 Apr 2012; Peter Grosse <gentoo@friiks.de> ffmpeg-php-0.6.0-r2.ebuild,
   +metadata.xml:
   Ebuild cleanup
