@@ -14,11 +14,11 @@ KEYWORDS="amd64 x86"
 IUSE="ftp ftps"
 
 RDEPEND="app-backup/duplicity[ftp=,ftps=]"
-
 DEPEND="${RDEPEND}"
 
+S=${WORKDIR}/${PN}_${PV}
+
 src_install() {
-	cd ${PN}_${PV}
 	dobin duply
 	dodoc INSTALL.txt
 }

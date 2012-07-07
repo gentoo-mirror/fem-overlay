@@ -13,8 +13,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+S=${WORKDIR}/${PN}_${PV}
+
 src_install() {
-	cd ${PN}_${PV}
 	dobin duply
 	dodoc INSTALL.txt
 }
