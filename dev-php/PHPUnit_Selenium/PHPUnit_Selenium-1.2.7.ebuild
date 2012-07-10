@@ -19,6 +19,4 @@ RDEPEND="${DEPEND}
 	dev-lang/php[simplexml,xml,tokenizer]
 	>=dev-php/PEAR-Testing_Selenium-0.2.0"
 
-need_php_by_category
-
 S="${WORKDIR}/PHPUnit_Selenium-${PV}"
