@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils flag-o-matic multilib
+inherit eutils multilib
 
 MY_PN="Homer"
 

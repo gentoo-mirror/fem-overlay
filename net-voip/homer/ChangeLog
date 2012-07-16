@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jul 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  homer-0.22.ebuild, homer-0.23.ebuild, +files/homer-0.23-make-verbose.patch,
+  homer-9999.ebuild:
+  patch: more verbose for make (backported)
+
   25 Jun 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   homer-9999.ebuild:
   add datadir and git-commit-id in version string

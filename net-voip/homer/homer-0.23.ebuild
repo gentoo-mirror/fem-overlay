@@ -4,13 +4,12 @@
 
 EAPI=4
 
-inherit eutils flag-o-matic multilib
+inherit eutils multilib vcs-snapshot
 
 MY_PN="Homer"
 
 DESCRIPTION="A free cross-platform SIP softphone, which also supports video conferencing"
 HOMEPAGE="http://www.homer-conferencing.com"
-#SRC_URI="http://www.homer-conferencing.com/releases/${PV}/${MY_PN}-Source.tar.bz2"
 SRC_URI="https://github.com/Homer-Conferencing/Homer-Conferencing/tarball/V${PV} -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -33,17 +32,23 @@ DEPEND="dev-libs/openssl:0
 	x11-libs/qt-webkit:4"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/Homer-Conferencing-Homer-Conferencing-1d4fb60"
-
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-cmakelist-install-libs.patch
+	epatch "${FILESDIR}"/${P}-make-verbose.patch
+}
+
+src_compile() {
+	emake -C HomerBuild default \
+		VERBOSE=1 \
+		INSTALL_PREFIX=/usr \
+		INSTALL_LIBDIR=/usr/$(get_libdir) \
+		INSTALL_DATADIR=/usr/share/${PN}
 }
 
 src_install() {
-	emake -C HomerBuild \
-		INSTALL_PREFIX=/usr \
-		INSTALL_LIBDIR=/usr/$(get_libdir) \
-		install DESTDIR="${D}"
+	emake -C HomerBuild install \
+		VERBOSE=1 \
+		DESTDIR="${D}"
 
 	doicon ${MY_PN}/${MY_PN}.png
 	make_desktop_entry "${PN}" "${MY_PN} Conferencing" ${MY_PN} "Telephony;VideoConference"

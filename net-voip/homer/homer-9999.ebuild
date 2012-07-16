@@ -39,12 +39,18 @@ src_prepare() {
 		Homer/include/Configuration.h
 }
 
-src_install() {
-	emake -C HomerBuild \
+src_compile() {
+	emake -C HomerBuild default \
+		VERBOSE=1 \
 		INSTALL_PREFIX=/usr \
 		INSTALL_LIBDIR=/usr/$(get_libdir) \
-		INSTALL_DATADIR=/usr/share/{PN} \
-		install DESTDIR="${D}"
+		INSTALL_DATADIR=/usr/share/${PN}
+}
+
+src_install() {
+	emake -C HomerBuild install \
+		VERBOSE=1 \
+		DESTDIR="${D}"
 
 	doicon ${MY_PN}/${MY_PN}.png
 	make_desktop_entry "${PN}" "${MY_PN} Conferencing" ${MY_PN} "Telephony;VideoConference"
