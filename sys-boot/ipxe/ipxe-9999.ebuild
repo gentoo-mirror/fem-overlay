@@ -1,9 +1,11 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
 
 inherit eutils git-2
 
-EAPI="4"
 DESCRIPTION="iPXE network bootloader with many extra features such as DNS, HTTP and iSCSI"
 HOMEPAGE="http://www.ipxe.org/"
 EGIT_REPO_URI="git://git.ipxe.org/${PN}.git"
@@ -21,10 +23,10 @@ DEPEND="${RDEPEND}
 	dev-lang/nasm
 	iso? ( virtual/cdrtools )"
 
+EGIT_SOURCEDIR="${S}"
+S="${S}/src"
 
 src_prepare(){
-	cd "src"
-
 	# Fix mkisofs parameters
 	sed -i \
 		-e "/^mkisofs/s:-q:--quiet:" \
@@ -38,17 +40,12 @@ src_prepare(){
 	fi
 }
 
-src_compile() {
-	cd "src"
-	emake
-}
-
 src_install() {
 	dodir /usr/share/ipxe/
 	insinto /usr/share/ipxe/
-	doins src/bin/ipxe.dsk
-	doins src/bin/ipxe.usb
-	use iso && doins src/bin/ipxe.iso
-	doins src/bin/undionly.kpxe
-	dodoc README
+	doins bin/ipxe.dsk
+	doins bin/ipxe.usb
+	use iso && doins bin/ipxe.iso
+	doins bin/undionly.kpxe
+	dodoc ../README
 }
