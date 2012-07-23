@@ -1,12 +1,14 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=4
 
 inherit eutils
 
-EAPI="4"
 DESCRIPTION="gPXE network bootloader with many extra features such as DNS, HTTP and iSCSI"
 HOMEPAGE="http://www.etherboot.org/"
-SRC_URI="http://ftp.uni-frankfurt.de/kernel/software/boot/gpxe/${P}.tar.bz2"
+SRC_URI="http://etherboot.org/rel/gpxe/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -21,9 +23,9 @@ DEPEND="${RDEPEND}
 	dev-lang/nasm
 	iso? ( virtual/cdrtools )"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}/src"
+S="${S}/src"
+
+src_prepare() {
 
 	# Fix path to isolinux.bin
 	sed -i \
@@ -43,17 +45,12 @@ src_unpack() {
 	fi
 }
 
-src_compile() {
-	cd "src"
-	emake
-}
-
 src_install() {
 	dodir /usr/share/gpxe/
 	insinto /usr/share/gpxe/
-	doins src/bin/gpxe.dsk
-	doins src/bin/gpxe.usb
-	use iso && doins src/bin/gpxe.iso
-	doins src/bin/undionly.kpxe
-	dodoc README LOG
+	doins bin/gpxe.dsk
+	doins bin/gpxe.usb
+	use iso && doins bin/gpxe.iso
+	doins bin/undionly.kpxe
+	dodoc ../README ../LOG
 }
