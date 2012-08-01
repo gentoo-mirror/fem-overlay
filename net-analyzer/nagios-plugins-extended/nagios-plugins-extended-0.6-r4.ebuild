@@ -70,7 +70,7 @@ if use temp; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
 fi
 
-if use temp; then
+if use hddtemp; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_hddtemp.sh"
 fi
 
