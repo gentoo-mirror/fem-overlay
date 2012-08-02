@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  files/check_hddtemp.sh:
+  version bump in script (for all ebuild-versions)
+
 *nagios-plugins-extended-0.6-r4 (01 Aug 2012)
 
   01 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>

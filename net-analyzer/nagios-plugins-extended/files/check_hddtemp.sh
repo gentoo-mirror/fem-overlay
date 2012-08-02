@@ -8,11 +8,12 @@
 # This is how the sudoers file looks in my debian system:                                
 # nagios  ALL=(root) NOPASSWD:/usr/lib/nagios/plugins/check_hddtemp.sh                   
 #
-# Version 1.1
+# Version 1.2
 #
 # CHANGELOG:
 # 1.0	- initial release / source unknown :(
 # 1.1	- check script running as root or set-user-id-Bit is set
+# 1.1.1 - fix error messages
 
 OK=0
 WARNING=1
@@ -28,7 +29,7 @@ function check_root()
 {                    
         # check suidbit for hddtemp
         if [ ! -u ${HDDTEMP} ] && [[ "x$(${WHOAMI})" != "xroot" ]]; then
-                echo "SMART WARNING - script not running as root, so setuid-bit should set for ${HDDTEMP}, please run \"chmod +s ${HDDTEMP}\""
+                echo "HDDTEMP WARNING - script not running as root, so setuid-bit should set for ${HDDTEMP}, please run \"chmod +s ${HDDTEMP}\""
                 exit ${WARNING}
         fi
 }                                                                         
