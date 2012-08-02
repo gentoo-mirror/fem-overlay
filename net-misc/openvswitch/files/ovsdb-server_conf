@@ -1,14 +1,16 @@
-#% ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
-#	--remote=db:Open_vSwitch,manager_options \
-#	--private-key=db:SSL,private_key \
-#	--certificate=db:SSL,certificate \
-#	--bootstrap-ca-cert=db:SSL,ca_cert \
-#	--pidfile --detach
-
-OVS_CONF_DIR="/etc/openvswitch"
-
+# Socket for bringing the server up
 DB_SOCKET="/var/run/openvswitch/db.sock"
-REMOTE_DB="Open_vSwitch,manager_options"
+
+# Remote sockets are defined in the database by default
+REMOTE_DB="db:Open_vSwitch,manager_options"
+
+# All certificates and keys are stored in the database (if any)
 PRIVATE_KEY="db:SSL,private_key"
 CERTIFICATE="db:SSL,certificate"
 BOOTSTRAP_CA_CERT="db:SSL,ca_cert"
+
+# Alternative path for the database (default is /etc/openvswitch/conf.db)
+# DATABASE="/etc/openvswitch/conf.db"
+
+# Additional options
+# OPTIONS=""

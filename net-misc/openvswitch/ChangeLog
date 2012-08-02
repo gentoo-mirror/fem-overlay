@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openvswitch-1.6.1-r3 (02 Aug 2012)
+
+  02 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +openvswitch-1.6.1-r3.ebuild, +files/kernel-3.3-brcompat.patch,
+  +files/ovs-controller, +files/ovs-controller_conf,
+  +files/ovs-vswitchd.module, files/ovs-brcompatd, files/ovs-vswitchd,
+  files/ovs-vswitchd_conf, files/ovsdb-server, files/ovsdb-server_conf:
+  version bump (adapted from portage)
+
   16 Apr 2012; Peter Grosse <gentoo@friiks.de> openvswitch-1.4.0.ebuild,
   openvswitch-9999.ebuild, +metadata.xml:
   Initial import

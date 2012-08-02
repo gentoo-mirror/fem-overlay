@@ -1,0 +1,147 @@
+From 69b0983e3868ae5249e06d4ca9418d7ca439480f Mon Sep 17 00:00:00 2001
+From: Pravin B Shelar <pshelar@nicira.com>
+Date: Fri, 23 Mar 2012 10:50:08 -0700
+Subject: [PATCH] datapath: Support for kernel 3.3
+
+Signed-off-by: Pravin B Shelar <pshelar@nicira.com>
+Acked-by: Jesse Gross <jesse@nicira.com>
+---
+ datapath/datapath.c                               |    4 ++--
+ datapath/linux/compat/include/linux/etherdevice.h |    4 ++--
+ datapath/linux/compat/include/linux/genetlink.h   |    6 +++---
+ datapath/linux/compat/include/linux/if_vlan.h     |    7 ++++---
+ datapath/linux/compat/include/net/dst.h           |    8 ++++++++
+ datapath/tunnel.c                                 |    2 +-
+ 6 files changed, 20 insertions(+), 11 deletions(-)
+
+diff --git a/datapath/datapath.c b/datapath/datapath.c
+index d64fc32..4dde50b 100644
+--- a/datapath/datapath.c
++++ b/datapath/datapath.c
+@@ -62,8 +62,8 @@
+ #include "vport-internal_dev.h"
+ 
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,18) || \
+-    LINUX_VERSION_CODE >= KERNEL_VERSION(3,3,0)
+-#error Kernels before 2.6.18 or after 3.2 are not supported by this version of Open vSwitch.
++    LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
++#error Kernels before 2.6.18 or after 3.3 are not supported by this version of Open vSwitch.
+ #endif
+ 
+ #define REHASH_FLOW_INTERVAL (10 * 60 * HZ)
+diff --git a/datapath/linux/compat/include/linux/etherdevice.h b/datapath/linux/compat/include/linux/etherdevice.h
+index 7a8178e..7f04c96 100644
+--- a/datapath/linux/compat/include/linux/etherdevice.h
++++ b/datapath/linux/compat/include/linux/etherdevice.h
+@@ -1,15 +1,15 @@
+ #ifndef __LINUX_ETHERDEVICE_WRAPPER_H
+ #define __LINUX_ETHERDEVICE_WRAPPER_H 1
+ 
+-#include_next <linux/etherdevice.h>
+ #include <linux/version.h>
++#include_next <linux/etherdevice.h>
+ 
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36)
+ static inline void eth_hw_addr_random(struct net_device *dev)
+ {
+ 	random_ether_addr(dev->dev_addr);
+ }
+-#elif LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
++#elif LINUX_VERSION_CODE < KERNEL_VERSION(3,4,0)
+ static inline void eth_hw_addr_random(struct net_device *dev)
+ {
+ 	dev_hw_addr_random(dev, dev->dev_addr);
+diff --git a/datapath/linux/compat/include/linux/genetlink.h b/datapath/linux/compat/include/linux/genetlink.h
+index f7b96d9..8b894be 100644
+--- a/datapath/linux/compat/include/linux/genetlink.h
++++ b/datapath/linux/compat/include/linux/genetlink.h
+@@ -1,18 +1,18 @@
+ #ifndef __GENETLINK_WRAPPER_H
+ #define __GENETLINK_WRAPPER_H 1
+ 
++#include <linux/version.h>
+ #include_next <linux/genetlink.h>
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
+ #ifdef CONFIG_PROVE_LOCKING
+-/* No version of the kernel has this function, but our locking scheme depends
+- * on genl_mutex so for clarity we use it where appropriate. */
+ static inline int lockdep_genl_is_held(void)
+ {
+ 	return 1;
+ }
+ #endif
++#endif
+ 
+-/* This is also not upstream yet. */
+ #ifndef genl_dereference
+ #include <linux/rcupdate.h>
+ 
+diff --git a/datapath/linux/compat/include/linux/if_vlan.h b/datapath/linux/compat/include/linux/if_vlan.h
+index 326abb2..66ed058 100644
+--- a/datapath/linux/compat/include/linux/if_vlan.h
++++ b/datapath/linux/compat/include/linux/if_vlan.h
+@@ -1,8 +1,9 @@
+ #ifndef __LINUX_IF_VLAN_WRAPPER_H
+ #define __LINUX_IF_VLAN_WRAPPER_H 1
+ 
+-#include_next <linux/if_vlan.h>
+ #include <linux/skbuff.h>
++#include <linux/version.h>
++#include_next <linux/if_vlan.h>
+ 
+ /*
+  * The behavior of __vlan_put_tag() has changed over time:
+@@ -54,8 +55,7 @@ static inline struct sk_buff *__vlan_put_tag(struct sk_buff *skb, u16 vlan_tci)
+ #define VLAN_TAG_PRESENT	VLAN_CFI_MASK
+ #endif
+ 
+-/* This function is not exported from kernel. OVS Upstreaming patch will
+- * fix that. */
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
+ static inline void vlan_set_encap_proto(struct sk_buff *skb, struct vlan_hdr *vhdr)
+ {
+ 	__be16 proto;
+@@ -88,4 +88,5 @@ static inline void vlan_set_encap_proto(struct sk_buff *skb, struct vlan_hdr *vh
+ 		 */
+ 		skb->protocol = htons(ETH_P_802_2);
+ }
++#endif
+ #endif	/* linux/if_vlan.h wrapper */
+diff --git a/datapath/linux/compat/include/net/dst.h b/datapath/linux/compat/include/net/dst.h
+index f481a9d..9d9e616 100644
+--- a/datapath/linux/compat/include/net/dst.h
++++ b/datapath/linux/compat/include/net/dst.h
+@@ -1,8 +1,16 @@
+ #ifndef __NET_DST_WRAPPER_H
+ #define __NET_DST_WRAPPER_H 1
+ 
++#include <linux/version.h>
+ #include_next <net/dst.h>
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0) &&    \
++    LINUX_VERSION_CODE > KERNEL_VERSION(3,0,20)
++
++#define dst_get_neighbour_noref dst_get_neighbour
++
++#endif
++
+ #ifndef HAVE_SKB_DST_ACCESSOR_FUNCS
+ 
+ static inline void skb_dst_drop(struct sk_buff *skb)
+diff --git a/datapath/tunnel.c b/datapath/tunnel.c
+index cdbf94a..ea97e39 100644
+--- a/datapath/tunnel.c
++++ b/datapath/tunnel.c
+@@ -111,7 +111,7 @@ static unsigned int multicast_ports __read_mostly;
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(3,1,0)
+ static struct hh_cache *rt_hh(struct rtable *rt)
+ {
+-	struct neighbour *neigh = dst_get_neighbour(&rt->dst);
++	struct neighbour *neigh = dst_get_neighbour_noref(&rt->dst);
+ 	if (!neigh || !(neigh->nud_state & NUD_CONNECTED) ||
+ 			!neigh->hh.hh_len)
+ 		return NULL;
+-- 
+1.7.1
+

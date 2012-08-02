@@ -1,10 +1,15 @@
 #!/sbin/runscript
 
 depend() {
+	before net
 	need ovsdb-server ovs-vswitchd
 }
 
 start() {
+	ebegin "Making sure that module 'brcompat_mod' is loaded"
+	modprobe -q brcompat_mod
+	eend $?
+
 	ebegin "Starting Open vSwitch bridge compatibility daemon"
 	start-stop-daemon --start --quiet --exec /usr/sbin/ovs-brcompatd -- --pidfile --detach ${DB_SOCKET}
 	eend ${?}

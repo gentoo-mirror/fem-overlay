@@ -10,6 +10,10 @@ depend() {
 start() {
 	checkpath -d "/var/run/openvswitch" -m 0750
 
+        ebegin "Making sure that module 'openvswitch_mod' is loaded"
+	modprobe -q openvswitch_mod
+	eend $?
+
 	ebegin "Starting Open vSwitch daemon"
 	start-stop-daemon \
 		--start --quiet --pidfile "/var/run/openvswitch/ovs-vswitchd.pid" \
