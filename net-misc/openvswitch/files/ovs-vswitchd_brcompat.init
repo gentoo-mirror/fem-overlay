@@ -11,7 +11,7 @@ start() {
 	checkpath -d "/var/run/openvswitch" -m 0750
 
 	ebegin "Making sure that module 'openvswitch' is loaded"
-	modprobe -q openvswitch_mod
+	modprobe -q openvswitch
 	eend $?
 
 	ebegin "Starting Open vSwitch daemon"

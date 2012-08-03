@@ -13,5 +13,6 @@
 		<flag name="monitor">Enables compilation of ovsdbmonitor, a GUI tool for remotely viewing OVS databases and OpenFlow flow tables</flag>
 		<flag name="tcpdump">Enable dependency on tcpdump</flag>
 		<flag name="pyside">Enable dependency on pyside as GUI toolkit instead of pyuic4 (pyqt)</flag>
+		<flag name="brcompat">Enable compilation of brcompat module (implies openvswitch upstream module)</flag>
 	</use>
 </pkgmetadata>

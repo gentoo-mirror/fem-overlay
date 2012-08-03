@@ -6,7 +6,7 @@ depend() {
 
 start() {
 	ebegin "Making sure that module 'brcompat' is loaded"
-	modprobe -q brcompat_mod
+	modprobe -q brcompat
 	eend $?
 
 	ebegin "Starting Open vSwitch bridge compatibility daemon"

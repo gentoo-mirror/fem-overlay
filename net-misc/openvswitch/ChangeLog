@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openvswitch-1.7.0 (03 Aug 2012)
+
+  03 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +openvswitch-1.7.0.ebuild, +files/ovs-brcompatd.init,
+  +files/ovs-vswitchd_brcompat.init, files/ovs-brcompatd,
+  files/ovs-vswitchd.module, metadata.xml:
+  version bump
+
 *openvswitch-1.6.1-r3 (02 Aug 2012)
 
   02 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
