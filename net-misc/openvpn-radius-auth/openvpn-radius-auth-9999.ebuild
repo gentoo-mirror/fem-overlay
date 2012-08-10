@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="4"
+
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
         SCM="subversion"
