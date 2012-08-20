@@ -13,6 +13,9 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE=""
 
+DEPEND="app-backup/duplicity"
+RDEPEND="${DEPEND}"
+
 S=${WORKDIR}/${PN}_${PV}
 
 src_install() {

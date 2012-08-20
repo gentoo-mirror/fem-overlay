@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  duply-1.5.7.ebuild:
+  add removed duplicity dependency
+
 *duply-1.5.7 (06 Jul 2012)
 
   06 Jul 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
