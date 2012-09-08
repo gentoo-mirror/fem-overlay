@@ -30,7 +30,7 @@ RDEPEND="ssl? ( dev-libs/openssl )
 	tcpdump? ( net-analyzer/tcpdump )
 	"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 src_prepare() {
 	eautoreconf
