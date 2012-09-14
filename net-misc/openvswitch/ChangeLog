@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Sep 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  openvswitch-1.7.0.ebuild, openvswitch-9999.ebuild:
+  live build updated
+
 *openvswitch-1.7.0 (03 Aug 2012)
 
   03 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
