@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/stunnel/stunnel-4.44.ebuild,v 1.5 2011/10/22 18:59:28 hwoarang Exp $
+# $Header: $
 
 EAPI="2"
 
@@ -12,7 +12,7 @@ SRC_URI="ftp://ftp.stunnel.org/stunnel/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ppc ppc64 ~s390 ~sparc x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86"
 IUSE="ipv6 selinux tcpd xforward listen-queue"
 
 DEPEND="tcpd? ( sys-apps/tcp-wrappers )
@@ -56,7 +56,7 @@ src_install() {
 
 	insinto /etc/stunnel
 	doins "${FILESDIR}"/stunnel.conf
-	newinitd "${FILESDIR}"/stunnel.initd stunnel
+	newinitd "${FILESDIR}"/stunnel.initd-start-stop-daemon stunnel
 
 	keepdir /var/run/stunnel
 	fowners stunnel:stunnel /var/run/stunnel
