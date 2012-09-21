@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*josm-5485 (21 Sep 2012)
+
+  21 Sep 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -josm-4550.ebuild, -josm-4878.ebuild, -josm-5047.ebuild, -josm-5210.ebuild,
+  -josm-5267.ebuild, +josm-5485.ebuild:
+  version bump and cleanup
+
 *josm-5356 (23 Jul 2012)
 
   23 Jul 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
