@@ -30,6 +30,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	use xforward && epatch "${FILESDIR}/stunnel-4.54-xforwarded-for.patch"
 	use listen-queue && epatch "${FILESDIR}/stunnel-4.53-listen-queue.patch"
 	eautoreconf
 
