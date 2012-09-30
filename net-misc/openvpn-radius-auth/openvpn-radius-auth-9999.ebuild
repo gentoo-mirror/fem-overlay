@@ -3,6 +3,18 @@
 # $Header: $
 
 EAPI="4"
+LICENSE="AGPL-3"
+SLOT="0"
+KEYWORDS="~amd64 ~x86"
+IUSE=""
+DESCRIPTION="A auth radiusplugin for openvpn with vlan support."
+HOMEPAGE=""
+inherit eutils flag-o-matic multilib toolchain-funcs ${SCM}
+
+DEPEND=">=net-dialup/radiusclient-ng-0.5.6[add_tunnel]"
+
+RDEPEND="${DEPEND}
+        >=net-misc/openvpn-testing-vlan-9999[no_priority]"
 
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
@@ -10,25 +22,11 @@ if [ "${PV#9999}" != "${PV}" ] ; then
         ESVN_REPO_URI="http://subversion.fem.tu-ilmenau.de/repository/openvpn-radius-auth/trunk"
 fi
 
-inherit eutils flag-o-matic multilib toolchain-funcs ${SCM}
-
-DESCRIPTION="A auth radiusplugin for openvpn with vlan support."
-HOMEPAGE=""
 
 if [ "${PV#9999}" != "${PV}" ] ; then
         SRC_URI=""
 fi
 
-LICENSE="AGPL-3"
-SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE=""
-EAPI=4
-
-DEPEND=">=net-dialup/radiusclient-ng-0.5.6[add_tunnel]"
-
-RDEPEND="${DEPEND}
-        >=net-misc/openvpn-testing-vlan-9999[no_priority]"
 
 src_compile() {
         emake || die "Error: emake failed!"
