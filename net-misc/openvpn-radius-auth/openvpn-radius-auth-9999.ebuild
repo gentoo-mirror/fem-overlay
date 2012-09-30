@@ -1,15 +1,15 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
 EAPI="4"
+inherit eutils flag-o-matic multilib toolchain-funcs ${SCM}
+
 LICENSE="AGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 DESCRIPTION="A auth radiusplugin for openvpn with vlan support."
 HOMEPAGE=""
-inherit eutils flag-o-matic multilib toolchain-funcs ${SCM}
 
 DEPEND=">=net-dialup/radiusclient-ng-0.5.6[add_tunnel]"
 
