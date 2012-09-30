@@ -2,9 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit "bash-completion"
-
 EAPI="2"
+inherit "bash-completion"
 
 DESCRIPTION="allow a user to control multiple Xen instances"
 HOMEPAGE="http://www.xen-tools.org/software/xen-shell"
