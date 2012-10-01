@@ -39,7 +39,7 @@ src_prepare() {
 
 src_install() {
 	emake -C HomerBuild \
-		INSTALL_PREFIX=/usr \
+		INSTALL_PREFIX=/usr/bin \
 		INSTALL_LIBDIR=/usr/$(get_libdir) \
 		install DESTDIR="${D}"
 

@@ -39,7 +39,7 @@ src_prepare() {
 src_compile() {
 	emake -C HomerBuild default \
 		VERBOSE=1 \
-		INSTALL_PREFIX=/usr \
+		INSTALL_PREFIX=/usr/bin \
 		INSTALL_LIBDIR=/usr/$(get_libdir) \
 		INSTALL_DATADIR=/usr/share/${PN}
 }
