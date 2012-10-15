@@ -1,0 +1,18 @@
+# ChangeLog for dev-php/PEAR-FinderFacade
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Oct 2012; Peter Grosse <gentoo@friiks.de> +PEAR-FinderFacade-1.0.5.ebuild,
+  +files/channel.xml, +metadata.xml:
+  add dependencies
+
+  15 Oct 2012; Peter Grosse <gentoo@friiks.de> +PEAR-FinderFacade-1.0.5.ebuild,
+  +files/channel.xml, +metadata.xml:
+  add missing file
+
+*PEAR-FinderFacade-1.0.5 (15 Oct 2012)
+
+  15 Oct 2012; Peter Grosse <gentoo@friiks.de> +PEAR-FinderFacade-1.0.5.ebuild,
+  +metadata.xml:
+  initial import
+

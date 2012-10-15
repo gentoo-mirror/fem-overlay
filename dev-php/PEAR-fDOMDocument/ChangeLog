@@ -1,0 +1,10 @@
+# ChangeLog for dev-php/PEAR-fDOMDocument
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*PEAR-fDOMDocument-1.3.1 (15 Oct 2012)
+
+  15 Oct 2012; Peter Grosse <gentoo@friiks.de> +PEAR-fDOMDocument-1.3.1.ebuild,
+  +files/channel.xml, +metadata.xml:
+  initial import
+

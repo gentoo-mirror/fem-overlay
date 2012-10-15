@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*phpcpd-1.4.0 (15 Oct 2012)
+
+  15 Oct 2012; Peter Grosse <gentoo@friiks.de> +phpcpd-1.4.0.ebuild:
+  version bump
+
   30 Jun 2012; Peter Grosse <gentoo@friiks.de> metadata.xml:
   fix maintainer list
 

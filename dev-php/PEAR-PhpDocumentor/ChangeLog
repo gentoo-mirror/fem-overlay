@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*PEAR-PhpDocumentor-2.0.0_alpha10 (15 Oct 2012)
+
+  15 Oct 2012; Peter Grosse <gentoo@friiks.de>
+  +PEAR-PhpDocumentor-2.0.0_alpha10.ebuild:
+  version bump
+
 *PEAR-PhpDocumentor-2.0.0_alpha8 (01 Aug 2012)
 
   01 Aug 2012; Peter Grosse <gentoo@friiks.de>
