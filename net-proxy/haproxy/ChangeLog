@@ -1,0 +1,10 @@
+# ChangeLog for net-proxy/haproxy
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*haproxy-1.5_beta12 (20 Oct 2012)
+
+  20 Oct 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +haproxy-1.5_beta12.ebuild, +files/haproxy.initd-r2, +metadata.xml:
+  version bump, hard masked dev version with SSL-Support
+
