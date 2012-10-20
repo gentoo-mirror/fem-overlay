@@ -395,6 +395,7 @@ while getopts ":hT:l:s:P:i:m:u:p:d:te:co" Option; do
     t ) BACKUPDIR_TIME=true;;
     e ) DAYS=${OPTARG};;
     c ) COMPRESS=true;;
+    j ) COMPRESS_XZ=true;;
     o ) ALLDATABASES=true;;
     * ) echo "Unknown parameter \"-${OPTARG}\"!"; 
 	print_usage
