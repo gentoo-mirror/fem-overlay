@@ -380,7 +380,7 @@ cleanup()
 }
 
 # run main part
-while getopts ":hT:l:s:P:i:m:u:p:d:te:co" Option; do
+while getopts ":hT:l:s:P:i:m:u:p:d:te:cjo" Option; do
   case $Option in
     h ) print_usage && exit 0;;
     T ) DATABASE_TYPE=${OPTARG};;
