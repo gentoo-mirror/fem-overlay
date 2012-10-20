@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Oct 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  sql-ssh-backup-1.7.ebuild, sql-ssh-backup-1.7.2.ebuild:
+  stabilize new version
+
 *sql-ssh-backup-1.7.2 (19 Oct 2012)
 
   19 Oct 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
