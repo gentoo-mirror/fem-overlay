@@ -1,0 +1,9 @@
+# ChangeLog for net-firewall/conntrack-tools
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 Nov 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -conntrack-tools-0.9.14.ebuild, conntrack-tools-1.0.0.ebuild,
+  conntrack-tools-1.0.1.ebuild, +metadata.xml, files/conntrackd.initd-r2:
+  backport init-script from #405919
+

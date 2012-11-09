@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-firewall/conntrack-tools/conntrack-tools-1.0.0.ebuild,v 1.2 2011/08/26 02:05:53 mattst88 Exp $
+# $Header: $
 
 EAPI="3"
 
@@ -12,7 +12,7 @@ SRC_URI="http://www.netfilter.org/projects/conntrack-tools/files/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~hppa ~sparc ~x86"
+KEYWORDS="~amd64 ~hppa ~x86"
 IUSE=""
 
 RDEPEND="
@@ -20,7 +20,7 @@ RDEPEND="
 	>=net-libs/libnetfilter_conntrack-0.0.102
 	!net-firewall/conntrack"
 DEPEND="${RDEPEND}
-	>=dev-util/pkgconfig-0.9.0
+	virtual/pkgconfig
 	sys-devel/bison
 	sys-devel/flex"
 
