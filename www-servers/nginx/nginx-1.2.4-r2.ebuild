@@ -75,11 +75,11 @@ HTTP_LUA_MODULE_URI="https://github.com/chaoslawful/lua-nginx-module/tarball/v${
 HTTP_LUA_MODULE_WD="${WORKDIR}/chaoslawful-lua-nginx-module-${HTTP_LUA_MODULE_SHA1}"
 
 # NGINX-based RTMP server. nginx-rtmp-module. (https://github.com/arut/nginx-rtmp-module, Copyright (c) 2012 Roman Arutyunyan)
-RTMP_MODULE_PV="9999"
-RTMP_MODULE_P="nginx-rtmp-module-${RTMP_MODULE_PV}"
-RTMP_MODULE_SHA1=$(git ls-remote https://github.com/arut/nginx-rtmp-module | grep master | awk '{print substr($0,0,7)}')
-RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/tarball/master"
-RTMP_MODULE_WD="${WORKDIR}/arut-nginx-rtmp-module-${RTMP_MODULE_SHA1}"
+#RTMP_MODULE_PV="9999"
+RTMP_MODULE_P="nginx-rtmp-module-master"
+#RTMP_MODULE_SHA1=$(git ls-remote https://github.com/arut/nginx-rtmp-module | grep master | awk '{print substr($0,0,8)}')
+RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/master.tar.gz"
+RTMP_MODULE_WD="${WORKDIR}/${RTMP_MODULE_P}"
 
 inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic user
 
