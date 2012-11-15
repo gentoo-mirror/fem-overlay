@@ -1,0 +1,14 @@
+--- desktopvideo-9.5.3a10-x86_64/usr/src/desktopvideo-9.5.3a10/blackmagic_lib.c.orig	2012-04-07 23:53:09.060984296 +0200
++++ desktopvideo-9.5.3a10-x86_64/usr/src/desktopvideo-9.5.3a10/blackmagic_lib.c	2012-04-07 23:56:15.664983173 +0200
+@@ -722,7 +722,9 @@
+ 	thread = current_thread_info();
+ 	
+ 	preempt_disable();
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 2, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 3, 0)
++	if (current->thread.fpu.has_fpu)
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(3, 2, 0)
+ 	if (current->thread.has_fpu)
+ #else
+ 	if (thread->status & TS_USEDFPU)
+
