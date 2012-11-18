@@ -16,8 +16,12 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE=""
 
-DEPEND="media-libs/decklink-libs"
-RDEPEND="media-video/decklink-drivers"
+DEPEND="media-video/decklink-drivers"
+RDEPEND="${DEPEND}"
+
+src_prepare() {
+	sed -i 's;SDK_PATH=../../include;SDK_PATH=/usr/include/blackmagic;' "${S}/Makefile"
+}
 
 src_install() {
 	dobin Capture || die
