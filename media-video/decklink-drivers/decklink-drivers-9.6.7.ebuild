@@ -8,16 +8,19 @@ inherit eutils multilib python linux-mod
 DESCRIPTION="everything you need to set up your Blackmagic DeckLink, Intensity or Multibridge"
 HOMEPAGE="http://www.blackmagic-design.com/"
 MY_PV=${PV/_rc*}
-MY_RC=${PV/_}"a10"
-SRC_URI="http://www.blackmagic-design.com/media/4631288/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz"
+MY_RC=${PV/_}"a19"
+SRC_URI="http://www.blackmagicdesign.com/media/5012457/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz
+	http://www.blackmagicdesign.com/media/5014511/Blackmagic_DeckLink_SDK_${MY_PV}.zip"
 
 LICENSE="BlackMagicDesign"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="X"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
+DEPEND="!media-libs/decklink-libs"
+RDEPEND="${DEPEND}
+	dev-libs/libxml2
+	X? ( x11-libs/libXrender )"
 
 X86_BM_PACKAGE="desktopvideo-${MY_RC}-i386"
 AMD64_BM_PACKAGE="desktopvideo-${MY_RC}-x86_64"
@@ -25,23 +28,19 @@ AMD64_BM_PACKAGE="desktopvideo-${MY_RC}-x86_64"
 S="${WORKDIR}"
 
 src_unpack() {
+	default_src_unpack
+
 	if use amd64 ; then
-		tar -xzf "${DISTDIR}/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz" "desktopvideo-${MY_PV}-x86_64.tar.gz"
-		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz" "${AMD64_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}"
-		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz" "${AMD64_BM_PACKAGE}/etc"
+		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-x86_64.tar.gz"
 		KSRCDIR="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${AMD64_BM_PACKAGE}"
+		LIBS="${WORKDIR}/${AMD64_BM_PACKAGE}/usr/lib"
 	else
-		tar -xzf "${DISTDIR}/Blackmagic_Desktop_Video_Linux_${MY_PV}.tar.gz" "desktopvideo-${MY_PV}-i386.tar.gz"
-		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz" "${X86_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}"
-		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz" "${X86_BM_PACKAGE}/etc"
+		tar -xzf "${WORKDIR}/desktopvideo-${MY_PV}-i386.tar.gz"
 		KSRCDIR="${WORKDIR}/${X86_BM_PACKAGE}/usr/src/desktopvideo-${MY_RC}/"
 		UDEVRULES="${WORKDIR}/${X86_BM_PACKAGE}"
+		LIBS="${WORKDIR}/${X86_BM_PACKAGE}/usr/lib"
 	fi
-}
-
-src_prepare() {
-	epatch "${FILESDIR}/${P}-kernel-3.3.0-fix.patch"
 }
 
 src_compile() {
@@ -57,9 +56,30 @@ src_compile() {
 }
 
 src_install() {
+	# install kernel module
 	if use kernel_linux; then
 		linux-mod_src_install
 	fi
-	insinto /etc/udev/rules.d/
+	insinto /lib/udev/rules.d/
 	doins ${UDEVRULES}/etc/udev/rules.d/20-blackmagic.rules
+
+	# install headers
+	cd "${S}/Blackmagic DeckLink SDK ${PV}/Linux/include"
+	insinto /usr/include/blackmagic
+	doins *.h *.cpp
+
+	# install binaries
+	exeinto /usr/bin
+	doexe ${LIBS}/../bin/BlackmagicFirmwareUpdater
+
+	if use X ; then
+		doexe ${LIBS}/../bin/BlackmagicControlPanel
+	fi
+
+	# install libraries
+	insinto /usr/lib
+	doins ${LIBS}/libDeckLinkAPI.so
+	doins ${LIBS}/libDeckLinkPreviewAPI.so
+	exeinto /usr/lib/blackmagic
+	doexe ${LIBS}/blackmagic/BlackmagicPreferencesStartup
 }

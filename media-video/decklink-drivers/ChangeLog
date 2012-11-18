@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*decklink-drivers-9.6.7 (18 Nov 2012)
+*decklink-drivers-9.6.6 (18 Nov 2012)
+*decklink-drivers-9.6.4 (18 Nov 2012)
+
+  18 Nov 2012; Peter Grosse <gentoo@friiks.de> +decklink-drivers-9.6.4.ebuild,
+  +decklink-drivers-9.6.6.ebuild, +decklink-drivers-9.6.7.ebuild:
+  version bumps
+
 *decklink-drivers-9.5.3 (29 Jun 2012)
 
   29 Jun 2012; Peter Grosse <gentoo@friiks.de> +decklink-drivers-9.5.3.ebuild,
