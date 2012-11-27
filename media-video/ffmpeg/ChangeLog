@@ -1,0 +1,11 @@
+# ChangeLog for media-video/ffmpeg
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ffmpeg-1.0 (27 Nov 2012)
+
+  27 Nov 2012; Peter Grosse <gentoo@friiks.de> +ffmpeg-1.0.ebuild,
+  +files/ffmpeg-1.0-segment-filename-timestamp.patch, +metadata.xml:
+  add ffmpeg 1.0 with patch for segment format (support for timestamps as
+  filenames)
+
