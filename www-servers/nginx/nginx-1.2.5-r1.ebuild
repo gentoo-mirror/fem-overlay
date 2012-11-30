@@ -76,8 +76,9 @@ HTTP_LUA_MODULE_URI="https://github.com/chaoslawful/lua-nginx-module/tarball/v${
 HTTP_LUA_MODULE_WD="${WORKDIR}/chaoslawful-lua-nginx-module-${HTTP_LUA_MODULE_SHA1}"
 
 # NGINX-based RTMP server. nginx-rtmp-module. (https://github.com/arut/nginx-rtmp-module, Copyright (c) 2012 Roman Arutyunyan)
-RTMP_MODULE_P="nginx-rtmp-module-master"
-RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/master.tar.gz"
+RTMP_MODULE_PV="0.7.4"
+RTMP_MODULE_P="nginx-rtmp-module-${RTMP_MODULE_PV}"
+RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODULE_PV}.tar.gz"
 RTMP_MODULE_WD="${WORKDIR}/${RTMP_MODULE_P}"
 
 inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic user
@@ -289,7 +290,6 @@ src_configure() {
 	fi
 
 	if use nginx_modules_rtmp || use nginx_modules_rtmp_hls; then
-		http_enabled=1
 		myconf+=" --add-module=${RTMP_MODULE_WD}"
 	fi
 
