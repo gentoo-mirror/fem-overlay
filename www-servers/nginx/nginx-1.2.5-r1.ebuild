@@ -153,7 +153,8 @@ CDEPEND="
 	nginx_modules_http_rewrite? ( >=dev-libs/libpcre-4.2 )
 	nginx_modules_http_secure_link? ( userland_GNU? ( dev-libs/openssl ) )
 	nginx_modules_http_xslt? ( dev-libs/libxml2 dev-libs/libxslt )
-	nginx_modules_http_lua? ( || ( dev-lang/lua dev-lang/luajit ) )"
+	nginx_modules_http_lua? ( || ( dev-lang/lua dev-lang/luajit ) )
+	nginx_modules_rtmp_hls? ( >=virtual/ffmpeg-0.10 )"
 RDEPEND="${CDEPEND}"
 DEPEND="${CDEPEND}
 	arm? ( dev-libs/libatomic_ops )
