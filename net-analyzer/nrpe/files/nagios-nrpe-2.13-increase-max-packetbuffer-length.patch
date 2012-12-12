@@ -1,5 +1,5 @@
---- common.old	2012-12-12 13:15:02.490430286 +0100
-+++ common.h	2012-12-12 13:16:45.109869773 +0100
+--- include/common.old	2012-12-12 16:25:26.817317719 +0100
++++ include/common.h	2012-12-12 16:25:59.198102752 +0100
 @@ -61,7 +61,7 @@
  #define NRPE_PACKET_VERSION_2   2               
  #define NRPE_PACKET_VERSION_1	1		/* older packet version identifiers (no longer supported) */
