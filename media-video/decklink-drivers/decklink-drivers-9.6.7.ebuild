@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="X"
 
-DEPEND="!media-libs/decklink-libs"
+DEPEND="!media-libs/decklink-libs
+	app-arch/unzip"
 RDEPEND="${DEPEND}
 	dev-libs/libxml2
 	X? ( x11-libs/libXrender )"
