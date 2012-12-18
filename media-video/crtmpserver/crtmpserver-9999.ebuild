@@ -17,7 +17,7 @@ LICENSE="GPLv3"
 SLOT="0"
 KEYWORDS="amd64 ~x86"
 IUSE=""
-TMP_SVN_VER=$(svn info --username="anonymous" --password="" --non-interactive --trust-server-cert --force https://svn.rtmpd.com/crtmpserver/trunk/sources | grep ^Revision | cut -d ' ' -f 2 | tr -d '\n')
+TMP_SVN_VER=$(/usr/bin/svn info --username="anonymous" --password="" --non-interactive --trust-server-cert --force https://svn.rtmpd.com/crtmpserver/trunk/sources | grep ^Revision | cut -d ' ' -f 2 | tr -d '\n')
 
 MAKEOPTS=-j1
 CMAKE_USE_DIR="${WORKDIR}/${PF}/builders/cmake"
