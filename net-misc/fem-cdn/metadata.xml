@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>gentoo@friiks.de</email>
+		<name>Peter Grosse</name>
+	</maintainer>
+	<maintainer>
+		<email>rainer.schuth@fem.tu-ilmenau.de</email>
+		<name>Rainer Schuth</name>
+	</maintainer>
+	<use>
+		<flag name="nginx">Add dependency on nginx with additional modules</flag>
+		<flag name="erlyvideo">Add dependency on erlyvideo</flag>
+		<flag name="crtmpserver">Add dependency on crtmpserver</flag>
+		<flag name="icecast">Add dependency on icecast</flag>
+	</use>
+</pkgmetadata>
