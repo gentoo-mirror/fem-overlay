@@ -100,7 +100,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 
 LICENSE="as-is BSD BSD-2 GPL-2 MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~ppc x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif fastcgi
 geo gzip limit_req limit_conn map memcached proxy referer rewrite scgi ssi
@@ -407,7 +407,7 @@ src_install() {
 		dodoc "${HTTP_LUA_MODULE_WD}"/{Changes,README.markdown}
 	fi
 
-	if use nginx_modules_rtmp; then
+	if use nginx_modules_rtmp || nginx_modules_rtmp_hls; then
 		cp "${RTMP_MODULE_WD}/stat.xsl" "${ED}"/etc/nginx/stat.xsl || die
 	fi
 }
