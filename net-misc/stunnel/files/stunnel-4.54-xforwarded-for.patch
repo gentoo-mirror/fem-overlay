@@ -177,7 +177,7 @@
  
 +    /* xforwardedfor */
 +    switch(cmd) {
-+    case CMD_INIT:
++    case CMD_BEGIN:
 +        section->option.xforwardedfor=0;
 +        break;
 +    case CMD_EXEC:
@@ -200,7 +200,7 @@
 +
      /* exec */
      switch(cmd) {
-     case CMD_INIT:
+     case CMD_BEGIN:
 --- src/prototypes.h
 +++ src/prototypes.h
 @@ -199,6 +199,7 @@

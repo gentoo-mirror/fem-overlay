@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="4"
 
-inherit autotools ssl-cert eutils
+inherit autotools ssl-cert eutils user
 
 DESCRIPTION="TLS/SSL - Port Wrapper"
 HOMEPAGE="http://stunnel.mirt.net/"
@@ -12,7 +12,7 @@ SRC_URI="ftp://ftp.stunnel.org/stunnel/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
 IUSE="ipv6 selinux tcpd xforward listen-queue"
 
 DEPEND="tcpd? ( sys-apps/tcp-wrappers )
@@ -37,14 +37,15 @@ src_prepare() {
 
 src_configure() {
 	econf $(use_enable ipv6) \
-		$(use_enable tcpd libwrap) || die "econf died"
+		--with-ssl="${EPREFIX}"/usr \
+		$(use_enable tcpd libwrap)
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-	rm -rf "${D}"/usr/share/doc/${PN}
-	rm -f "${D}"/etc/stunnel/stunnel.conf-sample "${D}"/usr/bin/stunnel3 \
-		"${D}"/usr/share/man/man8/stunnel.{fr,pl}.8
+	emake DESTDIR="${D}" install
+	rm -rf "${ED}"/usr/share/doc/${PN}
+	rm -f "${ED}"/etc/stunnel/stunnel.conf-sample "${ED}"/usr/bin/stunnel3 \
+		"${ED}"/usr/share/man/man8/stunnel.{fr,pl}.8
 
 	# The binary was moved to /usr/bin with 4.21,
 	# symlink for backwards compatibility
@@ -63,10 +64,10 @@ src_install() {
 }
 
 pkg_postinst() {
-	if [ ! -f "${ROOT}"/etc/stunnel/stunnel.key ]; then
+	if [ ! -f "${EROOT}"/etc/stunnel/stunnel.key ]; then
 		install_cert /etc/stunnel/stunnel
-		chown stunnel:stunnel "${ROOT}"/etc/stunnel/stunnel.{crt,csr,key,pem}
-		chmod 0640 "${ROOT}"/etc/stunnel/stunnel.{crt,csr,key,pem}
+		chown stunnel:stunnel "${EROOT}"/etc/stunnel/stunnel.{crt,csr,key,pem}
+		chmod 0640 "${EROOT}"/etc/stunnel/stunnel.{crt,csr,key,pem}
 	fi
 
 	einfo "If you want to run multiple instances of stunnel, create a new config"

@@ -2,6 +2,17 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*stunnel-4.54 (22 Dec 2012)
+
+  22 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  stunnel-4.44-r2.ebuild, -stunnel-4.53.ebuild,
+  -files/stunnel-4.53-listen-queue.patch,
+  -files/stunnel-4.53-xforwarded-for.patch, -stunnel-4.54_beta8.ebuild,
+  +stunnel-4.54.ebuild, +files/stunnel-4.54-listen-queue.patch,
+  files/stunnel-4.54-xforwarded-for.patch,
+  files/stunnel.initd-start-stop-daemon:
+  version bump and fixed init-script
+
   24 Sep 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   stunnel-4.53.ebuild, stunnel-4.54_beta8.ebuild:
   apply #324554 to ebuilds

@@ -6,7 +6,7 @@
  
 +    /* listenqueue */
 +    switch(cmd) {
-+    case CMD_INIT:
++    case CMD_BEGIN:
 +        section->listenqueue=SOMAXCONN;
 +        break;
 +    case CMD_EXEC:

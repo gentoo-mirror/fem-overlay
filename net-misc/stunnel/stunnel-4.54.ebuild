@@ -4,17 +4,15 @@
 
 EAPI="4"
 
-inherit autotools ssl-cert eutils
-
-MY_P=${P/_beta/b}
+inherit autotools ssl-cert eutils user
 
 DESCRIPTION="TLS/SSL - Port Wrapper"
 HOMEPAGE="http://stunnel.mirt.net/"
-SRC_URI="ftp://ftp.stunnel.org/stunnel/beta/${MY_P}.tar.gz"
+SRC_URI="ftp://ftp.stunnel.org/stunnel/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
 IUSE="ipv6 selinux tcpd xforward listen-queue"
 
 DEPEND="tcpd? ( sys-apps/tcp-wrappers )
@@ -22,16 +20,14 @@ DEPEND="tcpd? ( sys-apps/tcp-wrappers )
 RDEPEND="${DEPEND}
 	selinux? ( sec-policy/selinux-stunnel )"
 
-S="${WORKDIR}/${P%%_beta*}"
-
 pkg_setup() {
 	enewgroup stunnel
 	enewuser stunnel -1 -1 -1 stunnel
 }
 
 src_prepare() {
-	use xforward && epatch "${FILESDIR}/stunnel-4.54-xforwarded-for.patch"
-	use listen-queue && epatch "${FILESDIR}/stunnel-4.53-listen-queue.patch"
+	use xforward && epatch "${FILESDIR}/stunnel-${PV}-xforwarded-for.patch"
+	use listen-queue && epatch "${FILESDIR}/stunnel-${PV}-listen-queue.patch"
 	eautoreconf
 
 	# Hack away generation of certificate
