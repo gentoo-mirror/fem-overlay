@@ -57,5 +57,5 @@ src_install() {
 
 	# Create .desktop entry
 	doicon ${MY_BIN}/${MY_BIN}.png
-	make_desktop_entry "${PN}" "${MY_PN}" "${MY_PN}" "Network;InstantMessaging;Telephony;VideoConference"
+	make_desktop_entry "${MY_BIN}" "${MY_PN}" "${MY_BIN}" "Network;InstantMessaging;Telephony;VideoConference"
 }
