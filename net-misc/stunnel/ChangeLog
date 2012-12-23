@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  files/stunnel.initd-start-stop-daemon:
+  init-update: do not fix permissions on /var/run
+
 *stunnel-4.54 (22 Dec 2012)
 
   22 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>

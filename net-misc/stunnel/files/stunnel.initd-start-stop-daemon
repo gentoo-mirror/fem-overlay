@@ -25,7 +25,9 @@ get_config() {
 
 start() {
 	get_config || return 1
-	checkpath -d -m 0755 -o stunnel:stunnel -q $(dirname ${PIDFILE})
+	if [ "$(dirname ${PIDFILE})" != "/var/run" ]; then
+		checkpath -d -m 0755 -o stunnel:stunnel -q $(dirname ${PIDFILE})
+	fi
 	ebegin "Starting ${SVCNAME}"
 	start-stop-daemon --start --pidfile "${PIDFILE}" ${CHROOT} \
 	                  --exec /usr/bin/stunnel -- ${STUNNEL_CONFIGFILE} ${STUNNEL_OPTIONS}
