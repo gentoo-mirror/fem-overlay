@@ -6,19 +6,19 @@ EAPI=4
 
 inherit eutils multilib
 
-MY_PN="Homer-Conferencing"
-MY_BIN="Homer"
-
 DESCRIPTION="Homer Conferencing (short: Homer) is a free SIP softphone with advanced audio and video support."
 HOMEPAGE="http://www.homer-conferencing.com"
 
+MY_PN="Homer-Conferencing"
+MY_BIN="Homer"
+
 if [[ ${PV} == *9999* ]]; then
-    inherit git-2
-    EGIT_REPO_URI="git://github.com/${MY_PN}/${MY_PN}.git"
-    KEYWORDS=""
+	inherit git-2
+	EGIT_REPO_URI="git://github.com/${MY_PN}/${MY_PN}.git"
+	KEYWORDS=""
 else
-    SRC_URI="https://github.com/${MY_PN}/${MY_PN}/archive/V${PV}.tar.gz -> ${PN}-${PV}.tar.gz"
-    KEYWORDS="~x86 ~amd64"
+	SRC_URI="https://github.com/${MY_PN}/${MY_PN}/archive/V${PV}.tar.gz -> ${PN}-${PV}.tar.gz"
+	KEYWORDS="~x86 ~amd64"
 fi
 
 LICENSE="GPL-2"
@@ -44,17 +44,18 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_compile() {
 	emake -C HomerBuild default \
-		VERBOSE=1 \
 		INSTALL_PREFIX=/usr/bin \
 		INSTALL_LIBDIR=/usr/$(get_libdir) \
-		INSTALL_DATADIR=/usr/share/${PN}
+		INSTALL_DATADIR=/usr/share/${PN} \
+		VERBOSE=1
 }
 
 src_install() {
 	emake -C HomerBuild install \
-		VERBOSE=1 \
-		DESTDIR="${D}"
+		DESTDIR="${D}" \
+		VERBOSE=1
 
+	# Create .desktop entry
 	doicon ${MY_BIN}/${MY_BIN}.png
-	make_desktop_entry "${PN}" "${MY_PN}" "${MY_PN}" "Telephony;VideoConference"
+	make_desktop_entry "${PN}" "${MY_PN}" "${MY_PN}" "Network;InstantMessaging;Telephony;VideoConference"
 }
