@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -haproxy-1.5_beta15.ebuild:
+  removed, in portage
+
 *haproxy-1.5_beta15 (23 Dec 2012)
 
   23 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
