@@ -15,7 +15,7 @@ IUSE="+nginx crtmpserver erlyvideo icecast"
 
 DEPEND=""
 RDEPEND="dev-vcs/subversion
-	net-analyzer/nrpe[increase_max_packetbuffer]
+	net-analyzer/nrpe[increase_max_packetbuffer,command-args]
 	net-analyzer/nagios-plugins-check_multi
 	net-analyzer/nagios-plugins[ipv6,nagios-dns,nagios-ntp,nagios-ping,nagios-ssh,ssl,suid]
 	net-analyzer/nagios-plugins-extended[hddtemp,nginx,suid,tcptraffic,apache]
@@ -23,7 +23,7 @@ RDEPEND="dev-vcs/subversion
 	dev-python/twisted
 	dev-python/twisted-web
 	sys-apps/iproute2
-	nginx? ( www-servers/nginx[ipv6,ssl,nginx_modules_http_cache_purge,nginx_modules_http_flv,nginx_modules_http_image_filter,nginx_modules_http_mp4,nginx_modules_http_secure_link,nginx_modules_http_slowfs_cache,nginx_modules_http_stub_status,vim-syntax,nginx_modules_http_geoip] )
+	nginx? ( www-servers/nginx[ipv6,ssl,nginx_modules_http_cache_purge,nginx_modules_http_flv,nginx_modules_http_image_filter,nginx_modules_http_mp4,nginx_modules_http_secure_link,nginx_modules_http_slowfs_cache,nginx_modules_http_stub_status,vim-syntax,nginx_modules_http_geoip] dev-lang/v8 net-libs/nodejs )
 	crtmpserver? ( media-video/crtmpserver )
 	erlyvideo? ( media-video/erlyvideo )
 	icecast? ( net-misc/icecast )"
