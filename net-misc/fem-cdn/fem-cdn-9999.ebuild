@@ -33,7 +33,7 @@ src_install()
 	newinitd cdn/etc/init.d/fem-cdn.init fem-cdn.init
 	newinitd cdn/etc/init.d/fem-cdn.gentoo fem-cdn.gentoo
 
-	insinto /var/www/rmtp
+	insinto /var/www/rtmp
 	doins /etc/nginx/stat.xsl
 
 	keepdir /var/www/www
