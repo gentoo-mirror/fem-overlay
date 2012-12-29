@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/net-voip/homer/ChangeLog,v 1.1 2012/12/23 17:50:07 hwoarang Exp $
 
+  29 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  files/homer-0.24.1-libav-9.patch:
+  patch with upstream information, fix #448718
+
 *homer-9999 (23 Dec 2012)
 *homer-0.24.1 (23 Dec 2012)
 
