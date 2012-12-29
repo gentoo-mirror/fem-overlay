@@ -23,7 +23,7 @@
      {
          if (tCodec->type == AVMEDIA_TYPE_VIDEO)
          {
-+            #if (LIBAVCODEC_VERSION_MAJOR < 55)
++            #ifndef FF_API_OLD_ENCODE_AUDIO
              bool tEncode = (tCodec->encode != NULL);
 +            #else
 +            bool tEncode = (tCodec->encode2 != NULL);
@@ -31,7 +31,7 @@
              bool tDecode = (tCodec->decode != NULL);
              if ((tNextCodec != NULL) && (strcmp(tCodec->name, tNextCodec->name) == 0))
              {
-+                #if (LIBAVCODEC_VERSION_MAJOR < 55)
++                #ifndef FF_API_OLD_ENCODE_AUDIO
                  tEncode |= (tNextCodec->encode != NULL);
 +                #else
 +                tEncode |= (tNextCodec->encode2 != NULL);
@@ -43,7 +43,7 @@
  //				tNextCodec->encode ? "E" : " ",
  //				tNextCodec->name,
  //				tNextCodec->long_name ? tCodec->long_name : "");
-+            #if (LIBAVCODEC_VERSION_MAJOR < 55)
++            #ifndef FF_API_OLD_ENCODE_AUDIO
              bool tEncode = (tCodec->encode != NULL);
 +            #else
 +            bool tEncode = (tCodec->encode2 != NULL);
@@ -51,7 +51,7 @@
              bool tDecode = (tCodec->decode != NULL);
              if ((tNextCodec != NULL) && (strcmp(tCodec->name, tNextCodec->name) == 0))
              {
-+                #if (LIBAVCODEC_VERSION_MAJOR < 55)
++                #ifndef FF_API_OLD_ENCODE_AUDIO
                  tEncode |= (tNextCodec->encode != NULL);
 +                #else
 +                tEncode |= (tNextCodec->encode2 != NULL);
