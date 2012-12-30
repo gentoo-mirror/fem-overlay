@@ -27,6 +27,7 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/001_ignoring_return_value.patch
+	epatch "${FILESDIR}"/002_boost_build_options.patch
 }
 
 src_compile() {
