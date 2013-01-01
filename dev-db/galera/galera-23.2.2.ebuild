@@ -42,8 +42,6 @@ src_install() {
 	# note: this can be DESTDIR, INSTALL_ROOT, ... depending on package
 	escons tests
 	# escons INSTALL_ROOT="${D}" install
-	escons install
-	cp garb/garbd /bin/
-	mkdir -p /usr/lib/galera/
-	cp libgalera_smm.so /usr/lib/galera/
+	dobin garb/garbd
+	dolib.so libgalera_smm.so
 }
