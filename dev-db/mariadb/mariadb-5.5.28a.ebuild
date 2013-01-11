@@ -28,7 +28,7 @@ src_prepare() {
 #	sed -i \
 #		-e '/^noinst_PROGRAMS/s/basic-t//g' \
 #		"${S}"/unittest/mytap/t/Makefile.am
-	mysql-v2_src_prepare
+#	mysql-v2_src_prepare
 
 	if use galera ; then
 		ewarn ""
