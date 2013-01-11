@@ -3,7 +3,8 @@
 # $Header: /var/cvsroot/gentoo-x86/dev-db/mariadb/mariadb-5.5.28.ebuild,v 1.2 2012/12/18 17:51:01 jer Exp $
 
 EAPI="4"
-MY_EXTRAS_VER="20120906-1344Z"
+# MY_EXTRAS_VER="20120906-1344Z"
+MY_EXTRAS_VER="none"
 
 # Build system
 BUILD="cmake"
@@ -21,6 +22,8 @@ EPATCH_EXCLUDE=''
 DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )"
 RDEPEND="${RDEPEND}"
 
+# SRC_URI="http://mirror3.layerjet.com/mariadb/mariadb-galera-${PV}/kvm-tarbake-jaunty-x86/mariadb-${PV}.tar.gz"
+
 # Please do not add a naive src_unpack to this ebuild
 # If you want to add a single patch, copy the ebuild to an overlay
 # and create your own mysql-extras tarball, looking at 000_index.txt
@@ -28,23 +31,83 @@ src_prepare() {
 #	sed -i \
 #		-e '/^noinst_PROGRAMS/s/basic-t//g' \
 #		"${S}"/unittest/mytap/t/Makefile.am
-#	mysql-v2_src_prepare
+	mysql-v2_src_prepare
+}
+
+mysql-cmake_src_prepare() {
+	einfo ""
+}
+
+# @FUNCTION: configure_cmake_standard
+# @DESCRIPTION:
+# Helper function to configure standard build
+configure_cmake_standard() {
+
+	mycmakeargs+=(
+		-DENABLED_LOCAL_INFILE=1
+		-DEXTRA_CHARSETS=all
+		-DMYSQL_USER=mysql
+		-DMYSQL_UNIX_ADDR=${EPREFIX}/var/run/mysqld/mysqld.sock
+		-DWITHOUT_READLINE=1
+		-DWITH_ZLIB=system
+		-DWITHOUT_LIBWRAP=1
+	)
+
+	mycmakeargs+=(
+		$(cmake-utils_use_disable !static SHARED)
+		$(cmake-utils_use_with debug)
+		$(cmake-utils_use_with embedded EMBEDDED_SERVER)
+		$(cmake-utils_use_with profiling)
+		$(cmake-utils_use_enable systemtap DTRACE)
+	)
 
 	if use galera ; then
-		ewarn ""
-		ewarn "If you use galera, please add following lines at"
-		ewarn "/usr/portage/eclass/mysql-cmake.eclass"
-		ewarn "in function \"configure_cmake_standard()\""
-		ewarn ""
-		ewarn "if use galera ; then"
-		ewarn "	mycmakeargs+=("
-		ewarn "		-DWITH_WSREP=ON"
-		ewarn "		-DWITH_INNODB_DISALLOW_WRITES=1"
-		ewarn "	)"
-		ewarn "fi"
-		ewarn ""
+		mycmakeargs+=(
+			-DWITH_WSREP=ON
+			-DWITH_INNODB_DISALLOW_WRITES=1
+		)
+	fi
+
+	if use ssl; then
+		mycmakeargs+=( -DWITH_SSL=system )
+	else
+		mycmakeargs+=( -DWITH_SSL=0 )
+	fi
+
+	if mysql_version_is_at_least "5.5" && use jemalloc; then
+		mycmakeargs+=( -DCMAKE_EXE_LINKER_FLAGS='-ljemalloc' -DWITH_SAFEMALLOC=OFF )
+	fi
+
+	if mysql_version_is_at_least "5.5" && use tcmalloc; then
+		mycmakeargs+=( -DCMAKE_EXE_LINKER_FLAGS='-ltcmalloc' -DWITH_SAFEMALLOC=OFF )
+	fi
+
+	# Storage engines
+	mycmakeargs+=(
+		-DWITH_ARCHIVE_STORAGE_ENGINE=1
+		-DWITH_BLACKHOLE_STORAGE_ENGINE=1
+		-DWITH_CSV_STORAGE_ENGINE=1
+		-DWITH_HEAP_STORAGE_ENGINE=1
+		-DWITH_INNOBASE_STORAGE_ENGINE=1
+		-DWITH_MYISAMMRG_STORAGE_ENGINE=1
+		-DWITH_MYISAM_STORAGE_ENGINE=1
+		-DWITH_PARTITION_STORAGE_ENGINE=1
+		$(cmake-utils_use_with extraengine FEDERATED_STORAGE_ENGINE)
+	)
+
+	if pbxt_available ; then
+		mycmakeargs+=( $(cmake-utils_use_with pbxt PBXT_STORAGE_ENGINE) )
+	fi
+
+	if [ "${PN}" == "mariadb" ]; then
+		mycmakeargs+=(
+			$(cmake-utils_use_with oqgraph OQGRAPH_STORAGE_ENGINE)
+			$(cmake-utils_use_with sphinx SPHINX_STORAGE_ENGINE)
+			$(cmake-utils_use_with extraengine FEDERATEDX_STORAGE_ENGINE)
+		)
 	fi
 }
+
 
 # Official test instructions:
 # USE='berkdb -cluster embedded extraengine perl ssl community' \
