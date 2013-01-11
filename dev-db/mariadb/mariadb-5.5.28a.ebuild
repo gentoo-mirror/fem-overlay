@@ -22,7 +22,7 @@ EPATCH_EXCLUDE=''
 DEPEND="|| ( >=sys-devel/gcc-3.4.6 >=sys-devel/gcc-apple-4.0 )"
 RDEPEND="${RDEPEND}"
 
-# SRC_URI="http://mirror3.layerjet.com/mariadb/mariadb-galera-${PV}/kvm-tarbake-jaunty-x86/mariadb-${PV}.tar.gz"
+SRC_URI="http://mirror3.layerjet.com/mariadb/mariadb-galera-${PV}/kvm-tarbake-jaunty-x86/mariadb-${PV}.tar.gz"
 
 # Please do not add a naive src_unpack to this ebuild
 # If you want to add a single patch, copy the ebuild to an overlay
