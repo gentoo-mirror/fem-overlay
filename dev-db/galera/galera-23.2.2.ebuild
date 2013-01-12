@@ -18,6 +18,7 @@ RESTRICT="test"
 RDEPEND=""
 DEPEND="${RDEPEND}
 	boost? ( >=dev-libs/boost-1.49.0-r2 )
+	net-analyzer/netcat6
 	dev-libs/check"
 
 src_unpack() {
@@ -44,4 +45,7 @@ src_install() {
 	# escons INSTALL_ROOT="${D}" install
 	dobin garb/garbd
 	dolib.so libgalera_smm.so
+
+	newconfd "${FILESDIR}/garbd.confd" garbd
+	newinitd "${FILESDIR}/garbd.initd" garbd
 }
