@@ -52,8 +52,7 @@ start() {
         local pidfile=$(get_config "${MY_CNF}" pid-file | tail -n1)
         local socket=$(get_config "${MY_CNF}" socket | tail -n1)
 
-
-        [ -n "$WSREP_NODES" ] && (
+        if [[ -n "$WSREP_NODES" ]]; then
                 if [[ $WSREP_NODES == "InitNewCluster" ]]; then 
                         ADDRESS=""
                 else
@@ -77,7 +76,7 @@ start() {
                 [ -n "$WSREP_PROVIDER" ]     && WSREP="$WSREP --wsrep_provider=$WSREP_PROVIDER "
                 [ -n "$WSREP_NODE_ADDRESS" ] && WSREP="$WSREP --wsrep_node_address=$WSREP_NODE_ADDRESS "
                 [ -n "$WSREP_SST_METHOD" ]   && WSREP="$WSREP --wsrep_sst_method=$WSREP_SST_METHOD "
-        )
+        fi
 
         if [ ! -d "${datadir}" ] ; then
                 eerror "MySQL datadir \`${datadir}' is empty or invalid"
