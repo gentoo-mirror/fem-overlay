@@ -1,0 +1,11 @@
+--- glb-1.0.0alpha3-o/src/glb_socket.c	2013-01-09 05:55:53.000000000 +0100
++++ glb-1.0.0alpha3-n/src/glb_socket.c	2013-01-14 17:34:06.856845896 +0100
+@@ -122,7 +122,7 @@
+ 
+ #ifdef GLBD
+ 
+-#define FNV32_SEED  2166136261
++#define FNV32_SEED  2166136261u
+ #define FNV32_PRIME 16777619
+ #define ROTL32(x,r) ((x << r) | (x >> (32 - r)))
+ 
