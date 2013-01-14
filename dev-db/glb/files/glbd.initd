@@ -1,0 +1,21 @@
+#!/sbin/runscript
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	need net
+}
+
+start() {
+	ebegin "Starting glbd"
+	start-stop-daemon --start --quiet \
+		--exec /usr/sbin/glbd -- --daemon --threads $GLB_THREADS --control $GLB_CONTROL $GLB_BIND $GLB_NODES
+	eend $? "Failed to start glbd"
+}
+
+stop() {
+	ebegin "Stopping glbd"
+	start-stop-daemon --stop --quiet --exec /usr/sbin/glbd
+	eend $? "Failed to stop glbd"
+}
+

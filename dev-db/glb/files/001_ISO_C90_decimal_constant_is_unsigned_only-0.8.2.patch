@@ -1,0 +1,11 @@
+--- glb-0.8.2-o/src/glb_socket.c	2012-12-05 18:59:37.000000000 +0100
++++ glb-0.8.2-n/src/glb_socket.c	2013-01-14 14:30:45.744378727 +0100
+@@ -83,7 +83,7 @@
+     return ntohs (addr->sin_port);
+ }
+ 
+-#define FNV32_SEED  2166136261
++#define FNV32_SEED  2166136261u
+ #define FNV32_PRIME 16777619
+ #define ROTL32(x,r) ((x << r) | (x >> (32 - r)))
+ 
