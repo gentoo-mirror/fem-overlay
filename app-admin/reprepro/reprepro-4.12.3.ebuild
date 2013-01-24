@@ -4,36 +4,27 @@
 
 EAPI="4"
 
-inherit eutils autotools db-use
+inherit flag-o-matic
 
+DESCRIPTION="Debian APT repository creator and maintainer application"
+HOMEPAGE="http://packages.debian.org/reprepro"
 SRC_URI="http://alioth.debian.org/frs/download.php/3732/${PN}_${PV}.orig.tar.gz"
-DESCRIPTION="Debian repository creator and maintainer application"
-HOMEPAGE="http://mirrorer.alioth.debian.org"
-DEPEND="app-arch/bzip2
-	app-arch/gzip
-	app-arch/libarchive
-	app-crypt/gpgme
-	dev-libs/libgpg-error
-	>=sys-libs/db-4.3"
-RDEPEND=$DEPEND
-RESTRICT="mirror"
 
-KEYWORDS="~amd64 ~x86"
-IUSE="bzip2"
 LICENSE="GPL-2"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
+IUSE="archive bzip2 gpgme"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-4.1.2-gpgme-header-check-1.patch
-	eautoreconf
-}
+DEPEND=">=sys-libs/db-4.3
+	sys-libs/zlib
+	gpgme? ( app-crypt/gpgme dev-libs/libgpg-error )
+	archive? ( app-arch/libarchive )"
+RDEPEND="${DEPEND}"
 
 src_configure() {
-	local myconf="--with-libarchive=yes"
-	use bzip2 && myconf="${myconf} --with-libbz2=yes" || myconf="${myconf} --with-libbz2=no"
-	econf ${myconf} || die "econf failed"
-}
-
-src_install() {
-	emake DESTDIR="${D}" install
+	use gpgme && append-cppflags -I/usr/include/gpgme
+	econf \
+		$(use_with gpgme libgpgme) \
+		$(use_with archive libarchive) \
+		$(use_with bzip2 libbz2)
 }
