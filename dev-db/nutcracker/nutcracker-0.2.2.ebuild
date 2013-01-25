@@ -33,4 +33,7 @@ src_install() {
 	newconfd "${FILESDIR}/nutcracker.confd" nutcracker
 	newinitd "${FILESDIR}/nutcracker.initd" nutcracker
 	emake DESTDIR="${D}" install
+
+	insinto /etc/nutcracker
+	newins "${WORKDIR}/${PF}/conf/nutcracker.yml" nutcracker.yml
 }
