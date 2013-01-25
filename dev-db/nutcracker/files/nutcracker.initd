@@ -9,7 +9,7 @@ depend() {
 start() {
 	ebegin "Starting nutcracker"
 	start-stop-daemon --user ${USER}:${GROUP} --start --quiet \
-		--exec /usr/sbin/nutcracker -- -d -c ${CONFFILE}
+		--exec /usr/bin/nutcracker -- -d -c ${CONFFILE}
 	eend $? "Failed to start nutcracker"
 }
 
