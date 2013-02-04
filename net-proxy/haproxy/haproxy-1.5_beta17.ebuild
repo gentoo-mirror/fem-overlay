@@ -1,25 +1,28 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="4"
 
-inherit eutils versionator toolchain-funcs flag-o-matic
+inherit user versionator toolchain-funcs flag-o-matic
+
+MY_P="${PN}-${PV/_beta/-dev}"
 
 DESCRIPTION="A TCP/HTTP reverse proxy for high availability environments"
 HOMEPAGE="http://haproxy.1wt.eu"
-SRC_URI="http://haproxy.1wt.eu/download/$(get_version_component_range 1-2)/src/devel/${P/_beta/-dev}.tar.gz"
+SRC_URI="http://haproxy.1wt.eu/download/$(get_version_component_range 1-2)/src/devel/${MY_P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
-KEYWORDS=""
-IUSE="+crypt examples +pcre vim-syntax ssl"
+KEYWORDS="~amd64 ~ppc ~x86"
+IUSE="+crypt examples +pcre ssl vim-syntax +zlib"
 
 DEPEND="pcre? ( dev-libs/libpcre )
-		ssl? ( dev-libs/openssl )"
+	ssl? ( dev-libs/openssl[zlib?] )
+	zlib? ( sys-libs/zlib )"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${P/_beta/-dev}"
+S="${WORKDIR}/${MY_P}"
 
 pkg_setup() {
 	enewgroup haproxy
@@ -27,7 +30,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	local args="TARGET=linux2628"
+	local args="TARGET=linux2628 USE_GETADDRINFO=1"
 
 	if use pcre; then
 		args="${args} USE_PCRE=1"
@@ -53,6 +56,12 @@ src_compile() {
 		args="${args} USE_OPENSSL="
 	fi
 
+	if use zlib; then
+		args="${args} USE_ZLIB=1"
+	else
+		args="${args} USE_ZLIB="
+	fi
+
 	# For now, until the strict-aliasing breakage will be fixed
 #	append-cflags -fno-strict-aliasing
 
@@ -63,9 +72,10 @@ src_install() {
 	dobin haproxy || die
 
 	newinitd "${FILESDIR}/haproxy.initd-r2" haproxy || die
+	newconfd "${FILESDIR}/haproxy.confd" haproxy || die
 
 	# Don't install useless files
-	rm examples/build.cfg doc/*gpl.txt
+#	rm examples/build.cfg doc/*gpl.txt
 
 	dodoc CHANGELOG ROADMAP TODO doc/{configuration,haproxy-en}.txt
 	doman doc/haproxy.1

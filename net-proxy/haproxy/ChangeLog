@@ -1,6 +1,13 @@
 # ChangeLog for net-proxy/haproxy
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*haproxy-1.5_beta17 (03 Feb 2013)
+
+  03 Feb 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -haproxy-1.5_beta12.ebuild, +haproxy-1.5_beta17.ebuild, +files/haproxy.confd,
+  +files/haproxy.initd-r3, -files/haproxy.initd-r2:
+  version from portage with updated init script
 
   26 Dec 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   -haproxy-1.5_beta15.ebuild:
