@@ -71,7 +71,7 @@ src_compile() {
 src_install() {
 	dobin haproxy || die
 
-	newinitd "${FILESDIR}/haproxy.initd-r2" haproxy || die
+	newinitd "${FILESDIR}/haproxy.initd-r3" haproxy || die
 	newconfd "${FILESDIR}/haproxy.confd" haproxy || die
 
 	# Don't install useless files
