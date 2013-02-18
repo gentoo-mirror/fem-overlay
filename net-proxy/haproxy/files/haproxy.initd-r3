@@ -29,7 +29,7 @@ checkconfig() {
 	fi
 
 	ebegin "Checking ${CONFFILE}"
-	$command -q -c -f "${CONFFILE}"
+	$command -q -c -f "${CONFFILE}" ${HAPROXY_OPTS}
 	eend $?
 }
 
