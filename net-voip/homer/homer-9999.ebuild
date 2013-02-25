@@ -35,6 +35,7 @@ DEPEND=">=dev-libs/openssl-1.0
 	net-libs/sofia-sip
 	virtual/ffmpeg[X]
 	x11-libs/qt-core:4
+	x11-libs/qt-dbus:4
 	x11-libs/qt-gui:4
 	x11-libs/qt-multimedia:4
 	x11-libs/qt-webkit:4
