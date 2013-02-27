@@ -40,6 +40,7 @@ DEPEND=">=dev-libs/openssl-1.0
 	x11-libs/qt-multimedia:4
 	x11-libs/qt-webkit:4
 	pulseaudio? ( media-sound/pulseaudio )"
+
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
@@ -48,7 +49,7 @@ src_prepare() {
 	if use pulseaudio; then
 		sed -i \
 			-e "/^set(FEATURE_PULSEAUDIO/s:OFF:ON:" \
-			HomerBuild/config/HomerFeatures.txt
+				HomerBuild/config/HomerFeatures.txt
 	fi
 }
 
