@@ -34,11 +34,11 @@ DEPEND=">=dev-libs/openssl-1.0
 	media-libs/x264
 	media-video/ffmpeg[X]
 	net-libs/sofia-sip
-	x11-libs/qt-core:4
-	x11-libs/qt-dbus:4
-	x11-libs/qt-gui:4
-	x11-libs/qt-multimedia:4
-	x11-libs/qt-webkit:4
+	dev-qt/qtcore:4
+	dev-qt/qtdbus:4
+	dev-qt/qtgui:4
+	dev-qt/qtmultimedia:4
+	dev-qt/qtwebkit:4
 	pulseaudio? ( media-sound/pulseaudio )"
 
 RDEPEND="${DEPEND}"
@@ -49,7 +49,7 @@ src_prepare() {
 	if use pulseaudio; then
 		sed -i \
 			-e "/^set(FEATURE_PULSEAUDIO/s:OFF:ON:" \
-				HomerBuild/config/HomerFeatures.txt
+			HomerBuild/config/HomerFeatures.txt	|| die "sed failed"
 	fi
 }
 
