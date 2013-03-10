@@ -1,6 +1,12 @@
 # ChangeLog for sci-geosciences/josm
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*josm-5759 (10 Mar 2013)
+
+  10 Mar 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -josm-5485.ebuild, -josm-5531.ebuild, +josm-5759.ebuild:
+  version bump
 
 *josm-5608 (02 Dec 2012)
 
