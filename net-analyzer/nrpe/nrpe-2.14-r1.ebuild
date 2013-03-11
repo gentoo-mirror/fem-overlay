@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/nagios/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
 IUSE="command-args ssl tcpd minimal -increase_max_packetbuffer"
 
 DEPEND="ssl? ( dev-libs/openssl )
