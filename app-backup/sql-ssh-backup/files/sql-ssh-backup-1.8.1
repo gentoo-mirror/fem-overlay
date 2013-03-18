@@ -6,13 +6,13 @@
 # Each database can be dumped as a single file and can be compressed optional.
 #
 # Copyright (c) 2011 Peter Grosse (gentoo@friiks.de)
-# Copyright (c) 2010-2012 Marcel Pennewiss (opensource@pennewiss.de)
+# Copyright (c) 2010-2013 Marcel Pennewiss (opensource@pennewiss.de)
 # Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
 #
 # Copyright (c) 2012 Marcel Pennewiss, Werbeagentur Pennewiﬂ (opensource@pennewiss.de)
 #
-# Current Version: 1.8
-# Last Modified: 2012-10-24
+# Current Version: 1.8.1
+# Last Modified: 2013-03-18
 #
 # USAGE:
 #   Start sql-ssh-backup with the "-h" option to show usage/help.
@@ -46,6 +46,7 @@
 #   1.7.1 - Add hostname to connection error message, remove temporary config file
 #   1.7.2 - Add xz as compression utility
 #     1.8 - Allow dump of a single database, fix some prepare-checks
+#   1.8.1 - Bugfix for dump all databases as single files
 #
 # LICENSE: GPL-2
 #
@@ -63,7 +64,7 @@
 
 # show usage information
 print_usage() {
-  echo "SQL-SSH-Backup v1.7.2"
+  echo "SQL-SSH-Backup v1.8.1"
   echo "Create MySQL-/PosgreSQL-Dumps via SSH using RSA or DSA authentication (private key)."
   echo "Each database will be dumped as a single file and can be compressed optional."
   echo ""
@@ -420,7 +421,7 @@ if ${ALLDATABASES}; then
   dump_all_databases
 else
   # dump single database on request
-  [ -n ${DATABASE} ] && LAST_RETURN=${DATABASE}
+  [ -n "${DATABASE}" ] && LAST_RETURN=${DATABASE}
   dump_databases_by_list "${LAST_RETURN}"
 fi
 
