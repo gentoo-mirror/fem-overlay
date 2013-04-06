@@ -1,0 +1,124 @@
+#!/bin/bash
+#
+# check_openvpn_clients
+#
+# Check currently connected OpenVPN-Clients based on
+# Status-Log for Nagios.
+#
+# Copyright (c) 2013 Marcel Pennewiss (opensource@pennewiss.de)
+# Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
+#
+# Current Version: 0.1
+# Last Modified: 2013-04-06
+#
+# USAGE:
+#   Start check_openvpn_clients with the "-h" option to show usage/help.
+#
+# REQUIREMENTS:
+#   bash-3.2 (regex operator)                                                                                                                                                    
+#                                                                                                                                                                                
+# INSTALLATION:                                                                                                                                                                  
+#   Copy the shell script to a suitable location                                                                                                                                 
+#                                                                                                                                                                                
+# CHANGELOG:                                                                                                                                                                     
+#   v0.1   - Initial Release                                                                                                                                                     
+#                                                                                                                                                                                
+# LICENSE: GPL-2                                                                                                                                                                 
+#                                                                                                                                                                                
+#   This program is free software; you can redistribute it and/or modify                                                                                                         
+#   it under the terms of the GNU General Public License as published by                                                                                                         
+#   the Free Software Foundation; either version 2 of the License, or                                                                                                            
+#   (at your option) any later version.                                                                                                                                          
+#                                                                                                                                                                                
+#   This program is distributed in the hope that it will be useful,                                                                                                              
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of                                                                                                               
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                                                                                                                
+#   GNU General Public License for more details.
+#
+##########################################################################
+
+# default values
+WARNING=20
+CRITICAL=30
+
+NAGIOS_OK=0
+NAGIOS_WARNING=1
+NAGIOS_CRITICAL=2
+NAGIOS_UNKNOWN=3
+
+# show usage information
+print_usage() {
+  SCRIPT_NAME=$(basename ${0})
+  echo "CHECK_OPENVPN_CLIENTS (v0.1)"
+  echo "Check currently connected OpenVPN-Clients based on Status-Log for Nagios."
+  echo ""
+  echo "Usage ${SCRIPT_NAME} -l <statuslog> -w <warn> -c <crit>"
+  echo ""
+  echo " -l <statuslog>   OpenVPN Status Log (status 2)"
+  echo " -w <warn>        Warning threshold"
+  echo " -c <crit>        Critical threshold"
+  echo " -h               Show this help"
+  echo ""
+}
+
+# print performance data
+echoperfdata () {
+  echo " | 'users'=${1};${WARNING};${CRITICAL}"
+}
+
+# print output
+echooutput() {
+
+  if [ ${1} -lt ${WARNING} ]; then
+    # Usercounter below warning treshold
+    echo -n "USERS OK - ${1} OpenVPN-Users"
+    echoperfdata ${1}
+    exit ${NAGIOS_OK}
+  elif [ ${1} -lt ${CRITICAL} ]; then
+    # Usercounter below critical treshold
+    echo -n "USERS WARNING - ${1} OpenVPN-Users"
+    echoperfdata ${1}
+    exit ${NAGIOS_WARNING}
+  else
+    # Usercounter above/equal critical treshold
+    echo -n "USERS CRITICAL - ${1} OpenVPN-Users"
+    echoperfdata ${1}
+    exit ${NAGIOS_CRITICAL}
+  fi
+
+}
+
+# get number of users
+getusers() {
+
+  USERCOUNT=$(grep -c -e "^CLIENT_LIST" ${STATUSLOG})
+  echooutput ${USERCOUNT}
+
+}
+
+while getopts "l:w:c:h" Option; do
+  case ${Option} in
+    w ) # check valid warning threshold
+        if ! [[ ${OPTARG} =~ ^[0-9]*$ ]]; then
+          echo "WARNING THRESHOLD UNKNOWN - Threshold have to be a number"
+          exit ${NAGIOS_UNKNOWN}
+        fi
+        WARNING=${OPTARG} ;;
+    c ) # check valid critical threshold
+        if ! [[ ${OPTARG} =~ ^[0-9]*$ ]]; then
+          echo "CRITICAL THRESHOLD UNKNOWN - Threshold have to be a number"
+          exit ${NAGIOS_UNKNOWN}
+        fi
+        CRITICAL=${OPTARG} ;;
+    l ) STATUSLOG=${OPTARG} ;;
+    h ) print_usage && exit 0 ;;
+    * ) echo "UNKNOWN - Unknown parameter"
+        exit ${NAGIOS_UNKNOWN} ;;
+  esac
+done
+shift $(($OPTIND - 1)) 
+
+[[ -z ${STATUSLOG} || ! -e ${STATUSLOG} ]] && print_usage && exit 0
+getusers
+
+exit 0

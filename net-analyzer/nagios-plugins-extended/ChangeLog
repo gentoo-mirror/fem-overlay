@@ -1,6 +1,12 @@
 # ChangeLog for net-analyzer/nagios-plugins-extended
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nagios-plugins-extended-0.7 (06 Apr 2013)
+
+  06 Apr 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +nagios-plugins-extended-0.7.ebuild, +files/check_openvpn_clients:
+  version bump
 
   02 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   files/check_hddtemp.sh:
