@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
+	</maintainer>
+	<use>
+	    <flag name='agent-only'>Install only Check-MK-Agent (Client)</flag>
+	    <flag name='logwatch'>Install Logwatch plugins</flag>
+		<flag name='smart'>Install SMART plugin</flag>
+		<flag name='apache_status'>Install Apache plugin</flag>
+		<flag name='livestatus'>Use MK-Livestatus</flag>
+		<flag name='livecheck'>Use MK-Livestatus with livecheck</flag>
+		<flag name='wato'>Install WATO - Check-MK-Web Administration Tool</flag>
+		<flag name='zypper'>Install zypper plugin</flag>
+		<flag name='nfsexports'>Install Nginx plugin</flag>
+	</use>
+</pkgmetadata>
