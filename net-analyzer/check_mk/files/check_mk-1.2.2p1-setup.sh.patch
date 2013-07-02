@@ -1,5 +1,5 @@
 --- check_mk-1.2.2p1.orig/setup.sh	2013-04-30 16:51:30.000000000 +0200
-+++ check_mk-1.2.2p1/setup.sh	2013-05-24 09:02:12.324034278 +0200
++++ check_mk-1.2.2p1/setup.sh	2013-07-02 15:41:12.324034278 +0200
 @@ -550,6 +550,8 @@
     mkdir -p $D
     tar xvzf $SRCDIR/livestatus.tar.gz -C $D
@@ -19,7 +19,12 @@
     mkdir -p $DESTDIR$libdir &&
     install -m 755 src/livecheck src/livestatus.o $DESTDIR$libdir &&
     mkdir -p $DESTDIR$bindir &&
-@@ -997,7 +1000,8 @@
+@@ -993,11 +996,12 @@
+ 	   done &&
+            # make htpasswd writable by apache, since we need this for
+            # WATO. Also create an empty and Apache-writable auth.serials
+-           serials_file=${htpasswd_file%/*}/auth.serials &&
++           serials_file=$DESTDIR${htpasswd_file%/*}/auth.serials &&
             touch "$serials_file" &&
             chown $wwwuser "$serials_file" &&
             chown $wwwuser "$htpasswd_file" &&

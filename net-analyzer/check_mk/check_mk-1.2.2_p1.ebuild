@@ -45,6 +45,7 @@ src_prepare() {
 }
 
 src_compile() {
+    einfo ${S}
 	DESTDIR=${S} ./setup.sh --yes
 
 	# compile waitmax
