@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*sql-ssh-backup-1.8.1 (06 Jul 2013)
+
+  06 Jul 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +files/sql-ssh-backup-1.9_beta1, +sql-ssh-backup-1.9_beta1.ebuild:
+  version bump with new feature (retry) and exit codes
+
 *sql-ssh-backup-1.8.1 (18 Mar 2013)
 
   18 Mar 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
