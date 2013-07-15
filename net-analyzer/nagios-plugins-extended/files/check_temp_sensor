@@ -5,12 +5,12 @@
 # Temperature check plugin for Nagios
 #
 # Copyright (c) 2008-2010 Sascha Bendix (scrubb@localroot.de)
-# Copyright (c) 2010-2011 Marcel Pennewiss (opensource@pennewiss.de)
+# Copyright (c) 2010-2013 Marcel Pennewiss (opensource@pennewiss.de)
 # Copyright (c) 2011      Markus Filzhuth (markus@filzhuth.de) 
 # Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
 #
-# Current Version: 0.5
-# Last Modified: 2011-08-17
+# Current Version: 0.6
+# Last Modified: 2013-07-10
 #
 # USAGE:
 #   Start check_temp_sensors wit the "-h" option to show usage/help.
@@ -30,6 +30,7 @@
 #   v0.3   - Add option to use unix timestamp in sensor information (2011-07-22)
 #   v0.4   - Add performance data output (2011-07-23)
 #   v0.5   - Add autodetection for multiple timeformats, remove command-line parameter for unix timestamp (2011-08-17)
+#   v0.6   - Allow local file as source and do not use stdin from netcat (2013-07-10)
 #
 # SUPPORTED SENSOR INFORMATION FORMATS:
 #   I)   [SENSORNUMBER] YYYY-MM-DD HH:MM [TEMPERATURE] (e.g. 2011-08-17 21:40 30.19)
@@ -134,13 +135,38 @@ echoperfdata () {
 
 # get data via network
 getdata() {
-  # try to connect to temperature service
-  RETURN_VALUE=$(nc -w ${REMOTE_TIMEOUT} ${REMOTE_HOST} ${REMOTE_PORT} 2>&1)
 
-  # Connection succesfull?
-  if [ $? -ne 0 ]; then
-    echo "TEMP CRITICAL - Network connection failed: ${RETURN_VALUE}"
-    exit ${NAGIOS_CRITICAL}
+  # check source specification
+  if [ "x${LOCAL_FILE}" = "x" ] && [ "x${REMOTE_HOST}" = "x" ]; then
+    echo "TEMP UNKNOWN - Neither local file nor remote host specified as source."
+    exit ${NAGIOS_UNKNOWN}
+  fi
+
+  if [ "x${LOCAL_FILE}" != "x" ] && [ "x${REMOTE_HOST}" != "x" ]; then
+    echo "TEMP UNKNOWN - Local file and remote host specified as source."
+    exit ${NAGIOS_UNKNOWN}
+  fi
+
+  # try to get sensor output
+  if [[ -n ${LOCAL_FILE} ]]; then
+
+    if [ ! -f ${LOCAL_FILE} ]; then
+      echo "TEMP UNKNOWN - Local file ${LOCAL_FILE} not found."
+      exit ${NAGIOS_UNKNOWN}
+    fi
+
+    RETURN_VALUE=$(cat ${LOCAL_FILE})
+
+  elif [ -n ${REMOTE_HOST} ]; then
+
+    # try to connect to temperature service
+    RETURN_VALUE=$(nc -w ${REMOTE_TIMEOUT} ${REMOTE_HOST} ${REMOTE_PORT} 2>&1 < /dev/null)
+
+    # Connection succesfull?
+    if [ $? -ne 0 ]; then
+      echo "TEMP CRITICAL - Network connection failed: ${RETURN_VALUE}"
+      exit ${NAGIOS_CRITICAL}
+    fi
   fi
 
   RETURN_VALUE=$(echo "${RETURN_VALUE}" | egrep "^${SENSOR_NUMBER}\ .*$" | head -n 1)
@@ -246,8 +272,11 @@ if [ $# -lt 2 ] || [[ $1 =~ ^x[^-].*$ ]] && [[ "x$1" != "x-V" ]]; then
   print_usage && exit ${NAGIOS_UNKNOWN}
 fi
 
-while getopts ":H:p:l:m:s:T:t:n:h" Option; do
+# overwrite remote host variable (otherwise environment variable is used)
+REMOTE_HOST=
+while getopts ":L:H:p:l:m:s:T:t:n:h" Option; do
   case ${Option} in
+    L ) LOCAL_FILE=${OPTARG} ;;
     H ) REMOTE_HOST=${OPTARG} ;;
     p ) REMOTE_PORT=${OPTARG} ;;
     l ) # check valid temperatures

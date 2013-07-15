@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nagios-plugins-extended-0.7.1 (15 Jul 2013)
+
+  15 Jul 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +nagios-plugins-extended-0.7.1.ebuild, files/check_temp_sensor:
+  version bump of plugin
+
 *nagios-plugins-extended-0.7 (06 Apr 2013)
 
   06 Apr 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
