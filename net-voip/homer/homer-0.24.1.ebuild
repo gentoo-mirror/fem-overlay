@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-0.24.1.ebuild,v 1.6 2013/03/17 19:33:14 hwoarang Exp $
 
-EAPI=4
+EAPI=5
 
 inherit eutils multilib toolchain-funcs
 
@@ -31,7 +31,7 @@ DEPEND=">=dev-libs/openssl-1.0
 	media-libs/portaudio[alsa]
 	media-libs/sdl-mixer
 	media-libs/sdl-sound
-	media-libs/x264
+	media-libs/x264:*
 	net-libs/sofia-sip
 	virtual/ffmpeg[X]
 	|| ( <media-video/ffmpeg-2 media-video/libav )

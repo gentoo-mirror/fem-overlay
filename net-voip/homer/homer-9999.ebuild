@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-0.25.ebuild,v 1.2 2013/03/17 19:33:14 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-9999.ebuild,v 1.5 2013/03/17 19:33:14 hwoarang Exp $
 
 EAPI=5
 
@@ -46,8 +46,6 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-ffmpeg2.patch"
-
 	if use pulseaudio; then
 		sed -i \
 			-e "/^set(FEATURE_PULSEAUDIO/s:OFF:ON:" \
