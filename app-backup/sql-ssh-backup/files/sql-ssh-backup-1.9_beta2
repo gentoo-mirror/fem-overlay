@@ -57,6 +57,7 @@
 #           Option for retry on dump-error
 #           Fix some outputs
 #           Remove some bashisms
+#           Fix dump-check for postgresql globals
 #
 # LICENSE: GPL-2
 #
@@ -274,7 +275,7 @@ dump_globals()
 
   [ ${ret} -ne 0 ] && echo "pg_dump of global database objects failed." >&2 && echo ${LAST_RETURN} >&2 && return ${ret}
 
-  LAST_RETURN=$(tail -3 "${BACKUPDIR}/_globals.sql" | head -1 | grep -e "^-- PostgreSQL database dump complete" 2>&1)
+  LAST_RETURN=$(tail -3 "${BACKUPDIR}/_globals.sql" | head -1 | grep -e "^-- PostgreSQL database cluster dump complete" 2>&1)
   ret=$?
   [ ${ret} -ne 0 ] && echo "Dump-Check of global database objects failed." >&2 && echo ${LAST_RETURN} >&2
   return ${ret}
