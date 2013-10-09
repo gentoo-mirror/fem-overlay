@@ -8,7 +8,7 @@ if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="git://github.com/abstrakraft/cwiid.git"
 	SRC_URI=""
 	KEYWORDS=""
-	inherit git
+	inherit git-2
 else
 	# git archive --prefix=cwiid-$(date +%Y%m%d)/ \
 	#	--format=tar HEAD | bzip2 > cwiid-$(date +%Y%m%d).tar.bz2
