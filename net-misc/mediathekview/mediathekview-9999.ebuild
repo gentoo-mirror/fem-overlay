@@ -1,11 +1,11 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="4"
 WANT_ANT_TASKS="ant-nodeps"
 
-inherit eutils git java-pkg-2 java-ant-2
+inherit eutils git-2 java-pkg-2 java-ant-2
 
 DESCRIPTION="Java tool to browse media galleries of some german public broadcasting stations"
 HOMEPAGE="http://zdfmediathk.sourceforge.net"
