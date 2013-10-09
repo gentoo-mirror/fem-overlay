@@ -17,8 +17,7 @@ IUSE="vlc mplayer flvstreamer"
 
 EGIT_REPO_URI="git://zdfmediathk.git.sourceforge.net/gitroot/zdfmediathk/MediathekView-3"
 
-COMMON_DEPS=" dev-java/jdom:1.0
-			  dev-java/commons-lang:3.1
+COMMON_DEPS=" dev-java/commons-lang:3.1
 			>=dev-java/commons-compress-1.4"
 
 DEPEND="${COMMON_DEPS}
@@ -49,7 +48,6 @@ java_prepare() {
 	cd "${S}/libs"
 	rm -v commons-* || die
 
-#	java-pkg_jar-from jdom-1.0
 	java-pkg_jar-from commons-lang-3.1 commons-lang3.jar commons-lang3-3.1.jar
 	java-pkg_jar-from commons-compress commons-compress.jar commons-compress-1.4.jar
 }
@@ -57,7 +55,6 @@ java_prepare() {
 src_install() {
 	java-pkg_newjar dist/MediathekView.jar
 	java-pkg_jarinto /usr/share/${PN}/lib/lib
-	java-pkg_dojar libs/jdom-2.0.0.jar
 	java-pkg_dojar libs/commons-lang3-3.1.jar
 	java-pkg_dojar libs/commons-compress-1.4.jar
 	java-pkg_dolauncher ${PN} --main mediathek.Main
