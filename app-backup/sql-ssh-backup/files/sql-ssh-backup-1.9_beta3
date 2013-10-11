@@ -240,7 +240,7 @@ EOF_TEMP_CONFIGFILE
   fi
 
   # remove temporary configfile
-  if [ -f ${TEMP_CONFIGFILE} ]; then
+  if [ -n "${TEMP_CONFIGFILE}" ] && [ -f ${TEMP_CONFIGFILE} ]; then
     rm ${TEMP_CONFIGFILE}
   fi
 }
