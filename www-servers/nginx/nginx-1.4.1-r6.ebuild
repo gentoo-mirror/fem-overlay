@@ -131,7 +131,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~ppc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~ppc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif fastcgi
 geo gzip limit_req limit_conn map memcached proxy referer rewrite scgi ssi
@@ -435,7 +435,7 @@ src_install() {
 	# this solves a problem with SELinux where nginx doesn't see the directories
 	# as root and tries to create them as nginx
 	fperms 0750 "${NGINX_HOME_TMP}"
-	fowners ${PN}:root "${NGINX_HOME_TMP}"
+	fowners ${PN}:0 "${NGINX_HOME_TMP}"
 
 	fperms 0700 /var/log/nginx "${NGINX_HOME_TMP}"/{client,proxy,fastcgi,scgi,uwsgi}
 	fowners ${PN}:${PN} /var/log/nginx "${NGINX_HOME_TMP}"/{client,proxy,fastcgi,scgi,uwsgi}
