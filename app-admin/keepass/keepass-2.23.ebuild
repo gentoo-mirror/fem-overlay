@@ -45,7 +45,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-2.20-xsl-path-detection.patch"
 
 	# KeePass uses unicode character instead of hex representation
-	epatch "${FILESDIR}/${PN}-2.23-unicode-char.patch"
+	epatch "${FILESDIR}/${PN}-2.23-utf8-bom.patch"
 }
 
 src_compile() {
