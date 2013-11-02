@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nagios-plugins-extended-0.7.2 (02 Nov 2013)
+
+  02 Nov 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +nagios-plugins-extended-0.7.2.ebuild, +files/check_timestamp_age,
+  metadata.xml:
+  add timestamp-age check
+
 *nagios-plugins-extended-0.7.1 (15 Jul 2013)
 
   15 Jul 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>

@@ -19,6 +19,7 @@
 		<flag name='portage'>Install Portage plugins</flag>
 		<flag name='portageagewarn'>Patch Portage plugin to report age from critical to warn state</flag>
 		<flag name='temp'>Install Temperature-sensor plugin</flag>
+		<flag name='timestamp'>Install Timestamp-Check plugin</flag>
 		<flag name='hddtemp'>Install HDD-Temp plugin</flag>
 		<flag name='suid'>Set SUID-Flag for several plugins</flag>
 	</use>
