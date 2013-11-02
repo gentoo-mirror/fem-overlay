@@ -23,7 +23,7 @@ DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version ) \
 		nginx? ( sys-devel/bc net-misc/wget ) \
 		portage? ( app-portage/gentoolkit ) \
 		temp? ( ( || ( net-analyzer/netcat6 net-analyzer/netcat ) ) sys-devel/bc ) \
-		timestamp ( dev-perl/TimeDate ) \
+		timestamp? ( dev-perl/TimeDate ) \
 		hddtemp? ( app-admin/hddtemp )"
 
 RESTRICT="test"
