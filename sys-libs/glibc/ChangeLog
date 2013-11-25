@@ -1,6 +1,23 @@
 # ChangeLog for sys-libs/glibc
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Nov 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  glibc-2.15-r3.ebuild, -files/2.15/glibc-2.15_avx1.patch,
+  -files/2.15/glibc-2.15_avx2.patch, -files/2.15/glibc-2.15_avx3_fedora.patch,
+  +files/2.15/glibc-rotate_ipv6.patch,
+  +files/2.16/glibc-2.16-hardened-pie.patch,
+  +files/2.17/glibc-2.17-hardened-pie.patch,
+  +files/2.18/glibc-2.18-gentoo-chk_fail.c,
+  +files/2.18/glibc-2.18-gentoo-stack_chk_fail.c,
+  +files/2.18/glibc-2.18-hardened-inittls-nosysenter.patch,
+  +files/nscd.service, +files/nscd.tmpfilesd, files/eblits/common.eblit,
+  files/eblits/pkg_preinst.eblit, files/eblits/pkg_setup.eblit,
+  files/eblits/src_compile.eblit, files/eblits/src_install.eblit,
+  files/eblits/src_test.eblit, files/eblits/src_unpack.eblit, files/nscd:
+  sync with current version (avx-patch included) and fix #13028 (options rotate
+  with ipv in resolv.conf)
+  see: https://sourceware.org/bugzilla/show_bug.cgi?id=13028
 
 *glibc-2.15-r3 (11 Sep 2012)
 

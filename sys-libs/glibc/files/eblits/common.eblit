@@ -1,10 +1,13 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/files/eblits/common.eblit,v 1.28 2012/08/10 19:44:47 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/files/eblits/common.eblit,v 1.31 2013/10/30 17:04:33 vapier Exp $
 
 alt_prefix() {
 	is_crosscompile && echo /usr/${CTARGET}
 }
+
+: ${ED:=${D}}
+: ${EROOT:=${ROOT}}
 
 # We need to be able to set alternative headers for
 # compiling for non-native platform
@@ -246,9 +249,13 @@ use_multiarch() {
 	local bver nver
 	bver=$($(tc-getLD ${CTARGET}) -v | sed -n -r '1{s:[^0-9]*::;s:^([0-9.]*).*:\1:;p}')
 	case $(tc-arch ${CTARGET}) in
-		amd64|x86) nver="2.20" ;;
-		sparc)     nver="2.21" ;;
-		*)         return 1 ;;
+	amd64|x86) nver="2.20" ;;
+	arm)       nver="2.22" ;;
+	hppa)      nver="2.23" ;;
+	ppc|ppc64) nver="2.20" ;;
+	s390)      nver="2.23" ;;
+	sparc)     nver="2.21" ;;
+	*)         return 1 ;;
 	esac
 	version_is_at_least ${nver} ${bver}
 }
@@ -288,4 +295,12 @@ setup_env() {
 
 just_headers() {
 	is_crosscompile && use crosscompile_opts_headers-only
+}
+
+glibc_banner() {
+	local b="Gentoo ${PVR}"
+	[[ -n ${SNAP_VER} ]] && b+=" snapshot ${SNAP_VER}"
+	[[ -n ${BRANCH_UPDATE} ]] && b+=" branch ${BRANCH_UPDATE}"
+	[[ -n ${PATCH_VER} ]] && ! use vanilla && b+=" p${PATCH_VER}"
+	echo "${b}"
 }

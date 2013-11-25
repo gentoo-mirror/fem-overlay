@@ -1,0 +1,15 @@
+X-Git-Url: https://sourceware.org/git/?p=glibc.git;a=blobdiff_plain;f=resolv%2Fres_send.c;h=7f2e85f3240eb73845c56dab61ccb10ecd17de8f;hp=5a73696e55595a13efbc55bed6f334b9d0c9806f;hb=cabba9343c8bd99e4aea66aa1e0ec7d93aa18a7e;hpb=94bf958a9435b8d8fbf92c15d8cd5d310029a22c
+
+diff --git a/resolv/res_send.c b/resolv/res_send.c
+index 5a73696..7f2e85f 100644
+--- a/resolv/res_send.c
++++ b/resolv/res_send.c
+@@ -441,7 +441,7 @@ __libc_res_nsend(res_state statp, const u_char *buf, int buflen,
+ 				    malloc(sizeof (struct sockaddr_in6));
+ 			if (EXT(statp).nsaddrs[n] != NULL) {
+ 				memset (mempcpy(EXT(statp).nsaddrs[n],
+-						&statp->nsaddr_list[n],
++						&statp->nsaddr_list[ns],
+ 						sizeof (struct sockaddr_in)),
+ 					'\0',
+ 					sizeof (struct sockaddr_in6)
