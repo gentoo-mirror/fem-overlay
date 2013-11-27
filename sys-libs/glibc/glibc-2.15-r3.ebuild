@@ -175,8 +175,8 @@ done
 eblit-src_unpack-post() {
 
 	# Resolver-Patch (use rotate with ipv6)
-	cd "${S}"
-	epatch "${FILESDIR}/${PV}/glibc-rotate_ipv6.patch"
+#	cd "${S}"
+#	epatch "${FILESDIR}/${PV}/glibc-rotate_ipv6.patch"
 
 	if use hardened ; then
 		cd "${S}"
