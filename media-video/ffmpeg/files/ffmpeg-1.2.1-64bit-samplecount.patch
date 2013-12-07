@@ -1,0 +1,12 @@
+diff -ur ffmpeg-1.2.1/libavcodec/internal.h ffmpeg-1.2.1-64bit-samplecount/libavcodec/internal.h
+--- ffmpeg-1.2.1/libavcodec/internal.h	2013-06-30 16:21:55.448676657 +0200
++++ ffmpeg-1.2.1-64bit-samplecount/libavcodec/internal.h	2013-06-30 16:24:37.165331386 +0200
+@@ -67,7 +67,7 @@
+      * Internal sample count used by avcodec_encode_audio() to fabricate pts.
+      * Can be removed along with avcodec_encode_audio().
+      */
+-    int sample_count;
++    int64_t sample_count;
+ #endif
+ 
+     /**
