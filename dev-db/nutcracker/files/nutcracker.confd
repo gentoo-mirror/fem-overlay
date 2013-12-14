@@ -1,3 +1,0 @@
-USER="nobody"
-GROUP="nogroup"
-CONFFILE="/etc/nutcracker/nutcracker.yml"
