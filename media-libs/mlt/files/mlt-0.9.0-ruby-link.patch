@@ -1,0 +1,14 @@
+--- mlt-9999/src/swig/ruby/build.orig	2013-06-05 22:18:32.010326862 +0200
++++ mlt-9999/src/swig/ruby/build	2013-06-05 22:19:19.528803017 +0200
+@@ -5,8 +5,10 @@
+   exit 0
+ end
+ system( "ln -sf ../mlt.i" )
++system( "ln -sf ../../framework/libmlt.so" )
++system( "ln -sf ../../mlt++/libmlt++.so" )
+ system( "swig -c++ -ruby -I../../mlt++ -I../.. mlt.i" )
+ $CFLAGS += " -I../.. " + (ENV.has_key?('CXXFLAGS')? ENV['CXXFLAGS'] : '')
+-$LDFLAGS += " -L../../mlt++ -lmlt++"
++$LIBS += " -lmlt++ -lmlt -lstdc++"
+ create_makefile('mlt')
+ system( "make" )
