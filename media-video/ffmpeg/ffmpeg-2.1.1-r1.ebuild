@@ -40,7 +40,7 @@ if [ "${PV#9999}" = "${PV}" ] ; then
 	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~arm-linux ~x86-linux"
 fi
 IUSE="
-	aac aacplus alsa amr amrenc bindist bluray +bzip2 cdio celt
+	aac aacplus alsa amr amrenc bindist bluray blackmagic +bzip2 cdio celt
 	cpudetection debug doc +encode examples faac fdk flite fontconfig frei0r
 	gme	gnutls gsm +hardcoded-tables +iconv iec61883 ieee1394 jack jpeg2k
 	ladspa libass libcaca libsoxr libv4l modplug mp3 +network openal openssl opus
@@ -66,6 +66,7 @@ done
 RDEPEND="
 	alsa? ( media-libs/alsa-lib )
 	amr? ( media-libs/opencore-amr )
+	blackmagic? ( media-libs/libbmd )
 	bluray? ( media-libs/libbluray )
 	bzip2? ( app-arch/bzip2 )
 	cdio? ( || ( dev-libs/libcdio-paranoia <dev-libs/libcdio-0.90[-minimal] ) )
@@ -151,6 +152,7 @@ src_prepare() {
 	fi
 	epatch_user
 	epatch "${FILESDIR}/${PN}-1.0-segment-filename-timestamp.patch"
+	epatch "${FILESDIR}/${P}-libbmd.patch"
 }
 
 src_configure() {
@@ -193,7 +195,7 @@ src_configure() {
 	for i in alsa oss jack ; do
 		use ${i} || myconf="${myconf} --disable-indev=${i}"
 	done
-	ffuse="${ffuse}	libv4l:libv4l2 pulseaudio:libpulse X:x11grab"
+	ffuse="${ffuse}	 blackmagic:libbmd libv4l:libv4l2 pulseaudio:libpulse X:x11grab"
 
 	# Outdevs
 	for i in alsa oss sdl ; do
