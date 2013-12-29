@@ -44,6 +44,9 @@ src_install() {
 	dodir /opt/tksuite-server
 	insinto /opt/tksuite-server
 	doins -r *
+	exeinto /opt/tksuite-server
+	doexe tksock
+	doexe tkmedia
 	dodoc ../readme.txt
 
 	# add env.d-file for CONFIG_PROTECT
