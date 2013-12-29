@@ -1,0 +1,44 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+    need net
+}
+
+
+TKSUITE_SERVER_PIDFILE=/var/run/tksock.pid
+TKSUITE_SERVER_PATH=${TKSUITE_SERVER_PATH:-/opt/tksuite-server}
+TKSUITE_SERVER_TIMEOUT=${TKSUITE_SERVER_TIMEOUT:-10}
+TKSUITE_SERVER_BIN=${TKSUITE_SERVER_PATH}/tksock
+
+start() {
+	# Delete PIDFILE if exists
+	rm -f ${TKSUITE_SERVER_PIDFILE}
+	
+	ebegin "Starting Agfeo TK-Suite-Server"
+	cd ${TKSUITE_SERVER_PATH}
+	${TKSUITE_SERVER_BIN} -s 1>/dev/null 2>&1
+
+	i=0
+	while [ ! -e "${TKSUITE_SERVER_PIDFILE}" ] && [ $i -lt ${TKSUITE_SERVEF_TIMEOUT} ]; do
+		sleep 1 && i=$(expr $i + 1)
+	done
+
+	test $i -lt ${TKSUITE_SERVER_TIMEOUT}
+        eend $?
+}
+
+stop() {
+	ebegin "Stopping Agfeo TK-Suite-Server"
+	start-stop-daemon --stop --exec ${TKSUITE_SERVER_BIN} \
+	    --pidfile ${TKSUITE_SERVER_PIDFILE} 1>/dev/null 2>&1
+
+        i=0
+        while pidof "${TKSUITE_SERVER_BIN}" >/dev/null && [ $i -lt ${TKSUITE_SERVER_TIMEOUT} ]; do
+                sleep 1 && i=$(expr $i + 1)
+        done
+
+        test $i -lt ${TKSUITE_SERVER_TIMEOUT}
+	eend $?
+}

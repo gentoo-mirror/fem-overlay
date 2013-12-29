@@ -1,0 +1,20 @@
+# ChangeLog for net-analyzer/nrpe
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  11 Mar 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  nrpe-2.14-r1.ebuild:
+  stabilize (stable in portage)
+
+*nrpe-2.14-r1 (04 Feb 2013)
+
+  04 Feb 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  nrpe-2.13-r5.ebuild,
+  -files/nagios-nrpe-2.13-increase-max-packetbuffer-length.patch,
+  +nrpe-2.14-r1.ebuild, +files/nrpe-2.14-multiline.patch,
+  +files/nrpe-2.14-tcpd-et-al-r2.patch, +files/nrpe.init-r2,
+  -files/nrpe.xinetd, -files/nrpe-nagios3-r1, files/nrpe.init, metadata.xml:
+  version bump, init-script for multi-service, enhance
+  increase_max_packetbuffer
+  patch
+
