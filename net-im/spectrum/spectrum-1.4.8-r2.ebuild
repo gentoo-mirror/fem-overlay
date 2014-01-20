@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI="4"
 
 inherit cmake-utils
 
@@ -37,6 +37,11 @@ pkg_setup() {
 		ewarn "You need to enable the mysql or sqlite use flag!"
 		die
 	fi
+}
+
+src_prepare () {
+	epatch "${FILESDIR}/${PF}-includes.patch"
+	epatch "${FILESDIR}/${PF}-template-iterator.patch"
 }
 
 src_install () {
