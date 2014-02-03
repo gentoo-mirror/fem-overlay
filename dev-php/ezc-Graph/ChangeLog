@@ -1,0 +1,10 @@
+# ChangeLog for dev-php/ezc-Graph
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ezc-Graph-1.5 (03 Feb 2014)
+
+  03 Feb 2014; Peter Große <gentoo@friiks.de> +ezc-Graph-1.5.ebuild,
+  +metadata.xml:
+  recovered from portage tree since phpUnderControl depends on it
+

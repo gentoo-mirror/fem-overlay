@@ -1,6 +1,12 @@
 # ChangeLog for dev-php/phpmd
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*phpmd-1.4.1 (03 Feb 2014)
+
+  03 Feb 2014; Peter Große <gentoo@friiks.de> -phpmd-1.4.0.ebuild,
+  +phpmd-1.4.1.ebuild:
+  version bump
 
 *phpmd-1.4.0 (15 Oct 2012)
 
