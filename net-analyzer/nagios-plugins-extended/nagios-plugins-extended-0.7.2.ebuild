@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=1
+EAPI=5
 
-inherit eutils
+inherit eutils user
 
 DESCRIPTION="Nagios $PV plugins - Pack of plugins to make Nagios work properly"
 HOMEPAGE="http://www.nagios.org/"
@@ -29,6 +29,8 @@ DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version ) \
 RESTRICT="test"
 
 RDEPEND="${DEPEND}"
+
+S=${WORKDIR}
 
 PLUGIN_LIST="check_mdstat \
 			 check_mount \
@@ -89,7 +91,9 @@ src_unpack() {
 	for PLUGIN in ${PLUGIN_LIST}; do
 		cp "${FILESDIR}"/${PLUGIN} "${WORKDIR}"
 	done
+}
 
+src_prepare() {
 	use portage && use portageagewarn && epatch "${FILESDIR}"/check_gentoo_portage-0.8.2-age-warning.patch
 }
 

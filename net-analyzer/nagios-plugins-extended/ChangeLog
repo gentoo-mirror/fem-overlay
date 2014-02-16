@@ -1,6 +1,14 @@
 # ChangeLog for net-analyzer/nagios-plugins-extended
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Feb 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -nagios-plugins-extended-0.4.ebuild, -nagios-plugins-extended-0.5.ebuild,
+  -nagios-plugins-extended-0.6-r2.ebuild,
+  -nagios-plugins-extended-0.6-r4.ebuild,
+  -nagios-plugins-extended-0.6-r5.ebuild, -nagios-plugins-extended-0.7.ebuild,
+  -nagios-plugins-extended-0.7.1.ebuild, nagios-plugins-extended-0.7.2.ebuild:
+  remove old packages, fix current package (eapi, inherit user)
 
 *nagios-plugins-extended-0.7.2 (02 Nov 2013)
 
