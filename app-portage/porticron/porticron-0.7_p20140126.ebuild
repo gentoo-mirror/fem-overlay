@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="amd64 ~arm ~hppa ~ppc ~ppc64 x86"
 IUSE=""
 
-RDEPEND="net-dns/bind-tools"
+RDEPEND=""
 DEPEND=""
 
 src_prepare() {
