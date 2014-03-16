@@ -8,7 +8,7 @@ inherit eutils vcs-snapshot
 
 DESCRIPTION="cron script to sync portage and send update mails to root"
 HOMEPAGE="http://github.com/hollow/porticron"
-SRC_URI="https://github.com/hollow/${PN}/tarball/971dac3 -> ${P}.tar.gz"
+SRC_URI="https://github.com/hollow/${PN}/tarball/df727fe -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -19,6 +19,7 @@ RDEPEND=""
 DEPEND=""
 
 src_prepare() {
+    epatch "${FILESDIR}"/${P}-portage-2.2.8.patch
 	epatch "${FILESDIR}"/remove-dig-0.7.patch
 }
 

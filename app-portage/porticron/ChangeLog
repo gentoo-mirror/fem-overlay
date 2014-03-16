@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Mar 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  porticron-0.7_p20140126.ebuild,
+  +files/porticron-0.7_p20140126-portage-2.2.8.patch:
+  add patch from portage
+
 *porticron-0.7_p20140126 (16 Mar 2014)
 
   16 Mar 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
