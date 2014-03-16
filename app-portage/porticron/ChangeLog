@@ -1,6 +1,12 @@
 # ChangeLog for app-portage/porticron
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*porticron-0.7_p20140126 (16 Mar 2014)
+
+  16 Mar 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +porticron-0.7_p20140126.ebuild:
+  updated version with compatibility to portage 2.2.8
 
   13 Nov 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   +porticron-0.7.ebuild, +files/remove-dig-0.7.patch:
