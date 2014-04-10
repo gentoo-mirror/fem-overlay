@@ -4,7 +4,8 @@
 
 *duply-1.7.3 (10 Apr 2014)
 
-  10 Apr 2014;  <mpennewiss@gentoo.org> +duply-1.7.3.ebuild:
+  10 Apr 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +duply-1.7.3.ebuild:
   Version bump
 
   19 Apr 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
