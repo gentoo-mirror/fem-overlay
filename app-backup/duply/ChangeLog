@@ -1,6 +1,11 @@
 # ChangeLog for app-backup/duply
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*duply-1.7.3 (10 Apr 2014)
+
+  10 Apr 2014;  <mpennewiss@gentoo.org> +duply-1.7.3.ebuild:
+  Version bump
 
   19 Apr 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   -duply-1.5.7.ebuild, duply-1.5.9.ebuild, +duply-1.5.10.ebuild:
@@ -34,4 +39,3 @@
   -duply-1.5.5.1.ebuild, -duply-1.5.5.1-r1.ebuild, -duply-1.5.5.3.ebuild,
   duply-1.5.5.4.ebuild, +duply-1.5.5.5.ebuild, +metadata.xml:
   version bump, cleanup, add metadata
-
