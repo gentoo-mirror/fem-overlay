@@ -3,8 +3,9 @@
 # $Header: $
 
 EAPI="5"
+inherit readme.gentoo
 
-DESCRIPTION="duply (grown out of ftplicity) is a shell frontend for duplicity."
+DESCRIPTION="A shell frontend for duplicity"
 HOMEPAGE="http://duply.net"
 SRC_URI="mirror://sourceforge/ftplicity/${PN}_${PV}.tgz"
 
@@ -13,18 +14,22 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="app-backup/duplicity"
-RDEPEND="${DEPEND}"
+DEPEND=""
+RDEPEND="app-backup/duplicity"
 
 S=${WORKDIR}/${PN}_${PV}
 
+DOC_CONTENTS="
+If you use ${PN} at the first time please have a
+look at the the usage help text \"${PN} --help\"
+for further information."
+
 src_install() {
-	dobin duply
-	dodoc INSTALL.txt
+	dobin ${PN}
+	newdoc "${FILESDIR}/readme-${PV}.txt" readme.txt
+	readme.gentoo_create_doc
 }
 
 pkg_postinst() {
-	elog "If you use duply at the first time please have a"
-	elog "look at the the usage help text \"duply --help\""
-	elog "for further information."
+	readme.gentoo_print_elog
 }
