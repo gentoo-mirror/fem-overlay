@@ -16,8 +16,8 @@
 		<flag name='libatomic'>Use libatomic instead of builtin atomic operations</flag>
 		<flag name='pcre-jit'>Enable JIT for pcre</flag>
 		<flag name='ssl'>Enable HTTPS module for http. Enable SSL/TLS support for POP3/IMAP/SMTP for mail.</flag>
-		<flag name='nginx_modules_rtmp'>Enable RTMP support</flag>
-		<flag name='nginx_modules_rtmp_hls'>Enable HLS (HTTP Live Streaming) support</flag>
+		<flag name='rtmp'>Enable RTMP relay support</flag>
+		<flag name='nginx_modules_http_auth_ldap'>Enable LDAP support</flag>
 	</use>
 	<upstream>
 		<changelog>http://nginx.org/en/CHANGES</changelog>
