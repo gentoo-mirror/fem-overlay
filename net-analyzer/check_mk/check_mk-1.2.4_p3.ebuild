@@ -41,11 +41,6 @@ src_compile() {
 	# compile waitmax
 	cd "${S}/usr/share/check_mk/agents"
 	doit $(tc-getCC) ${CFLAGS} waitmax.c -o waitmax
-
-	# add fixes for CVE-2014-0243
-	cd "${S}/usr/share/check_mk"
-	epatch "${FILESDIR}/CVE-2014-0243-check_mk_agent.patch"
-	epatch "${FILESDIR}/CVE-2014-0243-mk-job.patch"
 }
 
 src_install() {
