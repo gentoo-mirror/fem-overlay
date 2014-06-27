@@ -1,46 +1,24 @@
 # ChangeLog for app-backup/duply
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-backup/duply/ChangeLog,v 1.2 2014/06/05 12:54:24 jlec Exp $
 
-  13 Apr 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  -duply-1.7.3.ebuild, -files/readme-1.7.3.txt, -files:
-  Removed, in official portage tree now
+*duply-1.7.4 (27 Jun 2014)
 
-*duply-1.7.3 (10 Apr 2014)
-
-  10 Apr 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  +duply-1.7.3.ebuild:
-  Version bump
-
-  19 Apr 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  -duply-1.5.7.ebuild, duply-1.5.9.ebuild, +duply-1.5.10.ebuild:
-  stabilize 1.5.9
-
-*duply-1.5.10 (19 Apr 2013)
-
-  19 Apr 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  +duply-1.5.10.ebuild:
+  27 Jun 2014; Marcel Pennewiß <gentoo@pennewiss.de> -duply-1.5.9.ebuild,
+  -duply-1.5.10.ebuild, -duply-1.5.11.ebuild, +duply-1.7.4.ebuild,
+  metadata.xml:
   version bump
 
-*duply-1.5.9 (01 Mar 2013)
+*duply-1.7.3-r1 (05 Jun 2014)
 
-  01 Mar 2013; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  +duply-1.5.9.ebuild:
-  version bump
+  05 Jun 2014; Justin Lecher <jlec@gentoo.org> +duply-1.7.3-r1.ebuild,
+  metadata.xml:
+  Install manpage; add me as maintainer
 
-  20 Aug 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  duply-1.5.7.ebuild:
-  add removed duplicity dependency
+*duply-1.7.3 (13 Apr 2014)
 
-*duply-1.5.7 (06 Jul 2012)
+  13 Apr 2014; Markos Chandras <hwoarang@gentoo.org> +duply-1.7.3.ebuild,
+  +metadata.xml:
+  Initial commit. Bug #383883. Thanks to Marcel Pennewiß <gentoo@pennewiss.de>
+  who will proxy-maintain it
 
-  06 Jul 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  -duply-1.5.5.4.ebuild, duply-1.5.5.5.ebuild, +duply-1.5.7.ebuild:
-  stabilize old version, version bump, remove ftp/ftps-useflags
-
-*duply-1.5.5.5 (14 Apr 2012)
-
-  14 Apr 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
-  -duply-1.5.5.1.ebuild, -duply-1.5.5.1-r1.ebuild, -duply-1.5.5.3.ebuild,
-  duply-1.5.5.4.ebuild, +duply-1.5.5.5.ebuild, +metadata.xml:
-  version bump, cleanup, add metadata
