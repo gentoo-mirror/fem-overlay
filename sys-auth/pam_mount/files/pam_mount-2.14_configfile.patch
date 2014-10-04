@@ -33,7 +33,7 @@
 -		else
 +		else if (strncasecmp("configfile=", argv[i], 11) == 0) {
 +			Args.configfile =  malloc(sizeof(char)*(strlen(argv[i])-11+1));
-+			strncpy(Args.configfile, argv[i]+11, strlen(argv[i])-11);
++			strncpy(Args.configfile, argv[i]+11, strlen(argv[i])-11+1);
 +		} else
  			w4rn("unknown pam_mount option \"%s\"\n", argv[i]);
  	}
