@@ -16,6 +16,8 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
+DEPEND="dev-libs/libuecc"
+
 src_prepare() {
 	cmake-utils_src_prepare
 }

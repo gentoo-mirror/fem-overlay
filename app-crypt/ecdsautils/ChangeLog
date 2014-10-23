@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Oct 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  ecdsautils-0.3.2.ebuild:
+  update dependencies
+
 *ecdsautils-0.3.2 (23 Oct 2014)
 
   23 Oct 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
