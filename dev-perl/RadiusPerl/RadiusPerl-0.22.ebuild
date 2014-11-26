@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="0"
+EAPI="5"
 inherit perl-module
 
 DESCRIPTION="Communicate with a Radius server from Perl"
