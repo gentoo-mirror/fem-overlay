@@ -1,0 +1,15 @@
+# ChangeLog for net-misc/openvpn
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*openvpn-2.3.6 (01 Dec 2014)
+
+  01 Dec 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -openvpn-2.2.2.ebuild, -openvpn-2.3.0.ebuild, +openvpn-2.3.6.ebuild,
+  -files/openvpn-2.1_rc20-pkcs11.patch,
+  -files/openvpn-2.2.2-ipv6-payload.patch, -files/openvpn-2.2.2-pkcs11.patch,
+  -files/openvpn-2.3.0-ifconfig-ipv6-pool.patch,
+  -files/openvpn-9999-pkcs11.patch, +files/openvpn.service,
+  +files/openvpn.tmpfile, files/up.sh, +metadata.xml:
+  version bump (CVE-2014-8104), cleanup
+
