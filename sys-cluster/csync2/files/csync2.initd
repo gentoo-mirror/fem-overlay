@@ -1,0 +1,17 @@
+#!/sbin/runscript
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/csync2/files/csync2.initd,v 1.1 2010/06/19 20:12:41 xarthisius Exp $
+
+name="csync2"
+command="/usr/sbin/csync2"
+procname="${command}"
+pidfile="/run/csync2.pid"
+command_args="${CSYNC2_OPTS}"
+command_background="yes"
+
+depend() {
+        need net
+        after ntp-client
+        use dns
+}
