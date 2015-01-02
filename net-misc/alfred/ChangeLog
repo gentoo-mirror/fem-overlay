@@ -1,0 +1,12 @@
+# ChangeLog for net-misc/alfred
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*alfred-9999 (02 Jan 2015)
+*alfred-2014.3.0 (02 Jan 2015)
+
+  02 Jan 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +alfred-2014.3.0.ebuild, +alfred-9999.ebuild, +files/alfred.conf,
+  +files/alfred.init, +metadata.xml:
+  Initial ebuild
+

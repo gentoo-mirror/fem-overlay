@@ -1,0 +1,35 @@
+#!/sbin/runscript
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+command="/usr/sbin/alfred"
+command_args="-b ${BATMAN_IFACE} --interface ${IFACE}"
+pidfile="/var/run/alfred.pid"
+
+depend() {
+	use net
+}
+
+start_pre() {
+	if yesno ${MASTER:-yes}; then
+		command_args="${command_args} --master"
+	fi
+
+	#[ -n "${IFACE}" ] && command_args="${command_args} --interface ${IFACE}"
+	#return 0
+}
+
+start() {
+        ebegin "Starting A.L.F.R.E.D"
+        start-stop-daemon --start --background --exec ${command} \
+                --make-pidfile --pidfile "${pidfile}" \
+                -- ${command_args}
+        eend $?
+}
+
+stop() {
+        ebegin "Stopping A.L.F.R.E.D"
+        start-stop-daemon --stop --exec ${command} --pidfile "${pidfile}"
+        eend $?
+}
