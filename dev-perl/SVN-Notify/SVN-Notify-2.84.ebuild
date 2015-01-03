@@ -1,8 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 inherit perl-module
 
@@ -19,11 +19,9 @@ IUSE=""
 
 DEPEND=">=dev-vcs/subversion-1.1.3
 	dev-perl/HTML-Parser
-	perl-core/Getopt-Long
+	virtual/perl-Getopt-Long
 	virtual/perl-libnet
-	virtual/perl-Module-Build
-	virtual/perl-PodParser"
-#	dev-perl/Net-SMTP_auth
+	virtual/perl-Module-Build"
 
 RDEPEND="${DEPEND}"
 
@@ -35,4 +33,3 @@ pkg_setup() {
 		die "Need Subversion compiled with Perl bindings."
 	fi
 }
-
