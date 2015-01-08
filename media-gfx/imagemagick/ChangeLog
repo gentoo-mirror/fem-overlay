@@ -1,6 +1,14 @@
 # ChangeLog for media-gfx/imagemagick
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*imagemagick-6.9.0.3 (08 Jan 2015)
+
+  08 Jan 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -imagemagick-6.7.6.4-r1.ebuild, -imagemagick-6.7.8.7-r1.ebuild,
+  -imagemagick-6.8.6.8-r1.ebuild, -imagemagick-6.8.8.5.ebuild,
+  -imagemagick-6.8.8.10.ebuild, +imagemagick-6.9.0.3.ebuild, metadata.xml:
+  version bump
 
 *imagemagick-6.8.8.10 (04 Sep 2013)
 

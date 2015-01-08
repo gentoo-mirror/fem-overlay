@@ -1,8 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-gfx/imagemagick/imagemagick-6.8.8.10.ebuild,v 1.8 2014/04/13 11:05:50 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-gfx/imagemagick/imagemagick-6.9.0.3.ebuild,v 1.4 2015/01/06 21:14:32 jer Exp $
 
 EAPI=5
+
 inherit eutils flag-o-matic libtool multilib toolchain-funcs versionator
 
 MY_P=ImageMagick-$(replace_version_separator 3 '-')
@@ -13,12 +14,14 @@ SRC_URI="mirror://${PN}/${MY_P}.tar.xz"
 
 LICENSE="imagemagick"
 SLOT="0/${PV}"
-KEYWORDS="~alpha amd64 arm hppa ~ia64 ~mips ppc ~ppc64 ~s390 ~sh ~sparc x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="autotrace bzip2 corefonts cxx djvu fftw fontconfig fpx graphviz hdri jbig jpeg jpeg2k lcms lqr lzma opencl openexr openmp pango perl php-safemode-bin png postscript q32 q64 q8 raw static-libs svg test tiff truetype webp wmf X xml zlib"
+KEYWORDS="~alpha amd64 ~arm hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc x86 ~ppc-aix ~amd64-fbsd ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+IUSE="autotrace bzip2 corefonts cxx djvu fftw fontconfig fpx graphviz hdri jbig jpeg jpeg2k lcms lqr lzma opencl openexr openmp pango perl png postscript q32 q64 q8 raw static-libs svg test tiff truetype webp wmf X xml zlib php-safemode-bin"
 
 RESTRICT="perl? ( userpriv )"
 
-RDEPEND=">=sys-devel/libtool-2.2.6b
+# Drop the libtool dep once libltdl goes stable.
+RDEPEND="
+	|| ( dev-libs/libltdl:0 <sys-devel/libtool-2.4.3-r2:2 )
 	autotrace? ( >=media-gfx/autotrace-0.31.1 )
 	bzip2? ( app-arch/bzip2 )
 	corefonts? ( media-fonts/corefonts )
@@ -27,21 +30,20 @@ RDEPEND=">=sys-devel/libtool-2.2.6b
 	fontconfig? ( media-libs/fontconfig )
 	fpx? ( >=media-libs/libfpx-1.3.0-r1 )
 	graphviz? ( media-gfx/graphviz )
-	jbig? ( media-libs/jbigkit )
+	jbig? ( >=media-libs/jbigkit-2:= )
 	jpeg? ( virtual/jpeg:0 )
-	jpeg2k? ( media-libs/openjpeg:2 )
-	lcms? ( media-libs/lcms:2 )
+	jpeg2k? ( >=media-libs/openjpeg-2.1.0:2 )
+	lcms? ( media-libs/lcms:2= )
 	lqr? ( media-libs/liblqr )
 	opencl? ( virtual/opencl )
 	openexr? ( media-libs/openexr:0= )
 	pango? ( x11-libs/pango )
 	perl? ( >=dev-lang/perl-5.8.8:0= )
-	php-safemode-bin? ( dev-lang/php )
 	png? ( media-libs/libpng:0= )
 	postscript? ( app-text/ghostscript-gpl )
 	raw? ( media-gfx/ufraw )
 	svg? ( gnome-base/librsvg )
-	tiff? ( media-libs/tiff:0 )
+	tiff? ( media-libs/tiff:0= )
 	truetype? (
 		media-fonts/urw-fonts
 		>=media-libs/freetype-2
@@ -54,9 +56,11 @@ RDEPEND=">=sys-devel/libtool-2.2.6b
 		x11-libs/libXext
 		x11-libs/libXt
 		)
-	xml? ( dev-libs/libxml2 )
+	xml? ( dev-libs/libxml2:= )
 	lzma? ( app-arch/xz-utils )
-	zlib? ( sys-libs/zlib )"
+	zlib? ( sys-libs/zlib:= )
+	php-safemode-bin? ( dev-lang/php )"
+
 DEPEND="${RDEPEND}
 	!media-gfx/graphicsmagick[imagemagick]
 	virtual/pkgconfig
@@ -68,19 +72,22 @@ REQUIRED_USE="corefonts? ( truetype )
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-6.8.8.8-openjpeg-2.0.0-has-no-opj_stream_destroy_v3.patch
-
 	epatch_user
 
 	elibtoolize # for Darwin modules
 
 	# For testsuite, see http://bugs.gentoo.org/show_bug.cgi?id=500580#c3
 	shopt -s nullglob
-	cards=$(echo -n /dev/dri/card* | sed 's/ /:/g')
-	if test -n "${cards}"; then
-		addpredict "${cards}"
+	mesa_cards=$(echo -n /dev/dri/card* | sed 's/ /:/g')
+	if test -n "${mesa_cards}"; then
+		addpredict "${mesa_cards}"
+	fi
+	ati_cards=$(echo -n /dev/ati/card* | sed 's/ /:/g')
+	if test -n "${ati_cards}"; then
+		addpredict "${ati_cards}"
 	fi
 	shopt -u nullglob
+	addpredict /dev/nvidiactl
 }
 
 src_configure() {
@@ -94,6 +101,7 @@ src_configure() {
 
 	[[ ${CHOST} == *-solaris* ]] && append-ldflags -lnsl -lsocket
 
+	CONFIG_SHELL=$(type -P bash) \
 	econf \
 		$(use_enable static-libs static) \
 		$(use_enable hdri) \
@@ -125,7 +133,6 @@ src_configure() {
 		$(use_with lcms lcms2) \
 		$(use_with lqr) \
 		$(use_with lzma) \
-		--without-mupdf \
 		$(use_with openexr) \
 		$(use_with pango) \
 		$(use_with png) \
@@ -135,7 +142,8 @@ src_configure() {
 		$(use_with corefonts windows-font-dir "${EPREFIX}"/usr/share/fonts/corefonts) \
 		$(use_with wmf) \
 		$(use_with xml) \
-		--${openmp}-openmp
+		--${openmp}-openmp \
+		--with-gcc-arch=no-automagic
 }
 
 src_test() {
@@ -160,6 +168,18 @@ src_install() {
 
 	find "${ED}" -name '*.la' -exec sed -i -e "/^dependency_libs/s:=.*:='':" {} +
 
+	if use opencl; then
+		cat <<-EOF > "${T}"/99${PN}
+		SANDBOX_PREDICT="/dev/nvidiactl:/dev/ati/card:/dev/dri/card"
+		EOF
+
+		insinto /etc/sandbox.d
+		doins "${T}"/99${PN} #472766
+	fi
+
+	insinto /usr/share/${PN}
+	doins config/*icm
+
 	# install hardlinks for php safemode
 	if use php-safemode-bin; then
 		LOCAL_PHP_BIN_DIR="/usr/local/php/bin"
@@ -170,12 +190,4 @@ src_install() {
 		chown -R apache:apache "${D}${LOCAL_PHP_BIN_DIR}"
 	fi
 
-	if use opencl; then
-		cat <<-EOF > "${T}"/99${PN}
-		SANDBOX_PREDICT="/dev/dri/card"
-		EOF
-
-		insinto /etc/sandbox.d
-		doins "${T}"/99${PN} #472766
-	fi
 }
