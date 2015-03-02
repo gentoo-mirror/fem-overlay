@@ -1,6 +1,20 @@
 # ChangeLog for media-video/decklink-drivers
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*decklink-drivers-10.3.7 (02 Mar 2015)
+
+  02 Mar 2015; Peter Große <gentoo@friiks.de> -decklink-drivers-9.0.ebuild,
+  -decklink-drivers-9.2.ebuild, -decklink-drivers-9.5.3.ebuild,
+  -decklink-drivers-9.5.3-r1.ebuild, -decklink-drivers-9.6.4.ebuild,
+  -decklink-drivers-9.6.6.ebuild, -decklink-drivers-9.6.7.ebuild,
+  -decklink-drivers-9.6.9.ebuild, -decklink-drivers-9.7.3.ebuild,
+  -decklink-drivers-9.8.ebuild, -decklink-drivers-10.1.1.ebuild,
+  +decklink-drivers-10.3.7.ebuild,
+  -files/decklink-drivers-9.0-dmabits-fix.patch,
+  -files/decklink-drivers-9.5.3-kernel-3.3.0-fix.patch,
+  +files/DesktopVideoHelper.initd:
+  media-video/decklink-drivers: version bump (10.3.7) + cleanup
 
 *decklink-drivers-10.1.1 (26 Oct 2014)
 
