@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-video/ffmpeg/ffmpeg-9999.ebuild,v 1.176 2014/11/04 09:48:43 aballier Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-video/ffmpeg/ffmpeg-2.5.4.ebuild,v 1.1 2015/02/14 20:58:53 aballier Exp $
 
 EAPI="5"
 
@@ -41,7 +41,7 @@ if [ "${PV#9999}" = "${PV}" ] ; then
 fi
 IUSE="
 	aac aacplus alsa amr amrenc bindist bluray bs2b +bzip2 cdio celt
-	cpudetection decklink debug doc +encode examples faac fdk flite fontconfig frei0r
+	cpudetection debug decklink doc +encode examples faac fdk flite fontconfig frei0r
 	fribidi gme	gnutls gsm +hardcoded-tables +iconv iec61883 ieee1394 jack
 	jpeg2k ladspa libass libcaca libsoxr libv4l lzma modplug mp3 +network
 	openal opengl openssl opus oss pic pulseaudio quvi rtmp samba schroedinger
@@ -240,6 +240,7 @@ multilib_src_configure() {
 		use ${i} || myconf+=( --disable-indev=${i} )
 	done
 	ffuse+=( libv4l:libv4l2 pulseaudio:libpulse X:x11grab decklink )
+
 	if use decklink
 	then
 		CFLAGS="${CFLAGS} -I/usr/include/blackmagic"

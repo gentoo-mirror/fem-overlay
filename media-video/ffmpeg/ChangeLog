@@ -1,6 +1,12 @@
 # ChangeLog for media-video/ffmpeg
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*ffmpeg-2.5.4-r1 (02 Mar 2015)
+
+  02 Mar 2015; Peter Große <gentoo@friiks.de> +ffmpeg-2.5.4-r1.ebuild,
+  ffmpeg-9999.ebuild:
+  media-video/ffmpeg: add current ffmpeg version with decklink support
 
 *ffmpeg-1.0 (27 Nov 2012)
 
