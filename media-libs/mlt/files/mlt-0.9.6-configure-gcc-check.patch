@@ -1,0 +1,26 @@
+--- mlt-0.9.6/configure~	2014-06-29 22:23:17.000000000 +0200
++++ mlt-0.9.6/configure		2015-01-23 03:21:31.443656811 +0100
+@@ -80,13 +80,16 @@
+ 		[ "$cpu" != "" ] && echo "TARGETCPU=-mcpu=$cpu"
+ 		if [ "$optimisations" = "true" ]
+ 		then
+-			echo "OPTIMISATIONS=-O2 -pipe"
+-			if $("$CC" --version | grep gcc > /dev/null); then
+-				# Since gcc 4.6, this optimization enabled with -O1 causes filter_line_sse2 to crash.
+-				echo "OPTIMISATIONS+=-fno-tree-dominator-opts"
+-				# Since gcc 4.6, this optimization enabled with -O2 causes filter_line_sse2 to crash.
+-				echo "OPTIMISATIONS+=-fno-tree-pre"
+-			fi
++		  echo "OPTIMISATIONS="
++		  if "$CC" --version | grep -q gcc; then
++		    # -ftree-dominator-opts is auto-enabled if used with gcc -O1 or above
++		    # since gcc 4.6, filter_line_sse2 crashes if it is enabled
++		    [[ -z "${CFLAGS/*-O[123]*/}" ]] && echo "OPTIMISATIONS+=-fno-tree-dominator-opts"
++
++		    # -ftree-pre is auto-enabled if used with gcc -O2 or above
++		    # since gcc 4.6, filter_line_sse2 crashes if it is enabled
++		    [[ -z "${CFLAGS/*-O[23]*/}" ]] && echo "OPTIMISATIONS+=-fno-tree-pre"
++		  fi
+ 		fi
+ 
+ 		echo "CFLAGS+=-Wall -DPIC \$(TARGETARCH) \$(TARGETCPU) \$(OPTIMISATIONS) \$(MMX_FLAGS) \$(SSE_FLAGS) \$(SSE2_FLAGS) \$(DEBUG_FLAGS) \$(LARGE_FILE)"
