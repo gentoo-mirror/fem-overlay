@@ -1,39 +1,45 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/libvirt/libvirt-1.2.6.ebuild,v 1.3 2014/08/06 03:22:22 patrick Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/libvirt/libvirt-1.2.12.ebuild,v 1.1 2015/01/27 10:42:52 tamiko Exp $
 
 EAPI=5
 
-#BACKPORTS=062ad8b2
 AUTOTOOLIZE=yes
 
 MY_P="${P/_rc/-rc}"
 
 inherit eutils user autotools linux-info systemd readme.gentoo
 
+BACKPORTS=""
+
 if [[ ${PV} = *9999* ]]; then
-	inherit git-2
+	inherit git-r3
 	EGIT_REPO_URI="git://libvirt.org/libvirt.git"
-	AUTOTOOLIZE=yes
 	SRC_URI=""
 	KEYWORDS=""
+	SLOT="0"
 else
-	SRC_URI="http://libvirt.org/sources/${MY_P}.tar.gz
-		ftp://libvirt.org/libvirt/${MY_P}.tar.gz
-		${BACKPORTS:+
-			http://dev.gentoo.org/~cardoe/distfiles/${MY_P}-${BACKPORTS}.tar.xz}"
+	# Versions with 4 numbers are stable updates:
+	if [[ ${PV} =~ ^[0-9]+(\.[0-9]+){3} ]]; then
+		SRC_URI="http://libvirt.org/sources/stable_updates/${MY_P}.tar.gz"
+	else
+		SRC_URI="http://libvirt.org/sources/${MY_P}.tar.gz"
+	fi
+	SRC_URI+=" ${BACKPORTS:+
+		http://dev.gentoo.org/~cardoe/distfiles/${P}-${BACKPORTS}.tar.xz
+		http://dev.gentoo.org/~tamiko/distfiles/${P}-${BACKPORTS}.tar.xz}"
 	KEYWORDS="~amd64 ~x86"
+	SLOT="0/${PV}"
 fi
 S="${WORKDIR}/${P%_rc*}"
 
 DESCRIPTION="C toolkit to manipulate virtual machines"
 HOMEPAGE="http://www.libvirt.org/"
 LICENSE="LGPL-2.1"
-SLOT="0/${PV}"
-IUSE="audit avahi +caps firewalld fuse iscsi +libvirtd lvm lxc +macvtap nfs \
-	nls numa openvz parted pcap phyp policykit +qemu rbd sasl \
-	selinux +udev uml +vepa virtualbox virt-network xen elibc_glibc \
-	systemd"
+IUSE="audit avahi +caps firewalld fuse glusterfs iscsi +libvirtd lvm lxc \
+	+macvtap nfs nls numa openvz parted pcap phyp policykit +qemu rbd sasl \
+	selinux +udev uml +vepa virtualbox virt-network wireshark-plugins xen \
+	elibc_glibc systemd"
 REQUIRED_USE="libvirtd? ( || ( lxc openvz qemu uml virtualbox xen ) )
 	lxc? ( caps libvirtd )
 	openvz? ( libvirtd )
@@ -53,7 +59,7 @@ REQUIRED_USE="libvirtd? ( || ( lxc openvz qemu uml virtualbox xen ) )
 RDEPEND="sys-libs/readline
 	sys-libs/ncurses
 	>=net-misc/curl-7.18.0
-	dev-libs/libgcrypt
+	dev-libs/libgcrypt:0
 	>=dev-libs/libxml2-2.7.6
 	dev-libs/libnl:3
 	>=net-libs/gnutls-1.0.25
@@ -67,6 +73,7 @@ RDEPEND="sys-libs/readline
 	avahi? ( >=net-dns/avahi-0.6[dbus] )
 	caps? ( sys-libs/libcap-ng )
 	fuse? ( >=sys-fs/fuse-2.8.6 )
+	glusterfs? ( >=sys-cluster/glusterfs-3.4.1 )
 	iscsi? ( sys-block/open-iscsi )
 	lxc? ( !systemd? ( sys-power/pm-utils ) )
 	lvm? ( >=sys-fs/lvm2-2.02.48-r2 )
@@ -92,9 +99,10 @@ RDEPEND="sys-libs/readline
 	selinux? ( >=sys-libs/libselinux-2.0.85 )
 	systemd? ( sys-apps/systemd )
 	virtualbox? ( || ( app-emulation/virtualbox >=app-emulation/virtualbox-bin-2.2.0 ) )
+	wireshark-plugins? ( net-analyzer/wireshark:= )
 	xen? ( app-emulation/xen-tools app-emulation/xen )
 	udev? ( virtual/udev >=x11-libs/libpciaccess-0.10.9 )
-	virt-network? ( net-dns/dnsmasq
+	virt-network? ( net-dns/dnsmasq[script]
 		>=net-firewall/iptables-1.4.10
 		net-misc/radvd
 		net-firewall/ebtables
@@ -102,11 +110,12 @@ RDEPEND="sys-libs/readline
 		firewalld? ( net-firewall/firewalld )
 	)
 	elibc_glibc? ( || ( >=net-libs/libtirpc-0.2.2-r1 <sys-libs/glibc-2.14 ) )"
-# one? ( dev-libs/xmlrpc-c )
+
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	app-text/xhtml1
 	dev-lang/perl
+	dev-perl/XML-XPath
 	dev-libs/libxslt"
 
 DOC_CONTENTS="For the basic networking support (bridged and routed networks)
@@ -115,8 +124,8 @@ including but not limited to NATed network, you can enable the
 'virt-network' USE flag.\n\n
 If you are using dnsmasq on your system, you will have
 to configure /etc/dnsmasq.conf to enable the following settings:\n\n
- bind-interfaces\n
- interface or except-interface\n\n
+	bind-interfaces\n
+	interface or except-interface\n\n
 Otherwise you might have issues with your existing DNS server."
 
 LXC_CONFIG_CHECK="
@@ -205,12 +214,8 @@ pkg_setup() {
 
 src_prepare() {
 	touch "${S}/.mailmap"
-	[[ -n ${BACKPORTS} ]] && \
-		EPATCH_FORCE=yes EPATCH_SUFFIX="patch" EPATCH_SOURCE="${S}/patches" \
-			epatch
 
 	if [[ ${PV} = *9999* ]]; then
-
 		# git checkouts require bootstrapping to create the configure script.
 		# Additionally the submodules must be cloned to the right locations
 		# bug #377279
@@ -221,6 +226,12 @@ src_prepare() {
 		) >.git-module-status
 	fi
 
+	epatch "${FILESDIR}"/${PN}-1.2.9-do_not_use_sysconf.patch
+
+	[[ -n ${BACKPORTS} ]] && \
+		EPATCH_FORCE=yes EPATCH_SUFFIX="patch" \
+			EPATCH_SOURCE="${WORKDIR}/patches" epatch
+
 	epatch_user
 
 	[[ -n ${AUTOTOOLIZE} ]] && eautoreconf
@@ -230,7 +241,7 @@ src_prepare() {
 	local iscsi_init=
 	local rbd_init=
 	local firewalld_init=
-	cp "${FILESDIR}/libvirtd.init-r13" "${S}/libvirtd.init"
+	cp "${FILESDIR}/libvirtd.init-r14" "${S}/libvirtd.init"
 	use avahi && avahi_init='avahi-daemon'
 	use iscsi && iscsi_init='iscsid'
 	use rbd && rbd_init='ceph'
@@ -246,89 +257,92 @@ src_configure() {
 	local myconf=""
 
 	## enable/disable daemon, otherwise client only utils
-	myconf="${myconf} $(use_with libvirtd)"
+	myconf+=" $(use_with libvirtd)"
 
 	## enable/disable the daemon using avahi to find VMs
-	myconf="${myconf} $(use_with avahi)"
+	myconf+=" $(use_with avahi)"
 
 	## hypervisors on the local host
-	myconf="${myconf} $(use_with xen) $(use_with xen xen-inotify)"
+	myconf+=" $(use_with xen) $(use_with xen xen-inotify)"
 	myconf+=" --without-xenapi"
 	if use xen && has_version ">=app-emulation/xen-tools-4.2.0"; then
 		myconf+=" --with-libxl"
 	else
 		myconf+=" --without-libxl"
 	fi
-	myconf="${myconf} $(use_with openvz)"
-	myconf="${myconf} $(use_with lxc)"
+	myconf+=" $(use_with openvz)"
+	myconf+=" $(use_with lxc)"
 	if use virtualbox && has_version app-emulation/virtualbox-ose; then
-		myconf="${myconf} --with-vbox=/usr/lib/virtualbox-ose/"
+		myconf+=" --with-vbox=/usr/lib/virtualbox-ose/"
 	else
-		myconf="${myconf} $(use_with virtualbox vbox)"
+		myconf+=" $(use_with virtualbox vbox)"
 	fi
-	myconf="${myconf} $(use_with uml)"
-	myconf="${myconf} $(use_with qemu)"
-	myconf="${myconf} $(use_with qemu yajl)" # Use QMP over HMP
-	myconf="${myconf} $(use_with phyp)"
-	myconf="${myconf} --with-esx"
-	myconf="${myconf} --with-vmware"
+	myconf+=" $(use_with uml)"
+	myconf+=" $(use_with qemu)"
+	myconf+=" $(use_with qemu yajl)" # Use QMP over HMP
+	myconf+=" $(use_with phyp)"
+	myconf+=" --with-esx"
+	myconf+=" --with-vmware"
 
 	## additional host drivers
-	myconf="${myconf} $(use_with virt-network network)"
-	myconf="${myconf} --with-storage-fs"
-	myconf="${myconf} $(use_with lvm storage-lvm)"
-	myconf="${myconf} $(use_with iscsi storage-iscsi)"
-	myconf="${myconf} $(use_with parted storage-disk)"
-	myconf="${myconf} $(use_with lvm storage-mpath)"
-	myconf="${myconf} $(use_with rbd storage-rbd)"
-	myconf="${myconf} $(use_with numa numactl)"
-	myconf="${myconf} $(use_with numa numad)"
-	myconf="${myconf} $(use_with selinux)"
-	myconf="${myconf} $(use_with fuse)"
+	myconf+=" $(use_with virt-network network)"
+	myconf+=" --with-storage-fs"
+	myconf+=" $(use_with lvm storage-lvm)"
+	myconf+=" $(use_with iscsi storage-iscsi)"
+	myconf+=" $(use_with parted storage-disk)"
+	mycond+=" $(use_with glusterfs)"
+	mycond+=" $(use_with glusterfs storage-gluster)"
+	myconf+=" $(use_with lvm storage-mpath)"
+	myconf+=" $(use_with rbd storage-rbd)"
+	myconf+=" $(use_with numa numactl)"
+	myconf+=" $(use_with numa numad)"
+	myconf+=" $(use_with selinux)"
+	myconf+=" $(use_with fuse)"
 
 	# udev for device support details
-	myconf="${myconf} $(use_with udev)"
+	myconf+=" $(use_with udev)"
+	myconf+=" --without-hal"
 
 	# linux capability support so we don't need privileged accounts
-	myconf="${myconf} $(use_with caps capng)"
+	myconf+=" $(use_with caps capng)"
 
 	## auth stuff
-	myconf="${myconf} $(use_with policykit polkit)"
-	myconf="${myconf} $(use_with sasl)"
+	myconf+=" $(use_with policykit polkit)"
+	myconf+=" $(use_with sasl)"
 
 	# network bits
-	myconf="${myconf} $(use_with macvtap)"
-	myconf="${myconf} $(use_with pcap libpcap)"
-	myconf="${myconf} $(use_with vepa virtualport)"
-	myconf="${myconf} $(use_with firewalld)"
+	myconf+=" $(use_with macvtap)"
+	myconf+=" $(use_with pcap libpcap)"
+	myconf+=" $(use_with vepa virtualport)"
+	myconf+=" $(use_with firewalld)"
 
 	## other
-	myconf="${myconf} $(use_enable nls)"
+	myconf+=" $(use_enable nls)"
 
 	# user privilege bits fir qemu/kvm
 	if use caps; then
-		myconf="${myconf} --with-qemu-user=qemu"
-		myconf="${myconf} --with-qemu-group=qemu"
+		myconf+=" --with-qemu-user=qemu"
+		myconf+=" --with-qemu-group=qemu"
 	else
-		myconf="${myconf} --with-qemu-user=root"
-		myconf="${myconf} --with-qemu-group=root"
+		myconf+=" --with-qemu-user=root"
+		myconf+=" --with-qemu-group=root"
 	fi
 
 	# audit support
-	myconf="${myconf} $(use_with audit)"
+	myconf+=" $(use_with audit)"
+
+	# wireshark dissector
+	myconf+=" $(use_with wireshark-plugins wireshark-dissector)"
 
 	## stuff we don't yet support
-	myconf="${myconf} --without-netcf"
-	myconf="${myconf} --without-wireshark-dissector"
-
-	# we use udev over hal
-	myconf="${myconf} --without-hal"
+	myconf+=" --without-netcf"
 
 	# locking support
-	myconf="${myconf} --without-sanlock"
+	myconf+=" --without-sanlock"
 
 	# systemd unit files
-	use systemd && myconf="${myconf} --with-init-script=systemd"
+	myconf+=" $(use_with systemd systemd-daemon)"
+	use systemd && myconf+=" --with-init-script=systemd"
 
 	# this is a nasty trick to work around the problem in bug
 	# #275073. The reason why we don't solve this properly is that
@@ -347,8 +361,9 @@ src_configure() {
 	econf \
 		${myconf} \
 		--disable-static \
-		--docdir=/usr/share/doc/${PF} \
+		--disable-werror \
 		--with-remote \
+		--docdir=/usr/share/doc/${PF} \
 		--localstatedir=/var
 
 	if [[ ${PV} = *9999* ]]; then
@@ -375,16 +390,22 @@ src_install() {
 
 	find "${D}" -name '*.la' -delete || die
 
+	# Remove bogus, empty directories. They are either not used, or
+	# libvirtd is able to create them on demand
+	rm -rf "${D}"/etc/sysconf
+	rm -rf "${D}"/var/cache
+	rm -rf "${D}"/var/run
+	rm -rf "${D}"/var/log
+
 	use libvirtd || return 0
 	# From here, only libvirtd-related instructions, be warned!
+
+	use systemd && \
+		systemd_install_serviced "${FILESDIR}"/libvirtd.service.conf libvirtd
 
 	newinitd "${S}/libvirtd.init" libvirtd || die
 	newconfd "${FILESDIR}/libvirtd.confd-r4" libvirtd || die
 	newinitd "${FILESDIR}/virtlockd.init" virtlockd || die
-
-	keepdir /var/lib/libvirt/{boot,images,network}
-	use qemu && keepdir /var/{cache,lib,log}/libvirt/qemu
-	use lxc && keepdir /var/{cache,lib,log}/libvirt/lxc
 
 	readme.gentoo_create_doc
 }
@@ -411,20 +432,6 @@ pkg_postinst() {
 		touch "${ROOT}"/etc/libvirt/qemu/networks/default.xml
 	fi
 
-	# support for dropped privileges
-	if use qemu; then
-		fperms 0750 "${EROOT}/var/lib/libvirt/qemu"
-		fperms 0750 "${EROOT}/var/cache/libvirt/qemu"
-	fi
-
-	if use caps && use qemu; then
-		fowners -R qemu:qemu "${EROOT}/var/lib/libvirt/qemu"
-		fowners -R qemu:qemu "${EROOT}/var/cache/libvirt/qemu"
-	elif use qemu; then
-		fowners -R root:root "${EROOT}/var/lib/libvirt/qemu"
-		fowners -R root:root "${EROOT}/var/cache/libvirt/qemu"
-	fi
-
 	if ! use policykit; then
 		elog "To allow normal users to connect to libvirtd you must change the"
 		elog "unix sock group and/or perms in /etc/libvirt/libvirtd.conf"
@@ -438,5 +445,18 @@ pkg_postinst() {
 	if use caps && use qemu; then
 		elog "libvirt will now start qemu/kvm VMs with non-root privileges."
 		elog "Ensure any resources your VMs use are accessible by qemu:qemu"
+	fi
+
+	if [[ -n "${REPLACING_VERSIONS}" ]]; then
+		elog ""
+		elog "The systemd service-file configuration under /etc/sysconfig has"
+		elog "been removed. Please use"
+		elog "    /etc/systemd/system/libvirt.d/00gentoo.conf"
+		elog "to control the '--listen' parameter for libvirtd. The configuration"
+		elog "for the libvirt-guests.service is now found under"
+		elog "    /etc/libvirt/libvirt-guests.conf"
+		elog "The openrc configuration has not been changed. Thus no action is"
+		elog "required for the openrc service manager."
+		elog ""
 	fi
 }
