@@ -19,7 +19,7 @@ SRC_URI="https://github.com/${MY_PN}/${MY_PN}-core/releases/download/v${PV}/${MY
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~hppa ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+apache2 lighttpd"
 DEPEND="media-libs/gd[jpeg,png]
 	lighttpd? ( www-servers/lighttpd )
@@ -61,7 +61,6 @@ src_configure() {
 	--with-lockfile=/var/run/icinga/icinga.lock
 	--with-temp-dir=/tmp/icinga
 	--with-temp-file=/tmp/icinga/icinga.tmp"
-
 
 	if use !apache2 && use !lighttpd ; then
 		myconf+=" --with-command-group=icinga"
@@ -119,15 +118,14 @@ src_install() {
 		webserver=icinga
 	fi
 
-
 #	fperms 6755 /var/lib/icinga/rw || die "Failed Chmod of ${D}/var/lib/icinga/rw"
 #	fperms 0750 /etc/icinga || die "Failed chmod of ${D}/etc/icinga"
 
 }
 
 pkg_postinst() {
-	elog 
-        elog "IMPORTANT:	Make sure that icinga2-features "
+	elog
+	elog "IMPORTANT:	Make sure that icinga2-features "
 	elog "compat, command and  statusdata are enabled."
 	elog
 	elog "	icinga2 feature enable statusdata compatlog command"
@@ -137,9 +135,9 @@ pkg_postinst() {
 	elog "ClassiUI need write permissions in the log-directory, too"
 	elog
 	elog "	chmod 775 /var/log/icinga2/compat"
-        elog
-        elog
-        if use apache2 || use lighttpd ; then
+	elog
+	elog
+	if use apache2 || use lighttpd ; then
 		elog "IMPORTANT:	Do not forget to add the user your webserver"
 		elog "is running as to the icinga group!"
 		elog "There are several possible solutions to accomplish this,"
