@@ -1,0 +1,8 @@
+# ChangeLog for net-analyzer/icinga-classicui
+# $Header: $
+
+*icinga-classicui-1.12.2 (28 Mar 2015)
+
+  28 Mar 2015; Dustin Funk (nuts) <nuts@4nuts.de>
+  +icinga-classicui-1.12.2.ebuild, +filds/resouce.cfg.sample
+  files import from icinga-1.12.2
