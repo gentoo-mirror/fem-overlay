@@ -1,12 +1,12 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-0.25.ebuild,v 1.2 2013/03/17 19:33:14 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-0.25.ebuild,v 1.5 2014/08/10 20:34:30 slyfox Exp $
 
-EAPI=5
+EAPI=4
 
 inherit eutils multilib toolchain-funcs
 
-DESCRIPTION="Homer Conferencing (short: Homer) is a free SIP softphone with advanced audio and video support."
+DESCRIPTION="Homer Conferencing (short: Homer) is a free SIP softphone with advanced audio and video support"
 HOMEPAGE="http://www.homer-conferencing.com"
 
 MY_PN="Homer-Conferencing"
@@ -27,12 +27,12 @@ IUSE="pulseaudio"
 
 DEPEND=">=dev-libs/openssl-1.0
 	media-libs/alsa-lib
-	media-libs/libsdl[X,audio,video,alsa]
+	media-libs/libsdl[X,sound,video,alsa]
 	media-libs/portaudio[alsa]
 	media-libs/sdl-mixer
 	media-libs/sdl-sound
-	media-libs/x264:*
-	media-video/ffmpeg[X]
+	media-libs/x264
+	media-video/ffmpeg:0[X]
 	net-libs/sofia-sip
 	dev-qt/qtcore:4
 	dev-qt/qtdbus:4
@@ -46,8 +46,6 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-ffmpeg2.patch"
-
 	if use pulseaudio; then
 		sed -i \
 			-e "/^set(FEATURE_PULSEAUDIO/s:OFF:ON:" \

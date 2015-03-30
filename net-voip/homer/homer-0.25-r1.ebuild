@@ -1,12 +1,12 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-0.24.1.ebuild,v 1.6 2013/03/17 19:33:14 hwoarang Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-0.25-r1.ebuild,v 1.7 2014/12/22 18:31:52 hwoarang Exp $
 
 EAPI=5
 
 inherit eutils multilib toolchain-funcs
 
-DESCRIPTION="Homer Conferencing (short: Homer) is a free SIP softphone with advanced audio and video support."
+DESCRIPTION="Homer Conferencing (short: Homer) is a free SIP softphone with advanced audio and video support"
 HOMEPAGE="http://www.homer-conferencing.com"
 
 MY_PN="Homer-Conferencing"
@@ -17,34 +17,45 @@ if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="git://github.com/${MY_PN}/${MY_PN}.git"
 	KEYWORDS=""
 else
-	SRC_URI="https://github.com/${MY_PN}/${MY_PN}/archive/V${PV}.tar.gz -> ${PN}-${PV}.tar.gz"
+	SRC_URI="https://github.com/${MY_PN}/${MY_PN}/archive/V${PV}.tar.gz -> ${PN}-${PV}.tar.gz
+	http://dev.gentoo.org/~hwoarang/distfiles/${P}-ffmpeg2.patch"
 	KEYWORDS="amd64 x86"
 fi
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE=""
+IUSE="pulseaudio"
 
-DEPEND=">=dev-libs/openssl-1.0
+DEPEND="dev-util/cmake
+	>=dev-libs/openssl-1.0
 	media-libs/alsa-lib
-	media-libs/libsdl[X,audio,video,alsa]
+	media-libs/libsdl[X,sound,video,alsa]
 	media-libs/portaudio[alsa]
 	media-libs/sdl-mixer
 	media-libs/sdl-sound
 	media-libs/x264:*
+	media-video/ffmpeg:0[X]
 	net-libs/sofia-sip
-	virtual/ffmpeg[X]
-	|| ( <media-video/ffmpeg-2 media-video/libav )
 	dev-qt/qtcore:4
+	dev-qt/qtdbus:4
 	dev-qt/qtgui:4
 	dev-qt/qtmultimedia:4
-	dev-qt/qtwebkit:4"
+	dev-qt/qtwebkit:4
+	pulseaudio? ( media-sound/pulseaudio )"
+
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-libav-9.patch"
+	epatch "${DISTDIR}/${P}-ffmpeg2.patch"
+	epatch "${FILESDIR}/${P}-ffmpeg-avstream.patch"
+
+	if use pulseaudio; then
+		sed -i \
+			-e "/^set(FEATURE_PULSEAUDIO/s:OFF:ON:" \
+			HomerBuild/config/HomerFeatures.txt || die "sed failed"
+	fi
 }
 
 src_compile() {
