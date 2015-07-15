@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,6 +27,7 @@ src_prepare() {
 	( echo ""; echo "# set default shell"; echo "shell /usr/bin/xen-shell" ) >> "${S}"/misc/_screenrc
 
 	sed -i -e 's/\*-\*/xen-shell/' "${S}/Makefile"
+	sed -i -e 's;sudo xm;sudo xl;g' -e 's;"xm;"xl;' "${S}/bin/xen-shell"
 }
 
 src_compile() {
@@ -46,7 +47,7 @@ src_install() {
 
 pkg_postinst() {
 	einfo "Updating ${ROOT}etc/shells"
-	( grep -v -e "^/usr/bin/xen-\(login-\)\?shell$" "${ROOT}"etc/shells; echo "/usr/bin/xen-login-shell"; echo "/usr/bin/xen-shell" ) > "${T}"/shells 
+	( grep -v -e "^/usr/bin/xen-\(login-\)\?shell$" "${ROOT}"etc/shells; echo "/usr/bin/xen-login-shell"; echo "/usr/bin/xen-shell" ) > "${T}"/shells
 	mv -f "${T}"/shells "${ROOT}"etc/shells
 
 	elog ""
