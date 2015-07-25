@@ -12,7 +12,8 @@ inherit eutils python-r1 toolchain-funcs
 
 DESCRIPTION="General purpose Nagios/Icinga plugin for retrieving data"
 HOMEPAGE="http://mathias-kettner.de/check_mk.html"
-SRC_URI="http://mathias-kettner.de/download/${MY_P}.tar.gz"
+SRC_URI="http://mathias-kettner.de/download/${MY_P}.tar.gz
+	     http://git.mathias-kettner.de/git/?p=check_mk.git;a=blob_plain;f=agents/waitmax.c;h=de092168678b2edd1f7596b05fe7149ce5130e0a;hb=eeb0091fd778abc2626dd06934c791fd26225658 -> waitmax.c"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -39,8 +40,7 @@ src_compile() {
 	DESTDIR=${S} ./setup.sh --yes
 
 	# compile waitmax
-	cd "${S}/usr/share/check_mk/agents"
-	doit $(tc-getCC) ${CFLAGS} waitmax.c -o waitmax
+	doit $(tc-getCC) ${CFLAGS} "${DISTDIR}"/waitmax.c -o "${S}"/usr/share/check_mk/agents/waitmax
 }
 
 src_install() {
@@ -171,6 +171,7 @@ EOF
 	# Install agent related files
 	newbin usr/share/check_mk/agents/check_mk_agent.linux check_mk_agent
 	dobin usr/share/check_mk/agents/waitmax
+	dobin usr/share/check_mk/agents/mk-job
 
 	if use xinetd; then
 		insinto /etc/xinetd.d
@@ -179,6 +180,7 @@ EOF
 
 	keepdir /usr/lib/check_mk_agent/local
 	keepdir /usr/lib/check_mk_agent/plugins
+	keepdir /usr/lib/check_mk_agent/job
 
 	# Install Livestatus
 	if use livestatus; then

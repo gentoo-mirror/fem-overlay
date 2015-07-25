@@ -16,7 +16,7 @@ SRC_URI="http://mathias-kettner.de/download/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="agent-only logwatch smart mysql postgres oracle apache_status livestatus livecheck wato xinetd zypper nfsexports"
 
 REQUIRED_USE="
