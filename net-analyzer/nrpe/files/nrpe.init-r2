@@ -1,7 +1,7 @@
 #!/sbin/runscript
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/nrpe/files/nrpe.init,v 1.4 2014/04/19 17:18:03 robbat2 Exp $
 
 : ${CFGFILE:=/etc/nagios/${SVCNAME}.cfg}
 BINFILE=${SVCNAME%%.*}
@@ -10,7 +10,7 @@ get_config() {
     [ -f ${CFGFILE} ] || return 1
 
     sed -n -e 's:^[ \t]*'$1'=\([^#]\+\).*:\1:p' \
-        ${CFGFILE}
+	${CFGFILE}
 }
 
 extra_started_commands="reload"
@@ -25,6 +25,27 @@ depend() {
 
 reload() {
     ebegin "Reloading ${SVCNAME}"
-    kill -HUP `cat ${pidfile}`
+    kill -1 `cat ${pidfile}`
     eend $?
 }
+
+start()
+{
+    mkdir -p $(dirname $pidfile)
+    local _background=
+    ebegin "Starting ${name:-$RC_SVCNAME}"
+    eval start-stop-daemon --start \
+        --exec $command \
+        ${procname:+--name} $procname \
+        ${pidfile:+--pidfile} $pidfile \
+        $_background $start_stop_daemon_args \
+        -- $command_args
+    if eend $? "Failed to start $RC_SVCNAME"; then
+        service_set_value "command" "${command}"
+        [ -n "${pidfile}" ] && service_set_value "pidfile" "${pidfile}"
+        [ -n "${procname}" ] && service_set_value "procname" "${procname}"
+        return 0
+    fi  
+    return 1
+}
+

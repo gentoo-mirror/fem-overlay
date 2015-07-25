@@ -1,6 +1,16 @@
 # ChangeLog for net-analyzer/nrpe
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nrpe-2.15-r2 (25 Jul 2015)
+
+  25 Jul 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -nrpe-2.13-r5.ebuild, -nrpe-2.14-r1.ebuild, -nrpe-2.15-r1.ebuild,
+  +nrpe-2.15-r2.ebuild, -files/nagios-nrpe-2.13-command-args.patch,
+  -files/nagios-nrpe-2.13-multiline.patch, -files/nagios-nrpe-2.13-tcpd.patch,
+  -files/nrpe-2.14-tcpd-et-al-r2.patch, -files/nrpe.init, files/nrpe.init-r2,
+  +files/nrpe.service:
+  version bump with updated init-script, cleanup old versions
 
 *nrpe-2.15-r1 (28 Apr 2014)
 

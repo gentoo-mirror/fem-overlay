@@ -1,24 +1,25 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/net-analyzer/nrpe/nrpe-2.15-r2.ebuild,v 1.8 2015/06/21 19:33:47 zlogene Exp $
 
-EAPI=4
-
-inherit eutils toolchain-funcs multilib user autotools
+EAPI=5
+inherit eutils systemd toolchain-funcs multilib user autotools
 
 DESCRIPTION="Nagios Remote Plugin Executor"
 HOMEPAGE="http://www.nagios.org/"
 SRC_URI="mirror://sourceforge/nagios/${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~alpha amd64 hppa ppc ppc64 ~sparc x86"
+KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
 IUSE="command-args ssl tcpd minimal -increase_max_packetbuffer"
 
-DEPEND="ssl? ( dev-libs/openssl )
+DEPEND="ssl? ( dev-libs/openssl:* )
 	!minimal? ( tcpd? ( sys-apps/tcp-wrappers ) )"
 RDEPEND="${DEPEND}
-	!minimal? ( >=net-analyzer/nagios-plugins-1.3.0 )"
+	!minimal? (
+		|| ( net-analyzer/nagios-plugins net-analyzer/monitoring-plugins )
+	)"
 
 pkg_setup() {
 	enewgroup nagios
@@ -34,21 +35,28 @@ pkg_setup() {
 src_prepare() {
 	# Add support for large output,
 	# http://opsview-blog.opsera.com/dotorg/2008/08/enhancing-nrpe.html
-	epatch "${FILESDIR}/nagios-nrpe-2.13-multiline.patch"
-
-	# TCP wrappers conditional, bug 326367
-	epatch "${FILESDIR}/nagios-nrpe-2.13-tcpd.patch"
-	# Make command-args really conditional, bug 397603
-	epatch "${FILESDIR}/nagios-nrpe-2.13-command-args.patch"
+	epatch "${FILESDIR}"/${PN}-2.14-multiline.patch
+	# fix configure, among others #326367, #397603
+	epatch "${FILESDIR}"/${PN}-2.15-tcpd-et-al.patch
+	# otherwise autoconf will overwrite the custom include/config.h.in
+	epatch "${FILESDIR}"/${PN}-2.15-autoconf-header.patch
+	# improve handling of metachars for security
+	epatch "${FILESDIR}"/${PN}-2.15-metachar-security-fix.patch
 
 	# Increase the max amount of data it will be send in one query/response
 	if use increase_max_packetbuffer; then
-	sed -i \
-		-e '/^#define MAX_PACKETBUFFER_LENGTH/s:1024:8192:' \
-		include/common.h || die
+		sed -i \
+			-e '/^#define MAX_PACKETBUFFER_LENGTH/s:1024:8192:' \
+			include/common.h || die
 	fi
 
 	sed -i -e '/define \(COMMAND\|SERVICES\)_FILE/d' contrib/nrpe_check_control.c || die
+
+	# change the default location of the pid file
+	sed -i -e '/pid_file/s:/var/run:/run:' sample-config/nrpe.cfg.in || die
+
+	# fix TFU handling of autoheader
+	sed -i -e '/#undef/d' include/config.h.in || die
 
 	eautoreconf
 }
@@ -101,7 +109,8 @@ src_install() {
 	exeinto /usr/libexec
 	doexe src/nrpe
 
-	newinitd "${FILESDIR}"/nrpe.init nrpe
+	newinitd "${FILESDIR}"/nrpe.init-r2 nrpe
+	systemd_dounit "${FILESDIR}/${PN}.service"
 
 	insinto /etc/xinetd.d/
 	newins "${FILESDIR}/nrpe.xinetd.2" nrpe
