@@ -1,7 +1,0 @@
-# ChangeLog for app-admin/syslog-ng
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  14 Apr 2012; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de> +metadata.xml:
-  add metadata
-
