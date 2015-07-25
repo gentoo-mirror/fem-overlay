@@ -1,6 +1,10 @@
 # ChangeLog for app-backup/bontmia
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jul 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  bontmia-0.15.ebuild:
+  stabilize bontmia-0.15
 
   15 Feb 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   bontmia-0.14.ebuild, bontmia-0.14-r1.ebuild, bontmia-0.15.ebuild:
