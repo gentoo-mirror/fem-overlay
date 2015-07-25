@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>net-proxy</herd>
 	<maintainer>
 		<email>gentoo@pennewiss.de</email>
 		<name>Marcel Pennewiss</name>
@@ -23,4 +22,8 @@ It can:
  - block requests matching a particular pattern
 Its event-driven architecture allows it to easily handle thousands of simultaneous connections on hundreds of instances without risking the system's stability.
 	</longdescription>
+	<use>
+		<flag name="pcre-jit">Use JIT support for PCRE</flag>
+		<flag name="tools">Install additional tools (halog, iprange)</flag>
+	</use>
 </pkgmetadata>
