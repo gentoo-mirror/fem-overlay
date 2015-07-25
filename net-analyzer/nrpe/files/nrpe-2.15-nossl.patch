@@ -1,0 +1,28 @@
+--- nrpe-2.15.orig/src/nrpe.c	2015-07-25 13:06:09.000000000 +0200
++++ nrpe-2.15/src/nrpe.c	2015-07-25 13:06:49.000000000 +0200
+@@ -100,7 +100,9 @@
+ int     use_src=FALSE; /* Define parameter for SRC option */
+ 
+ 
++#ifdef HAVE_SSL
+ void complete_SSL_shutdown( SSL *);
++#endif
+ 
+ 
+ int main(int argc, char **argv){
+@@ -1815,6 +1817,7 @@
+ 	return OK;
+         }
+ 
++#ifdef HAVE_SSL
+ void complete_SSL_shutdown( SSL *ssl) {
+ 
+ 	/*  
+@@ -1835,6 +1838,7 @@
+ 		if( SSL_shutdown( ssl)) break;
+ 	}
+ }
++#endif
+ 
+ /* bail if daemon is running as root */
+ int check_privileges(void){

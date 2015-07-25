@@ -42,6 +42,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-2.15-autoconf-header.patch
 	# improve handling of metachars for security
 	epatch "${FILESDIR}"/${PN}-2.15-metachar-security-fix.patch
+	# fix build without ssl #462572
+	epatch "${FILESDIR}"/${PN}-2.15-nossl.patch
 
 	# Increase the max amount of data it will be send in one query/response
 	if use increase_max_packetbuffer; then

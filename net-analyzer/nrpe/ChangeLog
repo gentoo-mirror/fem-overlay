@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jul 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  nrpe-2.15-r2.ebuild, +files/nrpe-2.15-nossl.patch:
+  add patch to fix #462572 (build without ssl)
+
 *nrpe-2.15-r2 (25 Jul 2015)
 
   25 Jul 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
