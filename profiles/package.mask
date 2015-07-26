@@ -30,9 +30,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Marcel Pennewiss <gentoo@pennewiss.de> (29 Apr 2012)
-# Plugins integrated in net-analyzer/nagios-plugins-extended
-# with use-flags [portage, portageagewarn].
-# Masked for removal in 30 days.
-net-analyzer/nagios-plugins-gentoo

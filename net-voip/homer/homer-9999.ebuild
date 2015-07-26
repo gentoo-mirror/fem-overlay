@@ -46,9 +46,9 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_prepare() {
-	if use pulseaudio; then
+	if ! use pulseaudio; then
 		sed -i \
-			-e "/^set(FEATURE_PULSEAUDIO/s:OFF:ON:" \
+			-e "/^set(FEATURE_PULSEAUDIO/s:ON:OFF:" \
 			HomerBuild/config/HomerFeatures.txt || die "sed failed"
 	fi
 }
