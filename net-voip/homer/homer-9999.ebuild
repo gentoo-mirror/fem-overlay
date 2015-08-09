@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-voip/homer/homer-9999.ebuild,v 1.9 2014/08/10 20:34:30 slyfox Exp $
 
@@ -32,14 +32,15 @@ DEPEND=">=dev-libs/openssl-1.0
 	media-libs/sdl-mixer
 	media-libs/sdl-sound
 	media-libs/x264:*
-	media-video/ffmpeg:0[X]
+	|| ( media-video/ffmpeg:=[X] >=media-video/libav-11:=[X] )
 	net-libs/sofia-sip
 	dev-qt/qtcore:4
 	dev-qt/qtdbus:4
 	dev-qt/qtgui:4
 	dev-qt/qtmultimedia:4
 	dev-qt/qtwebkit:4
-	pulseaudio? ( media-sound/pulseaudio )"
+	pulseaudio? ( media-sound/pulseaudio )
+	dev-util/cmake"
 
 RDEPEND="${DEPEND}"
 
