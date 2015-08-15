@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # S.M.A.R.T bad sector check plugin for Nagios
-# Copyright (c) 2008 Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)"
+# Copyright (c) 2008-2015 Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)"
 # Written by Marcel Pennewiss (opensource@pennewiss.de)
-# Last Modified: 02-10-2008
+# Last Modified: 2015-08-15
 
 # Changelog
 # 0.1    - initial release
 # 0.2    - changed warning/critical treshold
 # 0.2-r1 - check for setuid-bit or user root
+# 0.3    - add performance data
 
 NAGIOS_OK=0
 NAGIOS_WARNING=1
@@ -23,251 +24,258 @@ PROGRAM_WHOAMI=$(which whoami)
 
 # set default values
 defaults() {
-	VERSION="0.2-r1"
-	WARNING=1
-	WARNING_REALLOCATED=${WARNING}
-	WARNING_CURRENT_PENDING=${WARNING}
-	WARNING_UNCORRECTABLE=${WARNING}
-	CRITICAL=10
-	CRITICAL_REALLOCATED=${CRITICAL}
-	CRITICAL_CURRENT_PENDING=${CRITICAL}
-	CRITICAL_UNCORRECTABLE=${CRITICAL}
-	OPTION="reallocated"
-	WARNING_THRESHOLD_CLAIMED=false
-	CRITICAL_THRESHOLD_CLAIMED=false
+  VERSION="0.3"
+  WARNING=1
+  WARNING_REALLOCATED=${WARNING}
+  WARNING_CURRENT_PENDING=${WARNING}
+  WARNING_UNCORRECTABLE=${WARNING}
+  CRITICAL=10
+  CRITICAL_REALLOCATED=${CRITICAL}
+  CRITICAL_CURRENT_PENDING=${CRITICAL}
+  CRITICAL_UNCORRECTABLE=${CRITICAL}
+  OPTION="reallocated"
+  WARNING_THRESHOLD_CLAIMED=false
+  CRITICAL_THRESHOLD_CLAIMED=false
 }
 
 # show usage information
 print_usage() {
-	defaults
-	echo "Usage $0 -d <device> [-t <type>] [-w <warning-treshold(s)>] [-c <critical-treshold(s)>] [-h] [-V]"
-	echo ""
-	echo " -d <device> 	harddisk-device (e.g. /dev/sda)"
-	echo " -t <type>	type of sectors you want to monitor:"
-	echo "		reallocated	- Reallocted Sectors (default)"	
-	echo " 		pending		- Current Pending Sector"
-	echo "		uncorrectable	- Offline Uncorrectable Sectors"
-	echo "		allsectors	- includes reallocated, pending and uncorrectable"
-	echo " -w <treshold> 	warning treshold in sectors (default: $WARNING)"
-	echo " 	 	- one numeric value if type is not allsectors"
-	echo " 	 	- three comma-seperated numeric values for type allsectors"
-	echo " 		  (treshold for reallocated,pending,uncorrectable)"
-	echo " -c <treshold>	critical treshold in sectors (default: $CRITICAL)"
-	echo " 		- same like warning tresholds"
-	echo " -h		show this help"
-	echo " -V		show version information"
+  defaults
+  echo "Usage $0 -d <device> [-t <type>] [-w <warning-treshold(s)>] [-c <critical-treshold(s)>] [-h] [-V]"
+  echo ""
+  echo " -d <device>      harddisk-device (e.g. /dev/sda)"
+  echo " -t <type>        type of sectors you want to monitor:"
+  echo "                  reallocated   - Reallocted Sectors (default)"
+  echo "                  pending       - Current Pending Sector"
+  echo "                  uncorrectable - Offline Uncorrectable Sectors"
+  echo "                  allsectors    - includes reallocated, pending and uncorrectable"
+  echo " -w <treshold>    warning treshold in sectors (default: $WARNING)"
+  echo "                  - one numeric value if type is not allsectors"
+  echo "                  - three comma-seperated numeric values for type allsectors"
+  echo "                    (treshold for reallocated,pending,uncorrectable)"
+  echo " -c <treshold>    critical treshold in sectors (default: $CRITICAL)"
+  echo "                  - same like warning tresholds"
+  echo " -h               show this help"
+  echo " -V               show version information"
 }
 
 # show version information
 print_version () {
-        echo "check_smart_sectors - S.M.A.R.T bad sector check plugin for Nagios (v$VERSION)"
-	echo "Copyright (c) 2008 Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)"
-	echo "Written by Marcel Pennewiss (opensource@pennewiss.de)"
+  echo "check_smart_sectors - S.M.A.R.T bad sector check plugin for Nagios (v$VERSION)"
+  echo "Copyright (c) 2008-2015 Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)"
+  echo "Written by Marcel Pennewiss (opensource@pennewiss.de)"
 }
 
 # Check SMART-capabilities of the system and the block device
 # param[in] $1 device
 checksystem() {
-	# check if smartctl exists
-	if [ ! -e $PROGRAM_SMARTCTL ]; then
-		echo "SMART WARNING - smartmontools not installed or not found!"
-		exit ${NAGIOS_WARNING}
-	fi
+  # check if smartctl exists
+  if [ ! -e $PROGRAM_SMARTCTL ]; then
+    echo "SMART WARNING - smartmontools not installed or not found!"
+    exit ${NAGIOS_WARNING}
+  fi
 
-	# check if device is special block device
-	if [ ! -b $1 ]; then
-		echo "SMART WARNING - Device $1 is not a special block device"
-		exit ${NAGIOS_WARNING}
-	fi
-	
-	# check suidbit for smartctl
-	if [ ! -u $PROGRAM_SMARTCTL ] && [[ "x$($PROGRAM_WHOAMI)" != "xroot" ]]; then
-		echo "SMART WARNING - setuid-bit not set for $PROGRAM_SMARTCTL, please run \"chmod +s $PROGRAM_SMARTCTL\""
-		exit ${NAGIOS_WARNING}
-	fi
-	
-	# get SMART output to pretend multiple querys to harddisk
-	SMART_OUTPUT=$($PROGRAM_SMARTCTL -a $1)
-	
-	# check for enabled SMART-Support
-	if [[ "x$($PROGRAM_ECHO "$SMART_OUTPUT" | $PROGRAM_GREP "SMART support is:")" =~ ^x.*\:\ Disabled$ ]]; then
-		echo "SMART WARNING - SMART support is disabled on $1. Please run \"$PROGRAM_SMARTCTL -s on $1\"";
-		exit ${NAGIOS_WARNING}
-	fi
+  # check if device is special block device
+  if [ ! -b $1 ]; then
+    echo "SMART WARNING - Device $1 is not a special block device"
+    exit ${NAGIOS_WARNING}
+  fi
+  
+  # check suidbit for smartctl
+  if [ ! -u $PROGRAM_SMARTCTL ] && [[ "x$($PROGRAM_WHOAMI)" != "xroot" ]]; then
+    echo "SMART WARNING - setuid-bit not set for $PROGRAM_SMARTCTL, please run \"chmod +s $PROGRAM_SMARTCTL\""
+    exit ${NAGIOS_WARNING}
+  fi
+  
+  # get SMART output to pretend multiple querys to harddisk
+  SMART_OUTPUT=$($PROGRAM_SMARTCTL -a $1)
+  
+  # check for enabled SMART-Support
+  if [[ "x$($PROGRAM_ECHO "$SMART_OUTPUT" | $PROGRAM_GREP "SMART support is:")" =~ ^x.*\:\ Disabled$ ]]; then
+    echo "SMART WARNING - SMART support is disabled on $1. Please run \"$PROGRAM_SMARTCTL -s on $1\"";
+    exit ${NAGIOS_WARNING}
+  fi
 }
 
 # get data from smartctl
 # param[in] $1 option (to check)
 getdata() {
-	# get information depending on given option
-	case "$1" in
-		reallocated)	getsmart_reallocated;;
-		pending)	getsmart_current_pending;;
-		uncorrectable)	getsmart_uncorrectable;;
-		allsectors)	getsmart_reallocated
-				getsmart_current_pending
-				getsmart_uncorrectable
-				SMART_RESPONSE="${SMART_COUNTBADSECTORS} bad sectors found.\n${SMART_RESPONSE}"
-				if [ $CRITICAL_TRESHOLD_CLAIMED ]; then
-					SMART_RESPONSE="SMART CRITICAL - ${SMART_RESPONSE}"
-				elif [ $WARNING_TRESHOLD_CLAIMED ]; then
-					SMART_RESPONSE="SMART WARNING - ${SMART_RESPONSE}"
-				else
-					SMART_RESPONSE="SMART OK - ${SMART_RESPONSE}"
-				fi
-	esac
+  # get information depending on given option
+  case "$1" in
+    reallocated) getsmart_reallocated;;
+    pending) getsmart_current_pending;;
+    uncorrectable) getsmart_uncorrectable;;
+    allsectors)
+      getsmart_reallocated
+      getsmart_current_pending
+      getsmart_uncorrectable
+      SMART_RESPONSE="${SMART_COUNTBADSECTORS} bad sectors (${SMART_RESPONSE%, })"
+  esac
 
-	# print message, delete last LF before
-	echo -e "${SMART_RESPONSE%\\n}"
+  if [ $CRITICAL_TRESHOLD_CLAIMED ]; then
+    SMART_RESPONSE="SMART CRITICAL - ${SMART_RESPONSE%, } found."
+  elif [ $WARNING_TRESHOLD_CLAIMED ]; then
+    SMART_RESPONSE="SMART WARNING - ${SMART_RESPONSE%, } found."
+  else
+    SMART_RESPONSE="SMART OK - ${SMART_RESPONSE%, } found."
+  fi
 
-	# get return code for Nagios
-	if [ $CRITICAL_TRESHOLD_CLAIMED ]; then
-		exit ${NAGIOS_CRITICAL}
-	elif [ $WARNING_TRESHOLD_CLAIMED ]; then
-		exit ${NAGIOS_WARNING}
-	else
-		exit ${NAGIOS_OK}
-	fi
+  # print message, delete last LF before
+  SMART_RESPONSE=${SMART_RESPONSE%, }
+  echo -e "${SMART_RESPONSE}|${SMART_PERFDATA/ /}"
+
+  # get return code for Nagios
+  if [ $CRITICAL_TRESHOLD_CLAIMED ]; then
+    exit ${NAGIOS_CRITICAL}
+  elif [ $WARNING_TRESHOLD_CLAIMED ]; then
+    exit ${NAGIOS_WARNING}
+  else
+    exit ${NAGIOS_OK}
+  fi
 }
 
 # get reallocated sector counter
 getsmart_reallocated () {
-	local SMART_OPTION="Reallocated_Sector_Ct"
-	local SMART_TEXT="reallocated sectors found."
-	grep_numericvalue "$SMART_OPTION" "$SMART_TEXT" $WARNING_REALLOCATED $CRITICAL_REALLOCATED
+  local SMART_OPTION="Reallocated_Sector_Ct"
+  local SMART_TEXT="reallocated sectors, "
+  grep_numericvalue "$SMART_OPTION" "$SMART_TEXT" $WARNING_REALLOCATED $CRITICAL_REALLOCATED
 
-	# count totally bad sectors
- 	SMART_COUNTBADSECTORS=$((SMART_COUNTBADSECTORS+SMART_VALUE))
-	
-	# return unknown state
- 	return ${NAGIOS_UNKOWN}
+  # count totally bad sectors
+  SMART_COUNTBADSECTORS=$((SMART_COUNTBADSECTORS+SMART_VALUE))
+
+  # return unknown state
+  return ${NAGIOS_UNKOWN}
 }
 
 # get current pending sector counter
 getsmart_current_pending () {
-	local SMART_OPTION="Current_Pending_Sector"
-	local SMART_TEXT="current pending sectors found."
-	grep_numericvalue "$SMART_OPTION" "$SMART_TEXT" $WARNING_CURRENT_PENDING $CRITICAL_CURRENT_PENDING
+  local SMART_OPTION="Current_Pending_Sector"
+  local SMART_TEXT="current pending sectors, "
+  grep_numericvalue "$SMART_OPTION" "$SMART_TEXT" $WARNING_CURRENT_PENDING $CRITICAL_CURRENT_PENDING
 
-	# count totally bad sectors
- 	SMART_COUNTBADSECTORS=$((SMART_COUNTBADSECTORS+SMART_VALUE))
+  # count totally bad sectors
+  SMART_COUNTBADSECTORS=$((SMART_COUNTBADSECTORS+SMART_VALUE))
 
-	# return unknown state
- 	return ${NAGIOS_UNKOWN}
+  # return unknown state
+  return ${NAGIOS_UNKOWN}
 }
 
 # get current pending sector counter
 getsmart_uncorrectable () {
-	local SMART_OPTION="Offline_Uncorrectable"
-	local SMART_TEXT="offline uncorrectable sectors found."
-	grep_numericvalue "$SMART_OPTION" "$SMART_TEXT" $WARNING_UNCORRECTABLE $CRITICAL_UNCORRECTABLE
+  local SMART_OPTION="Offline_Uncorrectable"
+  local SMART_TEXT="offline uncorrectable sectors, "
+  grep_numericvalue "$SMART_OPTION" "$SMART_TEXT" $WARNING_UNCORRECTABLE $CRITICAL_UNCORRECTABLE
 
-	# count totally bad sectors
- 	SMART_COUNTBADSECTORS=$((SMART_COUNTBADSECTORS+SMART_VALUE))
+  # count totally bad sectors
+  SMART_COUNTBADSECTORS=$((SMART_COUNTBADSECTORS+SMART_VALUE))
 
-	# return unknown state
- 	return ${NAGIOS_UNKOWN}
+  # return unknown state
+  return ${NAGIOS_UNKOWN}
 }
 
 # greps numeric value from SMART output for SMART option
-# param[in]	$1 SMART option
-# param[in]	$2 text for smart-message
-# param[in] 	$3 warning treshold
-# param[in]	$4 critical treshold
+# param[in] $1 SMART option
+# param[in] $2 text for smart-message
+# param[in] $3 warning treshold
+# param[in] $4 critical treshold
 grep_numericvalue() {
-	SMART_VALUE=$($PROGRAM_ECHO "$SMART_OUTPUT" | $PROGRAM_GREP -i $1 | $PROGRAM_AWK -F' ' '{print $10}');
-	# found non numeric value
-	if ! [[ "x$SMART_VALUE" =~ ^x[0-9]+$ ]]; then
-		echo "SMART UNKNOWN - SMART response unknown for $1";
-		exit ${NAGIOS_UNKNOWN}
-	fi
+  SMART_VALUE=$($PROGRAM_ECHO "$SMART_OUTPUT" | $PROGRAM_GREP -i $1 | $PROGRAM_AWK -F' ' '{print $10}');
+  # found non numeric value
+  if ! [[ "x$SMART_VALUE" =~ ^x[0-9]+$ ]]; then
+    echo "SMART UNKNOWN - SMART response unknown for $1";
+    exit ${NAGIOS_UNKNOWN}
+  fi
 
-	# claimed critical threshold
-	if [ $SMART_VALUE -ge $4 ]; then
-		SMART_RESPONSE="${SMART_RESPONSE}SMART CRITICAL - ${SMART_VALUE} $2\n"
-		CRITICAL_TRESHOLD_CLAIMED=TRUE
-		return
-	fi
-	# claimed warning threshold
-	if [ $SMART_VALUE -ge $3 ]; then
-		SMART_RESPONSE="${SMART_RESPONSE}SMART WARNING - ${SMART_VALUE} $2\n"
-		WARNING_TRESHOLD_CLAIMED=TRUE
-		return
-	fi
-	# claimed no threshold 
-	SMART_RESPONSE="${SMART_RESPONSE}SMART OK - ${SMART_VALUE} $2\n"
+  # add information to response
+  SMART_RESPONSE="${SMART_RESPONSE}${SMART_VALUE} $2"
+
+  # add information to perfdata
+  SMART_PERFDATA="${SMART_PERFDATA} '${2% sectors, }'=${SMART_VALUE};$3;$4"
+
+  # claimed critical threshold
+  if [ $SMART_VALUE -ge $4 ]; then
+    CRITICAL_TRESHOLD_CLAIMED=TRUE
+    return
+  fi
+  # claimed warning threshold
+  if [ $SMART_VALUE -ge $3 ]; then
+    WARNING_TRESHOLD_CLAIMED=TRUE
+    return
+  fi
 }
 
 defaults
 if [ $# -lt 2 ] || [[ "x$1" =~ ^x[^-].*$ ]] && [[ "x$1" != "x-V" ]]; then
-	print_usage && exit ${NAGIOS_UNKWON}
+  print_usage && exit ${NAGIOS_UNKWON}
 fi
 
 while getopts ":hd:t:w:c:V" Option; do
-	case $Option in
-		h ) 	print_usage && exit 0;;
-		d )	DEVICE=${OPTARG};;
-		t )	case "${OPTARG}" in
-				reallocated)	OPTION=${OPTARG};;
-				pending)	OPTION=${OPTARG};;
-				uncorrectable)	OPTION=${OPTARG};;
-				allsectors)	OPTION=${OPTARG};;
-				*)		echo "SMART UNKNWON - unknown check type. See help."
-						print_usage
-						exit ${NAGIOS_UNKNOW}
-						;;
-			esac
-			;;
-		w ) 	if [[ "x$OPTION" == "xallsectors" ]]; then
-				if [[ "x${OPTARG}" =~ ^x[0-9]+,[0-9]+,[0-9]+$ ]]; then
-					WARNING_REALLOCATED=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $1}')
-					WARNING_CURRENT_PENDING=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $2}')
-					WARNING_UNCORRECTABLE=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $3}')
-				elif [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
-					WARNING_REALLOCATED=${OPTARG}
-					WARNING_CURRENT_PENDING=${OPTARG}
-					WARNING_UNCORRECTABLE=${OPTARG}
-				else
-					echo "SMART UNKNOWN - warning tresholds must be one or three comma-seperated numeric value(s)"
-					print_usage
-					exit ${NAGIOS_UNKNOWN}
-				fi
-			else
-				if ! [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
-					echo "SMART UNKNOWN - warning threshold must be a numeric value"
-					print_usage
-					exit ${NAGIOS_UNKNOWN}
-				fi
-			fi
-			WARNING=${OPTARG};;
-		c ) 	if [[ "x$OPTION" == "xallsectors" ]]; then
-				if [[ "x${OPTARG}" =~ ^x[0-9]+,[0-9]+,[0-9]+$ ]]; then
-					CRITICAL_REALLOCATED=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $1}')
-					CRITICAL_CURRENT_PENDING=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $2}')
-					CRITICAL_UNCORRECTABLE=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $3}')
-				elif [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
-					CRITICAL_REALLOCATED=${OPTARG}
-					CRITICAL_CURRENT_PENDING=${OPTARG}
-					CRITICAL_UNCORRECTABLE=${OPTARG}
-				else
-					echo "SMART UNKNOWN - warning tresholds must be one or three comma-seperated numeric value(s)"
-					print_usage
-					exit ${NAGIOS_UNKNOWN}
-				fi
-			else
-				if ! [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
-					echo "SMART UNKNOWN - critical threshold must be a numeric value"
-					print_usage
-					exit ${NAGIOS_UNKNOWN}
-				fi
-			fi
-			CRITICAL=${OPTARG};;
-		V )	print_version && exit 0
-			;;
-		* ) 	echo "SMART WARNING - Not recognized argument!"; 
-			exit ${NAGIOS_WARNING} 
-			;;
-	esac
+  case $Option in
+    h ) print_usage && exit 0;;
+    d ) DEVICE=${OPTARG};;
+    t ) case "${OPTARG}" in
+          reallocated) OPTION=${OPTARG};;
+          pending) OPTION=${OPTARG};;
+          uncorrectable) OPTION=${OPTARG};;
+          allsectors) OPTION=${OPTARG};;
+          *) echo "SMART UNKNWON - unknown check type. See help."
+             print_usage
+             exit ${NAGIOS_UNKNOW}
+             ;;
+        esac
+        ;;
+    w ) if [[ "x$OPTION" == "xallsectors" ]]; then
+          if [[ "x${OPTARG}" =~ ^x[0-9]+,[0-9]+,[0-9]+$ ]]; then
+            WARNING_REALLOCATED=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $1}')
+            WARNING_CURRENT_PENDING=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $2}')
+            WARNING_UNCORRECTABLE=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $3}')
+          elif [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
+            WARNING_REALLOCATED=${OPTARG}
+            WARNING_CURRENT_PENDING=${OPTARG}
+            WARNING_UNCORRECTABLE=${OPTARG}
+          else
+            echo "SMART UNKNOWN - warning tresholds must be one or three comma-seperated numeric value(s)"
+            print_usage
+            exit ${NAGIOS_UNKNOWN}
+          fi
+        else
+          if ! [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
+            echo "SMART UNKNOWN - warning threshold must be a numeric value"
+            print_usage
+            exit ${NAGIOS_UNKNOWN}
+          fi
+        fi
+        WARNING=${OPTARG}
+        ;;
+    c ) if [[ "x$OPTION" == "xallsectors" ]]; then
+          if [[ "x${OPTARG}" =~ ^x[0-9]+,[0-9]+,[0-9]+$ ]]; then
+            CRITICAL_REALLOCATED=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $1}')
+            CRITICAL_CURRENT_PENDING=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $2}')
+            CRITICAL_UNCORRECTABLE=$($PROGRAM_ECHO ${OPTARG} | $PROGRAM_AWK -F',' '{print $3}')
+          elif [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
+            CRITICAL_REALLOCATED=${OPTARG}
+            CRITICAL_CURRENT_PENDING=${OPTARG}
+            CRITICAL_UNCORRECTABLE=${OPTARG}
+          else
+            echo "SMART UNKNOWN - warning tresholds must be one or three comma-seperated numeric value(s)"
+            print_usage
+            exit ${NAGIOS_UNKNOWN}
+          fi
+        else
+          if ! [[ "x${OPTARG}" =~ ^x[0-9]+$ ]]; then
+            echo "SMART UNKNOWN - critical threshold must be a numeric value"
+            print_usage
+            exit ${NAGIOS_UNKNOWN}
+          fi
+        fi
+        CRITICAL=${OPTARG}
+        ;;
+    V ) print_version && exit 0
+        ;;
+    * ) echo "SMART WARNING - Not recognized argument!"; 
+        exit ${NAGIOS_WARNING} 
+        ;;
+  esac
 done
 shift $(($OPTIND - 1)) 
 

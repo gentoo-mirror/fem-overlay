@@ -1,6 +1,12 @@
 # ChangeLog for net-analyzer/nagios-plugins-extended
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nagios-plugins-extended-0.7.3 (15 Aug 2015)
+
+  15 Aug 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +nagios-plugins-extended-0.7.3.ebuild, files/check_smart_sectors:
+  upgrade smart-sectors check
 
   16 Feb 2014; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   -nagios-plugins-extended-0.4.ebuild, -nagios-plugins-extended-0.5.ebuild,
