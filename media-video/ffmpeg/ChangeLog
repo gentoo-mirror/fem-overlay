@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Aug 2015; Peter Große <gentoo@friiks.de> ffmpeg-2.6.3-r1.ebuild:
+  mark as unstable
+
 *ffmpeg-2.7.2-r1 (27 Aug 2015)
 *ffmpeg-2.6.3-r1 (27 Aug 2015)
 
