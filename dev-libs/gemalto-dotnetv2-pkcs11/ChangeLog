@@ -1,0 +1,11 @@
+# ChangeLog for dev-libs/gemalto-dotnetv2-pkcs11
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Id$
+
+*gemalto-dotnetv2-pkcs11-2.2.0.10 (10 Sep 2015)
+
+  10 Sep 2015; Peter Große <gentoo@friiks.de>
+  +gemalto-dotnetv2-pkcs11-2.2.0.10.ebuild,
+  +files/gemalto-dotnetv2-pkcs11-boost-1.56.patch:
+  add pkcs11 libs for Gemalto .NET v2 cards
+
