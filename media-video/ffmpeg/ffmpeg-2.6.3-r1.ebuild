@@ -323,10 +323,10 @@ multilib_src_configure() {
 	done
 	use xcb || ffuse+=( X:x11grab )
 
-        if use decklink
-        then
-                CFLAGS="${CFLAGS} -I/usr/include/blackmagic"
-        fi
+	if use decklink
+	then
+		CFLAGS="${CFLAGS} -I/usr/include/blackmagic"
+	fi
 
 	# Outdevs
 	for i in alsa oss sdl ; do
