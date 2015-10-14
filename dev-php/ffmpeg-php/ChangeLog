@@ -1,7 +1,0 @@
-# ChangeLog for dev-php/ffmpeg-php
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  03 Feb 2014; Peter Große <gentoo@friiks.de> +metadata.xml:
-  add with patch for php 5.4
-
