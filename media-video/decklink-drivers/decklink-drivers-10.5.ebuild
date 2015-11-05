@@ -10,11 +10,11 @@ DESCRIPTION="Desktop Video - drivers and tools for products by Blackmagic Design
 HOMEPAGE="http://www.blackmagicdesign.com/"
 
 # could be any other
-SDK_VERSION="10.3.1"
+SDK_VERSION="10.5"
 
 SRC_URI="Blackmagic_Desktop_Video_Linux_${PV}.tar.gz
 headers? ( Blackmagic_DeckLink_SDK_${SDK_VERSION}.zip )"
-UNPACKED_DIR="desktopvideo-10.3.7a4-x86_64"
+UNPACKED_DIR="desktopvideo-10.5a17-x86_64"
 
 LICENSE="BlackmagicDesktopVideo"
 SLOT="0"
@@ -30,8 +30,8 @@ X? ( dev-qt/qtgui:4 )"
 QA_PREBUILT="opt/blackmagic-desktop-video/usr/bin/* opt/blackmagic-desktop-video/usr/lib/*"
 
 # for kernel module compilation
-MODULE_NAMES="blackmagic(misc:${S}/usr/src/blackmagic-10.3.7a4)
-blackmagic-io(misc:${S}/usr/src/blackmagic-io-10.3.7a4)"
+MODULE_NAMES="blackmagic(misc:${S}/usr/src/blackmagic-10.5a17)
+blackmagic-io(misc:${S}/usr/src/blackmagic-io-10.5a17)"
 BUILD_TARGETS="clean all"
 
 pkg_nofetch() {
@@ -51,7 +51,7 @@ src_unpack() {
 	unpack ${A}
 
 	cd "${WORKDIR}"
-	tar xfz DesktopVideo_${PV}/other/x86_64/${UNPACKED_DIR}.tar.gz
+	tar xfz Blackmagic_Desktop_Video_Linux_${PV}/other/x86_64/${UNPACKED_DIR}.tar.gz
 
 	# symlink to what is supposed to have been prepared
 	ln -s ${UNPACKED_DIR} ${P}
