@@ -1,0 +1,82 @@
+--- a/compat.h
++++ b/compat.h
+@@ -318,4 +318,24 @@
+ 	})
+ #endif /* < KERNEL_VERSION(3, 11, 0) */
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 17, 0)
++
++#undef alloc_netdev
++#define alloc_netdev(sizeof_priv, name, name_assign_type, setup) \
++        alloc_netdev_mqs(sizeof_priv, name_assign_type, setup, 1, 1)
++
++#endif /* >= KERNEL_VERSION(3, 17, 0) */
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 16, 0)
++
++#define SET_ETHTOOL_OPS(netdev,ops) ((netdev)->ethtool_ops = (ops))
++
++#endif /* >= KERNEL_VERSION(3, 16, 0) */
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 1, 0)
++
++#define dev_get_iflink(_net_dev) ((_net_dev)->iflink)
++
++#endif /* < KERNEL_VERSION(4, 1, 0) */
++
+ #endif /* _NET_BATMAN_ADV_COMPAT_H_ */
+--- a/gateway_common.c
++++ b/gateway_common.c
+@@ -87,10 +87,10 @@
+ 	if (strlen(buff) > 4) {
+ 		tmp_ptr = buff + strlen(buff) - 4;
+ 
+-		if (strnicmp(tmp_ptr, "mbit", 4) == 0)
++		if (strncasecmp(tmp_ptr, "mbit", 4) == 0)
+ 			multi = 1024;
+ 
+-		if ((strnicmp(tmp_ptr, "kbit", 4) == 0) ||
++		if ((strncasecmp(tmp_ptr, "kbit", 4) == 0) ||
+ 		    (multi > 1))
+ 			*tmp_ptr = '\0';
+ 	}
+@@ -112,10 +112,10 @@
+ 		if (strlen(slash_ptr + 1) > 4) {
+ 			tmp_ptr = slash_ptr + 1 - 4 + strlen(slash_ptr + 1);
+ 
+-			if (strnicmp(tmp_ptr, "mbit", 4) == 0)
++			if (strncasecmp(tmp_ptr, "mbit", 4) == 0)
+ 				multi = 1024;
+ 
+-			if ((strnicmp(tmp_ptr, "kbit", 4) == 0) ||
++			if ((strncasecmp(tmp_ptr, "kbit", 4) == 0) ||
+ 			    (multi > 1))
+ 				*tmp_ptr = '\0';
+ 		}
+--- a/hard-interface.c
++++ b/hard-interface.c
+@@ -83,11 +83,11 @@
+ 		return true;
+ 
+ 	/* no more parents..stop recursion */
+-	if (net_dev->iflink == net_dev->ifindex)
++	if (dev_get_iflink(net_dev) == net_dev->ifindex)
+ 		return false;
+ 
+ 	/* recurse over the parent device */
+-	parent_dev = dev_get_by_index(&init_net, net_dev->iflink);
++	parent_dev = dev_get_by_index(&init_net, dev_get_iflink(net_dev));
+ 	/* if we got a NULL parent_dev there is something broken.. */
+ 	if (WARN(!parent_dev, "Cannot find parent device"))
+ 		return false;
+--- b/soft-interface.c
++++ b/soft-interface.c
+@@ -637,7 +637,7 @@
+ 	int ret;
+ 
+ 	soft_iface = alloc_netdev(sizeof(struct batadv_priv), name,
+-				  batadv_softif_init_early);
++				  NET_NAME_UNKNOWN, batadv_softif_init_early);
+ 	if (!soft_iface)
+ 		return NULL;
+ 
