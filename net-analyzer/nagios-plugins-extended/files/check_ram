@@ -2,8 +2,8 @@
 #
 # RAM usage monitor plugin for Nagios
 # Written by Vinicius de Figueiredo Silva (viniciusfs@gmail.com)
-# Modified by Sascha Bendix (scrubb@localroot.de)
-# Last Modified: 27-11-2007
+# Modified by Sascha Bendix (scrubb@localroot.de) and Marcel Pennewiss (opensource@pennewiss.de)
+# Last Modified: 14-12-2015
 #
 # Usage: ./check_ram <warning> <critical>
 #
@@ -77,7 +77,7 @@ OS=`uname -a | awk '{ print $1 }'`
 case "$OS" in
         Linux)
                 RAM_TOTAL=`free -m | grep -i mem | awk '{ print $2 }'`
-                RAM_INUSE=`free -m | grep -i 'buffers/cache' | awk '{ print $3 }'`
+                RAM_INUSE=`free -m | grep -i -E '(buffers/cache|Mem)' | awk '{ print $3 }'`
                 ;;
         SunOS)
                 RAM_TOTAL=`prtconf | grep ^"Memory size" | awk '{print $3}'`

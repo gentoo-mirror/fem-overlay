@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nagios-plugins-extended-0.7.4 (12 Dec 2015)
+
+  12 Dec 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +nagios-plugins-extended-0.7.4.ebuild, nagios-plugins-extended-0.7.2.ebuild,
+  nagios-plugins-extended-0.7.3.ebuild, files/check_ram-0.7.2.patch,
+  files/check_ram:
+  upgrade for more compatibility
+
 *nagios-plugins-extended-0.7.3 (15 Aug 2015)
 
   15 Aug 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>

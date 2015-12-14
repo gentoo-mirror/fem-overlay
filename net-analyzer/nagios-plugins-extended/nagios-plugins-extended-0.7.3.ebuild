@@ -95,6 +95,7 @@ src_unpack() {
 
 src_prepare() {
 	use portage && use portageagewarn && epatch "${FILESDIR}"/check_gentoo_portage-0.8.2-age-warning.patch
+	epatch "${FILESDIR}"/check_ram-0.7.2.patch
 }
 
 src_install() {
