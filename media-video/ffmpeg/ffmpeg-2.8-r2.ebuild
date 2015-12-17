@@ -296,6 +296,7 @@ src_prepare() {
 		export revision=git-N-${FFMPEG_REVISION}
 	fi
 	epatch "${FILESDIR}/${PN}-2.4-segment-filename-timestamp.patch"
+	epatch "${FILESDIR}/${PN}-2.8-decklink-multi-audio.patch"
 	epatch_user
 }
 
