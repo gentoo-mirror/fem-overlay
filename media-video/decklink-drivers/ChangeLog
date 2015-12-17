@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*decklink-drivers-10.5.2 (17 Dec 2015)
+  17 Dec 2016; Matthias Hunstock <atze@fem.tu-ilmenau.de>
+  +decklink-drivers-10.5.2.ebuild:
+  version bump
+
 *decklink-drivers-10.5 (05 Nov 2015)
 
   05 Nov 2015; Peter Große <gentoo@friiks.de> -decklink-drivers-10.2.2.ebuild,
