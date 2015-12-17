@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ffmpeg-2.8.3-r1 (17 De 2015)
+
+  17 Dec 2015; Matthias Hunstock <atze@fem.tu-ilmenau.de> +ffmpeg-2.8.3-r1.ebuild:
+  version bump + cleanup
+
 *ffmpeg-2.8-r2 (13 Oct 2015)
 
   13 Oct 2015; Peter Große <gentoo@friiks.de> -ffmpeg-2.1.1-r1.ebuild,
