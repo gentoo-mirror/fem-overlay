@@ -2,12 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
-		<email>radhermit@gentoo.org</email>
-		<name>Tim Harder</name>
-	</maintainer>
-	<maintainer>
-		<email>rich0@gentoo.org</email>
-		<name>Rich Freeman</name>
+		<email>gentoo@pennewiss.de</email>
+		<name>Marcel Pennewiss</name>
 	</maintainer>
 	<use>
 		<flag name="s3">Support for backing up to the Amazon S3 system</flag>
