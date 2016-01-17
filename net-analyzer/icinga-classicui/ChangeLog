@@ -1,6 +1,12 @@
 # ChangeLog for net-analyzer/icinga-classicui
 # $Header: $
 
+*icinga-classicui-1.13.3 (17 Jan 2016)
+
+  17 Jan 2016; Dustin Funk (nuts) <nuts@4nuts.de>
+  +icinga-classicui-1.13.3.ebuild
+  version bump of plugin
+
 *icinga-classicui-1.12.2 (28 Mar 2015)
 
   28 Mar 2015; Dustin Funk (nuts) <nuts@4nuts.de>
