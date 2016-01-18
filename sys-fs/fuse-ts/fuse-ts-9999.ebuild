@@ -1,17 +1,18 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
-inherit subversion eutils
+SCM="git-2"
 
-ESVN_REPO_URI="http://subversion.fem.tu-ilmenau.de/repository/cccongress/trunk/tools/fuse-ts"
-ESVN_PROJECT="fuse-ts"
+inherit eutils ${SCM}
+
+EGIT_REPO_URI="https://github.com/a-tze/fuse-ts.git"
 
 DESCRIPTION="FUSE module for working with splitted MPEG TS files"
-HOMEPAGE="http://subversion.fem.tu-ilmenau.de/repository/cccongress/"
-LICENSE="GPL-2"
+HOMEPAGE="https://github.com/a-tze/fuse-ts"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE=""
