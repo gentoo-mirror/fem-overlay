@@ -1,38 +1,30 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
-inherit subversion eutils
+SCM="git-2"
 
-ESVN_REPO_URI="http://subversion.fem.tu-ilmenau.de/repository/cccongress/trunk/tools/fuse-vdv"
-ESVN_PROJECT="fuse-vdv"
+inherit eutils ${SCM}
+
+EGIT_REPO_URI="https://github.com/a-tze/fuse-vdv.git"
+
+# S="${WORKDIR}/${PN}"
 
 DESCRIPTION="FUSE module for working with splitted dv files"
-HOMEPAGE="http://subversion.fem.tu-ilmenau.de/repository/cccongress/"
-LICENSE="GPL-2"
+HOMEPAGE="https://github.com/a-tze/fuse-vdv"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
-IUSE="avi avidemux wavdemux"
-
-REQUIRED_USE="avidemux? ( avi )"
+IUSE="wavdemux"
 
 DEPEND="sys-fs/fuse
 	>=dev-libs/mini-xml-2.6"
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	if use avidemux; then
-		use avi || die "for avidemux support you need the avi USE flag enabled"
-	fi
-}
-
 src_configure() {
-	econf \
-		$(use_with avi) \
-		$(use_with avidemux) \
-		$(use_with wavdemux)
+	econf $(use_with wavdemux)
 }
 
 src_install() {
