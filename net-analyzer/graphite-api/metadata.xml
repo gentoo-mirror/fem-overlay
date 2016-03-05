@@ -6,8 +6,6 @@
 		<name>Anton Schubert</name>
 	</maintainer>
 	<use>   
-		<flag name="sentry">Add support for Sentry platform</flag>
-		<flag name="cyanite">Add support for Cyanite storage</flag>
 		<flag name="cache">Add cache support with Flask-Cache</flag>
 	</use>
 </pkgmetadata>

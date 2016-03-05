@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -14,12 +14,11 @@ EGO_PN="github.com/${PN}/${PN}"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64"
-IUSE="sentry statsd"
+KEYWORDS="~amd64"
+IUSE="cache"
 
 RDEPEND="
-	sentry? ( dev-python/raven[${PYTHON_USEDEP}] )
-	statsd? ( dev-python/statsd[${PYTHON_USEDEP}] )
+	cache? ( dev-python/flask-cache[${PYTHON_USEDEP}] )
 	dev-python/cairocffi[${PYTHON_USEDEP}]
 	dev-python/flask[${PYTHON_USEDEP}]
 	>=dev-python/pyparsing-1.5.7[${PYTHON_USEDEP}]
