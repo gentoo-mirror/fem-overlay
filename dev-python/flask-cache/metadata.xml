@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>anton.schubert@gmx.de</email>
+		<name>Anton Schubert</name>
+	</maintainer>
+	<use>   
+		<flag name="redis">Add support for redis</flag>
+		<flag name="memcached">Add support for memcached</flag>
+	</use>
+</pkgmetadata>
