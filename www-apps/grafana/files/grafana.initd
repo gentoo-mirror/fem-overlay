@@ -1,0 +1,35 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+DESC="Grafana Server"
+log_dir=/var/log/grafana
+home_dir=/usr/share/grafana
+data_dir=/var/lib/grafana
+command=/usr/sbin/grafana
+grafana_config=${grafana_config:-/etc/grafana/grafana.ini}
+pidfile=${grafana_pidfile:-/var/run/grafana/grafana.pid}
+command_args="--pidfile=${pidfile} --config=${grafana_config} cfg:default.paths.data=${data_dir} cfg:default.paths.logs=${log_dir}"
+user=${user:-grafana}
+group=${group:-grafana}
+
+depend() {
+    need net
+}
+
+start() {
+    ebegin "Starting grafana server"
+    # grafana creates the pidfile itself, tell start-stop-daemon to check whether it is created correctly
+    start-stop-daemon --start --chdir ${home_dir} --pidfile ${pidfile} \
+    --background --exec ${command} --wait 2000 -- ${command_args}
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping grafana server"
+
+    start-stop-daemon --stop --pidfile ${pidfile}
+
+    eend $?
+}
