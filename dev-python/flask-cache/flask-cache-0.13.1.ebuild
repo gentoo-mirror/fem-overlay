@@ -21,11 +21,11 @@ IUSE="memcached redis"
 RDEPEND="
 	memcached? (
 		net-misc/memcached
-		dev-python/pylibmc
+		dev-python/pylibmc[${PYTHON_USEDEP}]
 	)
 	redis? (
 		dev-db/redis
-		dev-python/werkzeug
+		dev-python/werkzeug[${PYTHON_USEDEP}]
 	)"
 DEPEND="${RDEPEND}"
 
