@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/csync2/csync2-1.34-r2.ebuild,v 1.5 2014/08/10 20:20:29 slyfox Exp $
+# $Header: $
 
 EAPI=5
 
@@ -12,16 +12,16 @@ HOMEPAGE="http://oss.linbit.com/csync2/"
 EGIT_REPO_URI="http://git.linbit.com/csync2.git"
 
 LICENSE="GPL-2"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 
-IUSE="ssl xinetd +sqlite3 mysql postgres"
+IUSE="ssl xinetd sqlite mysql postgres"
 
-REQUIRED_USE="|| ( sqlite3 mysql postgres )"
+REQUIRED_USE="|| ( sqlite mysql postgres )"
 
 RDEPEND=">=net-libs/librsync-0.9.5
 	ssl? ( >=net-libs/gnutls-2.7.3 )
 	xinetd? ( sys-apps/xinetd )
-	sqlite3? ( dev-db/sqlite:3 )
+	sqlite? ( dev-db/sqlite:3 )
 	postgres? ( virtual/postgresql )
 	mysql? ( virtual/mysql )"
 
@@ -40,7 +40,7 @@ src_configure() {
 		--localstatedir=/var \
 		--sysconfdir=/etc/csync2 \
 		$(use_enable ssl gnutls) \
-		$(use_enable sqlite3) \
+		$(use_enable sqlite sqlite3) \
 		$(use_enable mysql) \
 		$(use_enable postgres)
 }
