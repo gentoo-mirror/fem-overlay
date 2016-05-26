@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -8,7 +8,7 @@ inherit autotools
 
 DESCRIPTION="A multi-platform C++ library for reading and writing MXF files"
 HOMEPAGE="http://freemxf.org/"
-ARCHIVE="MXF_`echo ${PV} | sed 's/[.]/_/g'`"
+ARCHIVE="MXF_`echo ${PV//./_}`"
 SRC_URI="https://github.com/Tjoppen/mxflib/archive/${ARCHIVE}.tar.gz"
 
 LICENSE="ZPL"
