@@ -18,7 +18,8 @@ SLOT="0"
 DEPEND="dev-perl/Moose
 	dev-perl/MooseX-Getopt
 	dev-perl/AnyEvent
-	dev-perl/namespace-autoclean"
+	dev-perl/namespace-autoclean
+	dev-perl/URI"
 RDEPEND="${DEPEND}"
 
 src_install() {
