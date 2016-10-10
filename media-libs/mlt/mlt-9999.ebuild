@@ -1,130 +1,160 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/mlt/mlt-0.9.0.ebuild,v 1.8 2015/02/27 22:24:32 mgorny Exp $
+# $Id$
 
-EAPI=5
-PYTHON_COMPAT=( python2_6 python2_7 )
+EAPI=6
+PYTHON_COMPAT=( python2_7 )
+USE_RUBY="ruby21"
 
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
-	SCM="git-2"
-	EGIT_REPO_URI="https://github.com/mltframework/mlt.git"
+        SCM="git-r3"
+        EGIT_REPO_URI="https://github.com/mltframework/mlt.git"
 fi
 
-inherit eutils toolchain-funcs multilib python-r1 ${SCM}
+inherit eutils flag-o-matic multilib python-single-r1 ruby-single toolchain-funcs ${SCM}
 
-DESCRIPTION="An open source multimedia framework, designed and developed for television broadcasting"
+DESCRIPTION="Open source multimedia framework for television broadcasting"
 HOMEPAGE="http://www.mltframework.org/"
 if [ "${PV#9999}" != "${PV}" ] ; then
 	SRC_URI=""
 else # Release
-	SRC_URI="mirror://sourceforge/mlt/${P}.tar.gz"
+	SRC_URI="https://github.com/mltframework/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
-IUSE="compressed-lumas dv debug decklink ffmpeg frei0r gtk jack kde kdenlive libav libsamplerate
-melt cpu_flags_x86_mmx opengl qt4 quicktime rtaudio sdl cpu_flags_x86_sse cpu_flags_x86_sse2 sox
-stabilize vorbis xine xml lua python ruby vdpau"
+KEYWORDS="~amd64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+IUSE="compressed-lumas debug decklink ffmpeg fftw frei0r gtk jack kdenlive libav libsamplerate melt opengl
+cpu_flags_x86_mmx qt5 rtaudio sdl cpu_flags_x86_sse cpu_flags_x86_sse2 xine xml lua python ruby vdpau"
+# java perl php tcl vidstab
 IUSE="${IUSE} kernel_linux"
 
 #rtaudio will use OSS on non linux OSes
-RDEPEND="
+COMMON_DEPEND="
+	decklink? ( media-video/decklink-drivers )
 	ffmpeg? (
 		libav? ( media-video/libav:0=[vdpau?] )
 		!libav? ( media-video/ffmpeg:0=[vdpau?] )
 	)
-	dv? ( >=media-libs/libdv-0.104 )
-	decklink? ( media-video/decklink-drivers )
 	xml? ( >=dev-libs/libxml2-2.5 )
-	vorbis? ( >=media-libs/libvorbis-1.1.2 )
-	sdl? ( >=media-libs/libsdl-1.2.10[X,opengl]
+	sdl? ( >=media-libs/libsdl-1.2.10[X,opengl,video]
 		 >=media-libs/sdl-image-1.2.4 )
 	libsamplerate? ( >=media-libs/libsamplerate-0.1.2 )
 	jack? ( >=media-sound/jack-audio-connection-kit-0.121.3
 		media-libs/ladspa-sdk
 		>=dev-libs/libxml2-2.5 )
+	fftw? ( sci-libs/fftw:3.0= )
 	frei0r? ( media-plugins/frei0r-plugins )
 	gtk? ( x11-libs/gtk+:2
 		media-libs/libexif
 		x11-libs/pango )
-	quicktime? ( media-libs/libquicktime )
-	rtaudio? ( kernel_linux? ( media-libs/alsa-lib ) )
-	xine? ( >=media-libs/xine-lib-1.1.2_pre20060328-r7 )
-	qt4? ( dev-qt/qtgui:4
-		dev-qt/qtsvg:4
-		media-libs/libexif )
-	kde? ( kde-base/kdelibs:4
-		media-libs/libexif )
-	!media-libs/mlt++
-	lua? ( >=dev-lang/lua-5.1.4-r4 )
 	opengl? ( media-video/movit )
-	ruby? ( dev-lang/ruby )
-	sox? ( media-sound/sox )
-	stabilize? ( media-libs/libvidstab )"
-
+	rtaudio? (
+		media-libs/rtaudio
+		kernel_linux? ( media-libs/alsa-lib )
+	)
+	xine? ( >=media-libs/xine-lib-1.1.2_pre20060328-r7 )
+	qt5? (
+		dev-qt/qtcore:5
+		dev-qt/qtgui:5
+		dev-qt/qtsvg:5
+		dev-qt/qtwidgets:5
+		dev-qt/qtxml:5
+		media-libs/libexif
+		x11-libs/libX11
+		opengl? ( dev-qt/qtopengl:5 )
+	)
+	lua? ( >=dev-lang/lua-5.1.4-r4:= )
+	ruby? ( ${RUBY_DEPS} )"
+#	sox? ( media-sound/sox )
+#	java? ( >=virtual/jre-1.5 )
+#	perl? ( dev-lang/perl )
+#	php? ( dev-lang/php )
+#	tcl? ( dev-lang/tcl:0= )
+#	vidstab? ( media-libs/libvidstab )
 SWIG_DEPEND=">=dev-lang/swig-2.0"
-DEPEND="${RDEPEND}
+DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 	compressed-lumas? ( || ( media-gfx/imagemagick[png]
 			media-gfx/graphicsmagick[imagemagick,png] ) )
 	lua? ( ${SWIG_DEPEND} virtual/pkgconfig )
-	python? ( ${SWIG_DEPEND} )
+	python? ( ${SWIG_DEPEND} ${PYTHON_DEPS} )
 	ruby? ( ${SWIG_DEPEND} )"
+#	java? ( ${SWIG_DEPEND} >=virtual/jdk-1.5 )
+#	perl? ( ${SWIG_DEPEND} )
+#	php? ( ${SWIG_DEPEND} )
+#	tcl? ( ${SWIG_DEPEND} )
+RDEPEND="${COMMON_DEPEND}
+	!media-libs/mlt++
+"
+
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
+pkg_setup() {
+	use python && python-single-r1_pkg_setup
+}
 
 src_prepare() {
+	epatch "${FILESDIR}"/${PN}-6.2.0-ruby-link.patch
+
 	# respect CFLAGS LDFLAGS when building shared libraries. Bug #308873
 	for x in python lua; do
 		sed -i "/mlt.so/s: -lmlt++ :& ${CFLAGS} ${LDFLAGS} :" src/swig/$x/build || die
 	done
 	sed -i "/^LDFLAGS/s: += :& ${LDFLAGS} :" src/swig/ruby/build || die
 
-	epatch "${FILESDIR}/${PN}-0.9.6-configure-gcc-check.patch"
-	epatch "${FILESDIR}/${PN}-0.9.6-swig-ruby-incdir-and-libs.patch"
-	epatch_user
+	default
 }
 
 src_configure() {
 	tc-export CC CXX
 
+	# bug 589848
+	append-cxxflags -std=c++11
+
 	local myconf="--enable-gpl
 		--enable-gpl3
 		--enable-motion-est
-		--target-arch=$(tc-arch-kernel)
+		--target-arch=$(tc-arch)
+		--disable-kde
 		--disable-swfdec
 		$(use_enable debug)
 		$(use_enable decklink)
-		$(use_enable dv)
+		$(use compressed-lumas && echo ' --luma-compress')
 		$(use_enable cpu_flags_x86_sse sse)
 		$(use_enable cpu_flags_x86_sse2 sse2)
 		$(use_enable gtk gtk2)
-		$(use_enable vorbis)
 		$(use_enable sdl)
 		$(use_enable jack jackrack)
 		$(use_enable ffmpeg avformat)
+		$(use ffmpeg && echo ' --avformat-swscale')
+		$(use_enable fftw plus)
 		$(use_enable frei0r)
 		$(use_enable melt)
 		$(use_enable opengl)
 		$(use_enable libsamplerate resample)
 		$(use_enable rtaudio)
-		$(use_enable stabilize vid.stab)
-		$(use_enable !stabilize videostab)
 		$(use vdpau && echo ' --avformat-vdpau')
 		$(use_enable xml)
 		$(use_enable xine)
 		$(use_enable kdenlive)
-		$(use_enable qt4 qt)
-		$(use_enable sox)"
+		--disable-sox"
+		#$(use_enable sox) FIXME
 
-	use ffmpeg && myconf="${myconf} --avformat-swscale"
-	use kde || myconf="${myconf} --without-kde"
-	(use quicktime && use dv) || myconf="${myconf} --disable-kino"
-	use compressed-lumas && myconf="${myconf} --luma-compress"
+	if use qt5 ; then
+		myconf+=" --enable-qt
+			--qt-includedir=$(pkg-config Qt5Core --variable=includedir)
+			--qt-libdir=$(pkg-config Qt5Core --variable=libdir)"
+	else
+		myconf+=" --disable-qt"
+	fi
 
-	( use x86 || use amd64 ) && \
-		myconf="${myconf} $(use_enable cpu_flags_x86_mmx mmx)" ||
-		myconf="${myconf} --disable-mmx"
+	if use x86 || use amd64 ; then
+		myconf+=" $(use_enable cpu_flags_x86_mmx mmx)"
+	else
+		myconf+=" --disable-mmx"
+	fi
 
 	if ! use melt; then
 		sed -i -e "s;src/melt;;" Makefile || die
@@ -141,7 +171,13 @@ src_configure() {
 	[ -z "${swig_lang}" ] && swig_lang="none"
 
 	econf ${myconf} --swig-languages="${swig_lang}"
+
 	sed -i -e s/^OPT/#OPT/ "${S}/config.mak" || die
+	if use qt5 ; then
+		if ! use opengl ; then
+			sed -i -e "/^USE_QT_OPENGL/ s/^/#/" "${S}/src/modules/qt/config.mak" || die
+		fi
+	fi
 }
 
 src_install() {
@@ -169,6 +205,7 @@ src_install() {
 		exeinto $(python_get_sitedir)
 		doexe _mlt.so
 		dodoc play.py
+		python_optimize
 	fi
 
 	if use ruby; then
@@ -178,16 +215,4 @@ src_install() {
 		dodoc play.rb thumbs.rb
 	fi
 	# TODO: java perl php tcl
-}
-
-pkg_postinst() {
-	if use python; then
-		python_mod_optimize mlt.py
-	fi
-}
-
-pkg_postrm() {
-	if use python; then
-		python_mod_cleanup mlt.py
-	fi
 }
