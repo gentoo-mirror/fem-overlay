@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE=""
 
-DEPEND="media-video/decklink-drivers"
+DEPEND="media-video/decklink-drivers
+dev-libs/boost"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
