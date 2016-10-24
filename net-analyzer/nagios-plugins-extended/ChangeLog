@@ -1,6 +1,14 @@
 # ChangeLog for net-analyzer/nagios-plugins-extended
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nagios-plugins-extended-0.7.5 (24 Oct 2016)
+
+  24 Oct 2016; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -nagios-plugins-extended-0.7.2.ebuild, -nagios-plugins-extended-0.7.3.ebuild,
+  -nagios-plugins-extended-0.7.4.ebuild, +nagios-plugins-extended-0.7.5.ebuild,
+  files/ssl-cert-check, metadata.xml:
+  Version bump with new ssl-cert-check
 
 *nagios-plugins-extended-0.7.4 (12 Dec 2015)
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -41,53 +41,54 @@ PLUGIN_LIST="check_mdstat \
 			 ssl-cert-check"
 SUID_PLUGIN_LIST="check_smart_sectors"
 
-if use tcptraffic; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_tcptraffic"
-fi
-
-if use corosync; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_corosync check_corosync_rings"
-fi
-
-if use haproxy; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_haproxy"
-fi
-
-if use apache; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_apache2"
-fi
-
-if use megaraid; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_lsi_megaraid"
-fi
-
-if use nginx; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_nginx"
-fi
-
-if use portage; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_glsa check_gentoo_portage"
-	SUID_PLUGIN_LIST="${SUID_PLUGIN_LIST} check_gentoo_portage"
-fi
-
-if use temp; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
-fi
-
-if use timestamp; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_timestamp_age"
-fi
-
-if use hddtemp; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_hddtemp.sh"
-fi
-
 pkg_setup() {
 	enewgroup nagios
 	enewuser nagios -1 /bin/bash /var/nagios/home nagios
 }
 
 src_unpack() {
+
+	if use tcptraffic; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_tcptraffic"
+	fi
+
+	if use corosync; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_corosync check_corosync_rings"
+	fi
+
+	if use haproxy; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_haproxy"
+	fi
+
+	if use apache; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_apache2"
+	fi
+
+	if use megaraid; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_lsi_megaraid"
+	fi
+
+	if use nginx; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_nginx"
+	fi
+
+	if use portage; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_glsa check_gentoo_portage"
+		SUID_PLUGIN_LIST="${SUID_PLUGIN_LIST} check_gentoo_portage"
+	fi
+
+	if use temp; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
+	fi
+
+	if use timestamp; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_timestamp_age"
+	fi
+
+	if use hddtemp; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_hddtemp.sh"
+	fi
+
 	for PLUGIN in ${PLUGIN_LIST}; do
 		cp "${FILESDIR}"/${PLUGIN} "${WORKDIR}"
 	done
@@ -95,7 +96,6 @@ src_unpack() {
 
 src_prepare() {
 	use portage && use portageagewarn && epatch "${FILESDIR}"/check_gentoo_portage-0.8.2-age-warning.patch
-	epatch "${FILESDIR}"/check_ram-0.7.2.patch
 }
 
 src_install() {
