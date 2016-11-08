@@ -101,7 +101,7 @@ index 7a93214..bf9a4a9 100644
                  continue;
  
 -            avio_printf(out, "\t\t\t<Representation id=\"%d\" mimeType=\"video/mp4\" codecs=\"%s\"%s width=\"%d\" height=\"%d\">\n", i, os->codec_str, os->bandwidth_str, st->codec->width, st->codec->height);
-+            avio_printf(out, "\t\t\t<Representation id=\"%d\" mimeType=\"%s\" codecs=\"%s\"%s width=\"%d\" height=\"%d\"",
++            avio_printf(out, "\t\t\t<Representation id=\"%d\" mimeType=\"%s\" codecs=\"%s\"%s width=\"%d\" height=\"%d\">\n",
 +                  i, c->muxer_type == MP4_MUXER ? "video/mp4" : "video/webm",
 +                  os->codec_str, os->bandwidth_str, st->codec->width, st->codec->height);
              output_segment_list(&c->streams[i], out, c);
