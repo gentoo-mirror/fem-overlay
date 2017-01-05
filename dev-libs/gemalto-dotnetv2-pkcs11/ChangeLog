@@ -1,6 +1,10 @@
 # ChangeLog for dev-libs/gemalto-dotnetv2-pkcs11
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2017 Gentoo Foundation; Distributed under the GPL v2
 # $Id$
+
+  05 Jan 2017; Peter Große <gentoo@friiks.de>
+  gemalto-dotnetv2-pkcs11-2.2.0.10.ebuild:
+  moved source URL to github
 
 *gemalto-dotnetv2-pkcs11-2.2.0.10 (10 Sep 2015)
 
