@@ -2,6 +2,11 @@
 # Copyright 1999-2017 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Feb 2017; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -sql-ssh-backup-1.9_beta4.ebuild, -files/sql-ssh-backup-1.9_beta4,
+  +files/sql-ssh-backup-1.9_beta5:
+  Upgrade to 1.9_beta5 (include CREATE DATABASE)
+
 *sql-ssh-backup-1.9_beta4 (17 Feb 2017)
 *sql-ssh-backup-1.8.2 (17 Feb 2017)
 

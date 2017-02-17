@@ -6,13 +6,11 @@
 # Each database can be dumped as a single file and can be compressed optional.
 #
 # Copyright (c) 2011 Peter Grosse (gentoo@friiks.de)
-# Copyright (c) 2010-2013 Marcel Pennewiss (opensource@pennewiss.de)
+# Copyright (c) 2010-2017 Marcel Pennewiss (opensource@pennewiss.de)
 # Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
 #
-# Copyright (c) 2012 Marcel Pennewiss, Werbeagentur Pennewiﬂ (opensource@pennewiss.de)
-#
 # Current Version: 1.9 (beta)
-# Last Modified: 2013-07-06
+# Last Modified: 2017-02-17
 #
 # USAGE:
 #   Start sql-ssh-backup with the "-h" option to show usage/help.
@@ -59,6 +57,7 @@
 #           Remove some bashisms
 #           Fix dump-check for postgresql globals
 #           Use password instead of pass in cnf-file
+#           Add CREATE DATABASE IF NOT EXISTS for mysql
 #
 # LICENSE: GPL-2
 #
@@ -303,7 +302,7 @@ get_databaselist()
 # param[in] $1 database-name
 dump_database()
 {
-  ${MYSQL} && local DUMP_DATABASE_COMMAND="mysqldump ${SQL_OPTS} --single-transaction --extended-insert --host ${SQL_HOST} --no-autocommit --set-charset ${1}"
+  ${MYSQL} && local DUMP_DATABASE_COMMAND="mysqldump ${SQL_OPTS} --single-transaction --extended-insert --host ${SQL_HOST} --no-autocommit --set-charset --databases ${1}"
   if ${POSTGRESQL}; then
     if [ "${1}" = "--all-databases" ]; then
       ${POSTGRESQL} && local DUMP_DATABASE_COMMAND="${SQL_OPTS_ENVIRONMENT}pg_dumpall --host ${SQL_HOST} ${SQL_OPTS} ${SQL_DUMP_OPTS}"
