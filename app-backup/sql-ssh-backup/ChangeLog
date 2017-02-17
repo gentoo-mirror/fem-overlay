@@ -1,6 +1,24 @@
 # ChangeLog for app-backup/sql-ssh-backup
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2017 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*sql-ssh-backup-1.9_beta4 (17 Feb 2017)
+*sql-ssh-backup-1.8.2 (17 Feb 2017)
+
+  17 Feb 2017; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -sql-ssh-backup-1.5.ebuild, -sql-ssh-backup-1.5.2.ebuild,
+  -sql-ssh-backup-1.6.ebuild, -sql-ssh-backup-1.7.ebuild,
+  -sql-ssh-backup-1.7.1.ebuild, -sql-ssh-backup-1.7.2.ebuild,
+  sql-ssh-backup-1.8.1.ebuild, +sql-ssh-backup-1.8.2.ebuild,
+  -sql-ssh-backup-1.9_beta3.ebuild, +sql-ssh-backup-1.9_beta4.ebuild,
+  -files/sql-ssh-backup-1.5.2, -files/sql-ssh-backup-1.6,
+  -files/sql-ssh-backup-1.7, -files/sql-ssh-backup-1.7.1,
+  -files/sql-ssh-backup-1.7.2, +files/sql-ssh-backup-1.8.2,
+  -files/sql-ssh-backup-1.9_beta3, +files/sql-ssh-backup-1.9_beta4,
+  metadata.xml:
+  Fix 1.8/1.9 using password in cnf-file.
+  Cleanup any other version
+  Stabilize version 1.8.1
 
 *sql-ssh-backup-1.9_beta3 (11 Oct 2013)
 

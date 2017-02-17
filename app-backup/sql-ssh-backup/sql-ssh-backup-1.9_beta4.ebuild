@@ -1,12 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils
 
-DESCRIPTION="Create MySQL- or PostgreSQL-Dumps via SSH using RSA or DSA Authentication (private key)."
+DESCRIPTION="Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication."
 HOMEPAGE="http://www.fem.tu-ilmenau.de/"
 SRC_URI=""
 

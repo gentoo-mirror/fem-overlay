@@ -6,13 +6,13 @@
 # Each database can be dumped as a single file and can be compressed optional.
 #
 # Copyright (c) 2011 Peter Grosse (gentoo@friiks.de)
-# Copyright (c) 2010-2012 Marcel Pennewiss (opensource@pennewiss.de)
+# Copyright (c) 2010-2013 Marcel Pennewiss (opensource@pennewiss.de)
 # Forschungsgemeinschaft elektronische Medien e.V. (FeM e.V.)
 #
 # Copyright (c) 2012 Marcel Pennewiss, Werbeagentur Pennewiﬂ (opensource@pennewiss.de)
 #
-# Current Version: 1.7
-# Last Modified: 2012-06-25
+# Current Version: 1.8.1
+# Last Modified: 2013-03-18
 #
 # USAGE:
 #   Start sql-ssh-backup with the "-h" option to show usage/help.
@@ -21,7 +21,7 @@
 #   * ssh
 #   * bash-4.x
 #   MySQL:
-#     * bzip2 (if compression enabled)
+#     * bzip2 or xz (if compression enabled)
 #     * mysql / mysqldump (on remote server)
 #   PostgreSQL:
 #     * psql / pg_dump (on remote server)
@@ -43,6 +43,11 @@
 #     1.6 - create temporary pgpass-config for username/password in pgsql
 #           if pgsql-username _and_ passphrase are given
 #     1.7 - Option to dump all databases (including pgsql globals) to a single file
+#   1.7.1 - Add hostname to connection error message, remove temporary config file
+#   1.7.2 - Add xz as compression utility
+#     1.8 - Allow dump of a single database, fix some prepare-checks
+#   1.8.1 - Bugfix for dump all databases as single files
+#   1.8.2 - Use password instead of pass in cnf-file
 #
 # LICENSE: GPL-2
 #
@@ -60,7 +65,7 @@
 
 # show usage information
 print_usage() {
-  echo "SQL-SSH-Backup v1.7"
+  echo "SQL-SSH-Backup v1.8.2"
   echo "Create MySQL-/PosgreSQL-Dumps via SSH using RSA or DSA authentication (private key)."
   echo "Each database will be dumped as a single file and can be compressed optional."
   echo ""
@@ -79,7 +84,9 @@ print_usage() {
   echo " -e <days>           Number of days after which old dumps will be deleted"
   echo " -c                  MySQL: Use bzip2 compression - dumps will be compressed on the local machine"
   echo "                     PgSQL: Use custom dump file format, instead of save uncompressed plain SQL files"
+  echo " -j                  MySQL: Use xz compression - dumps will be compressed on the local machine"
   echo " -o                  Dump all databases together (use at most 3 connections)"
+  echo " -D <database>       Dump single database <database>"
   echo " -h                  Show this help"
   echo ""
 }
@@ -97,13 +104,19 @@ prepare()
   [ "${DATABASE_TYPE,,}" = "pgsql" ] && POSTGRESQL=true
 
   # disable all database backup if unset
-  [ -t ${ALLDATABASES} ] && ALLDATABASES=false
+  [ -z ${ALLDATABASES} ] && ALLDATABASES=false
 
   # disable time-subdirectory (default) if unset
-  [ -t ${BACKUPDIR_TIME} ] && BACKUPDIR_TIME=false
+  [ -z ${BACKUPDIR_TIME} ] && BACKUPDIR_TIME=false
 
   # disable compression (default) if unset
   [ -z ${COMPRESS} ] && COMPRESS=false
+  
+  # disable xz compression (default) if unset
+  [ -z ${COMPRESS_XZ} ] && COMPRESS_XZ=false
+
+  # check if both compressions selected
+  ( ${COMPRESS} && ${COMPRESS_XZ} ) && echo "You should select bzip2 (-c) or xz (-j) for compression - not both." && echo "Start sql-ssh-backup with the \"-h\" option to show usage/help." && exit 1
 
   # set SSH-user to current user if unset
   [ -z ${SSH_USER} ] && SSH_USER=$(id -u -n)
@@ -145,6 +158,9 @@ prepare()
 
   # check for installed bzip2 while using mysql
   ${MYSQL} && ${COMPRESS} && (which bzip2 > /dev/null 2>&1 || (echo "bzip2 not found and compression enabled! Skipping all backups!" >&2 && exit 1))
+  
+  # check for installed xz while using mysql
+  ${MYSQL} && ${COMPRESS_XZ} && (which xz > /dev/null 2>&1 || (echo "xz not found and compression enabled! Skipping all backups!" >&2 && exit 1))
 
   # abort if too man errors occured
   [ ${ERROR} -ge 1 ] && echo && echo "Too man errors occured. Aborting..." && exit 1
@@ -171,19 +187,19 @@ prepare()
   if ${MYSQL} && [ ${SQL_USER} ] && [ "${SQL_PASSWORD}" ]; then
 
     # create temporary my.cnf-file
-    TEMP_CONFIG=$(mktemp)
-    cat > ${TEMP_CONFIG} << EOF_TEMP_CONFIG
+    TEMP_CONFIGFILE=$(mktemp)
+    cat > ${TEMP_CONFIGFILE} << EOF_TEMP_CONFIGFILE
 [client]
 user="${SQL_USER}"
-pass="${SQL_PASSWORD}"
-EOF_TEMP_CONFIG
+password="${SQL_PASSWORD}"
+EOF_TEMP_CONFIGFILE
 
-    LAST_RETURN=$(scp ${SCP_OPTS} ${TEMP_CONFIG} ${SSH_USER}@${SSH_HOST}:~/ 2>&1)
+    LAST_RETURN=$(scp ${SCP_OPTS} ${TEMP_CONFIGFILE} ${SSH_USER}@${SSH_HOST}:~/ 2>&1)
     local ret=$?
-    [ ${ret} -ne 0 ] && echo "SCP-Connection failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
+    [ ${ret} -ne 0 ] && echo "SCP-Connection to ${SSH_HOST} failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
 
     # strip directories from temporary my.cnf-file
-    TEMP_CONFIG=$(basename ${TEMP_CONFIG})
+    TEMP_CONFIG=$(basename ${TEMP_CONFIGFILE})
     SQL_OPTS="--defaults-extra-file=~/${TEMP_CONFIG}"
   fi
 
@@ -191,24 +207,27 @@ EOF_TEMP_CONFIG
   if ${POSTGRESQL} && [ ${SQL_USER} ] && [ "${SQL_PASSWORD}" ]; then
 
     # create temporary pgpass-file
-    TEMP_CONFIG=$(mktemp)
-    cat > ${TEMP_CONFIG} << EOF_TEMP_CONFIG
+    TEMP_CONFIGFILE=$(mktemp)
+    cat > ${TEMP_CONFIGFILE} << EOF_TEMP_CONFIGFILE
 localhost:5432:*:${SQL_USER}:${SQL_PASSWORD}
-EOF_TEMP_CONFIG
+EOF_TEMP_CONFIGFILE
 
-    LAST_RETURN=$(scp ${SCP_OPTS} ${TEMP_CONFIG} ${SSH_USER}@${SSH_HOST}:~/ 2>&1)
+    LAST_RETURN=$(scp ${SCP_OPTS} ${TEMP_CONFIGFILE} ${SSH_USER}@${SSH_HOST}:~/ 2>&1)
     local ret=$?
-    [ ${ret} -ne 0 ] && echo "SCP-Connection failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
+    [ ${ret} -ne 0 ] && echo "SCP-Connection to ${SSH_HOST} failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
 
     # strip directories from temporary pgpass-file
-    TEMP_CONFIG=$(basename ${TEMP_CONFIG})
+    TEMP_CONFIG=$(basename ${TEMP_CONFIGFILE})
     SQL_OPTS_ENVIRONMENT="export PGPASSFILE=~/${TEMP_CONFIG}; "
   elif ${POSTGRESQL} && [ ${SQL_USER} ]; then
     # only PostgreSQL-user is set
     SQL_OPTS="--username=${SQL_USER}"
   fi
-  # check if PostgreSQL-user is set
-  #${POSTGRESQL} && [ ${SQL_USER} ] && SQL_OPTS="--username=${SQL_USER}"
+
+  # remove temporary configfile
+  if [ -f ${TEMP_CONFIGFILE} ]; then
+    rm ${TEMP_CONFIGFILE}
+  fi
 }
 
 # connection-wrapper to execute mysqldump/pgsql/pg_dump/pg_dumpall via ssh
@@ -222,7 +241,7 @@ connection_wrapper()
     LAST_RETURN=$( { ssh ${SSH_OPTS} ${SSH_USER}@${SSH_HOST} "${1}" >${2}; } 2>&1 )
   fi
   local ret=$?
-  [ ${ret} -eq 255 ] && echo "SSH-Connection failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
+  [ ${ret} -eq 255 ] && echo "SSH-Connection to ${SSH_HOST} failed." >&2 && echo "${LAST_RETURN}" >&2 && exit 255
   return ${ret}
 }
 
@@ -296,7 +315,14 @@ check_database_dump()
 # param[in] $1 database-name
 compress_database()
 {
-  LAST_RETURN=$(bzip2 "${BACKUPDIR}/${1}.${BACKUPEXT}" 2>&1)
+  if ${COMPRESS}; then
+    LAST_RETURN=$(bzip2 "${BACKUPDIR}/${1}.${BACKUPEXT}" 2>&1)
+  elif ${COMPRESS_XZ}; then
+    LAST_RETURN=$(xz "${BACKUPDIR}/${1}.${BACKUPEXT}" 2>&1)
+  else
+    return 0
+  fi
+
   local ret=$?
   [ ${ret} -ne 0 ] && echo "Compaction of database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
   return ${ret}
@@ -306,7 +332,14 @@ compress_database()
 # param[in] $1 database-name
 check_compressed_database()
 {
-  LAST_RETURN=$(bzip2 --test "${BACKUPDIR}/${1}.${BACKUPEXT}.bz2" 2>&1)
+  if ${COMPRESS}; then
+    LAST_RETURN=$(bzip2 --test "${BACKUPDIR}/${1}.${BACKUPEXT}.bz2" 2>&1)
+  elif ${COMPRESS_XZ}; then
+    LAST_RETURN=$(xz --test "${BACKUPDIR}/${1}.${BACKUPEXT}.xz" 2>&1)
+  else
+    return 0
+  fi
+
   local ret=$?
   [ ${ret} -ne 0 ] && echo "Test of compacted database \"${1}\" failed." >&2 && echo ${LAST_RETURN} >&2
   return ${ret}
@@ -320,7 +353,7 @@ dump_databases_by_list()
   do
     dump_database ${DATABASE}
     [ $? -eq 0 ] && check_database_dump ${DATABASE}
-    [ $? -eq 0 ] && ${MYSQL} && ${COMPRESS} && compress_database ${DATABASE}
+    [ $? -eq 0 ] && ${MYSQL} && (${COMPRESS} || ${COMPRESS_XZ}) && compress_database ${DATABASE}
     [ $? -eq 0 ] && ${MYSQL} && ${COMPRESS} && check_compressed_database ${DATABASE}
   done
 }
@@ -330,7 +363,7 @@ dump_all_databases()
 {
   dump_database "--all-databases"
   [ $? -eq 0 ] && check_database_dump dump
-  [ $? -eq 0 ] && (${MYSQL} || ${ALLDATABASES}) && ${COMPRESS} && compress_database dump
+  [ $? -eq 0 ] && (${MYSQL} || ${ALLDATABASES}) && (${COMPRESS} || ${COMPRESS_XZ}) && compress_database dump
   [ $? -eq 0 ] && (${MYSQL} || ${ALLDATABASES}) && ${COMPRESS} && check_compressed_database dump
 }
 
@@ -351,7 +384,7 @@ cleanup()
 }
 
 # run main part
-while getopts ":hT:l:s:P:i:m:u:p:d:te:co" Option; do
+while getopts ":hT:l:s:P:i:m:u:p:d:te:cjoD:" Option; do
   case $Option in
     h ) print_usage && exit 0;;
     T ) DATABASE_TYPE=${OPTARG};;
@@ -366,7 +399,9 @@ while getopts ":hT:l:s:P:i:m:u:p:d:te:co" Option; do
     t ) BACKUPDIR_TIME=true;;
     e ) DAYS=${OPTARG};;
     c ) COMPRESS=true;;
+    j ) COMPRESS_XZ=true;;
     o ) ALLDATABASES=true;;
+    D ) DATABASE=${OPTARG};;
     * ) echo "Unknown parameter \"-${OPTARG}\"!"; 
 	print_usage
 	exit 1;;
@@ -375,9 +410,21 @@ done
 shift $(($OPTIND - 1)) 
 
 prepare
-${ALLDATABASES} || (${POSTGRESQL} && dump_globals)
-${ALLDATABASES} || get_databaselist
-${ALLDATABASES} || dump_databases_by_list "${LAST_RETURN}"
-${ALLDATABASES} && dump_all_databases
+
+# run dump_globals and get_databaselist while not getting full dump or single database
+if ! ${ALLDATABASES} && [ -z ${DATABASE} ]; then
+  ${POSTGRESQL} && dump_globals
+  get_databaselist
+fi
+
+# dump all databases in one file on demand, else dump every database separately
+if ${ALLDATABASES}; then
+  dump_all_databases
+else
+  # dump single database on request
+  [ -n "${DATABASE}" ] && LAST_RETURN=${DATABASE}
+  dump_databases_by_list "${LAST_RETURN}"
+fi
+
 cleanup
 exit 0
