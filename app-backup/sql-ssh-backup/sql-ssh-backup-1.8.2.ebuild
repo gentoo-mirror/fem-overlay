@@ -7,8 +7,8 @@ EAPI=5
 inherit eutils
 
 DESCRIPTION="Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication."
-HOMEPAGE="http://www.fem.tu-ilmenau.de/"
-SRC_URI=""
+HOMEPAGE="https://github.com/fem/sql-ssh-backup"
+SRC_URI="https://github.com/fem/${PN}/archive/${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,10 +20,8 @@ RESTRICT="test"
 RDEPEND="net-misc/openssh"
 DEPEND="${RDEPEND}"
 
-S=${WORKDIR}
-
 src_install() {
-	newbin "${FILESDIR}"/${P} ${PN} || die "Installation failed."
+	dobin ${PN}
 }
 
 pkg_postinst() {
