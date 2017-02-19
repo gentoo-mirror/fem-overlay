@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer type="person">
+<email>nas@fem.tu-ilmenau.de</email>
+</maintainer>
+<longdescription lang="en">
+	Multi Multicast DVB is a program that redistributes streams from DVB or ATSC (Digital Television).
+</longdescription>
+</pkgmetadata>

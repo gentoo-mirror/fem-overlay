@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+# Copyright 1999-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id$
+
+depend() {
+ use logger
+}
+
+start() {
+	ebegin "Starting mumudvb with /etc/mumudvb.conf"
+	start-stop-daemon --start --exec "/usr/local/bin/mumudvb" \
+	-- -c "/etc/mumudvb.conf" -q
+	  eend $?
+}
+
+stop() {
+	ebegin "Stopping mumudvb"
+	start-stop-daemon --stop -exec "/usr/local/bin/mumudvb" \
+	  --pidfile "/var/run/mumudvb/mumudvb_adapter0_tuner0.pid"
+	eend $?
+}
