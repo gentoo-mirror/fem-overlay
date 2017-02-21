@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,9 +15,9 @@ SLOT="0"
 KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
 IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn timestamp temp hddtemp +suid"
 
-DEPEND="tcptraffic? ( dev-perl/Nagios-Plugin virtual/perl-version ) \
-		corosync? ( dev-perl/Nagios-Plugin ) \
-		haproxy? ( dev-perl/Nagios-Plugin dev-perl/LWP-UserAgent-Determined ) \
+DEPEND="tcptraffic? ( dev-perl/Monitoring-Plugin virtual/perl-version ) \
+		corosync? ( dev-perl/Monitoring-Plugin ) \
+		haproxy? ( dev-perl/Monitoring-Plugin dev-perl/LWP-UserAgent-Determined ) \
 		apache?	( sys-devel/bc ) \
 		megaraid? ( sys-block/megarc ) \
 		nginx? ( sys-devel/bc net-misc/wget ) \

@@ -1,6 +1,10 @@
 # ChangeLog for net-analyzer/nagios-plugins-extended
-# Copyright 1999-2016 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2017 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  21 Feb 2017; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  nagios-plugins-extended-0.7.5.ebuild:
+  Rename masked Nagios-Plugin to Monitoring-Plugin 
 
 *nagios-plugins-extended-0.7.5 (24 Oct 2016)
 
