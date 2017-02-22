@@ -9,6 +9,7 @@ depend() {
 
 start() {
 	ebegin "Starting mumudvb with /etc/mumudvb.conf"
+	mkdir -p "/var/run/mumudvb"
 	start-stop-daemon --start --exec "/usr/local/bin/mumudvb" \
 	-- -c "/etc/mumudvb.conf" -q
 	  eend $?
