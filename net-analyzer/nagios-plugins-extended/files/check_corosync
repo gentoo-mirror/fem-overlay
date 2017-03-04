@@ -26,7 +26,7 @@
 # v0.3 22/08/2011 - bug fix and changes suggested by Vadym Chepkov
 # v0.4 23/08/2011 - update for spelling and anchor regex capture (Vadym Chepkov)
 #
-# NOTES: Requires Perl 5.8 or higher & the Perl Module Nagios::Plugin
+# NOTES: Requires Perl 5.8 or higher & the Perl Module Monitoring::Plugin
 #        Nagios user will need sudo acces - suggest adding line below to
 #        sudoers
 #	     nagios  ALL=(ALL) NOPASSWD: /usr/sbin/crm_mon -1 -r -f
@@ -38,7 +38,7 @@
 
 use warnings;
 use strict;
-use Nagios::Plugin;
+use Monitoring::Plugin;
 
 # Lines below may need changing if crm_mon or sudo installed in a
 # different location.
@@ -46,7 +46,7 @@ use Nagios::Plugin;
 our $sudo    = '/usr/bin/sudo';
 our $crm_mon = '/usr/sbin/crm_mon';
 
-our $np = Nagios::Plugin->new(
+our $np = Monitoring::Plugin->new(
     shortname => 'check_crm',
     version   => '0.4',
     usage     => "Usage: %s <ARGS>\n\t\t--help for help\n",

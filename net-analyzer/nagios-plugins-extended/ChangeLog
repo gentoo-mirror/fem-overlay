@@ -2,6 +2,14 @@
 # Copyright 1999-2017 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nagios-plugins-extended-0.7.5-r1 (04 Mar 2017)
+
+  04 Mar 2017; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  -nagios-plugins-extended-0.7.5.ebuild,
+  +nagios-plugins-extended-0.7.5-r1.ebuild, files/check_corosync,
+  files/check_corosync_rings, files/check_haproxy, files/check_tcptraffic:
+  Change use of Nagios::Plugin to Monitoring::Plugin
+
   21 Feb 2017; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   nagios-plugins-extended-0.7.5.ebuild:
   Rename masked Nagios-Plugin to Monitoring-Plugin 

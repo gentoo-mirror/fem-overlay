@@ -21,7 +21,7 @@
 #
 # v0.1 05/01/2011 
 #
-# NOTE:- Requires Perl 5.8 or higher & the Perl Module Nagios::Plugin 
+# NOTE:- Requires Perl 5.8 or higher & the Perl Module Monitoring::Plugin 
 #        Nagios user will need sudo acces - suggest adding line below to 
 #        sudoers.
 #        nagios  ALL=(ALL) NOPASSWD: /usr/sbin/corosync-cfgtool -s
@@ -29,9 +29,9 @@
 
 use warnings;
 use strict;
-use Nagios::Plugin;
+use Monitoring::Plugin;
 
-our $np = Nagios::Plugin->new(
+our $np = Monitoring::Plugin->new(
     shortname => 'check_cororings',
     version   => '0.1',
     usage     => "Usage: %s <ARGS>\n\t\t--help for help\n",
