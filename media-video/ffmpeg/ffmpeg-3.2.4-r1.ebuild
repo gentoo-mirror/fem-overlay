@@ -72,7 +72,7 @@ FFMPEG_FLAG_MAP=(
 		schroedinger:libschroedinger speex:libspeex vorbis:libvorbis vpx:libvpx
 		zvbi:libzvbi
 		# libavfilter options
-		bs2b:libbs2b chromaprint flite:libflite frei0r
+		bs2b:libbs2b chromaprint ebur128:libebur128 flite:libflite frei0r
 		fribidi:libfribidi fontconfig ladspa libass truetype:libfreetype
 		rubberband:librubberband zeromq:libzmq zimg:libzimg
 		# libswresample options
@@ -156,6 +156,7 @@ RDEPEND="
 	celt? ( >=media-libs/celt-0.11.1-r1[${MULTILIB_USEDEP}] )
 	chromaprint? ( >=media-libs/chromaprint-1.2-r1[${MULTILIB_USEDEP}] )
 	decklink? ( media-video/decklink-drivers )
+	ebur128? ( >=media-libs/libebur128-1.1.0[${MULTILIB_USEDEP}] )
 	encode? (
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
 		kvazaar? ( media-libs/kvazaar[${MULTILIB_USEDEP}] )
