@@ -2,10 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer>
-		<email>anton.schubert@gmx.de</email>
+		<email>ischluff@mailbox.org</email>
 		<name>Anton Schubert</name>
 	</maintainer>
-	<use>   
+	<use>
 		<flag name="cache">Add cache support with Flask-Cache</flag>
 	</use>
 </pkgmetadata>
