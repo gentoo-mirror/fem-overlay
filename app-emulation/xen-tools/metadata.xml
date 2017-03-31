@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="project">
+		<email>xen@gentoo.org</email>
+		<name>Gentoo Xen Project</name>
+	</maintainer>
+	<use>
+		<flag name='flask'>Enable the Flask XSM module from NSA</flag>
+		<flag name='hvm'>Enable support for hardware based virtualization (VT-x,AMD-v)</flag>
+		<flag name='pygrub'>Install the pygrub boot loader</flag>
+		<flag name='screen'>Enable support for running domain U console in an <pkg>app-misc/screen</pkg> session</flag>
+		<flag name='api'>Build the C libxenapi bindings</flag>
+		<flag name='acm'>Enable the ACM/sHype XSM module from IBM</flag>
+		<flag name='ioemu'>Enable IOEMU support</flag>
+	</use>
+</pkgmetadata>

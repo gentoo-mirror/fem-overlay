@@ -1,10 +1,13 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/xen-tools/xen-tools-4.0.0.ebuild,v 1.4 2010/06/25 16:43:55 xarthisius Exp $
 
-EAPI="3"
+EAPI="5"
 
-inherit flag-o-matic eutils multilib python
+PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE='xml,threads'
+
+inherit flag-o-matic eutils multilib python-single-r1
 
 # TPMEMUFILE=tpm_emulator-0.4.tar.gz
 
@@ -20,12 +23,12 @@ IUSE="doc debug screen custom-cflags pygrub hvm api acm flask ioemu"
 
 PYTHON_DEPEND="2::2.6"
 
-CDEPEND="dev-lang/python
-	sys-libs/zlib
+CDEPEND="sys-libs/zlib
 	hvm? ( media-libs/libsdl
 		sys-power/iasl )
 	acm? ( dev-libs/libxml2 )
-	api? ( dev-libs/libxml2 net-misc/curl )"
+	api? ( dev-libs/libxml2 net-misc/curl )
+	${PYTHON_DEPS}"
 #	vtpm? ( dev-libs/gmp dev-libs/openssl )
 
 DEPEND="${CDEPEND}
@@ -51,7 +54,7 @@ RDEPEND="${CDEPEND}
 		app-misc/screen
 		app-admin/logrotate
 	)
-	|| ( sys-fs/udev sys-apps/hotplug )"
+	virtual/udev"
 
 # hvmloader is used to bootstrap a fully virtualized kernel
 # Approved by QA team in bug #144032
@@ -60,8 +63,7 @@ QA_EXECSTACK="usr/share/xen/qemu/openbios-sparc32
 	usr/share/xen/qemu/openbios-sparc64"
 
 pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
+	python-single-r1_pkg_setup
 
 	export "CONFIG_LOMOUNT=y"
 

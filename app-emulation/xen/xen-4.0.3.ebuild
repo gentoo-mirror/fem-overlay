@@ -1,8 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/xen/xen-4.0.0.ebuild,v 1.1 2010/05/03 19:47:29 alexxy Exp $
 
-inherit mount-boot flag-o-matic toolchain-funcs python
+EAPI="5"
+
+PYTHON_COMPAT=( python2_7 )
+
+inherit mount-boot flag-o-matic python-any-r1 toolchain-funcs
 
 DESCRIPTION="The Xen virtual machine monitor"
 HOMEPAGE="http://xen.org/"
@@ -47,13 +51,10 @@ pkg_setup() {
 	fi
 
 	# fix build error with python 3
-	python_set_active_version 2
-	python_pkg_setup
+	python-any-r1_pkg_setup
 }
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	# if the user *really* wants to use their own custom-cflags, let them
 	if use custom-cflags; then
 		einfo "User wants their own CFLAGS - removing defaults"
