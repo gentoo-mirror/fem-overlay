@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>paul.michel@fem.tu-ilmenau.de</email>
+  </maintainer>
+  <longdescription>
+   Experimental XEP-0280: Message Carbons plugin for libpurple (Pidgin, Finch, etc.) 
+  </longdescription>
+</pkgmetadata>
