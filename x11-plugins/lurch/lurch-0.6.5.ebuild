@@ -18,6 +18,7 @@ IUSE=""
 DEPEND="
 net-im/pidgin
 dev-libs/libxml2
-dev-db/sqlite"
+dev-db/sqlite
+dev-libs/mxml"
 
 RDEPEND="${DEPEND}"
