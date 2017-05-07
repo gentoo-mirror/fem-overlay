@@ -1,6 +1,12 @@
 # ChangeLog for net-analyzer/nrpe
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2017 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nrpe-2.15-r3 (07 May 2017)
+
+  07 May 2017; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
+  +nrpe-2.15-r3.ebuild, metadata.xml:
+  Version bump with init script
 
   25 Jul 2015; Marcel Pennewiss (mape2k) <gentoo@pennewiss.de>
   nrpe-2.15-r2.ebuild, +files/nrpe-2.15-nossl.patch:
