@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-S="${WORKDIR}"/trunk
+S="${WORKDIR}/${PN}"
 instdir="/usr/share/${PN}"
 
 src_compile() {
@@ -28,7 +28,7 @@ src_install() {
 		insinto "${instdir}${dir}"
 		doins "src${dir}"/*
 	done
-	doman ${PN}.1
+	newman ${PN}.1.in ${PN}.1
 	dodoc README TODO
 	dobin ${PN}
 }
