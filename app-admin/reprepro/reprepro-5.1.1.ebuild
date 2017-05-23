@@ -1,5 +1,6 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI="5"
 
@@ -7,7 +8,7 @@ inherit flag-o-matic
 
 DESCRIPTION="Debian APT repository creator and maintainer application"
 HOMEPAGE="http://mirrorer.alioth.debian.org"
-SRC_URI="https://alioth.debian.org/frs/download.php/file/3732/${PN}_${PV}.orig.tar.gz"
+SRC_URI="https://alioth.debian.org/frs/download.php/file/4207/${PN}_${PV}.orig.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
