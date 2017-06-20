@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/Haivision/srt.git"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
