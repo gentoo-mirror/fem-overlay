@@ -3,6 +3,8 @@
 
 EAPI=6
 
+inherit user
+
 DESCRIPTION="Perceptual video quality assessment based on multi-method fusion."
 HOMEPAGE="https://github.com/Netflix/vmaf/"
 SRC_URI="https://github.com/Netflix/vmaf/archive/v${PV}.tar.gz"
@@ -21,6 +23,9 @@ RDEPEND="
 	>=sci-libs/scikits_learn-0.18.1
 	>=dev-python/h5py-2.6.0
 "
+pkg_setup() {
+	enewgroup vmaf
+}
 
 src_prepare() {
 	eapply_user
@@ -46,6 +51,9 @@ src_install() {
 	cp -R "${S}/python/" "${D}/usr/share/vmaf" || die "Install failed!"
 	cp -R "${S}/workspace" "${D}/usr/share/vmaf" || die "Install failed!"
 	cp -R "${S}/feature/" "${D}/usr/share/vmaf" || die "Install failed!"
+	cp -R "${S}/resource/" "${D}/usr/share/vmaf" || die "Install failed!"
+	chmod -R g+w "${D}/usr/share/vmaf/workspace"
+	chown -R :vmaf "${D}/usr/share/vmaf"
 
 	dosym ../../share/vmaf/python/run_vmaf.py /usr/local/bin/run_vmaf
 	dosym ../../share/vmaf/python/run_psnr.py /usr/local/bin/run_psnr
