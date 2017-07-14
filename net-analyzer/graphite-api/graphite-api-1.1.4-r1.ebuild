@@ -26,7 +26,8 @@ RDEPEND="
 	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/tzlocal[${PYTHON_USEDEP}]
-	dev-python/structlog[${PYTHON_USEDEP}]"
+	dev-python/structlog[${PYTHON_USEDEP}]
+	dev-python/scandir[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 python_install() {
