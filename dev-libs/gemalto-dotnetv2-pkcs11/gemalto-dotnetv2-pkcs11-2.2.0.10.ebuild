@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-libs/boost
-	 sys-apps/pcsc-lite"
+	 sys-apps/pcsc-lite
+	 app-crypt/ccid"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
