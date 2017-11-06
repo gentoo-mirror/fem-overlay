@@ -1,0 +1,26 @@
+diff --git a/Makefile b/Makefile
+index 902d2c1..0b64764 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@ CXX=g++
+ PROTOC=protoc
+ INSTALL=install
+ EMBEDDED_BMUSB=no
+-PKG_MODULES := Qt5Core Qt5Gui Qt5Widgets Qt5OpenGLExtensions Qt5OpenGL Qt5PrintSupport libusb-1.0 movit lua52 libmicrohttpd epoxy x264 protobuf libpci
++PKG_MODULES := Qt5Core Qt5Gui Qt5Widgets Qt5OpenGLExtensions Qt5OpenGL Qt5PrintSupport libusb-1.0 movit lua libmicrohttpd epoxy x264 protobuf libpci
+ CXXFLAGS ?= -O2 -g -Wall  # Will be overridden by environment.
+ CXXFLAGS += -std=gnu++11 -fPIC $(shell pkg-config --cflags $(PKG_MODULES)) -pthread -DMOVIT_SHADER_DIR=\"$(shell pkg-config --variable=shaderdir movit)\" -Idecklink/
+ 
+@@ -52,10 +52,10 @@ BM_OBJS = benchmark_audio_mixer.o $(AUDIO_MIXER_OBJS) flags.o metrics.o
+ 	$(PROTOC) --cpp_out=. $<
+ 
+ %.h: %.ui
+-	uic $< -o $@
++	qtchooser -run-tool=uic -qt=5 $< -o $@
+ 
+ %.moc.cpp: %.h
+-	moc $< -o $@
++	qtchooser -run-tool=moc -qt=5 $< -o $@
+ 
+ all: nageru kaeru benchmark_audio_mixer
+ 
