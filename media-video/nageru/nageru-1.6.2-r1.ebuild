@@ -18,6 +18,8 @@ DEPEND="
 virtual/opengl
 >=media-video/movit-1.5.3
 >=media-video/ffmpeg-3.1
+media-sound/zita-resampler
+media-video/bmusb
 media-libs/libepoxy
 dev-libs/protobuf
 net-libs/libmicrohttpd
