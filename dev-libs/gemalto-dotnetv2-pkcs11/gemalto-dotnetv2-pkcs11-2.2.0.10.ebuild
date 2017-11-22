@@ -1,10 +1,9 @@
 # Copyright 2012-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=5
 
-inherit autotools git-r3
+inherit autotools git-r3 eutils
 
 DESCRIPTION="PKCS#11 library for Gemalto .NET V2 smart cards"
 HOMEPAGE="http://smartcardservices.macosforge.org/trac/browser/trunk/SmartCardServices/src/PKCS11dotNetV2"
@@ -26,6 +25,7 @@ S="${S}/SmartCardServices/src/PKCS11dotNetV2"
 
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-boost-1.56.patch"
+	epatch "${FILESDIR}/gcc6.patch"
 	eautoreconf
 }
 
