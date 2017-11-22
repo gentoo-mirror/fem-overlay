@@ -10,6 +10,7 @@ LICENSE="NDI_EULA_END"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
+RESTRICT="fetch"
 
 HOMEPAGE="https://www.newtek.com/ndi/sdk/"
 # supress QA warnings about stripping etc., i.e. stuff we cannot change since we install prebuilt binaries
@@ -19,8 +20,8 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 pkg_nofetch() {
-        einfo "Please visit ${HOMEPAGE} and register for the NDI"
-        einfo "from the mail download the linux sdk and move it to ${DISTDIR}"
+        einfo "Please visit ${HOMEPAGE} and register for the NDI developer program."
+        einfo "From the mail you will revice, download the linux sdk and move it to ${DISTDIR}"
         einfo ""
         einfo "  expected filenames: ${SRC_URI}"
         einfo ""
@@ -31,12 +32,10 @@ pkg_nofetch() {
 src_unpack() {
 	ARCHIVE=`awk '/^__NDI_ARCHIVE_BEGIN__/ { print NR+1; exit 0; }' "${DISTDIR}/${SRC_URI}"`
 	tail -n+$ARCHIVE "${DISTDIR}/${SRC_URI}" | tar xvz
-	ln -s "${WORKDIR}/NDI SDK for Linux/" ${P}
+	S="${WORKDIR}/NDI SDK for Linux/" 
 }
 
 src_install() {
-	installdir="${D}opt/ndi"
-	mkdir -p "${installdir}"
 	dolib "${S}/lib/x86_64-linux-gnu/libndi.so.3.0.9"
 	dosym "/usr/lib64/libndi.so.3.0.9" "/usr/lib64/libndi.so.3"
 	headers=(
