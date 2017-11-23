@@ -17,7 +17,9 @@ HOMEPAGE="https://www.newtek.com/ndi/sdk/"
 QA_PREBUILT="usr/lib64/libndi.so.3.0.9"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="
+net-dns/avahi[dbus]
+${DEPEND}"
 
 pkg_nofetch() {
         einfo "Please visit ${HOMEPAGE} and register for the NDI developer program."
@@ -38,6 +40,7 @@ src_unpack() {
 src_install() {
 	dolib "${S}/lib/x86_64-linux-gnu/libndi.so.3.0.9"
 	dosym "/usr/lib64/libndi.so.3.0.9" "/usr/lib64/libndi.so.3"
+	dosym "/usr/lib64/libndi.so.3" "/usr/lib64/libndi.so"
 	headers=(
 		'Processing.NDI.DynamicLoad.h'
 		'Processing.NDI.Find.h'
