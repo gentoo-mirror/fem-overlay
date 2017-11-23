@@ -3,9 +3,9 @@
 <pkgmetadata>
 	<herd>netmon</herd>
 	<maintainer>
-	        <email>gentoo@pennewiss.de</email>
-	        <name>Marcel Pennewiss</name>
-    </maintainer>
+		<email>ischluff@mailbox.org</email>
+		<name>Anton Schubert</name>
+	</maintainer>
 	<longdescription lang="en">
 		A set of tools targeted at system administrators. They are conntrack,
 		the userspace command line interface, and conntrackd, the userspace

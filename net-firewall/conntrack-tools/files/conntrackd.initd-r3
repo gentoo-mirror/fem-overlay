@@ -1,10 +1,10 @@
-#!/sbin/runscript
-# Copyright 1999-2012 Gentoo Foundation
+#!/sbin/openrc-run
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 CONNTRACKD_BIN="/usr/sbin/conntrackd"
 CONNTRACKD_CFG=${CONNTRACKD_CFG:-/etc/conntrackd/conntrackd.conf}
-CONNTRACKD_LOCK=${CONNTRACKD_LOCK:-/var/lock/conntrack.lock}
+CONNTRACKD_LOCK=${CONNTRACKD_LOCK:-/run/lock/conntrack.lock}
 
 depend() {
 	use logger
@@ -17,7 +17,7 @@ checkconfig() {
 	for k in net.netfilter.nf_conntrack_max \
 		net.ipv4.netfilter.ip_conntrack_max \
 		net.nf_conntrack_max; do
-		if sysctl -e -n ${k} &>/dev/null; then
+		if sysctl ${k} >/dev/null 2>&1; then
 			nf_ct_available=1 # sysctl key found
 			break
 		fi
