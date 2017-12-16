@@ -10,8 +10,8 @@ SRC_URI="mirror://sourceforge/nagios/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="alpha amd64 hppa ppc ~ppc64 sparc x86"
-IUSE="command-args minimal selinux ssl tcpd -increase_max_packetbuffer"
+KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
+IUSE="command-args minimal selinux ssl tcpd"
 
 DEPEND="ssl? ( dev-libs/openssl:0 )
 	!minimal? ( tcpd? ( sys-apps/tcp-wrappers ) )"
@@ -48,13 +48,6 @@ src_prepare() {
 
 	# Fix build with USE="-ssl".
 	epatch "${FILESDIR}"/${PN}-2.15-no-ssl.patch
-
-	# Increase the max amount of data it will be send in one query/response
-	if use increase_max_packetbuffer; then
-		sed -i \
-			-e '/^#define MAX_PACKETBUFFER_LENGTH/s:1024:8192:' \
-			include/common.h || die
-	fi
 
 	sed -i -e '/define \(COMMAND\|SERVICES\)_FILE/d' \
 		contrib/nrpe_check_control.c || die
