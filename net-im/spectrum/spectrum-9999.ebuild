@@ -20,7 +20,7 @@ IUSE="mysql sqlite symlinks tools staticport"
 RDEPEND=">=dev-libs/poco-1.3.3[mysql?,sqlite?]
 	media-gfx/imagemagick[cxx]
 	>=net-im/pidgin-2.6.0
-	>=net-libs/gloox-1.0
+	>=net-libs/gloox-1.0.20
 	dev-python/xmpppy
 	dev-libs/libev
 	<dev-lang/python-3"

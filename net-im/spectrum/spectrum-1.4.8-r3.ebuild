@@ -22,7 +22,7 @@ RDEPEND="dev-libs/libev
 		dev-python/xmpppy
 		media-gfx/imagemagick[cxx]
 		>=net-im/pidgin-2.6.0
-		>=net-libs/gloox-1.0
+		>=net-libs/gloox-1.0.20
 		<dev-lang/python-3"
 DEPEND="${RDEPEND}
 		dev-util/cmake
