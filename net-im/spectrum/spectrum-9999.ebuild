@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="6"
 
-inherit cmake-utils git-2
+inherit cmake-utils git-r3 user
 
 DESCRIPTION="Spectrum is an XMPP transport/gateway"
 HOMEPAGE="http://spectrum.im"
 
-EGIT_REPO_URI="git://github.com/hanzz/${PN}.git"
+EGIT_REPO_URI="https://github.com/hanzz/${PN}.git git://github.com/hanzz/${PN}.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -38,6 +38,16 @@ pkg_setup() {
 		die
 	fi
 }
+
+src_prepare () {
+        cmake-utils_src_prepare
+        eapply_user
+
+        epatch "${FILESDIR}/${PF}-includes.patch"
+        epatch "${FILESDIR}/${PF}-template-iterator.patch"
+}
+
+
 
 src_install () {
 	cmake-utils_src_install

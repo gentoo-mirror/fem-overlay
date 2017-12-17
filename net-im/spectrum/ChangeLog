@@ -15,3 +15,18 @@
   +files/spectrum-1.4.8-r2-template-iterator.patch:
   new patches to fix compiler errors
 
+*spectrum-1.4.8-r3 (17 Dec 2017)
+
+  17 Dec 2017; Dustin Funk (nuts) <nuts@fem.tu-ilmenau.de>
+  -spectrum-1.4.8-r2.ebuild, -files/spectrum-1.4.8-r2-includes.patch,
+  -files/spectrum-1.4.8-r2-template-iterator.patch:
+  +spectrum-1.4.8-r3.ebuild, +files/spectrum-1.4.8-r3-includes.patch,
+  +files/spectrum-1.4.8-r3-template-iterator.patch:
+  update ebuild to EAPI=6
+
+*spectrum-9999 (17 Dec 2017)
+
+  17 Dec 2017; Dustin Funk (nuts) <nuts@fem.tu-ilmenau.de>
+  +files/spectrum-9999-includes.patch,+files/spectrum-9999-template-iterator.patch:
+  update ebuild to EAPI=6
+
