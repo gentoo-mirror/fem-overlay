@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>paul.michel@fem.tu-ilmenau.de</email>
+		<name>Paul Michel</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">dino/dino</remote-id>
+	</upstream>
+	<longdescription>
+	OMEMO for libpurple - interoperable with other OMEMO clients. 
+	</longdescription>
+</pkgmetadata>
