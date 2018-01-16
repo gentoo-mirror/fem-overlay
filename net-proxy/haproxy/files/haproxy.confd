@@ -1,4 +1,0 @@
-# /etc/conf.d/haproxy: config file for /etc/init.d/haproxy
-
-# Additional HA-Proxy command line options
-HAPROXY_OPTS=""
