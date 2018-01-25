@@ -1,17 +1,16 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI="4"
+EAPI=6
 
-inherit git-2 eutils
+inherit git-r3 eutils
 
 DESCRIPTION="Basic capture and play programs for Blackmagic Design Decklink"
 HOMEPAGE="https://github.com/lu-zero/bmdtools"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="virtual/ffmpeg
@@ -19,12 +18,10 @@ DEPEND="virtual/ffmpeg
 
 EGIT_REPO_URI="https://github.com/lu-zero/bmdtools.git"
 
-S="${WORKDIR}/${PN}"
-
 src_compile() {
 	emake SDK_PATH=/usr/include/blackmagic
 }
 
 src_install() {
-	einstall SDK_PATH=/usr/include/blackmagic
+	emake SDK_PATH=/usr/include/blackmagic DESTDIR="${D}" install
 }
