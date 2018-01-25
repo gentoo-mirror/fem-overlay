@@ -1,9 +1,0 @@
---- lib/libnids-1.21_patched/configure.gnu.old	2011-10-31 00:44:09.000000000 +0100
-+++ lib/libnids-1.21_patched/configure.gnu	2011-10-31 00:43:27.000000000 +0100
-@@ -1,3 +1,3 @@
- #!/bin/sh
- 
--./configure --disable-libnet --disable-libglib $@
-\ No newline at end of file
-+./configure --disable-libnet --disable-libglib "$@"
-\ No newline at end of file
