@@ -1,20 +1,22 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 inherit linux-mod
 
-DESCRIPTION="Desktop Video - drivers and tools for products by Blackmagic Design including DeckLink and Intensity"
+DESCRIPTION="Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)"
 HOMEPAGE="http://www.blackmagicdesign.com/"
 
-# could be any other
-SDK_VERSION="10.5"
+# Desktop Video Revision
+REV="a2"
+
+# SDK Package Version
+SDK_VERSION="10.9.10"
 
 SRC_URI="Blackmagic_Desktop_Video_Linux_${PV}.tar.gz
 headers? ( Blackmagic_DeckLink_SDK_${SDK_VERSION}.zip )"
-UNPACKED_DIR="desktopvideo-10.5a17-x86_64"
+UNPACKED_DIR="desktopvideo-${PV}${REV}-x86_64"
 
 LICENSE="BlackmagicDesktopVideo"
 SLOT="0"
@@ -30,8 +32,8 @@ X? ( dev-qt/qtgui:4 )"
 QA_PREBUILT="opt/blackmagic-desktop-video/usr/bin/* opt/blackmagic-desktop-video/usr/lib/*"
 
 # for kernel module compilation
-MODULE_NAMES="blackmagic(misc:${S}/usr/src/blackmagic-10.5a17)
-blackmagic-io(misc:${S}/usr/src/blackmagic-io-10.5a17)"
+MODULE_NAMES="blackmagic(misc:${S}/usr/src/blackmagic-${PV}${REV})
+blackmagic-io(misc:${S}/usr/src/blackmagic-io-${PV}${REV})"
 BUILD_TARGETS="clean all"
 
 pkg_nofetch() {
@@ -64,7 +66,8 @@ src_compile() {
 
 src_install() {
 	# all pre-built binaries should go into /opt and be symlinked to usr/bin etc.
-	installdir="${D}/opt/blackmagic-desktop-video"
+	optdir="opt/blackmagic-desktop-video"
+	installdir="${D}${optdir}"
 
 	mkdir -p ${installdir}
 	cp -a "${WORKDIR}"/${UNPACKED_DIR}/* ${installdir}/
@@ -79,7 +82,8 @@ src_install() {
 			'usr/share/doc/desktopvideo'
 	)
 	for path in "${symlinks[@]}"; do
-		dosym /opt/blackmagic-desktop-video/${path} ${path}
+		relpath=$(realpath -m --relative-to="/${path}" "/${optdir}")
+		dosym ${relpath:3}/${path} ${path}
 	done
 
 	if use X; then
@@ -101,24 +105,25 @@ src_install() {
 			'usr/share/icons/hicolor/256x256/apps/BlackmagicFirmwareUpdaterGui.png'
 		)
 		for path in "${symlinks[@]}"; do
-			dosym /opt/blackmagic-desktop-video/${path} ${path}
+			relpath=$(realpath -m --relative-to="/${path}" "/${optdir}")
+			dosym ${relpath:3}/${path} ${path}
 		done
 
 		# add firmware check to autostart?
 		if use autostart; then
-			dosym /opt/blackmagic-desktop-video/etc/xdg/autostart/BlackmagicFirmwareUpdaterGuiAutostart.desktop /etc/xdg/autostart/BlackmagicFirmwareUpdaterGuiAutostart.desktop
+			dosym ../../../${optdir}/etc/xdg/autostart/BlackmagicFirmwareUpdaterGuiAutostart.desktop /etc/xdg/autostart/BlackmagicFirmwareUpdaterGuiAutostart.desktop
 		fi
 	fi
 
 	# udev rule should be placed in /lib/udev/rules.d instead
-	dosym /opt/blackmagic-desktop-video/etc/udev/rules.d/55-blackmagic.rules /lib/udev/rules.d/55-blackmagic.rules
+	dosym ../../../${optdir}/etc/udev/rules.d/55-blackmagic.rules /lib/udev/rules.d/55-blackmagic.rules
 
 	if use headers; then
 		# copy headers from SDK
 		mkdir -p ${installdir}/usr/include
 		cp -a "${WORKDIR}/Blackmagic DeckLink SDK ${SDK_VERSION}/Linux/include" ${installdir}/usr/include/blackmagic
 
-		dosym ${installdir}/usr/include/blackmagic usr/include/blackmagic
+		dosym ../../${optdir}/usr/include/blackmagic usr/include/blackmagic
 	fi
 
 	newinitd "${FILESDIR}/DesktopVideoHelper.initd" blackmagic-DesktopVideoHelper
