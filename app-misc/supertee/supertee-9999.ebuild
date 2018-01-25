@@ -1,13 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI="4"
+EAPI=6
 
-inherit mercurial cmake-utils
+inherit git-r3 cmake-utils
 
 DESCRIPTION="Multithreaded multisink pipe"
-HOMEPAGE="http://hg.fem.tu-ilmenau.de/supertee"
+HOMEPAGE="https://stash.fem.tu-ilmenau.de/projects/ARCHIVE/repos/supertee"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -17,13 +16,7 @@ IUSE=""
 DEPEND="dev-util/cmake
 	dev-libs/boost"
 
-EHG_REPO_URI="http://hg.fem.tu-ilmenau.de/supertee"
-
-S="${WORKDIR}/${PN}"
-
-src_unpack() {
-	mercurial_src_unpack
-}
+EGIT_REPO_URI="https://pegro@stash.fem.tu-ilmenau.de/scm/archive/supertee.git"
 
 src_configure() {
 	cmake-utils_src_configure
