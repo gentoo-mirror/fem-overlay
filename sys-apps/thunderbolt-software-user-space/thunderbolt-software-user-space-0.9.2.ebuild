@@ -5,7 +5,7 @@ EAPI=6
 inherit cmake-utils
 DESCRIPTION="Thunderbolt(TM) user-space components"
 HOMEPAGE="https://github.com/intel/thunderbolt-software-user-space"
-SRC_URI="https://github.com/intel/thunderbolt-software-user-space/archive/v0.9.2.tar.gz"
+SRC_URI="https://github.com/intel/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -14,18 +14,6 @@ IUSE=""
 
 DEPEND="
 app-text/txt2tags
+dev-libs/boost
 "
 RDEPEND="${DEPEND}"
-
-src_configure() {
-	CMAKE_BUILD_TYPE="Release"
-	cmake-utils_src_configure
-}
-
-src_compile() {
-	cmake-utils_src_compile
-}
-
-src_install() {
-	cmake-utils_src_install
-}
