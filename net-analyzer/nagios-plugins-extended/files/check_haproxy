@@ -250,7 +250,7 @@ if ( $http_response->is_success() ) {
 				'label' => 'sess_'.$pxname,
 				'value' => $stats2{$pxname}{'scur'},
 				'min' => 0,
-				'uom' => 'sessions',
+				'uom' => '',
 				'max' => $stats2{$pxname}{'slim'},
 			);
 		}

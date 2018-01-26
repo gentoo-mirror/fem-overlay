@@ -1,8 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
+EAPI=6
 
 inherit eutils user
 
@@ -12,19 +11,19 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn timestamp temp hddtemp +suid"
 
 DEPEND="tcptraffic? ( dev-perl/Monitoring-Plugin virtual/perl-version ) \
-		corosync? ( dev-perl/Monitoring-Plugin ) \
-		haproxy? ( dev-perl/Monitoring-Plugin dev-perl/LWP-UserAgent-Determined ) \
-		apache?	( sys-devel/bc ) \
-		megaraid? ( sys-block/megarc ) \
-		nginx? ( sys-devel/bc net-misc/wget ) \
-		portage? ( app-portage/gentoolkit ) \
-		temp? ( ( || ( net-analyzer/netcat6 net-analyzer/netcat ) ) sys-devel/bc ) \
-		timestamp? ( dev-perl/TimeDate ) \
-		hddtemp? ( app-admin/hddtemp )"
+	corosync? ( dev-perl/Monitoring-Plugin ) \
+	haproxy? ( dev-perl/Monitoring-Plugin dev-perl/LWP-UserAgent-Determined ) \
+	apache?	( sys-devel/bc ) \
+	megaraid? ( sys-block/megarc ) \
+	nginx? ( sys-devel/bc net-misc/wget ) \
+	portage? ( app-portage/gentoolkit ) \
+	temp? ( ( || ( net-analyzer/netcat6 net-analyzer/netcat ) ) sys-devel/bc ) \
+	timestamp? ( dev-perl/TimeDate ) \
+	hddtemp? ( app-admin/hddtemp )"
 
 RESTRICT="test"
 
@@ -33,12 +32,12 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR}
 
 PLUGIN_LIST="check_mdstat \
-			 check_mount \
-			 check_raid \
-			 check_ram \
-			 check_smart_sectors \
-			 check_openvpn_clients \
-			 ssl-cert-check"
+		 check_mount \
+		 check_raid \
+		 check_ram \
+		 check_smart_sectors \
+		 check_openvpn_clients \
+		 ssl-cert-check"
 SUID_PLUGIN_LIST="check_smart_sectors"
 
 pkg_setup() {
