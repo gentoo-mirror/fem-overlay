@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -306,7 +306,7 @@ REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
 	nginx_modules_http_push_stream? ( ssl )
-	nginx_modules_http_vod ( nginx_modules_http_gzip )"
+	nginx_modules_http_vod? ( nginx_modules_http_gzip )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
