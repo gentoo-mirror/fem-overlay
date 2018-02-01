@@ -1,4 +1,4 @@
-# Copyright 2012-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -25,7 +25,6 @@ S="${S}/SmartCardServices/src/PKCS11dotNetV2"
 
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-boost-1.56.patch"
-	epatch "${FILESDIR}/gcc6.patch"
 	eautoreconf
 }
 
