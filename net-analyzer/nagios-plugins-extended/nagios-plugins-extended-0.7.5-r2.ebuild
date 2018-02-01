@@ -94,6 +94,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	default_src_prepare
 	use portage && use portageagewarn && epatch "${FILESDIR}"/check_gentoo_portage-0.8.2-age-warning.patch
 }
 
