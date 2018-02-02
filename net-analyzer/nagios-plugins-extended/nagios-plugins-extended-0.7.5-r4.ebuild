@@ -16,8 +16,8 @@ IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn t
 
 DEPEND="tcptraffic? ( dev-perl/Monitoring-Plugin virtual/perl-version ) \
 	corosync? ( dev-perl/Monitoring-Plugin ) \
-	haproxy? ( dev-perl/Monitoring-Plugin dev-perl/LWP-UserAgent-Determined ) \
-	apache?	( dev-perl/Monitoring-Plugin ) \
+	haproxy? ( dev-perl/Monitoring-Plugin dev-perl/libwww-perl ) \
+	apache?	( dev-perl/Monitoring-Plugin dev-perl/libwww-perl ) \
 	megaraid? ( sys-block/megarc ) \
 	nginx? ( sys-devel/bc net-misc/wget ) \
 	portage? ( app-portage/gentoolkit ) \
