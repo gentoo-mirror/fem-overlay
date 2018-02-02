@@ -1,0 +1,48 @@
+diff --git a/MiniDriverAuthentication.hpp b/MiniDriverAuthentication.hpp
+index 6719c82..07763da 100644
+--- a/MiniDriverAuthentication.hpp
++++ b/MiniDriverAuthentication.hpp
+@@ -23,6 +23,8 @@
+ #define __GEMALTO_MINIDRIVER_AUTHENTICATION__
+ 
+ 
++#include <boost/serialization/extended_type_info.hpp>
++#include <boost/serialization/singleton.hpp>
+ #include <boost/serialization/serialization.hpp>
+ #include <boost/serialization/shared_ptr.hpp>
+ #include <boost/shared_ptr.hpp>
+diff --git a/MiniDriverContainerMapFile.hpp b/MiniDriverContainerMapFile.hpp
+index 8f6aee6..2fc89a5 100644
+--- a/MiniDriverContainerMapFile.hpp
++++ b/MiniDriverContainerMapFile.hpp
+@@ -23,10 +23,17 @@
+ #define __GEMALTO_MINIDRIVER_CONTAINER_MAP_FILE__
+ 
+ 
++#include <boost/serialization/singleton.hpp>
++#include <boost/serialization/extended_type_info.hpp>
+ #include <boost/serialization/serialization.hpp>
+ #include <boost/serialization/shared_ptr.hpp>
++#include <boost/version.hpp>
++#if BOOST_VERSION >= 106400
++#include <boost/serialization/boost_array.hpp>
++#else
+ #include <boost/serialization/array.hpp>
+ #include <boost/array.hpp>
++#endif
+ #include <boost/shared_ptr.hpp>
+ #include <string>
+ #include "Log.hpp"
+diff --git a/MiniDriverFiles.hpp b/MiniDriverFiles.hpp
+index 067e4b8..81c8115 100644
+--- a/MiniDriverFiles.hpp
++++ b/MiniDriverFiles.hpp
+@@ -26,6 +26,8 @@
+ #include <boost/ptr_container/serialize_ptr_map.hpp>
+ #include <boost/ptr_container/ptr_map.hpp>
+ #include <boost/serialization/string.hpp>
++#include <boost/serialization/singleton.hpp>
++#include <boost/serialization/extended_type_info.hpp>
+ #include <boost/serialization/vector.hpp>
+ #include <boost/serialization/set.hpp>
+ #include <boost/serialization/shared_ptr.hpp>
