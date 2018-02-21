@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-analyzer/icinga/icinga-1.12.2.ebuild,v 1.1 2015/03/03 19:18:25 prometheanfire Exp $
 
 #https://github.com/Icinga/icinga-core/blob/master/sample-config/cgi.cfg.in
 

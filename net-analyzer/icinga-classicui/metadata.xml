@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sysadmin</herd>
   <longdescription>
     Classic Webinterface for viewing Icinga-Monitoring for explicit Icinga2.
   </longdescription>
