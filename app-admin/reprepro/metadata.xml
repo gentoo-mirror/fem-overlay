@@ -5,4 +5,8 @@
 		<email>gentoo@friiks.de</email>
 		<name>Peter Grosse</name>
 	</maintainer>
+	<use>
+		<flag name="archive"></flag>
+		<flag name="gpgme"></flag>
+	</use>
 </pkgmetadata>
