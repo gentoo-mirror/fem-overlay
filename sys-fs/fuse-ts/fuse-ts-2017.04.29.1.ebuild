@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -14,8 +14,8 @@ IUSE="debug"
 
 inherit git-r3
 
-DEPEND="sys-fs/fuse
-    >=dev-libs/mini-xml-2.6"
+DEPEND="sys-fs/fuse:0
+	>=dev-libs/mini-xml-2.6"
 RDEPEND="${DEPEND}"
 
 src_compile() {
@@ -26,5 +26,5 @@ src_compile() {
 	fi
 }
 src_install() {
-    dobin fuse-ts || die
+	dobin fuse-ts || die
 }

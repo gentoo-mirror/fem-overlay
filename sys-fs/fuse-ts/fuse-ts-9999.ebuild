@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 EAPI="5"
 
@@ -17,7 +16,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE=""
 
-DEPEND="sys-fs/fuse
+DEPEND="sys-fs/fuse:0
 	>=dev-libs/mini-xml-2.6"
 RDEPEND="${DEPEND}"
 
