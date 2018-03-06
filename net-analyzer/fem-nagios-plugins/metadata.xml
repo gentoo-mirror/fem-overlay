@@ -6,7 +6,7 @@
 	<name>Jonas Licht</name>
 </maintainer>
 <use>
-    <flag name="bandwidth">add plugin check_bindwidth checks switch SNMP</flag>
+	<flag name="bandwidth">add plugin check_bindwidth checks switch SNMP</flag>
 	<flag name="cgiirc">add plugin check_cgiirc</flag>
 	<flag name="gentoo-portage">add plugin check_gentoo_portage</flag>
 	<flag name="hddtemp">add plugin check_hddtemp.sh</flag>
@@ -15,13 +15,12 @@
 	<flag name="nrpe_wrapper">add plugin check_nrpe_wrapper</flag>
 	<flag name="openvpn_clients">add plugin check_openvpn_clients</flag>
 	<flag name="raid">add plugin check_raid</flag>
-    <flag name="ram">add plugin check_ram</flag>
+	<flag name="ram">add plugin check_ram</flag>
 	<flag name="sensors">add plugin check_sensors</flag>
-    <flag name="smart_sectors">add plugin check_smart_sectors</flag>
-    <flag name="temp_sensor">add plugin check_sensor</flag>
+	<flag name="smart_sectors">add plugin check_smart_sectors</flag>
+	<flag name="temp_sensor">add plugin check_sensor</flag>
 	<flag name="uptime">add plugin check_uptime checks switch SNMP</flag>
 	<flag name="xml-rpc">add plugin check_xml-rpc</flag>
-
 </use>
 <longdescription lang="en">
 </longdescription>

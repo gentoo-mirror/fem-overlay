@@ -1,9 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 EAPI=5
-
 
 DESCRIPTION="Nagios plugins written by FeM"
 HOMEPAGE="http://fem.tu-ilmenau.de"
@@ -13,13 +11,13 @@ EGIT_BRANCH="master"
 inherit eutils user git-r3
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc"
 
 DEPEND="bandwidth? ( dev-perl/Net-SNMP ) \
 		raid? ( virtual/perl-Getopt-Long ) \
 		sensors? ( virtual/perl-Getopt-Long ) \
-		uptime? ( virtual/perl-Getopt-Long  dev-perl/Net-SNMP ) \
+		uptime? ( virtual/perl-Getopt-Long	dev-perl/Net-SNMP ) \
 		xml-rpc? ( dev-python/nagiosplugin dev-perl/RPC-XML ) \
 "
 RESTRICT="test"
@@ -36,7 +34,7 @@ pkg_setup() {
 }
 
 src_install () {
-    if use bandwidth; then
+	if use bandwidth; then
 		PLUGIN_LIST="${PLUGIN_LIST} check_bindwidth"
 	fi
 
@@ -75,26 +73,26 @@ src_install () {
 	if use ram; then
 		PLUGIN_LIST="${PLUGIN_LIST} check_ram"
 	fi
-	
-	if use sensors; then
-        PLUGIN_LIST="${PLUGIN_LIST} check_sensors"
-    fi
 
-    if use smart_sectors; then
-        PLUGIN_LIST="${PLUGIN_LIST} check_smart_sectors"
-    fi
+	if use sensors; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_sensors"
+	fi
+
+	if use smart_sectors; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_smart_sectors"
+	fi
 
 	if use temp_sensor; then
-        PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
-    fi
+	PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
+	fi
 
-    if use uptime; then
-        PLUGIN_LIST="${PLUGIN_LIST} check_uptime"
-    fi
+	if use uptime; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_uptime"
+	fi
 
-    if use xml-rpc; then
-        PLUGIN_LIST="${PLUGIN_LIST} check_xml-rpc"
-    fi
+	if use xml-rpc; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_xml-rpc"
+	fi
 
 	dodir /usr/$(get_libdir)/nagios/plugins
 	exeinto /usr/$(get_libdir)/nagios/plugins
