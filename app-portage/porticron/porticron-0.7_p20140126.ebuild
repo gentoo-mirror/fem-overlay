@@ -1,13 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-portage/porticron/porticron-0.7_p20140126.ebuild,v 1.1 2014/02/06 08:30:46 xmw Exp $
 
 EAPI="5"
 
 inherit eutils vcs-snapshot
 
 DESCRIPTION="cron script to sync portage and send update mails to root"
-HOMEPAGE="http://github.com/hollow/porticron"
+HOMEPAGE="https://github.com/hollow/porticron"
 SRC_URI="https://github.com/hollow/${PN}/tarball/df727fe -> ${P}.tar.gz"
 
 LICENSE="BSD"
@@ -19,7 +18,7 @@ RDEPEND=""
 DEPEND=""
 
 src_prepare() {
-    epatch "${FILESDIR}"/${P}-portage-2.2.8.patch
+	epatch "${FILESDIR}"/${P}-portage-2.2.8.patch
 	epatch "${FILESDIR}"/remove-dig-0.7.patch
 }
 
