@@ -28,8 +28,8 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86-fbsd ~amd64-linux ~x86-linux"
-IUSE="compressed-lumas cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 debug decklink ffmpeg fftw
-frei0r gtk jack kdenlive libav libsamplerate lua melt opencv opengl python qt5 rtaudio ruby sdl vdpau xine xml"
+IUSE="compressed-lumas cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 debug decklink ffmpeg fftw frei0r
+gtk jack kdenlive libav libsamplerate lua melt opencv opengl python qt5 rtaudio ruby sdl sdl2 vdpau xine xml"
 # java perl php tcl vidstab
 IUSE="${IUSE} kernel_linux"
 
@@ -78,6 +78,10 @@ COMMON_DEPEND="
 		>=media-libs/libsdl-1.2.10[X,opengl,video]
 		>=media-libs/sdl-image-1.2.4
 	)
+	sdl2? (
+		media-libs/libsdl2[X,opengl,video]
+		media-libs/sdl2-image
+	)
 	xine? ( >=media-libs/xine-lib-1.1.2_pre20060328-r7 )
 	xml? ( >=dev-libs/libxml2-2.5 )"
 #	java? ( >=virtual/jre-1.5 )
@@ -102,10 +106,6 @@ RDEPEND="${COMMON_DEPEND}
 "
 
 DOCS=( AUTHORS ChangeLog NEWS README docs/{framework,melt,mlt{++,-xml}}.txt )
-
-PATCHES=(
-	"${FILESDIR}"/${PN}-6.2.0-ruby-link.patch
-)
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
@@ -143,6 +143,7 @@ src_configure() {
 		$(use_enable cpu_flags_x86_sse2 sse2)
 		$(use_enable gtk gtk2)
 		$(use_enable sdl)
+		$(use_enable sdl2)
 		$(use_enable jack jackrack)
 		$(use_enable ffmpeg avformat)
 		$(use ffmpeg && echo ' --avformat-swscale')
