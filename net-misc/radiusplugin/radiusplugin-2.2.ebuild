@@ -1,6 +1,5 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 EAPI=5
 inherit eutils
@@ -14,7 +13,7 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE=""
 
-DEPEND="dev-libs/libgcrypt"
+DEPEND="dev-libs/libgcrypt:0"
 	#=net-misc/openvpn-2"
 
 RDEPEND="${DEPEND}"
