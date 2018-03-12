@@ -14,10 +14,6 @@
     <flag name="minimal">
       Only build the check plugins for Nagios/Icinga, and not the daemon.
     </flag>
-
-    <flag name='increase_max_packetbuffer'>
-	  Increase maximal packet buffer to transmit 8kb instead of 1kb data.
-    </flag>
   </use>
   <upstream>
     <remote-id type="sourceforge">nagios</remote-id>
