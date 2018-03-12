@@ -1,8 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI="6"
+PYTHON_COMPAT=( python3_{4,5,6} )
 
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
@@ -10,7 +10,7 @@ if [ "${PV#9999}" != "${PV}" ] ; then
 	EGIT_REPO_URI="https://github.com/voc/voctomix.git"
 fi
 
-inherit ${SCM}
+inherit ${SCM} python-single-r1
 
 DESCRIPTION="Full-HD Software Live-Video-Mixer in python"
 HOMEPAGE="https://github.com/voc/voctomix"
@@ -21,7 +21,7 @@ else # Release
 fi
 
 LICENSE="MIT"
-KEYWORDS=""
+KEYWORDS="~amd64"
 SLOT="0"
 
 IUSE="examples gui"
@@ -33,7 +33,8 @@ RDEPEND="
 	media-libs/gst-plugins-good:1.0
 	media-libs/gst-plugins-bad:1.0
 	media-libs/gst-plugins-ugly:1.0
-	dev-python/pygobject
+	media-plugins/gst-plugins-jpeg
+	dev-python/pygobject[${PYTHON_USEDEP}]
 	examples? (
 		media-plugins/gst-plugins-libav:1.0
 	)
