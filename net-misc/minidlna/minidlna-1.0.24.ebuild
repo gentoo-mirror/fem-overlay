@@ -1,6 +1,5 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/minidlna/minidlna-1.0.23.ebuild,v 1.1 2012/01/29 00:33:26 xmw Exp $
 
 EAPI=4
 
@@ -24,7 +23,7 @@ RDEPEND="dev-db/sqlite
 	virtual/ffmpeg
 	virtual/jpeg"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-1.0.18-Makefile.patch
