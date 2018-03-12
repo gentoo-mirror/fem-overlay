@@ -11,12 +11,12 @@ inherit cmake-utils
 DESCRIPTION="Fast and secure tunneling daemon with very small binary"
 HOMEPAGE="https://projects.universe-factory.net/projects/fastd/wiki"
 [[ ${PV} == *9999* ]] || \
-SRC_URI="http://git.universe-factory.net/fastd/snapshot/${P}.tar.xz"
+SRC_URI="https://git.universe-factory.net/fastd/snapshot/fastd-${PV}.zip"
 
 LICENSE="BSD"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~alpha ~amd64 ~amd64-fbsd ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~s390 ~sh ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~s390 ~sh ~sparc ~x86"
 
 RDEPEND="
 	sys-libs/libcap
