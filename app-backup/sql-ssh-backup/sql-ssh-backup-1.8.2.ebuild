@@ -1,14 +1,13 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
+EAPI=6
 
 inherit eutils
 
 DESCRIPTION="Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication."
 HOMEPAGE="https://github.com/fem/sql-ssh-backup"
-SRC_URI="https://github.com/fem/${PN}/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/fem/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
