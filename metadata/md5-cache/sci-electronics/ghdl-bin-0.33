@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=VHDL 2008/93/87 simulator
+EAPI=6
+HOMEPAGE=http://ghdl.free.fr/
+KEYWORDS=~amd64
+LICENSE=GPL-2
+SLOT=0
+SRC_URI=https://github.com/tgingold/ghdl/releases/download/v0.33/ghdl-0.33-x86_64-linux.tgz
+_md5_=28876b2947223d2ee2f62e5be3cb689b

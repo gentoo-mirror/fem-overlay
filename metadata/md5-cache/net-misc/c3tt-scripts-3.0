@@ -1,0 +1,11 @@
+DEFINED_PHASES=install preinst unpack
+DEPEND=dev-perl/DateTime dev-perl/DateTime-Format-SQLite dev-perl/File-Which dev-perl/JSON dev-perl/Math-Round dev-perl/Proc-ProcessTable dev-perl/REST-Client dev-perl/XML-RPC-Fast dev-perl/XML-Simple dev-perl/boolean dev-perl/rename media-video/ffmpeg || ( dev-vcs/subversion[http] dev-vcs/subversion[webdav-neon] dev-vcs/subversion[webdav-serf] ) net-misc/rsync
+DESCRIPTION=scripts for running clients of the c3tickettracker
+EAPI=6
+HOMEPAGE=https://repository.fem.tu-ilmenau.de/trac/c3tt/
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-perl/DateTime dev-perl/DateTime-Format-SQLite dev-perl/File-Which dev-perl/JSON dev-perl/Math-Round dev-perl/Proc-ProcessTable dev-perl/REST-Client dev-perl/XML-RPC-Fast dev-perl/XML-Simple dev-perl/boolean dev-perl/rename media-video/ffmpeg
+SLOT=0
+_eclasses_=desktop	2ccd1dd1dd7bfb8795eea024a4f91bb6	epatch	8233751dc5105a6ae8fcd86ce2bb0247	estack	43ddf5aaffa7a8d0482df54d25a66a1f	eutils	63392afb034aad67f17fa129019eb4d9	ltprune	2770eed66a9b8ef944714cd0e968182e	multilib	97f470f374f2e94ccab04a2fb21d811e	preserve-libs	ef207dc62baddfddfd39a164d9797648	subversion	a5d5826a85609611f098c0553eb24cc1	toolchain-funcs	885c7d8dd70a58825f3d17e35a3cd1e9	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf
+_md5_=4125b7f46a3109e0c03a31e6ceb85d17

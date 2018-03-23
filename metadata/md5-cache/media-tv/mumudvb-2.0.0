@@ -1,0 +1,11 @@
+DEFINED_PHASES=install prepare unpack
+DEPEND=media-tv/dvbtune media-tv/linuxtv-dvb-apps
+DESCRIPTION=Multi Multicast DVB to redistribute streams from DVB or ATSC
+EAPI=6
+HOMEPAGE=http://mumudvb.net
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=media-tv/dvbtune media-tv/linuxtv-dvb-apps
+SLOT=0
+SRC_URI=https://github.com/braice/MuMuDVB/archive/mumudvb2.zip
+_md5_=74cc57aa9aa7886e77f9a8d244b1107f

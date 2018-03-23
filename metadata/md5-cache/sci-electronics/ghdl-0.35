@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile configure
+DEPEND=dev-lang/gnat-gpl:6.3.0
+DESCRIPTION=VHDL 2008/93/87 simulator
+EAPI=6
+HOMEPAGE=http://ghdl.free.fr/
+KEYWORDS=~amd64
+LICENSE=GPL-2
+RDEPEND=dev-lang/gnat-gpl:6.3.0
+SLOT=0
+SRC_URI=https://github.com/ghdl/ghdl/archive/v0.35.tar.gz
+_md5_=7200918866c2c314d8d3f9592712bd0d

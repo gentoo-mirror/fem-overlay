@@ -1,0 +1,11 @@
+DEFINED_PHASES=install
+DEPEND=net-misc/rsync net-dns/bind-tools
+DESCRIPTION=An incremental network backup tool for snapshotting directories using rsync
+EAPI=5
+HOMEPAGE=http://folk.uio.no/johnen/bontmia/
+KEYWORDS=amd64 x86
+LICENSE=GPL-2
+RDEPEND=net-misc/rsync net-dns/bind-tools
+SLOT=0
+SRC_URI=https://github.com/mape2k/bontmia/archive/0.15.tar.gz -> bontmia-0.15.tar.gz
+_md5_=209c011656db342f8b00816902f9d495

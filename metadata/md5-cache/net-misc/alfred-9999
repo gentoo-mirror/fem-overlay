@@ -1,0 +1,10 @@
+DEFINED_PHASES=compile install unpack
+DEPEND=gps? ( sci-geosciences/gpsd ) dev-vcs/git
+DESCRIPTION=Almighty Lightweight Fact Remote Exchange Daemon
+EAPI=5
+HOMEPAGE=http://www.open-mesh.org/projects/open-mesh/wiki/Alfred
+IUSE=gps
+LICENSE=GPL-2
+SLOT=0
+_eclasses_=git-2	195a672bfaf52d868442171c9469bbb6
+_md5_=9726b34c0ae4d29ba2eca9cbe69d701d
