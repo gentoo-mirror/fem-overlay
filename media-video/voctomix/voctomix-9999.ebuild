@@ -21,8 +21,11 @@ else # Release
 fi
 
 LICENSE="MIT"
-KEYWORDS="~amd64"
 SLOT="0"
+
+if [ "${PV#9999}" = "${PV}" ] ; then
+	KEYWORDS="~amd64"
+fi
 
 IUSE="examples gui"
 
@@ -33,8 +36,8 @@ RDEPEND="
 	media-libs/gst-plugins-good:1.0
 	media-libs/gst-plugins-bad:1.0
 	media-libs/gst-plugins-ugly:1.0
-	media-plugins/gst-plugins-jpeg
-	dev-python/pygobject[${PYTHON_USEDEP}]
+	media-plugins/gst-plugins-jpeg:1.0
+	dev-python/pygobject:3[${PYTHON_USEDEP}]
 	examples? (
 		media-plugins/gst-plugins-libav:1.0
 	)
