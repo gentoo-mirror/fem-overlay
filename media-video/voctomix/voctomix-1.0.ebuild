@@ -21,8 +21,11 @@ else # Release
 fi
 
 LICENSE="MIT"
-KEYWORDS="~amd64"
 SLOT="0"
+
+if [ "${PV#9999}" = "${PV}" ] ; then
+	KEYWORDS="~amd64"
+fi
 
 IUSE="examples gui"
 
