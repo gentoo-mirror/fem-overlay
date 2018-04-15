@@ -1,5 +1,5 @@
 # FeM Gentoo Overlay
-This Overlay contains contains ebuilds used on [FeM](https://www.fem.tu-ilmenau.de/) servers and infrastructure.
+This Overlay contains ebuilds used on [FeM](https://www.fem.tu-ilmenau.de/) servers and infrastructure.
 A notable example is ffmpeg enhanced with the abilities to use NDI and decklink capture cards.
 
 Use [Layman](https://wiki.gentoo.org/wiki/Layman), [eselect-repository](https://wiki.gentoo.org/wiki/Eselect/Repository) or a manual entry in **/etc/portage/repos.conf** to use it.
