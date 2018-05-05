@@ -1,4 +1,4 @@
-DEFINED_PHASES=compile install postinst postrm preinst setup unpack
+DEFINED_PHASES=compile install nofetch postinst postrm preinst setup unpack
 DEPEND=!media-libs/decklink-libs kernel_linux? ( virtual/modutils ) sys-apps/sed kernel_linux? ( virtual/linux-sources )
 DESCRIPTION=Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 EAPI=6
