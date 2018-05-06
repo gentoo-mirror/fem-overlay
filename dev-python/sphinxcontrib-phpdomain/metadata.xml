@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>gentoo@friiks.de</email>
+    <name>Peter Grosse</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">markstory/sphinxcontrib-phpdomain</remote-id>
+  </upstream>
+</pkgmetadata>
