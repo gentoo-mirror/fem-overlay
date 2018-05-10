@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile configure install unpack
+DEPEND=media-video/decklink-drivers net-libs/libmicrohttpd media-libs/libpng:0 >=dev-vcs/git-1.8.2.1
+DESCRIPTION=BlackMagic DeckLink Input-Debugger
+EAPI=6
+HOMEPAGE=https://github.com/voc/decklink-debugger
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=media-video/decklink-drivers net-libs/libmicrohttpd media-libs/libpng:0
+SLOT=0
+_eclasses_=git-r3	af51ccfceeb403ab80f1bf9209d372c8
+_md5_=31629f7c98db448d998d6fa4db560aa2
