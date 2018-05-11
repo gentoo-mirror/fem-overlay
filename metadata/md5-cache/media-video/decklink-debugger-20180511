@@ -8,4 +8,4 @@ LICENSE=MIT
 RDEPEND=media-video/decklink-drivers net-libs/libmicrohttpd media-libs/libpng:0
 SLOT=0
 _eclasses_=git-r3	af51ccfceeb403ab80f1bf9209d372c8
-_md5_=50a50f34bd16039fab7b081021d7a547
+_md5_=6f356bd6e34ef0737ef7df14ee137bd0
