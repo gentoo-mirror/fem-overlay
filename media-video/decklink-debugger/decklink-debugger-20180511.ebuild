@@ -8,7 +8,7 @@ inherit git-r3
 DESCRIPTION="BlackMagic DeckLink Input-Debugger"
 HOMEPAGE="https://github.com/voc/decklink-debugger"
 EGIT_REPO_URI="https://github.com/voc/decklink-debugger"
-EGIT_COMMIT="68fe227d79f4303aa09342dff7598675be19577c"
+EGIT_COMMIT="053aa379a5a09efa68ac0938bbd3f36475c4de56"
 
 LICENSE="MIT"
 SLOT="0"
