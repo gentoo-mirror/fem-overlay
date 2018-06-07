@@ -6,7 +6,7 @@ EAPI=5
 DESCRIPTION="Nagios plugins written by FeM"
 HOMEPAGE="http://fem.tu-ilmenau.de"
 EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/monitor/fem-nagios-plugins.git"
-EGIT_BRANCH="master"
+EGIT_COMMIT="v${PV}"
 #SRC_URI=""
 inherit eutils user git-r3
 LICENSE="GPL-2"
