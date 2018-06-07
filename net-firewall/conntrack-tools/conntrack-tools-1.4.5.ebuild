@@ -1,8 +1,8 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-inherit git-r3 autotools eutils linux-info
+inherit git-r3 autotools linux-info
 
 DESCRIPTION="Connection tracking userspace tools"
 HOMEPAGE="http://conntrack-tools.netfilter.org"
@@ -12,17 +12,22 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
-IUSE="doc"
+KEYWORDS="~amd64 ~arm64 ~hppa ~x86"
+IUSE="doc +cthelper +cttimeout +libtirpc"
 
 RDEPEND="
 	>=net-libs/libmnl-1.0.3
 	>=net-libs/libnetfilter_conntrack-1.0.7
-	>=net-libs/libnetfilter_cthelper-1.0.0
-	>=net-libs/libnetfilter_cttimeout-1.0.0
+	cthelper? (
+		>=net-libs/libnetfilter_cthelper-1.0.0
+	)
+	cttimeout? (
+		>=net-libs/libnetfilter_cttimeout-1.0.0
+	)
 	>=net-libs/libnetfilter_queue-1.0.2
 	>=net-libs/libnfnetlink-1.0.1
-	sys-libs/glibc[rpc(-)]
+	!libtirpc? ( sys-libs/glibc[rpc(-)] )
+	libtirpc? ( net-libs/libtirpc )
 "
 DEPEND="
 	${RDEPEND}
@@ -34,6 +39,9 @@ DEPEND="
 	sys-devel/bison
 	sys-devel/flex
 "
+PATCHES=(
+	"${FILESDIR}"/${PN}-1.4.5-rpc.patch
+)
 
 pkg_setup() {
 	linux-info_pkg_setup
@@ -67,6 +75,13 @@ src_prepare() {
 	sed -i -e 's:/var/lock:/run/lock:' doc/stats/conntrackd.conf || die
 
 	eautoreconf
+}
+
+src_configure() {
+	econf \
+		$(use_enable cthelper) \
+		$(use_enable cttimeout) \
+		$(use_with libtirpc)
 }
 
 src_compile() {
