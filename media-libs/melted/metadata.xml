@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+    <maintainer type="person">
+        <email>philipp.teutsch@fem.tu-ilmenau.de</email>
+        <name>Philipp Teutsch</name>
+    </maintainer>
+    <longdescription>
+        Melted is a MLT video server Sponsored by Ushodaya Enterprises Limited
+        Written by Charles Yates charles.yates@pandora.be and Dan Dennedy
+        dan@dennedy.org
+        MLT is a LGPL multimedia framework designed for television broadcasting,
+        and Melted is a GPL multi-unit video playout server with realtime effects.
+    </longdescription>
+</pkgmetadata>
