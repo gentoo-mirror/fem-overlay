@@ -3,15 +3,6 @@
 # * generated automatically using pmaint *
 
 app-backup/duplicity:s3 - Support for backing up to the Amazon S3 system
-net-analyzer/check_mk:agent-only - Install only Check-MK-Agent (Client)
-net-analyzer/check_mk:apache_status - Install Apache plugin
-net-analyzer/check_mk:livecheck - Use MK-Livestatus with livecheck
-net-analyzer/check_mk:livestatus - Use MK-Livestatus
-net-analyzer/check_mk:logwatch - Install Logwatch plugins
-net-analyzer/check_mk:nfsexports - Install Nginx plugin
-net-analyzer/check_mk:smart - Install SMART plugin
-net-analyzer/check_mk:wato - Install WATO - Check-MK-Web Administration Tool
-net-analyzer/check_mk:zypper - Install zypper plugin
 net-analyzer/nrpe:command-args - Build support for specifying the command-line arguments from the Nagios/Icinga master. Make sure you understand the implications of this flag as it can be a security risk.
 net-analyzer/nrpe:minimal - Only build the check plugins for Nagios/Icinga, and not the daemon.
 www-servers/nginx:aio - Enables file AIO support

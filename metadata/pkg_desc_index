@@ -2,7 +2,6 @@ app-backup/bontmia 0.14 0.14-r1 0.15: An incremental network backup tool for sna
 app-backup/duplicity 0.6.26-r1: Secure backup system using gnupg to encrypt data
 app-backup/sql-ssh-backup 1.8.1: Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication.
 app-portage/porticron 0.7_p20140126: cron script to sync portage and send update mails to root
-net-analyzer/check_mk 1.2.2_p1 1.2.4_p3: General purpose Nagios/Icinga plugin for retrieving data
 net-analyzer/nrpe 2.15-r4: Nagios Remote Plugin Executor
 net-wireless/eapol_test 0.6.9: WPA Supplicants's EAP test utility
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
