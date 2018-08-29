@@ -18,6 +18,6 @@ DEPEND="
 net-im/pidgin
 dev-libs/libxml2
 dev-db/sqlite
-dev-libs/mxml"
+dev-libs/mini-xml"
 
 RDEPEND="${DEPEND}"
