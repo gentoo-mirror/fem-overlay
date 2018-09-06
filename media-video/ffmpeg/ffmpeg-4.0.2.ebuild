@@ -213,7 +213,7 @@ RDEPEND="
 	libndi_newtek? ( media-video/ndi-sdk )
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
-	libvmaf? ( >=sci-libs/vmaf-1.3.9 )
+	libvmaf? ( <sci-libs/vmaf-1.3.0 )
 	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
 	mmal? ( media-libs/raspberrypi-userland )
