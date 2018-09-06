@@ -12,17 +12,13 @@ EAPI=6
 # changes its ABI then this package will be rebuilt needlessly. Hence, such a
 # package is free _not_ to := depend on FFmpeg but I would strongly encourage
 # doing so since such a case is unlikely.
-FFMPEG_SUBSLOT=56.58.58
+FFMPEG_SUBSLOT=55.57.57
 
+SCM="git-r3"
 EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/broadcast/ffmpeg.git"
-EGIT_MIN_CLONE_TYPE="single"
-if [ "${PV#9999}" != "${PV}" ] ; then
-	EGIT_BRANCH="fem-master"
-else
-	EGIT_BRANCH="fem-${PV}"
-fi
+EGIT_BRANCH="fem-${PV}"
 
-inherit eutils flag-o-matic multilib multilib-minimal toolchain-funcs git-r3
+inherit eutils flag-o-matic multilib multilib-minimal toolchain-funcs ${SCM}
 
 DESCRIPTION="Complete solution to record, convert and stream audio and video. Includes libavcodec"
 HOMEPAGE="http://ffmpeg.org/"
@@ -59,25 +55,25 @@ fi
 # foo is added to IUSE.
 FFMPEG_FLAG_MAP=(
 		+bzip2:bzlib cpudetection:runtime-cpudetect debug gcrypt gnutls gmp
-		+gpl +hardcoded-tables +iconv libressl:libtls lzma +network opencl
-		openssl +postproc samba:libsmbclient sdl:ffplay sdl:sdl2 vaapi vdpau
-		X:xlib xcb:libxcb xcb:libxcb-shm xcb:libxcb-xfixes +zlib
+		+gpl +hardcoded-tables +iconv lzma +network opencl openssl +postproc
+		samba:libsmbclient sdl:ffplay sdl:sdl2 vaapi vdpau X:xlib xcb:libxcb
+		xcb:libxcb-shm xcb:libxcb-xfixes +zlib
 		# libavdevice options
 		cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal
 		opengl
 		# indevs
 		libv4l:libv4l2 pulseaudio:libpulse libdrm decklink libndi_newtek
 		# decoders
-		amr:libopencore-amrwb amr:libopencore-amrnb codec2:libcodec2 fdk:libfdk-aac
+		amr:libopencore-amrwb amr:libopencore-amrnb fdk:libfdk-aac
 		jpeg2k:libopenjpeg bluray:libbluray celt:libcelt gme:libgme gsm:libgsm
 		mmal modplug:libmodplug opus:libopus libilbc librtmp ssh:libssh
-		speex:libspeex svg:librsvg video_cards_nvidia:ffnvcodec
-		vorbis:libvorbis vpx:libvpx zvbi:libzvbi
+		speex:libspeex svg:librsvg vorbis:libvorbis
+		vpx:libvpx zvbi:libzvbi
 		# libavfilter options
 		appkit
 		bs2b:libbs2b chromaprint flite:libflite frei0r
-		fribidi:libfribidi fontconfig ladspa libass lv2 truetype:libfreetype
-		libvmaf rubberband:librubberband zeromq:libzmq zimg:libzimg
+		fribidi:libfribidi fontconfig ladspa libass truetype:libfreetype
+		rubberband:librubberband zeromq:libzmq zimg:libzimg
 		# libswresample options
 		libsoxr
 		# Threads; we only support pthread for now but ffmpeg supports more
@@ -87,7 +83,7 @@ FFMPEG_FLAG_MAP=(
 # Same as above but for encoders, i.e. they do something only with USE=encode.
 FFMPEG_ENCODER_FLAG_MAP=(
 	amrenc:libvo-amrwbenc mp3:libmp3lame
-	kvazaar:libkvazaar libaom
+	kvazaar:libkvazaar nvenc:nvenc
 	openh264:libopenh264 snappy:libsnappy theora:libtheora twolame:libtwolame
 	wavpack:libwavpack webp:libwebp x264:libx264 x265:libx265 xvid:libxvid
 )
@@ -165,12 +161,12 @@ RDEPEND="
 	cdio? ( >=dev-libs/libcdio-paranoia-0.90_p1-r1[${MULTILIB_USEDEP}] )
 	celt? ( >=media-libs/celt-0.11.1-r1[${MULTILIB_USEDEP}] )
 	chromaprint? ( >=media-libs/chromaprint-1.2-r1[${MULTILIB_USEDEP}] )
-	codec2? ( media-libs/codec2[${MULTILIB_USEDEP}] )
 	decklink? ( media-video/decklink-drivers )
 	encode? (
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
 		kvazaar? ( media-libs/kvazaar[${MULTILIB_USEDEP}] )
 		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
+		nvenc? ( media-video/nvidia_video_sdk )
 		openh264? ( >=media-libs/openh264-1.4.0-r1[${MULTILIB_USEDEP}] )
 		snappy? ( >=app-arch/snappy-1.1.2-r1:=[${MULTILIB_USEDEP}] )
 		theora? (
@@ -192,6 +188,7 @@ RDEPEND="
 	gcrypt? ( >=dev-libs/libgcrypt-1.6:0=[${MULTILIB_USEDEP}] )
 	gme? ( >=media-libs/game-music-emu-0.6.0[${MULTILIB_USEDEP}] )
 	gmp? ( >=dev-libs/gmp-6:0=[${MULTILIB_USEDEP}] )
+	gnutls? ( >=net-libs/gnutls-2.12.23-r6:=[${MULTILIB_USEDEP}] )
 	gsm? ( >=media-sound/gsm-1.0.13-r1[${MULTILIB_USEDEP}] )
 	iconv? ( >=virtual/libiconv-0-r1[${MULTILIB_USEDEP}] )
 	iec61883? (
@@ -205,7 +202,6 @@ RDEPEND="
 	)
 	jack? ( virtual/jack[${MULTILIB_USEDEP}] )
 	jpeg2k? ( >=media-libs/openjpeg-2:2[${MULTILIB_USEDEP}] )
-	libaom? ( media-libs/libaom[${MULTILIB_USEDEP}] )
 	libass? ( >=media-libs/libass-0.10.2:=[${MULTILIB_USEDEP}] )
 	libcaca? ( >=media-libs/libcaca-0.99_beta18-r1[${MULTILIB_USEDEP}] )
 	libdrm? ( x11-libs/libdrm[${MULTILIB_USEDEP}] )
@@ -213,14 +209,13 @@ RDEPEND="
 	libndi_newtek? ( media-video/ndi-sdk )
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
-	libvmaf? ( >=sci-libs/vmaf-1.3.9 )
-	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
 	mmal? ( media-libs/raspberrypi-userland )
 	modplug? ( >=media-libs/libmodplug-0.8.8.4-r1[${MULTILIB_USEDEP}] )
 	openal? ( >=media-libs/openal-1.15.1[${MULTILIB_USEDEP}] )
 	opencl? ( virtual/opencl[${MULTILIB_USEDEP}] )
 	opengl? ( >=virtual/opengl-7.0-r1[${MULTILIB_USEDEP}] )
+	openssl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
 	opus? ( >=media-libs/opus-1.0.2-r2[${MULTILIB_USEDEP}] )
 	pulseaudio? ( >=media-sound/pulseaudio-2.1-r1[${MULTILIB_USEDEP}] )
 	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
@@ -232,7 +227,6 @@ RDEPEND="
 	svg? ( gnome-base/librsvg:2=[${MULTILIB_USEDEP}] )
 	truetype? ( >=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}] )
 	vaapi? ( >=x11-libs/libva-1.2.1-r1[${MULTILIB_USEDEP}] )
-	video_cards_nvidia? ( media-libs/nv-codec-headers[${MULTILIB_USEDEP}] )
 	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
 	vorbis? (
 		>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
@@ -246,24 +240,11 @@ RDEPEND="
 	)
 	xcb? ( >=x11-libs/libxcb-1.4[${MULTILIB_USEDEP}] )
 	zeromq? ( >=net-libs/zeromq-4.1.6 )
-	zimg? ( >=media-libs/zimg-2.7.4:=[${MULTILIB_USEDEP}] )
+	zimg? ( >=media-libs/zimg-2.4:=[${MULTILIB_USEDEP}] )
 	zlib? ( >=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}] )
 	zvbi? ( >=media-libs/zvbi-0.2.35[${MULTILIB_USEDEP}] )
 	!media-video/qt-faststart
 	postproc? ( !media-libs/libpostproc )
-"
-
-# Crypto & co provider magic
-# - libressl is a useflag meaning it should always favor libressl over openssl
-# - libressl and openssl provide more features to ffmpeg than gnutls
-#
-# The ordering is thus: libressl > openssl > gnutls
-RDEPEND="${RDEPEND}
-	libressl? ( dev-libs/libressl:0=[${MULTILIB_USEDEP}] )
-	!libressl? (
-		openssl? ( >=dev-libs/openssl-1.0.1h-r2:0[${MULTILIB_USEDEP}] )
-		!openssl? ( gnutls? ( >=net-libs/gnutls-2.12.23-r6:=[${MULTILIB_USEDEP}] ) )
-	)
 "
 
 DEPEND="${RDEPEND}
@@ -296,13 +277,13 @@ REQUIRED_USE="
 	${GPL_REQUIRED_USE}
 	${CPU_REQUIRED_USE}"
 RESTRICT="
-	gpl? ( openssl? ( bindist ) fdk? ( bindist ) libressl? ( bindist ) )
+	gpl? ( openssl? ( bindist ) fdk? ( bindist ) )
 "
 
 S=${WORKDIR}/${P/_/-}
 
 PATCHES=(
-	"${FILESDIR}"/chromium-r1.patch
+	"${FILESDIR}"/chromium.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -321,7 +302,7 @@ multilib_src_configure() {
 	local myconf=( ${EXTRA_FFMPEG_CONF} )
 
 	local ffuse=( "${FFMPEG_FLAG_MAP[@]}" )
-	use openssl || use libressl && use gpl && myconf+=( --enable-nonfree )
+	use openssl && use gpl && myconf+=( --enable-nonfree )
 	use samba && myconf+=( --enable-version3 )
 
 	# Encoders
@@ -342,12 +323,12 @@ multilib_src_configure() {
 		use ${i} || myconf+=( --disable-indev=${i} )
 	done
 
-	use decklink && append-flags "-I${EPREFIX}/usr/include/blackmagic"
-
 	# Outdevs
 	for i in alsa oss sdl ; do
 		use ${i} || myconf+=( --disable-outdev=${i} )
 	done
+
+	use decklink && append-flags "-I${EPREFIX}/usr/include/blackmagic"
 
 	# Decoders
 	use amr && myconf+=( --enable-version3 )
@@ -357,13 +338,6 @@ multilib_src_configure() {
 	for i in "${ffuse[@]#+}" ; do
 		myconf+=( $(use_enable ${i%:*} ${i#*:}) )
 	done
-
-	# Incompatible features: openssl or libressl and gnutls
-	if use libressl ; then
-		myconf+=( --disable-gnutls --disable-openssl )
-	elif use openssl ; then
-		myconf+=( --disable-gnutls )
-	fi
 
 	# (temporarily) disable non-multilib deps
 	if ! multilib_is_native_abi; then
