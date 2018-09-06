@@ -8,10 +8,6 @@
 	<flag name="amr">Enables Adaptive Multi-Rate Audio support</flag>
 	<flag name="amrenc">Enables Adaptive Multi-Rate Audio encoding support with <pkg>media-libs/vo-amrwbenc</pkg>.</flag>
 	<flag name="appkit">Enables Apple AppKit framework</flag>
-	<flag name="armv5te">Enables optimizations for armv5te processors.</flag>
-	<flag name="armv6">Enables optimizations for armv6 processors.</flag>
-	<flag name="armv6t2">Enables optimizations for armv6t2 processors.</flag>
-	<flag name="armvfp">Enables VFP optimizations for ARM processors.</flag>
 	<flag name="bluray">Enable playback of Blu-ray filesystems</flag>
 	<flag name="bs2b">Enables <pkg>media-libs/libbs2b</pkg> based Bauer stereo-to-binaural filter.</flag>
 	<flag name="cdio">Enables audio CD grabbing with <pkg>dev-libs/libcdio</pkg>.</flag>
@@ -21,7 +17,6 @@
 	<flag name="codec2">Enables codec2 low bit rate speech codec support via <pkg>media-libs/codec2</pkg>.</flag>
 	<flag name="cpudetection">Enables runtime CPU detection (useful for bindist, compatibility on other CPUs)</flag>
 	<flag name="decklink">Enable support for Blackmagic Design capture devices (Decklink)</flag>
-	<flag name="ebur128">Enables EBU R128 loudness normalization filter via <pkg>media-libs/libebur128</pkg></flag>
 	<flag name="fdk">Use external fdk-aac library for AAC encoding</flag>
 	<flag name="flite">Adds a text-to-speech filter based on <pkg>app-accessibility/flite</pkg>.</flag>
 	<flag name="frei0r">Enable frei0r wrapping in libavfilter</flag>
