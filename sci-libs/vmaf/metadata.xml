@@ -4,4 +4,7 @@
 <maintainer type="person">
 <email>ischluff@mailbox.org</email>
 </maintainer>
+<use>
+	<flag name="tools">Also install feature binaries</flag>
+</use>
 </pkgmetadata>
