@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile configure install postinst prepare setup
+DEPEND=media-libs/gd[jpeg,png] lighttpd? ( www-servers/lighttpd ) net-analyzer/icinga2[-classicui] !net-analyzer/icinga[web] !net-analyzer/nagios-core apache2? ( =www-servers/apache-2* )
+DESCRIPTION=Icinca ClassicUI for Icinga2
+EAPI=5
+HOMEPAGE=http://www.icinga.org/
+IUSE=+apache2 lighttpd apache2
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=media-libs/gd[jpeg,png] lighttpd? ( www-servers/lighttpd ) net-analyzer/icinga2[-classicui] !net-analyzer/icinga[web] !net-analyzer/nagios-core apache2? ( =www-servers/apache-2* )
+RESTRICT=test
+SLOT=0
+SRC_URI=https://github.com/icinga/icinga-core/releases/download/v1.14.2/icinga-1.14.2.tar.gz
+_eclasses_=depend.apache	05ca915dc22ea60059f85d8d9a34d3de	desktop	b1d22ac8bdd4679ab79c71aca235009d	epatch	a1bf4756dba418a7238f3be0cb010c54	estack	43ddf5aaffa7a8d0482df54d25a66a1f	eutils	6e6c2737b59a4b982de6fb3ecefd87f8	ltprune	08f9e1d9ee0af8f5d9a7854efbcd8c0e	multilib	b2f01ad412baf81650c23fcf0975fa33	pax-utils	e85f015e815dd463b0c206d781ef45a5	preserve-libs	ef207dc62baddfddfd39a164d9797648	toolchain-funcs	f164325a2cdb5b3ea39311d483988861	user	8bc2845510e2109af75e3eeac607ec81	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf	versionator	2352c3fc97241f6a02042773c8287748
+_md5_=1fae70e5a028a9943688571403f62a2a
