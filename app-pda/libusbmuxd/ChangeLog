@@ -1,0 +1,10 @@
+# ChangeLog for app-pda/libusbmuxd
+# $Header: $
+
+*libusbmuxd-1.2.1_pre20181004 (04 Oct 2018)
+
+  04 Oct 2018; Dustin Funk (nuts) <nuts@4nuts.de>
+  +libimobiledevice-1.2.1_pre20181004.ebuild
+  initial 
+
+
