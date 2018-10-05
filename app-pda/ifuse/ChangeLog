@@ -1,0 +1,8 @@
+# ChangeLog for app-pda/ifuse
+# $Header: $
+
+*ifuse-1.1.3-r1 (04 Oct 2018)
+
+  04 Oct 2018; Dustin Funk (nuts) <nuts@4nuts.de>
+  +ifuse-1.1.3-r1.ebuild
+  rebuild for version bump and fix dependencies of libimobiledevice/usbmuxd
