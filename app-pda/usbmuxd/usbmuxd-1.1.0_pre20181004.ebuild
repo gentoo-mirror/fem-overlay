@@ -38,5 +38,5 @@ src_prepare() {
 
 src_install() {
 	udevrulesdir="$(get_udevdir)"/rules.d
-	econf "${myeconfargs[@]}" "${@}"
+	default
 }
