@@ -3,9 +3,9 @@
 
 #https://github.com/Icinga/icinga-core/blob/master/sample-config/cgi.cfg.in
 
-EAPI=5
+EAPI=7
 
-inherit depend.apache eutils multilib pax-utils toolchain-funcs user versionator
+inherit eutils multilib pax-utils toolchain-funcs user
 
 DESCRIPTION="Icinca ClassicUI for Icinga2"
 HOMEPAGE="http://www.icinga.org/"
@@ -30,13 +30,14 @@ DEPEND="media-libs/gd[jpeg,png]
 RDEPEND="${DEPEND}"
 RESTRICT="test"
 
-want_apache2
+#want_apache2
 
-S="${WORKDIR}/${MY_PN}-${PV}"
+S="${WORKDIR}/${MY_PN}-core-${PV}"
 
 src_prepare() {
 
 	epatch "${FILESDIR}/fix-prestripped-binaries-1.7.0.patch"
+	default
 }
 
 src_configure() {
