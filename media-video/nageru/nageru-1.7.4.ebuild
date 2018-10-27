@@ -11,7 +11,7 @@ SRC_URI="https://nageru.sesse.net/nageru-${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
@@ -27,7 +27,7 @@ dev-qt/qtgui:5
 dev-qt/qtopengl:5
 dev-qt/qtprintsupport:5
 dev-libs/qcustomplot
-dev-lang/lua:5.2
+dev-lang/luajit
 "
 RDEPEND="${DEPEND}"
 
