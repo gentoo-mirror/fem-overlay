@@ -1,0 +1,17 @@
+diff --git a/Makefile b/Makefile
+index 902d2c1..0b64764 100644
+--- a/Makefile
++++ b/Makefile
+@@ -93,10 +93,10 @@ BM_OBJS = benchmark_audio_mixer.o $(AUDIO_MIXER_OBJS) flags.o metrics.o
+ 	$(PROTOC) --cpp_out=. $<
+ 
+ %.h: %.ui
+-	uic $< -o $@
++	qtchooser -run-tool=uic -qt=5 $< -o $@
+ 
+ %.moc.cpp: %.h
+-	moc $< -o $@
++	qtchooser -run-tool=moc -qt=5 $< -o $@
+ 
+ all: nageru kaeru benchmark_audio_mixer
+ 
