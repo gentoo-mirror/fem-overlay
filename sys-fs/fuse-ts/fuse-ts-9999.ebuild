@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="5"
@@ -17,7 +17,7 @@ KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~sparc ~x86"
 IUSE=""
 
 DEPEND="sys-fs/fuse:0
-	>=dev-libs/mini-xml-2.6"
+	>=dev-libs/mxml-2.6"
 RDEPEND="${DEPEND}"
 
 src_install() {
