@@ -1,0 +1,30 @@
+diff -urN a/pgp/seahorse-ldap-source.c b/pgp/seahorse-ldap-source.c
+--- a/pgp/seahorse-ldap-source.c	2018-06-24 19:56:51.131298781 -0400
++++ b/pgp/seahorse-ldap-source.c	2018-06-24 20:04:03.688333195 -0400
+@@ -474,7 +474,7 @@
+ 	if (type == LDAP_RES_SEARCH_ENTRY) {
+ 
+ 		g_debug ("Server Info Result");
+-#ifdef WITH_DEBUG
++#if WITH_DEBUG
+ 		dump_ldap_entry (closure->ldap, result);
+ #endif
+ 
+@@ -867,7 +867,7 @@
+ 	/* An LDAP entry */
+ 	if (type == LDAP_RES_SEARCH_ENTRY) {
+ 		g_debug ("Retrieved Key Entry");
+-#ifdef WITH_DEBUG
++#if WITH_DEBUG
+ 		dump_ldap_entry (closure->ldap, result);
+ #endif
+ 
+@@ -1238,7 +1238,7 @@
+ 	if (type == LDAP_RES_SEARCH_ENTRY) {
+ 
+ 		g_debug ("Server Info Result");
+-#ifdef WITH_DEBUG
++#if WITH_DEBUG
+ 		dump_ldap_entry (closure->ldap, result);
+ #endif
+ 
