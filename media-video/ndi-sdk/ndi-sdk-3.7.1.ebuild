@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -39,8 +39,8 @@ src_unpack() {
 
 src_install() {
 	dolib "${S}/lib/x86_64-linux-gnu/libndi.so.${PV}"
-	dosym "/usr/lib64/libndi.so.${PV}" "/usr/lib64/libndi.so.3"
-	dosym "/usr/lib64/libndi.so.3" "/usr/lib64/libndi.so"
+	dosym "libndi.so.${PV}" "/usr/lib64/libndi.so.3"
+	dosym "libndi.so.3" "/usr/lib64/libndi.so"
 	headers=(
 		'Processing.NDI.DynamicLoad.h'
 		'Processing.NDI.Find.h'
