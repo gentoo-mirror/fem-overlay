@@ -61,7 +61,7 @@ FFMPEG_FLAG_MAP=(
 		+bzip2:bzlib cpudetection:runtime-cpudetect debug gcrypt gnutls gmp
 		+gpl +hardcoded-tables +iconv libressl:libtls lzma +network opencl
 		openssl +postproc samba:libsmbclient sdl:ffplay sdl:sdl2 vaapi vdpau
-		X:xlib xcb:libxcb xcb:libxcb-shm xcb:libxcb-xfixes +zlib
+		X:xlib xcb:libxcb xcb:libxcb-shm xcb:libxcb-xfixes +zlib libxml2
 		# libavdevice options
 		cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal
 		opengl
@@ -213,6 +213,7 @@ RDEPEND="
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
 	libvmaf? ( >=sci-libs/vmaf-1.3.9 )
+	libxml2? ( >=dev-libs/libxml2-2.9.8[${MULTILIB_USEDEP}] )
 	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
 	mmal? ( media-libs/raspberrypi-userland )
