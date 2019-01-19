@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,5 +16,6 @@ LICENSE="|| ( Artistic GPL-2 )"
 KEYWORDS="~amd64"
 
 DEPEND=">=dev-perl/lib-abs-0.90
-	dev-perl/XML-LibXML
-	dev-lang/perl"
+	dev-perl/XML-LibXML"
+
+PATCHES=("${FILESDIR}/perl-526.patch")

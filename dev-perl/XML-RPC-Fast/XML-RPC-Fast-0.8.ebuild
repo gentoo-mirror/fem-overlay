@@ -1,11 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 inherit perl-module
-
-S=${WORKDIR}/${P}
 
 DESCRIPTION="No description available"
 HOMEPAGE="http://search.cpan.org/search?query=XML-RPC-Fast&mode=dist"
@@ -24,3 +22,5 @@ DEPEND=">=dev-perl/lib-abs-0.90
 	dev-perl/XML-LibXML
 	curl? ( dev-perl/WWW-Curl )
 	anyevent? ( dev-perl/AnyEvent-HTTP dev-perl/AnyEvent )"
+
+PATCHES=("${FILESDIR}/perl-526.patch")
