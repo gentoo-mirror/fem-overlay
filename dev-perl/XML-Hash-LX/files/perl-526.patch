@@ -1,0 +1,9 @@
+diff --git a/Makefile.PL b/Makefile.PL
+index d2f4760..758c114 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -1,3 +1,4 @@
++use lib '.';               # restore '.' so inc::Module::Install loads from ./inc/Module/Install.pm
+ use inc::Module::Install 0.79;
+ 
+ name     'XML-Hash-LX';
