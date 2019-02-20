@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -41,21 +41,7 @@ src_install() {
 	dolib "${S}/lib/x86_64-linux-gnu/libndi.so.${PV}"
 	dosym "libndi.so.${PV}" "/usr/lib64/libndi.so.3"
 	dosym "libndi.so.3" "/usr/lib64/libndi.so"
-	headers=(
-		'Processing.NDI.DynamicLoad.h'
-		'Processing.NDI.Find.h'
-		'Processing.NDI.Lib.cplusplus.h'
-		'Processing.NDI.Lib.h'
-		'Processing.NDI.Recv.ex.h'
-		'Processing.NDI.Recv.h'
-		'Processing.NDI.Routing.h'
-		'Processing.NDI.Send.h'
-		'Processing.NDI.compat.h'
-		'Processing.NDI.deprecated.h'
-		'Processing.NDI.structs.h'
-		'Processing.NDI.utilities.h'
-	)
-	for header in "${headers[@]}"; do
+	for header in `ls "${S}/include/"`; do
 		doheader "${S}/include/${header}"
 	done
 }
