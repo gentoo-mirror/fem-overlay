@@ -4,13 +4,14 @@
 EAPI=6
 
 DESCRIPTION="NewTek NDI SDK"
-SRC_URI="InstallNDISDK_v3_Linux.sh"
+FILE_NAME="InstallNDISDK_v3_Linux.sh"
+SRC_URI="http://new.tk/NDISDKLINUX -> ${FILE_NAME}"
 
 LICENSE="NDI_EULA_END"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
-RESTRICT="fetch"
+#RESTRICT="fetch"
 
 HOMEPAGE="https://www.newtek.com/ndi/sdk/"
 # supress QA warnings about stripping etc., i.e. stuff we cannot change since we install prebuilt binaries
@@ -32,8 +33,8 @@ pkg_nofetch() {
 }
 
 src_unpack() {
-	ARCHIVE=`awk '/^__NDI_ARCHIVE_BEGIN__/ { print NR+1; exit 0; }' "${DISTDIR}/${SRC_URI}"`
-	tail -n+$ARCHIVE "${DISTDIR}/${SRC_URI}" | tar xvz
+	ARCHIVE=`awk '/^__NDI_ARCHIVE_BEGIN__/ { print NR+1; exit 0; }' "${DISTDIR}/${FILE_NAME}"`
+	tail -n+$ARCHIVE "${DISTDIR}/${FILE_NAME}" | tar xvz
 	S="${WORKDIR}/NDI SDK for Linux/"
 }
 
