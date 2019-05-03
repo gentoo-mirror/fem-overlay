@@ -1,12 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-PYTHON_COMPAT=( python2_7 )
-# this ebuild currently only supports installing ruby bindings for a single ruby version
-# so USE_RUBY must contain only a single value (the latest stable) as the ebuild calls
-# /usr/bin/${USE_RUBY} directly
-USE_RUBY="ruby23"
+EAPI=7
 
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
@@ -14,7 +9,13 @@ if [ "${PV#9999}" != "${PV}" ] ; then
 	EGIT_REPO_URI="https://github.com/mltframework/mlt.git"
 fi
 
-inherit eutils flag-o-matic multilib python-single-r1 ruby-single toolchain-funcs ${SCM}
+# TODO python3_{6,7} contrary to 6.14 changelog, still does not build.
+PYTHON_COMPAT=( python2_7 )
+# this ebuild currently only supports installing ruby bindings for a single ruby version
+# so USE_RUBY must contain only a single value (the latest stable) as the ebuild calls
+# /usr/bin/${USE_RUBY} directly
+USE_RUBY="ruby25"
+inherit python-single-r1 ruby-single toolchain-funcs ${SCM}
 
 DESCRIPTION="Open source multimedia framework for television broadcasting"
 HOMEPAGE="https://www.mltframework.org/"
@@ -22,25 +23,36 @@ HOMEPAGE="https://www.mltframework.org/"
 if [ "${PV#9999}" != "${PV}" ] ; then
 	SRC_URI=""
 else # Release
-	SRC_URI="https://github.com/mltframework/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/mltframework/${PN}/releases/download/v${PV}/${P}.tar.gz"
 fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86-fbsd ~amd64-linux ~x86-linux"
-IUSE="compressed-lumas cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 debug decklink ffmpeg fftw frei0r
-gtk jack kdenlive libav libsamplerate lua melt opencv opengl python qt5 rtaudio ruby sdl sdl2 vdpau xine xml"
-# java perl php tcl vidstab
-IUSE="${IUSE} kernel_linux"
+KEYWORDS="~amd64"
+IUSE="compressed-lumas cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 debug ffmpeg fftw frei0r
+gtk jack kdenlive kernel_linux libav libsamplerate lua melt opencv opengl python qt5 rtaudio ruby sdl
+vdpau vidstab xine xml decklink"
+# java perl php tcl
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
+SWIG_DEPEND=">=dev-lang/swig-2.0"
+#	java? ( ${SWIG_DEPEND} >=virtual/jdk-1.5 )
+#	perl? ( ${SWIG_DEPEND} )
+#	php? ( ${SWIG_DEPEND} )
+#	tcl? ( ${SWIG_DEPEND} )
+BDEPEND="
+	virtual/pkgconfig
+	compressed-lumas? ( virtual/imagemagick-tools[png] )
+	lua? ( ${SWIG_DEPEND} virtual/pkgconfig )
+	python? ( ${SWIG_DEPEND} )
+	ruby? ( ${SWIG_DEPEND} )"
 #rtaudio will use OSS on non linux OSes
-COMMON_DEPEND="
-	decklink? ( media-video/decklink-drivers )
+DEPEND="
 	>=media-libs/libebur128-1.2.2
+	decklink? ( media-video/decklink-drivers )
 	ffmpeg? (
-		libav? ( media-video/libav:0=[vdpau?] )
+		libav? ( >=media-video/libav-12:0=[vdpau?] )
 		!libav? ( media-video/ffmpeg:0=[vdpau?] )
 	)
 	fftw? ( sci-libs/fftw:3.0= )
@@ -70,18 +82,15 @@ COMMON_DEPEND="
 		x11-libs/libX11
 	)
 	rtaudio? (
-		media-libs/rtaudio
+		>=media-libs/rtaudio-4.1.2
 		kernel_linux? ( media-libs/alsa-lib )
 	)
 	ruby? ( ${RUBY_DEPS} )
 	sdl? (
-		>=media-libs/libsdl-1.2.10[X,opengl,video]
-		>=media-libs/sdl-image-1.2.4
-	)
-	sdl2? (
 		media-libs/libsdl2[X,opengl,video]
 		media-libs/sdl2-image
 	)
+	vidstab? ( media-libs/vidstab )
 	xine? ( >=media-libs/xine-lib-1.1.2_pre20060328-r7 )
 	xml? ( >=dev-libs/libxml2-2.5 )"
 #	java? ( >=virtual/jre-1.5 )
@@ -89,23 +98,11 @@ COMMON_DEPEND="
 #	php? ( dev-lang/php )
 #	sox? ( media-sound/sox )
 #	tcl? ( dev-lang/tcl:0= )
-#	vidstab? ( media-libs/libvidstab )
-SWIG_DEPEND=">=dev-lang/swig-2.0"
-DEPEND="${COMMON_DEPEND}
-	virtual/pkgconfig
-	compressed-lumas? ( virtual/imagemagick-tools[png] )
-	lua? ( ${SWIG_DEPEND} virtual/pkgconfig )
-	python? ( ${SWIG_DEPEND} )
-	ruby? ( ${SWIG_DEPEND} )"
-#	java? ( ${SWIG_DEPEND} >=virtual/jdk-1.5 )
-#	perl? ( ${SWIG_DEPEND} )
-#	php? ( ${SWIG_DEPEND} )
-#	tcl? ( ${SWIG_DEPEND} )
-RDEPEND="${COMMON_DEPEND}
-	!media-libs/mlt++
-"
+RDEPEND="${DEPEND}"
 
 DOCS=( AUTHORS ChangeLog NEWS README docs/{framework,melt,mlt{++,-xml}}.txt )
+
+PATCHES=( "${FILESDIR}"/${PN}-6.10.0-swig-underlinking.patch )
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
@@ -126,15 +123,13 @@ src_prepare() {
 src_configure() {
 	tc-export CC CXX
 
-	# bug 589848
-	append-cxxflags -std=c++11
-
 	local myconf=(
 		--enable-gpl
 		--enable-gpl3
 		--enable-motion-est
 		--target-arch=$(tc-arch)
 		--disable-kde
+		--disable-sdl
 		--disable-swfdec
 		$(use_enable debug)
 		$(use_enable decklink)
@@ -142,8 +137,6 @@ src_configure() {
 		$(use_enable cpu_flags_x86_sse sse)
 		$(use_enable cpu_flags_x86_sse2 sse2)
 		$(use_enable gtk gtk2)
-		$(use_enable sdl)
-		$(use_enable sdl2)
 		$(use_enable jack jackrack)
 		$(use_enable ffmpeg avformat)
 		$(use ffmpeg && echo ' --avformat-swscale')
@@ -155,6 +148,8 @@ src_configure() {
 		$(use_enable libsamplerate resample)
 		$(use_enable rtaudio)
 		$(use vdpau && echo ' --avformat-vdpau')
+		$(use_enable sdl sdl2)
+		$(use_enable vidstab vid.stab )
 		$(use_enable xml)
 		$(use_enable xine)
 		$(use_enable kdenlive)
