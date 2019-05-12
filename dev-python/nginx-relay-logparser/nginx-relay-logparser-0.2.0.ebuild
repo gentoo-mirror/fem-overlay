@@ -10,7 +10,7 @@ DESCRIPTION="Daemon providing prometheus-compatible stream viewer statistics"
 HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/projects/BROADCAST/repos/nginx-relay-logparser"
 SRC_URI=""
 EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/broadcast/nginx-relay-logparser.git"
-EGIT_COMMIT="prometheus-v0.1.0"
+EGIT_COMMIT="prometheus-v${PV}"
 
 LICENSE="MIT"
 SLOT="0"
