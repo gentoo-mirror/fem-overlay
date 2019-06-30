@@ -25,7 +25,8 @@ RDEPEND="${DEPEND}"
 BDEPEND="dev-lang/go"
 
 pkg_setup() {
-	enewuser prometheus-graphite-relay
+	enewgroup prometheus-graphite-relay
+	enewuser prometheus-graphite-relay -1 -1 -1 prometheus-graphite-relay
 }
 
 src_unpack() {
