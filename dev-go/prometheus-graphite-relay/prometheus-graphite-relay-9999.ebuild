@@ -8,21 +8,21 @@ inherit git-r3 user
 SRC_URI=""
 EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/${PN}.git"
 
-if [[ ${PV} != *9999 ]]; then
-	EGIT_COMMIT="v${PV}"
-fi
-
 DESCRIPTION="Utility to push metrics scraped from prometheus into graphite."
 HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/projects/MONITOR/repos/prometheus-graphite-relay"
 LICENSE="ISC"
 SLOT="0"
 
-KEYWORDS="~amd64 ~x86"
+if [[ ${PV} != *9999 ]]; then
+	EGIT_COMMIT="v${PV}"
+	KEYWORDS="~amd64 ~x86"
+fi
+
 IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=""
+BDEPEND="dev-lang/go"
 
 pkg_setup() {
 	enewuser prometheus-graphite-relay
