@@ -1,8 +1,82 @@
-app-backup/bontmia 0.14 0.14-r1 0.15: An incremental network backup tool for snapshotting directories using rsync
+app-admin/reprepro 5.1.1: Debian APT repository creator and maintainer application
+app-backup/bontmia 0.14 0.14-r1 0.15 0.15.1: An incremental network backup tool for snapshotting directories using rsync
 app-backup/duplicity 0.6.26-r1: Secure backup system using gnupg to encrypt data
-app-backup/sql-ssh-backup 1.8.1: Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication.
+app-backup/sql-ssh-backup 1.8.1 1.8.2 1.8.3 1.9_beta5: Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication.
+app-crypt/ecdsautils 0.3.2: Tiny collection of programs used for ECDSA (keygen, sign, verify)
+app-crypt/seahorse 3.30.0: A GNOME application for managing encryption keys
+app-emulation/xen-shell 1.9-r2: allow a user to control multiple Xen instances
+app-misc/anki 2.1.0_beta37: A spaced-repetition memory training program (flash cards)
+app-misc/supertee 9999: Multithreaded multisink pipe
+app-misc/tksuite-server-bin 3.3.20: TK Suite Server for AGFEO telecommunication systems
+app-pda/ifuse 1.1.3-r1: Mount Apple iPhone/iPod Touch file systems for backup purposes
+app-pda/libimobiledevice 1.2.1_pre20181004 9999: Support library to communicate with Apple iPhone/iPod Touch devices
+app-pda/libusbmuxd 1.1.0_pre20181004 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
+app-pda/usbmuxd 1.1.0_pre20181004 1.1.0 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
 app-portage/porticron 0.7_p20140126: cron script to sync portage and send update mails to root
+dev-go/prometheus-graphite-relay 1.0.1 9999: Utility to push metrics scraped from prometheus into graphite.
+dev-libs/gemalto-dotnetv2-pkcs11 2.2.0.10 2.2.0.10-r1: PKCS#11 library for Gemalto .NET V2 smart cards
+dev-libs/libuecc 4: Very small elliptic curve cryptography library
+dev-libs/mxml 2.10: Tiny XML Library
+dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
+dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
+dev-perl/XML-RPC-Fast 0.8: No description available
+dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
+dev-php/pecl-pthreads 3.1.6: Threading API for PHP
+dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
+dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
+dev-python/python-nbxmpp 0.6.10: Python library to use Jabber/XMPP networks in a non-blocking way
+dev-python/sphinxcontrib-phpdomain 0.4.1: Extension providing a Sphinx domain for describing PHP code
+mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
+media-libs/melted 9999: MLT Video Server
+media-libs/mlt 9999: Open source multimedia framework for television broadcasting
+media-sound/zita-resampler 1.6.0: A C++ library for resampling audio signals
+media-tv/mumudvb 2.0.0: Multi Multicast DVB to redistribute streams from DVB or ATSC
+media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
+media-video/bmusb 0.7.0: USB Driver for Blackmagic Ultrastudio cards
+media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
+media-video/decklink-drivers 10.9.11: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
+media-video/disper 0.2.3 0.3.1: Disper is an on-the-fly display switch utility
+media-video/ffmpeg 3.4 3.4.4 4.0.2 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
+media-video/flussonic 3.69.19: Flussonic (Erlyvideo 3) media streaming server
+media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
+media-video/nageru 1.6.2-r1 1.7.4: A modern free software video mixer
+media-video/ndi-sdk 3.8.0: NewTek NDI SDK
+media-video/srt 9999: Secure, Reliable, Transport - Proprietary transport for audio/video data
+media-video/voctomix 1.0 9999: Full-HD Software Live-Video-Mixer in python
+net-analyzer/check_mk_agent 1.2.8_p16: Agent to report data to Check_MK for monitoring
+net-analyzer/fem-nagios-plugins 1.0 9999: Nagios plugins written by FeM
+net-analyzer/graphite-api 1.1.4-r1 1.1.5: Graphite-web, without the interface. Just the rendering HTTP API.
+net-analyzer/icinga-classicui 1.13.3 1.14.2: Icinca ClassicUI for Icinga2
+net-analyzer/monitoring-plugins 2.1.2-r1: 50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu
+net-analyzer/nagios-plugins-extended 0.7.5-r2 0.7.5-r4: Nagios 0.7.5 plugins - Pack of plugins to make Nagios work properly
 net-analyzer/nrpe 2.15-r4: Nagios Remote Plugin Executor
+net-dns/pdns 4.0.6: The PowerDNS Daemon
+net-dns/pdns-recursor 4.0.9: The PowerDNS Recursor
+net-firewall/conntrack-tools 1.4.5: Connection tracking userspace tools
+net-im/gajim 1.1.3: Jabber client written in PyGTK
+net-im/spectrum 1.4.8-r1 1.4.8-r3 9999: Spectrum is an XMPP transport/gateway
+net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
+net-misc/alfred 2014.3.0 9999: Almighty Lightweight Fact Remote Exchange Daemon
+net-misc/alfred-json 0.3.1 9999: JSON-Client for Almighty Lightweight Fact Remote Exchange Daemon
+net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
+net-misc/fastd 14: Fast and secure tunneling daemon with very small binary
+net-misc/icecast 2.4.4: Opensource alternative to shoutcast that supports mp3, ogg and aac streaming
+net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in standard web server like format
+net-misc/minidlna 1.0.24: server software with the aim of being fully compliant with DLNA/UPnP-AV clients
+net-misc/radiusplugin 2.1a_beta 2.2: radius authentication and accounting support for OpenVPN.
+net-misc/rtsp-server 0.05-r1: Lightweight RTSP/RTP streaming media server
 net-wireless/eapol_test 0.6.9: WPA Supplicants's EAP test utility
+sci-electronics/ghdl 0.35: VHDL 2008/93/87 simulator
+sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
+sci-electronics/icarus 10.1: A free implementation of Verilog (IEEE-1364)
+sci-electronics/verilator 3.918: Verilog compiler and simulator
+sci-electronics/vhd2vl 2.5: VHDL to Verilog Konverter
+sci-libs/vmaf 1.1.6-r1 1.2.0 1.3.9: Perceptual video quality assessment based on multi-method fusion.
+sys-auth/pam_radius 1.3.17-r1: PAM RADIUS authentication module
+sys-cluster/keepalived 1.3.5: A strong & robust keepalive facility to the Linux Virtual Server project
+sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
+sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
-www-servers/nginx 1.12.2-r1: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.12.1 1.12.2-r1 1.13.8: Robust, small and high performance http and reverse proxy server
+x11-plugins/lurch 0.6.1 0.6.5 0.6.6 0.6.7: OMEMO for libpurple - interoperable with other OMEMO clients
+x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple

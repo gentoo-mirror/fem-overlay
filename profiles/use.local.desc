@@ -2,9 +2,159 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
+app-admin/reprepro:archive - 
+app-admin/reprepro:gpgme - 
 app-backup/duplicity:s3 - Support for backing up to the Amazon S3 system
+app-misc/anki:recording - Enable support for audio recording
+app-misc/anki:sound - Enable support for adding sound to cards
+app-pda/libimobiledevice:gnutls - ...
+app-pda/libimobiledevice:libressl - ...
+app-pda/libimobiledevice:python - ...
+app-pda/libimobiledevice:static-libs - ...
+app-pda/libusbmuxd:static-libs - ...
+dev-perl/XML-RPC-Fast:anyevent - Add support for AnyEvent event loop library
+media-libs/mlt:compressed-lumas - Compress the luma files in png.
+media-libs/mlt:decklink - Build support for Blackmagic DeckLink devices
+media-libs/mlt:frei0r - Build the module for media-plugins/frei0r-plugins
+media-libs/mlt:kdenlive - Build support for kde-apps/kdenlive
+media-libs/mlt:lua - Build SWIG bindings for Lua
+media-libs/mlt:melt - Build the melt commandline tool
+media-libs/mlt:opencv - Build motion tracking module using media-libs/opencv
+media-libs/mlt:python - Build SWIG bindings for Python
+media-libs/mlt:rtaudio - Builds rtaudio consumer for native audio support on multiple platforms.
+media-libs/mlt:ruby - Build SWIG bindings for Ruby
+media-libs/mlt:vidstab - Enabled video stabilization with media-libs/vidstab.
+media-sound/zita-resampler:tools - Build resampling tools
+media-video/decklink-drivers:autostart - Add DesktopVideoHelper to autostart
+media-video/decklink-drivers:headers - Install Decklink API headers.
+media-video/ffmpeg:amr - Enables Adaptive Multi-Rate Audio support
+media-video/ffmpeg:amrenc - Enables Adaptive Multi-Rate Audio encoding support with media-libs/vo-amrwbenc.
+media-video/ffmpeg:appkit - Enables Apple AppKit framework
+media-video/ffmpeg:bluray - Enable playback of Blu-ray filesystems
+media-video/ffmpeg:bs2b - Enables media-libs/libbs2b based Bauer stereo-to-binaural filter.
+media-video/ffmpeg:cdio - Enables audio CD grabbing with dev-libs/libcdio.
+media-video/ffmpeg:chromaprint - Enables audio fingerprinting support with media-libs/chromaprint.
+media-video/ffmpeg:chromium - Builds libffmpeg.so to enable media playback in Chromium-based browsers like Opera and Vivaldi.
+media-video/ffmpeg:codec2 - Enables codec2 low bit rate speech codec support via media-libs/codec2.
+media-video/ffmpeg:cpudetection - Enables runtime CPU detection (useful for bindist, compatibility on other CPUs)
+media-video/ffmpeg:decklink - Enable support for Blackmagic Design capture devices (Decklink)
+media-video/ffmpeg:fdk - Use external fdk-aac library for AAC encoding
+media-video/ffmpeg:flite - Adds a text-to-speech filter based on app-accessibility/flite.
+media-video/ffmpeg:frei0r - Enable frei0r wrapping in libavfilter
+media-video/ffmpeg:fribidi - Enables fribidi support in the drawtext filter.
+media-video/ffmpeg:gcrypt - Enables gcrypt support: Needed for rtmp(t)e support if openssl, librtmp or gmp is not used.
+media-video/ffmpeg:gme - Enables support for media-libs/game-music-emu for playing various video game music formats.
+media-video/ffmpeg:gpl - Build GPL code. Should be enabled unless you require LGPL binaries.
+media-video/ffmpeg:hardcoded-tables - Use pre-calculated tables rather than calculating them on the fly.
+media-video/ffmpeg:iec61883 - Support for FireWire DV/HDV input device using media-libs/libiec61883.
+media-video/ffmpeg:kvazaar - Enables media-libs/kvazaar based HEVC encoder.
+media-video/ffmpeg:libaom - Enables media-libs/libaom based AV1 codec support.
+media-video/ffmpeg:libdrm - Enables x11-libs/libdrm support for better screen grabbing and hardware accelerated codecs.
+media-video/ffmpeg:libilbc - Enables iLBC de/encoding via media-libs/libilbc.
+media-video/ffmpeg:libndi_newtek - Enable support for Newtek NDI
+media-video/ffmpeg:librtmp - Enables Real Time Messaging Protocol using librtmp (media-video/rtmpdump) in addition to FFmpeg's native implementation.
+media-video/ffmpeg:libsoxr - Enables audio resampling through media-libs/soxr.
+media-video/ffmpeg:libv4l - Uses media-libs/libv4l for video4linux instead of direct calls. Adds support for more devices via the userspace library.
+media-video/ffmpeg:libvmaf - Uses sci-libs/libvmaf for perceptual video quality assessment.
+media-video/ffmpeg:libxml2 - Uses dev-libs/libxml2 for MPEG-Dash manifest decoding.
+media-video/ffmpeg:lv2 - Enables lv2 audio filter wrapper.
+media-video/ffmpeg:mipsdspr1 - Enables MIPS DSP ASE R1 optimizations.
+media-video/ffmpeg:mipsdspr2 - Enables MIPS DSP ASE R2 optimizations.
+media-video/ffmpeg:mipsfpu - Enables floating point MIPS optimizations.
+media-video/ffmpeg:mmal - Enables Multi-Media Abstraction Layer (MMAL) decoding support: Available e.g. on the Raspberry Pi.
+media-video/ffmpeg:network - Enables network streaming support
+media-video/ffmpeg:nvenc - Adds support for NVIDIA Encoder (NVENC) API for hardware accelerated encoding on NVIDIA cards.
+media-video/ffmpeg:opencl - Enable OpenCL support
+media-video/ffmpeg:openh264 - Enables H.264 encoding suppoprt via media-libs/openh264.
+media-video/ffmpeg:openssl - Enables dev-libs/openssl support. Adds support for encrypted network protocols (TLS/HTTPS).
+media-video/ffmpeg:opus - Adds (decoding) support for the Opus codec via media-libs/opus.
+media-video/ffmpeg:pic - Force shared libraries to be built as PIC (this is slower)
+media-video/ffmpeg:postproc - Build and install libpostproc.
+media-video/ffmpeg:rubberband - Adds time-stretching and pitch-shifting audio filter based on media-libs/rubberband.
+media-video/ffmpeg:snappy - Enable app-arch/snappy support. Required for e.g. Vidvox Hap encoder.
+media-video/ffmpeg:ssh - Enable SSH/sftp support via net-libs/libssh.
+media-video/ffmpeg:twolame - Enables MP2 encoding via media-sound/twolame as an alternative to the internal encoder.
+media-video/ffmpeg:vpx - Enables vp8 codec support using libvpx: Decoding vp8 does not require this to be enabled but libvpx can also be used for decoding; encoding vp8 requires this useflag to be enabled though.
+media-video/ffmpeg:webp - Enables WebP encoding with media-libs/libwebp.
+media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
+media-video/ffmpeg:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
+media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
+media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
+media-video/voctomix:gui - Voctomix GTK+ application
+net-analyzer/check_mk_agent:apache_status - Install check_mk-agent apache-status plugin.
+net-analyzer/check_mk_agent:inventory - Install check_mk-agent HW-/SW-Inventory plugin.
+net-analyzer/check_mk_agent:logwatch - Install check_mk-agent logwatch plugin.
+net-analyzer/check_mk_agent:mysql - Install check_mk-agent mysql plugin.
+net-analyzer/check_mk_agent:nfsexports - Install check_mk-agent nfsexports plugin.
+net-analyzer/check_mk_agent:postgres - Install check_mk-agent postgres plugin.
+net-analyzer/check_mk_agent:smart - Install check_mk-agent S.M.A.R.T plugin.
+net-analyzer/check_mk_agent:zypper - Install check_mk-agent zypper plugin.
+net-analyzer/fem-nagios-plugins:bandwidth - add plugin check_bindwidth checks switch SNMP
+net-analyzer/fem-nagios-plugins:cgiirc - add plugin check_cgiirc
+net-analyzer/fem-nagios-plugins:gentoo-portage - add plugin check_gentoo_portage
+net-analyzer/fem-nagios-plugins:hddtemp - add plugin check_hddtemp.sh
+net-analyzer/fem-nagios-plugins:mailqueue-exim - add plugin check_mailqueue_exim
+net-analyzer/fem-nagios-plugins:nfs - add plugin check_nfs
+net-analyzer/fem-nagios-plugins:nrpe_wrapper - add plugin check_nrpe_wrapper
+net-analyzer/fem-nagios-plugins:openvpn_clients - add plugin check_openvpn_clients
+net-analyzer/fem-nagios-plugins:raid - add plugin check_raid
+net-analyzer/fem-nagios-plugins:ram - add plugin check_ram
+net-analyzer/fem-nagios-plugins:sensors - add plugin check_sensors
+net-analyzer/fem-nagios-plugins:smart_sectors - add plugin check_smart_sectors
+net-analyzer/fem-nagios-plugins:temp_sensor - add plugin check_sensor
+net-analyzer/fem-nagios-plugins:uptime - add plugin check_uptime checks switch SNMP
+net-analyzer/fem-nagios-plugins:xml-rpc - add plugin check_xml-rpc
+net-analyzer/icinga-classicui:apache2 - Conifg support for apache2 webserver.
+net-analyzer/icinga-classicui:lighttpd - Conifg support for lighttpd webserver.
+net-analyzer/monitoring-plugins:dns - Install net-dns/bind-tools required for monitoring DNS servers. Disabling the flag does not remove any plugins.
+net-analyzer/monitoring-plugins:fping - Install net-analyzer/fping required for fancy ping monitoring. Disabling the flag does not remove any plugins.
+net-analyzer/monitoring-plugins:game - Install games-util/qstat required for monitoring FPS servers. Disabling the flag does not remove any plugins.
+net-analyzer/monitoring-plugins:snmp - Install dev-perl/Net-SNMP and net-analyzer/net-snmp required for monitoring SNMP values. Disabling the flag does not remove any plugins.
+net-analyzer/monitoring-plugins:ssh - Install net-misc/openssh required for monitoring SSH servers. Disabling the flag does not remove any plugins.
+net-analyzer/nagios-plugins-extended:apache - Install Apache plugin
+net-analyzer/nagios-plugins-extended:corosync - Install Corosync plugins
+net-analyzer/nagios-plugins-extended:haproxy - Install HA-Proxy plugin
+net-analyzer/nagios-plugins-extended:hddtemp - Install HDD-Temp plugin
+net-analyzer/nagios-plugins-extended:megaraid - Install LSI Megaraid plugin
+net-analyzer/nagios-plugins-extended:nginx - Install Nginx plugin
+net-analyzer/nagios-plugins-extended:portage - Install Portage plugins
+net-analyzer/nagios-plugins-extended:portageagewarn - Patch Portage plugin to report age from critical to warn state
+net-analyzer/nagios-plugins-extended:suid - Set SUID-Flag for several plugins
+net-analyzer/nagios-plugins-extended:tcptraffic - Install TCP-Traffic plugin
+net-analyzer/nagios-plugins-extended:temp - Install Temperature-sensor plugin
+net-analyzer/nagios-plugins-extended:timestamp - Install Timestamp-Check plugin
 net-analyzer/nrpe:command-args - Build support for specifying the command-line arguments from the Nagios/Icinga master. Make sure you understand the implications of this flag as it can be a security risk.
 net-analyzer/nrpe:minimal - Only build the check plugins for Nagios/Icinga, and not the daemon.
+net-dns/pdns:botan - Make it possible to use the dev-libs/botan library for crypto-related stuff (like DNSSec) which can be significantly faster than PolarSSL.
+net-dns/pdns:mydns - Making it possible to use a MyDNS MySQL database with PowerDNS (not recommended for new deployments).
+net-dns/pdns:opendbx - Use a database supported by dev-db/opendbx as backend.
+net-dns/pdns:protobuf - Enable support for dev-libs/protobuf.
+net-dns/pdns:remote - Use a generic socket or pipe as a backend (via JSON RPC requests).
+net-dns/pdns:tinydns - Use a TinyDNS CDB database as backend.
+net-dns/pdns:tools - Build optional tools (dnsscan, dnsscope, etc..).
+net-dns/pdns-recursor:protobuf - Enable support for dev-libs/protobuf.
+net-firewall/conntrack-tools:cthelper - Use net-libs/libnetfilter_cthelper for userspace conntrack helper support
+net-firewall/conntrack-tools:cttimeout - Use net-libs/libnetfilter_cttimeout for conntrack timeout support
+net-firewall/conntrack-tools:libtirpc - Use net-libs/libtirpc for RPC support
+net-im/gajim:crypt - End to end encryption and GPG encryption
+net-im/gajim:jingle - Audio and video calls
+net-im/gajim:keyring - Saving your password to your system keyring
+net-im/gajim:networkmanager - Network lose detection using NetworkManager
+net-im/gajim:omemo - Enable OMEMO encryption
+net-im/gajim:remote - Controling Gajim instance from command line with gajim-remote
+net-im/gajim:rst - Generating XHTML output from RST code
+net-im/gajim:spell - Spellchecking of composed messages
+net-im/gajim:upnp - Ability to request your router to forward port for file transfer
+net-im/gajim:webp - Support WebP avatars
+net-im/spectrum:staticport - Use staticport for connecting jabber-router
+net-im/spectrum:symlinks - Install one config file with symlinks for any other configs
+net-im/spectrum:tools - Install misc tools
+net-misc/alfred:gps - Distributing GPS Information using a GPS device
+net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
+net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
+net-misc/icecast:yp - Build support for yp public directory listings
+sci-libs/vmaf:tools - Also install feature binaries
+sys-cluster/keepalived:lvs - 
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
