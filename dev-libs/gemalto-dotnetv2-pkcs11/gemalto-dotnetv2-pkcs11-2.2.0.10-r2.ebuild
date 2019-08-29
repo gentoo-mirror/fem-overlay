@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit autotools git-r3 eutils
 
@@ -22,8 +22,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 S="${S}/SmartCardServices/src/PKCS11dotNetV2"
-
-PATCHES="${FILESDIR}/${PN}-boost.patch"
 
 src_prepare() {
 	default_src_prepare
