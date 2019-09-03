@@ -16,14 +16,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-libs/boost
-	 sys-apps/pcsc-lite
-	 app-crypt/ccid"
+	sys-apps/pcsc-lite
+	app-crypt/ccid"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 S="${S}/SmartCardServices/src/PKCS11dotNetV2"
 
 src_prepare() {
+	sed 's;lib/pkcs11;lib64/pkcs11;g' -i "${S}/Makefile.am"
 	default_src_prepare
 	eautoreconf
 }
