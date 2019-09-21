@@ -14,7 +14,7 @@ EGIT_COMMIT="prometheus-v${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE=""
 
 DEPEND="
