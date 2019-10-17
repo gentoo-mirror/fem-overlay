@@ -1,9 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit eutils git-r3
+inherit git-r3
 
 DESCRIPTION="USB Driver for Blackmagic Ultrastudio cards"
 HOMEPAGE="https://git.sesse.net/?p=bmusb;a=summary"
@@ -16,12 +16,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=dev-libs/libusb-1.0.20"
+DEPEND=">=virtual/libusb-1-r2"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
 	eapply_user
-	epatch "${FILESDIR}/${P}-makefile.patch"
+	eapply "${FILESDIR}/${P}-makefile.patch"
 }
 
 src_install() {
