@@ -42,7 +42,7 @@ media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing M
 media-video/nageru 1.6.2-r1 1.7.4: A modern free software video mixer
 media-video/ndi-sdk 3.8.0: NewTek NDI SDK
 media-video/srt 9999: Secure, Reliable, Transport - Proprietary transport for audio/video data
-media-video/voctomix 1.0 9999: Full-HD Software Live-Video-Mixer in python
+media-video/voctomix 1.3 9999: Full-HD Software Live-Video-Mixer in python
 net-analyzer/check_mk_agent 1.2.8_p16: Agent to report data to Check_MK for monitoring
 net-analyzer/fem-nagios-plugins 1.0 9999: Nagios plugins written by FeM
 net-analyzer/graphite-api 1.1.4-r1 1.1.5: Graphite-web, without the interface. Just the rendering HTTP API.
