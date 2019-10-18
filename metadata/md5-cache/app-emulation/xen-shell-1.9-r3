@@ -1,7 +1,7 @@
 DEFINED_PHASES=compile install postinst prepare
 DEPEND=dev-lang/perl dev-perl/Term-ReadLine-Gnu app-misc/screen app-admin/sudo test? ( dev-perl/Test-Pod )
 DESCRIPTION=allow a user to control multiple Xen instances
-EAPI=5
+EAPI=7
 HOMEPAGE=http://www.xen-tools.org/software/xen-shell
 IUSE=test
 KEYWORDS=~amd64 ~x86
@@ -10,4 +10,4 @@ RDEPEND=dev-lang/perl dev-perl/Term-ReadLine-Gnu app-misc/screen app-admin/sudo
 SLOT=0
 SRC_URI=http://www.xen-tools.org/software/xen-shell/xen-shell-1.9.tar.gz
 _eclasses_=bash-completion-r1	47a7402d95930413ce25ba8d857339bb	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	2f8b8f320bee13b71a8a54cc6d09e08a
-_md5_=e1a68e55224c38aa117d6ab18728fe69
+_md5_=72723fa80a928cc5579370757a299333
