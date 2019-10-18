@@ -146,9 +146,6 @@ net-im/gajim:rst - Generating XHTML output from RST code
 net-im/gajim:spell - Spellchecking of composed messages
 net-im/gajim:upnp - Ability to request your router to forward port for file transfer
 net-im/gajim:webp - Support WebP avatars
-net-im/spectrum:staticport - Use staticport for connecting jabber-router
-net-im/spectrum:symlinks - Install one config file with symlinks for any other configs
-net-im/spectrum:tools - Install misc tools
 net-misc/alfred:gps - Distributing GPS Information using a GPS device
 net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
 net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
