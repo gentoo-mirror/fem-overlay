@@ -1,0 +1,13 @@
+diff --git a/bin/xen-shell b/bin/xen-shell
+index 87c012c..c091068 100755
+--- a/bin/xen-shell
++++ b/bin/xen-shell
+@@ -1957,7 +1957,7 @@ sub do_shutdown
+             do_sysreq("reissuo");
+ 
+             sleep(2);
+-            system("xm destroy $ACTIVE 2>/dev/null");
++            system("sudo xm destroy $ACTIVE 2>/dev/null");
+ 
+             print "System terminated.\n";
+         }
