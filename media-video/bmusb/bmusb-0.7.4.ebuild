@@ -25,5 +25,5 @@ src_prepare() {
 }
 
 src_install() {
-	emake PREFIX="${D}usr" install
+	emake PREFIX="${D}/usr" install
 }
