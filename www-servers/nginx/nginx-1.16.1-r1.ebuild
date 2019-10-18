@@ -17,10 +17,16 @@ EAPI="6"
 GENTOO_DEPEND_ON_PERL="no"
 
 # devel_kit (https://github.com/simpl/ngx_devel_kit, BSD license)
-DEVEL_KIT_MODULE_PV="0.3.0"
-DEVEL_KIT_MODULE_P="ngx_devel_kit-${DEVEL_KIT_MODULE_PV}-r1"
+DEVEL_KIT_MODULE_PV="0.3.1"
+DEVEL_KIT_MODULE_P="ngx_devel_kit-${DEVEL_KIT_MODULE_PV}"
 DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${DEVEL_KIT_MODULE_PV}.tar.gz"
 DEVEL_KIT_MODULE_WD="${WORKDIR}/ngx_devel_kit-${DEVEL_KIT_MODULE_PV}"
+
+# ngx_brotli (https://github.com/eustas/ngx_brotli, BSD-2)
+HTTP_BROTLI_MODULE_PV="8104036af9cff4b1d34f22d00ba857e2a93a243c"
+HTTP_BROTLI_MODULE_P="ngx_brotli-${HTTP_BROTLI_MODULE_PV}"
+HTTP_BROTLI_MODULE_URI="https://github.com/eustas/ngx_brotli/archive/${HTTP_BROTLI_MODULE_PV}.tar.gz"
+HTTP_BROTLI_MODULE_WD="${WORKDIR}/ngx_brotli-${HTTP_BROTLI_MODULE_PV}"
 
 # http_uploadprogress (https://github.com/masterzen/nginx-upload-progress-module, BSD-2 license)
 HTTP_UPLOAD_PROGRESS_MODULE_PV="0.9.2"
@@ -47,13 +53,13 @@ HTTP_SLOWFS_CACHE_MODULE_URI="http://labs.frickle.com/files/ngx_slowfs_cache-${H
 HTTP_SLOWFS_CACHE_MODULE_WD="${WORKDIR}/ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 
 # http_fancyindex (https://github.com/aperezdc/ngx-fancyindex, BSD license)
-HTTP_FANCYINDEX_MODULE_PV="0.4.2"
+HTTP_FANCYINDEX_MODULE_PV="0.4.3"
 HTTP_FANCYINDEX_MODULE_P="ngx_http_fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/v${HTTP_FANCYINDEX_MODULE_PV}.tar.gz"
 HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/openresty/lua-nginx-module, BSD license)
-HTTP_LUA_MODULE_PV="0.10.11"
+HTTP_LUA_MODULE_PV="0.10.15"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/openresty/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
@@ -65,7 +71,7 @@ HTTP_AUTH_PAM_MODULE_URI="https://github.com/stogh/ngx_http_auth_pam_module/arch
 HTTP_AUTH_PAM_MODULE_WD="${WORKDIR}/ngx_http_auth_pam_module-${HTTP_AUTH_PAM_MODULE_PV}"
 
 # http_upstream_check (https://github.com/yaoweibin/nginx_upstream_check_module, BSD license)
-HTTP_UPSTREAM_CHECK_MODULE_PV="31b1b42873fa56620d8a873ac13f5f26b52d0cd6"
+HTTP_UPSTREAM_CHECK_MODULE_PV="9aecf15ec379fe98f62355c57b60c0bc83296f04"
 HTTP_UPSTREAM_CHECK_MODULE_P="ngx_http_upstream_check-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
 HTTP_UPSTREAM_CHECK_MODULE_URI="https://github.com/yaoweibin/nginx_upstream_check_module/archive/${HTTP_UPSTREAM_CHECK_MODULE_PV}.tar.gz"
 HTTP_UPSTREAM_CHECK_MODULE_WD="${WORKDIR}/nginx_upstream_check_module-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
@@ -76,8 +82,14 @@ HTTP_METRICS_MODULE_P="ngx_metrics-${HTTP_METRICS_MODULE_PV}"
 HTTP_METRICS_MODULE_URI="https://github.com/madvertise/ngx_metrics/archive/v${HTTP_METRICS_MODULE_PV}.tar.gz"
 HTTP_METRICS_MODULE_WD="${WORKDIR}/ngx_metrics-${HTTP_METRICS_MODULE_PV}"
 
+# http_vhost_traffic_status (https://github.com/vozlt/nginx-module-vts, BSD license)
+HTTP_VHOST_TRAFFIC_STATUS_MODULE_PV="46d85558e344dfe2b078ce757fd36c69a1ec2dd3"
+HTTP_VHOST_TRAFFIC_STATUS_MODULE_P="ngx_http_vhost_traffic_status-${HTTP_VHOST_TRAFFIC_STATUS_MODULE_PV}"
+HTTP_VHOST_TRAFFIC_STATUS_MODULE_URI="https://github.com/vozlt/nginx-module-vts/archive/${HTTP_VHOST_TRAFFIC_STATUS_MODULE_PV}.tar.gz"
+HTTP_VHOST_TRAFFIC_STATUS_MODULE_WD="${WORKDIR}/nginx-module-vts-${HTTP_VHOST_TRAFFIC_STATUS_MODULE_PV}"
+
 # naxsi-core (https://github.com/nbs-system/naxsi, GPLv2+)
-HTTP_NAXSI_MODULE_PV="0.55.3"
+HTTP_NAXSI_MODULE_PV="0.56"
 HTTP_NAXSI_MODULE_P="ngx_http_naxsi-${HTTP_NAXSI_MODULE_PV}"
 HTTP_NAXSI_MODULE_URI="https://github.com/nbs-system/naxsi/archive/${HTTP_NAXSI_MODULE_PV}.tar.gz"
 HTTP_NAXSI_MODULE_WD="${WORKDIR}/naxsi-${HTTP_NAXSI_MODULE_PV}/naxsi_src"
@@ -89,7 +101,7 @@ RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODUL
 RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
 
 # nginx-dav-ext-module (https://github.com/arut/nginx-dav-ext-module, BSD license)
-HTTP_DAV_EXT_MODULE_PV="0.1.0"
+HTTP_DAV_EXT_MODULE_PV="3.0.0"
 HTTP_DAV_EXT_MODULE_P="ngx_http_dav_ext-${HTTP_DAV_EXT_MODULE_PV}"
 HTTP_DAV_EXT_MODULE_URI="https://github.com/arut/nginx-dav-ext-module/archive/v${HTTP_DAV_EXT_MODULE_PV}.tar.gz"
 HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
@@ -102,7 +114,7 @@ HTTP_ECHO_MODULE_WD="${WORKDIR}/echo-nginx-module-${HTTP_ECHO_MODULE_PV}"
 
 # mod_security for nginx (https://modsecurity.org/, Apache-2.0)
 # keep the MODULE_P here consistent with upstream to avoid tarball duplication
-HTTP_SECURITY_MODULE_PV="2.9.2"
+HTTP_SECURITY_MODULE_PV="2.9.3"
 HTTP_SECURITY_MODULE_P="modsecurity-${HTTP_SECURITY_MODULE_PV}"
 HTTP_SECURITY_MODULE_URI="https://www.modsecurity.org/tarball/${HTTP_SECURITY_MODULE_PV}/${HTTP_SECURITY_MODULE_P}.tar.gz"
 HTTP_SECURITY_MODULE_WD="${WORKDIR}/${HTTP_SECURITY_MODULE_P}"
@@ -126,67 +138,84 @@ HTTP_MOGILEFS_MODULE_URI="https://github.com/vkholodkov/nginx-mogilefs-module/ar
 HTTP_MOGILEFS_MODULE_WD="${WORKDIR}/nginx_mogilefs_module-${HTTP_MOGILEFS_MODULE_PV}"
 
 # memc-module (https://github.com/openresty/memc-nginx-module, BSD-2)
-HTTP_MEMC_MODULE_PV="0.18"
+HTTP_MEMC_MODULE_PV="0.19"
 HTTP_MEMC_MODULE_P="ngx_memc_module-${HTTP_MEMC_MODULE_PV}"
 HTTP_MEMC_MODULE_URI="https://github.com/openresty/memc-nginx-module/archive/v${HTTP_MEMC_MODULE_PV}.tar.gz"
 HTTP_MEMC_MODULE_WD="${WORKDIR}/memc-nginx-module-${HTTP_MEMC_MODULE_PV}"
 
 # nginx-ldap-auth-module (https://github.com/kvspb/nginx-auth-ldap, BSD-2)
-HTTP_LDAP_MODULE_PV="49a8b4d28fc4a518563c82e0b52821e5f37db1fc"
+HTTP_LDAP_MODULE_PV="42d195d7a7575ebab1c369ad3fc5d78dc2c2669c"
 HTTP_LDAP_MODULE_P="nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 HTTP_LDAP_MODULE_URI="https://github.com/kvspb/nginx-auth-ldap/archive/${HTTP_LDAP_MODULE_PV}.tar.gz"
 HTTP_LDAP_MODULE_WD="${WORKDIR}/nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 
-HTTP_VOD_MODULE_PV="1.22"
+HTTP_VOD_MODULE_PV="1.24"
 HTTP_VOD_MODULE_P="nginx-vod-module-${HTTP_VOD_MODULE_PV}"
 HTTP_VOD_MODULE_URI="https://github.com/kaltura/nginx-vod-module/archive/${HTTP_VOD_MODULE_PV}.tar.gz"
 HTTP_VOD_MODULE_WD="${WORKDIR}/nginx-vod-module-${HTTP_VOD_MODULE_PV}"
+
+# geoip2 (https://github.com/leev/ngx_http_geoip2_module, BSD-2)
+GEOIP2_MODULE_PV="3.2"
+GEOIP2_MODULE_P="ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
+GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOIP2_MODULE_PV}.tar.gz"
+GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
+
+# njs-module (https://github.com/nginx/njs, as-is)
+NJS_MODULE_PV="0.3.5"
+NJS_MODULE_P="njs-${NJS_MODULE_PV}"
+NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
+NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
 
 # We handle deps below ourselves
 SSL_DEPS_SKIP=1
 AUTOTOOLS_AUTO_DEPEND="no"
 
-inherit autotools ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib
+inherit autotools ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib pax-utils
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="https://nginx.org"
 SRC_URI="https://nginx.org/download/${P}.tar.gz
 	${DEVEL_KIT_MODULE_URI} -> ${DEVEL_KIT_MODULE_P}.tar.gz
-	nginx_modules_http_upload_progress? ( ${HTTP_UPLOAD_PROGRESS_MODULE_URI} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
-	nginx_modules_http_headers_more? ( ${HTTP_HEADERS_MORE_MODULE_URI} -> ${HTTP_HEADERS_MORE_MODULE_P}.tar.gz )
-	nginx_modules_http_cache_purge? ( ${HTTP_CACHE_PURGE_MODULE_URI} -> ${HTTP_CACHE_PURGE_MODULE_P}.tar.gz )
-	nginx_modules_http_slowfs_cache? ( ${HTTP_SLOWFS_CACHE_MODULE_URI} -> ${HTTP_SLOWFS_CACHE_MODULE_P}.tar.gz )
-	nginx_modules_http_fancyindex? ( ${HTTP_FANCYINDEX_MODULE_URI} -> ${HTTP_FANCYINDEX_MODULE_P}.tar.gz )
-	nginx_modules_http_lua? ( ${HTTP_LUA_MODULE_URI} -> ${HTTP_LUA_MODULE_P}.tar.gz )
+	nginx_modules_http_auth_ldap? ( ${HTTP_LDAP_MODULE_URI} -> ${HTTP_LDAP_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_pam? ( ${HTTP_AUTH_PAM_MODULE_URI} -> ${HTTP_AUTH_PAM_MODULE_P}.tar.gz )
-	nginx_modules_http_upstream_check? ( ${HTTP_UPSTREAM_CHECK_MODULE_URI} -> ${HTTP_UPSTREAM_CHECK_MODULE_P}.tar.gz )
-	nginx_modules_http_metrics? ( ${HTTP_METRICS_MODULE_URI} -> ${HTTP_METRICS_MODULE_P}.tar.gz )
-	nginx_modules_http_naxsi? ( ${HTTP_NAXSI_MODULE_URI} -> ${HTTP_NAXSI_MODULE_P}.tar.gz )
-	rtmp? ( ${RTMP_MODULE_URI} -> ${RTMP_MODULE_P}.tar.gz )
+	nginx_modules_http_brotli? ( ${HTTP_BROTLI_MODULE_URI} -> ${HTTP_BROTLI_MODULE_P}.tar.gz )
+	nginx_modules_http_cache_purge? ( ${HTTP_CACHE_PURGE_MODULE_URI} -> ${HTTP_CACHE_PURGE_MODULE_P}.tar.gz )
 	nginx_modules_http_dav_ext? ( ${HTTP_DAV_EXT_MODULE_URI} -> ${HTTP_DAV_EXT_MODULE_P}.tar.gz )
 	nginx_modules_http_echo? ( ${HTTP_ECHO_MODULE_URI} -> ${HTTP_ECHO_MODULE_P}.tar.gz )
-	nginx_modules_http_security? ( ${HTTP_SECURITY_MODULE_URI} -> ${HTTP_SECURITY_MODULE_P}.tar.gz )
-	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
-	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
-	nginx_modules_http_mogilefs? ( ${HTTP_MOGILEFS_MODULE_URI} -> ${HTTP_MOGILEFS_MODULE_P}.tar.gz )
+	nginx_modules_http_fancyindex? ( ${HTTP_FANCYINDEX_MODULE_URI} -> ${HTTP_FANCYINDEX_MODULE_P}.tar.gz )
+	nginx_modules_http_geoip2? ( ${GEOIP2_MODULE_URI} -> ${GEOIP2_MODULE_P}.tar.gz )
+	nginx_modules_http_headers_more? ( ${HTTP_HEADERS_MORE_MODULE_URI} -> ${HTTP_HEADERS_MORE_MODULE_P}.tar.gz )
+	nginx_modules_http_javascript? ( ${NJS_MODULE_URI} -> ${NJS_MODULE_P}.tar.gz )
+	nginx_modules_http_lua? ( ${HTTP_LUA_MODULE_URI} -> ${HTTP_LUA_MODULE_P}.tar.gz )
 	nginx_modules_http_memc? ( ${HTTP_MEMC_MODULE_URI} -> ${HTTP_MEMC_MODULE_P}.tar.gz )
-	nginx_modules_http_auth_ldap? ( ${HTTP_LDAP_MODULE_URI} -> ${HTTP_LDAP_MODULE_P}.tar.gz )
-	nginx_modules_http_vod? ( ${HTTP_VOD_MODULE_URI} -> ${HTTP_VOD_MODULE_P}.tar.gz )"
+	nginx_modules_http_metrics? ( ${HTTP_METRICS_MODULE_URI} -> ${HTTP_METRICS_MODULE_P}.tar.gz )
+	nginx_modules_http_mogilefs? ( ${HTTP_MOGILEFS_MODULE_URI} -> ${HTTP_MOGILEFS_MODULE_P}.tar.gz )
+	nginx_modules_http_naxsi? ( ${HTTP_NAXSI_MODULE_URI} -> ${HTTP_NAXSI_MODULE_P}.tar.gz )
+	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
+	nginx_modules_http_security? ( ${HTTP_SECURITY_MODULE_URI} -> ${HTTP_SECURITY_MODULE_P}.tar.gz )
+	nginx_modules_http_slowfs_cache? ( ${HTTP_SLOWFS_CACHE_MODULE_URI} -> ${HTTP_SLOWFS_CACHE_MODULE_P}.tar.gz )
+	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
+	nginx_modules_http_upload_progress? ( ${HTTP_UPLOAD_PROGRESS_MODULE_URI} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
+	nginx_modules_http_upstream_check? ( ${HTTP_UPSTREAM_CHECK_MODULE_URI} -> ${HTTP_UPSTREAM_CHECK_MODULE_P}.tar.gz )
+	nginx_modules_http_vhost_traffic_status? ( ${HTTP_VHOST_TRAFFIC_STATUS_MODULE_URI} -> ${HTTP_VHOST_TRAFFIC_STATUS_MODULE_P}.tar.gz )
+	nginx_modules_http_vod? ( ${HTTP_VOD_MODULE_URI} -> ${HTTP_VOD_MODULE_P}.tar.gz )
+	nginx_modules_stream_geoip2? ( ${GEOIP2_MODULE_URI} -> ${GEOIP2_MODULE_P}.tar.gz )
+	nginx_modules_stream_javascript? ( ${NJS_MODULE_URI} -> ${NJS_MODULE_P}.tar.gz )
+	rtmp? ( ${RTMP_MODULE_URI} -> ${RTMP_MODULE_P}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
-	nginx_modules_http_push_stream? ( GPL-3 )
-	nginx_modules_http_vod? ( AGPL-3 )"
+	nginx_modules_http_push_stream? ( GPL-3 )"
 
-SLOT="mainline"
+SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
 
 # Package doesn't provide a real test suite
 RESTRICT="test"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif
-	fastcgi geo gzip limit_req limit_conn map memcached mirror proxy
-	referer rewrite scgi ssi split_clients upstream_hash
+	fastcgi geo grpc gzip limit_req limit_conn map memcached mirror
+	proxy referer rewrite scgi ssi split_clients upstream_hash
 	upstream_ip_hash upstream_keepalive upstream_least_conn
 	upstream_zone userid uwsgi"
 NGINX_MODULES_OPT="addition auth_request dav degradation flv geoip gunzip
@@ -197,25 +226,32 @@ NGINX_MODULES_STREAM_STD="access geo limit_conn map return split_clients
 NGINX_MODULES_STREAM_OPT="geoip realip ssl_preread"
 NGINX_MODULES_MAIL="imap pop3 smtp"
 NGINX_MODULES_3RD="
-	http_upload_progress
-	http_headers_more
-	http_cache_purge
-	http_slowfs_cache
-	http_fancyindex
-	http_lua
+	http_auth_ldap
 	http_auth_pam
-	http_upstream_check
-	http_metrics
-	http_naxsi
+	http_brotli
+	http_cache_purge
 	http_dav_ext
 	http_echo
-	http_security
-	http_push_stream
-	http_sticky
-	http_mogilefs
+	http_fancyindex
+	http_geoip2
+	http_headers_more
+	http_javascript
+	http_lua
 	http_memc
-	http_auth_ldap
-	http_vod"
+	http_metrics
+	http_mogilefs
+	http_naxsi
+	http_push_stream
+	http_security
+	http_slowfs_cache
+	http_sticky
+	http_upload_progress
+	http_upstream_check
+	http_vhost_traffic_status
+	http_vod
+	stream_geoip2
+	stream_javascript
+"
 
 IUSE="aio debug +http +http2 +http-cache +ipv6 libatomic libressl luajit +pcre
 	pcre-jit rtmp selinux ssl threads userland_GNU vim-syntax"
@@ -265,7 +301,9 @@ CDEPEND="
 			libressl? ( dev-libs/libressl:= )
 		)
 	)
+	nginx_modules_http_brotli? ( app-arch/brotli:= )
 	nginx_modules_http_geoip? ( dev-libs/geoip )
+	nginx_modules_http_geoip2? ( dev-libs/libmaxminddb:= )
 	nginx_modules_http_gunzip? ( sys-libs/zlib )
 	nginx_modules_http_gzip? ( sys-libs/zlib )
 	nginx_modules_http_gzip_static? ( sys-libs/zlib )
@@ -279,10 +317,10 @@ CDEPEND="
 		)
 	)
 	nginx_modules_http_xslt? ( dev-libs/libxml2:= dev-libs/libxslt )
-	nginx_modules_http_lua? ( !luajit? ( dev-lang/lua:0= ) luajit? ( dev-lang/luajit:2= ) )
-	nginx_modules_http_auth_pam? ( virtual/pam )
+	nginx_modules_http_lua? ( dev-lang/luajit:2= )
+	nginx_modules_http_auth_pam? ( sys-libs/pam )
 	nginx_modules_http_metrics? ( dev-libs/yajl:= )
-	nginx_modules_http_dav_ext? ( dev-libs/expat )
+	nginx_modules_http_dav_ext? ( dev-libs/libxml2 )
 	nginx_modules_http_security? (
 		dev-libs/apr:=
 		dev-libs/apr-util:=
@@ -290,24 +328,31 @@ CDEPEND="
 		net-misc/curl
 		www-servers/apache
 	)
-	nginx_modules_http_auth_ldap? ( net-nds/openldap[ssl?] )"
+	nginx_modules_http_auth_ldap? ( net-nds/openldap[ssl?] )
+	nginx_modules_stream_geoip? ( dev-libs/geoip )
+	nginx_modules_stream_geoip2? ( dev-libs/libmaxminddb:= )"
 RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-nginx )
-	!www-servers/nginx:0"
+	!www-servers/nginx:mainline"
 DEPEND="${CDEPEND}
+	nginx_modules_http_brotli? ( virtual/pkgconfig )
 	nginx_modules_http_security? ( ${AUTOTOOLS_DEPEND} )
 	arm? ( dev-libs/libatomic_ops )
 	libatomic? ( dev-libs/libatomic_ops )"
 PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
-	nginx_modules_http_lua? ( nginx_modules_http_rewrite )
+	nginx_modules_http_grpc? ( http2 )
+	nginx_modules_http_lua? (
+		luajit
+		nginx_modules_http_rewrite
+	)
 	nginx_modules_http_naxsi? ( pcre )
 	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
 	nginx_modules_http_push_stream? ( ssl )
-	nginx_modules_http_vod? ( nginx_modules_http_gzip )"
+	nginx_modules_http_vod? ( nginx_modules_http_gzip nginx_modules_http_ssi )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
@@ -347,8 +392,19 @@ src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
 
+	if use nginx_modules_http_auth_pam; then
+		cd "${HTTP_AUTH_PAM_MODULE_WD}" || die
+		eapply "${FILESDIR}"/http_auth_pam-1.5.1-adjust-loglevel-for-authentication-failures.patch
+		cd "${S}" || die
+	fi
+
+	if use nginx_modules_http_brotli; then
+		cd "${HTTP_BROTLI_MODULE_WD}" || die
+		eapply "${FILESDIR}"/http_brotli-detect-brotli-r2.patch
+		cd "${S}" || die
+	fi
+
 	if use nginx_modules_http_upstream_check; then
-		#eapply -p0 "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.11.1+.patch
 		eapply -p0 "${FILESDIR}"/http_upstream_check-nginx-1.11.5+.patch
 	fi
 
@@ -468,13 +524,8 @@ src_configure() {
 
 	if use nginx_modules_http_lua; then
 		http_enabled=1
-		if use luajit; then
-			export LUAJIT_LIB=$(pkg-config --variable libdir luajit)
-			export LUAJIT_INC=$(pkg-config --variable includedir luajit)
-		else
-			export LUA_LIB=$(pkg-config --variable libdir lua)
-			export LUA_INC=$(pkg-config --variable includedir lua)
-		fi
+		export LUAJIT_LIB=$(pkg-config --variable libdir luajit)
+		export LUAJIT_INC=$(pkg-config --variable includedir luajit)
 		myconf+=( --add-module=${DEVEL_KIT_MODULE_WD} )
 		myconf+=( --add-module=${HTTP_LUA_MODULE_WD} )
 	fi
@@ -544,12 +595,30 @@ src_configure() {
 		myconf+=( --add-module=${HTTP_LDAP_MODULE_WD} )
 	fi
 
+	if use nginx_modules_http_vhost_traffic_status; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_VHOST_TRAFFIC_STATUS_MODULE_WD} )
+	fi
+
 	if use nginx_modules_http_vod; then
 		http_enabled=1
 		myconf+=( --add-module=${HTTP_VOD_MODULE_WD} )
 	fi
 
-	if use http || use http-cache || use http2; then
+	if use nginx_modules_http_geoip2 || use nginx_modules_stream_geoip2; then
+		myconf+=( --add-module=${GEOIP2_MODULE_WD} )
+	fi
+
+	if use nginx_modules_http_javascript || use nginx_modules_stream_javascript; then
+		myconf+=( --add-module="${NJS_MODULE_WD}/nginx" )
+	fi
+
+	if use nginx_modules_http_brotli; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_BROTLI_MODULE_WD} )
+	fi
+
+	if use http || use http-cache || use http2 || use nginx_modules_http_javascript; then
 		http_enabled=1
 	fi
 
@@ -575,6 +644,10 @@ src_configure() {
 			myconf+=( --with-stream_${mod}_module )
 		fi
 	done
+
+	if use nginx_modules_stream_geoip2 || use nginx_modules_stream_javascript; then
+		stream_enabled=1
+	fi
 
 	if [ $stream_enabled ]; then
 		myconf+=( --with-stream )
@@ -612,6 +685,11 @@ src_configure() {
 	local WITHOUT_IPV6=
 	if ! use ipv6; then
 		WITHOUT_IPV6=" -DNGX_HAVE_INET6=0"
+	fi
+
+	if [[ -n "${EXTRA_ECONF}" ]]; then
+		myconf+=( ${EXTRA_ECONF} )
+		ewarn "EXTRA_ECONF applied. Now you are on your own, good luck!"
 	fi
 
 	./configure \
@@ -686,6 +764,10 @@ src_install() {
 	insinto /etc/logrotate.d
 	newins "${FILESDIR}"/nginx.logrotate-r1 nginx
 
+	if use luajit; then
+		pax-mark m "${ED%/}/usr/sbin/nginx"
+	fi
+
 	if use nginx_modules_http_perl; then
 		cd "${S}"/objs/src/http/modules/perl/ || die
 		emake DESTDIR="${D}" INSTALLDIRS=vendor
@@ -745,7 +827,7 @@ src_install() {
 
 	if use nginx_modules_http_security; then
 		docinto ${HTTP_SECURITY_MODULE_P}
-		dodoc "${HTTP_SECURITY_MODULE_WD}"/{CHANGES,README.TXT,authors.txt}
+		dodoc "${HTTP_SECURITY_MODULE_WD}"/{CHANGES,README.md,authors.txt}
 	fi
 
 	if use nginx_modules_http_push_stream; then
@@ -794,7 +876,7 @@ pkg_postinst() {
 	if use nginx_modules_http_lua && use http2; then
 		ewarn ""
 		ewarn "Lua 3rd party module author warns against using ${P} with"
-		ewarn "NGINX_MODULES_HTTP=\"lua http2\". For more info, see http://git.io/OldLsg"
+		ewarn "NGINX_MODULES_HTTP=\"lua http2\". For more info, see https://git.io/OldLsg"
 	fi
 
 	local _n_permission_layout_checks=0
