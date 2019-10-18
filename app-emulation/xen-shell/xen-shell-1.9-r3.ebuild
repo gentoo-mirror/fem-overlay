@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 inherit "bash-completion-r1"
 
 DESCRIPTION="allow a user to control multiple Xen instances"
@@ -23,6 +23,8 @@ DEPEND="${RDEPEND}
 SRC_TEST="do"
 
 src_prepare() {
+	eapply "${FILESDIR}/destroy-xen-shell-fix.patch"
+	eapply_user
 	( echo ""; echo "# set default shell"; echo "shell /usr/bin/xen-shell" ) >> "${S}"/misc/_screenrc
 
 	sed -i -e 's/\*-\*/xen-shell/' "${S}/Makefile"
