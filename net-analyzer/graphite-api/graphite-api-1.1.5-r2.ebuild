@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python2_7 python3_{4,5,6} )
 
 inherit distutils-r1
@@ -29,8 +29,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 python_install() {
-	distutils-r1_python_install \
-        --install-data="${EPREFIX}"/usr/share/${PN}
+	distutils-r1_python_install --install-data="${EPREFIX}"/usr/share/${PN}
 
 	insinto /etc/
 	doins "${FILESDIR}"/${PN}.yaml
