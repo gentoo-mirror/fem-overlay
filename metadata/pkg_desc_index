@@ -46,7 +46,7 @@ media-video/srt 9999: Secure, Reliable, Transport - Proprietary transport for au
 media-video/voctomix 1.3 9999: Full-HD Software Live-Video-Mixer in python
 net-analyzer/check_mk_agent 1.2.8_p16: Agent to report data to Check_MK for monitoring
 net-analyzer/fem-nagios-plugins 1.0 9999: Nagios plugins written by FeM
-net-analyzer/graphite-api 1.1.4-r1 1.1.5: Graphite-web, without the interface. Just the rendering HTTP API.
+net-analyzer/graphite-api 1.1.5-r2: Graphite-web, without the interface. Just the rendering HTTP API.
 net-analyzer/icinga-classicui 1.13.3 1.14.2: Icinca ClassicUI for Icinga2
 net-analyzer/monitoring-plugins 2.1.2-r1: 50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu
 net-analyzer/nagios-plugins-extended 0.7.5-r2 0.7.5-r4: Nagios 0.7.5 plugins - Pack of plugins to make Nagios work properly
@@ -78,6 +78,6 @@ sys-cluster/keepalived 1.3.5: A strong & robust keepalive facility to the Linux 
 sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
-www-servers/nginx 1.12.1 1.12.2-r1 1.16.1-r1: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.12.2-r1 1.16.1-r1: Robust, small and high performance http and reverse proxy server
 x11-plugins/lurch 0.6.1 0.6.5 0.6.6 0.6.7: OMEMO for libpurple - interoperable with other OMEMO clients
 x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple
