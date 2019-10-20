@@ -1,24 +1,30 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
+inherit eutils user git-r3
+
+EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/monitor/fem-nagios-plugins.git"
+if [[ ${PV} == 9999 ]]; then
+	EGIT_BRANCH="master"
+else
+	EGIT_COMMIT="v${PV}"
+fi
 
 DESCRIPTION="Nagios plugins written by FeM"
 HOMEPAGE="http://fem.tu-ilmenau.de"
-EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/monitor/fem-nagios-plugins.git"
-EGIT_COMMIT="v${PV}"
-#SRC_URI=""
-inherit eutils user git-r3
+
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
-IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc"
+KEYWORDS="~amd64 ~x86"
+IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc lvm xen net_traffic"
 
 DEPEND="bandwidth? ( dev-perl/Net-SNMP ) \
 		raid? ( virtual/perl-Getopt-Long ) \
 		sensors? ( virtual/perl-Getopt-Long ) \
 		uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) \
 		xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) \
+		xen? ( app-emulation/xen-tools ) \
 "
 RESTRICT="test"
 
@@ -33,7 +39,7 @@ pkg_setup() {
 
 src_install () {
 	if use bandwidth; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_bindwidth"
+		PLUGIN_LIST="${PLUGIN_LIST} check_bandwidth"
 	fi
 
 	if use cgiirc; then
@@ -90,6 +96,18 @@ src_install () {
 
 	if use xml-rpc; then
 	PLUGIN_LIST="${PLUGIN_LIST} check_xml-rpc"
+	fi
+
+	if use lvm; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_vg_size check_lvm_cache"
+	fi
+
+	if use xen; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_xen_cpu"
+	fi
+
+	if use net_traffic; then
+	PLUGIN_LIST="${PLUGIN_LIST} check_net_traffic"
 	fi
 
 	dodir /usr/$(get_libdir)/nagios/plugins
