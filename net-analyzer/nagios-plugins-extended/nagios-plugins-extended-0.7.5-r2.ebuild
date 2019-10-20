@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -21,7 +21,7 @@ DEPEND="tcptraffic? ( dev-perl/Monitoring-Plugin virtual/perl-version ) \
 	megaraid? ( sys-block/megarc ) \
 	nginx? ( sys-devel/bc net-misc/wget ) \
 	portage? ( app-portage/gentoolkit ) \
-	temp? ( ( || ( net-analyzer/netcat6 net-analyzer/netcat ) ) sys-devel/bc ) \
+	temp? ( net-analyzer/netcat sys-devel/bc ) \
 	timestamp? ( dev-perl/TimeDate ) \
 	hddtemp? ( app-admin/hddtemp )"
 

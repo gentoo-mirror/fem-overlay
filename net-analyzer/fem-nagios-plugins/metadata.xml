@@ -21,6 +21,9 @@
 	<flag name="temp_sensor">add plugin check_sensor</flag>
 	<flag name="uptime">add plugin check_uptime checks switch SNMP</flag>
 	<flag name="xml-rpc">add plugin check_xml-rpc</flag>
+	<flag name="xen">add plugin check_xen_cpu</flag>
+	<flag name="lvm">add plugins check_vg_size check_lvm_cache</flag>
+	<flag name="net_traffic">add plugin check_net_traffic</flag>
 </use>
 <longdescription lang="en">
 </longdescription>
