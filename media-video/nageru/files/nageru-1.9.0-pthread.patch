@@ -1,0 +1,26 @@
+From 690a6ff5c93d98141d5ba658545ef33a79f9ecf9 Mon Sep 17 00:00:00 2001
+From: "Steinar H. Gunderson" <steinar+nageru@gunderson.no>
+Date: Fri, 18 Oct 2019 22:52:16 +0200
+Subject: [PATCH] Add a missing dependency on -pthread.
+
+Patch by Morten Linderud.
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index fde9405..8114abb 100644
+--- a/meson.build
++++ b/meson.build
+@@ -306,7 +306,7 @@ futatabi_shader_srcs = bin2h_gen.process(shaders)
+ futatabi_srcs += futatabi_shader_srcs
+ 
+ executable('futatabi', futatabi_srcs,
+-	dependencies: [shareddep, qt5deps, libjpegdep, movitdep, libmicrohttpddep, protobufdep, sqlite3dep, vax11dep, vadrmdep, x11dep, libavformatdep, libavcodecdep, libavutildep, libswscaledep],
++	dependencies: [shareddep, qt5deps, libjpegdep, movitdep, libmicrohttpddep, protobufdep, sqlite3dep, vax11dep, vadrmdep, x11dep, threaddep, libavformatdep, libavcodecdep, libavutildep, libswscaledep],
+ 	link_with: shared,
+ 	include_directories: [include_directories('futatabi')],
+ 	install: true)
+-- 
+2.23.0
+
