@@ -93,7 +93,9 @@ net-analyzer/fem-nagios-plugins:bandwidth - add plugin check_bindwidth checks sw
 net-analyzer/fem-nagios-plugins:cgiirc - add plugin check_cgiirc
 net-analyzer/fem-nagios-plugins:gentoo-portage - add plugin check_gentoo_portage
 net-analyzer/fem-nagios-plugins:hddtemp - add plugin check_hddtemp.sh
+net-analyzer/fem-nagios-plugins:lvm - add plugins check_vg_size check_lvm_cache
 net-analyzer/fem-nagios-plugins:mailqueue-exim - add plugin check_mailqueue_exim
+net-analyzer/fem-nagios-plugins:net_traffic - add plugin check_net_traffic
 net-analyzer/fem-nagios-plugins:nfs - add plugin check_nfs
 net-analyzer/fem-nagios-plugins:nrpe_wrapper - add plugin check_nrpe_wrapper
 net-analyzer/fem-nagios-plugins:openvpn_clients - add plugin check_openvpn_clients
@@ -103,6 +105,7 @@ net-analyzer/fem-nagios-plugins:sensors - add plugin check_sensors
 net-analyzer/fem-nagios-plugins:smart_sectors - add plugin check_smart_sectors
 net-analyzer/fem-nagios-plugins:temp_sensor - add plugin check_sensor
 net-analyzer/fem-nagios-plugins:uptime - add plugin check_uptime checks switch SNMP
+net-analyzer/fem-nagios-plugins:xen - add plugin check_xen_cpu
 net-analyzer/fem-nagios-plugins:xml-rpc - add plugin check_xml-rpc
 net-analyzer/icinga-classicui:apache2 - Conifg support for apache2 webserver.
 net-analyzer/icinga-classicui:lighttpd - Conifg support for lighttpd webserver.
