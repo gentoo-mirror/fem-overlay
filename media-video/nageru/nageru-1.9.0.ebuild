@@ -7,12 +7,14 @@ inherit eutils meson
 
 DESCRIPTION="A modern free software video mixer"
 HOMEPAGE="https://nageru.sesse.net/"
-SRC_URI="https://nageru.sesse.net/nageru-${PV}.tar.gz"
+SRC_URI="https://nageru.sesse.net/nageru-${PV}.tar.gz
+	html? ( http://opensource.spotify.com/cefbuilds/cef_binary_77.1.18%2Bg8e8d602%2Bchromium-77.0.3865.120_linux64_minimal.tar.bz2 )
+"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="html"
 
 DEPEND="
 virtual/opengl
@@ -35,4 +37,13 @@ RDEPEND="${DEPEND}"
 src_prepare() {
 	default
 	eapply "${FILESDIR}/${P}-pthread.patch"
+	eapply "${FILESDIR}/${P}-cef.patch"
+}
+
+src_configure() {
+	local cef_dir="${WORKDIR}/cef_binary_77.1.18+g8e8d602+chromium-77.0.3865.120_linux64_minimal"
+	local emesonargs=(
+		-Dcef_dir=$(usex html "${cef_dir}" "")
+	)
+	meson_src_configure
 }
