@@ -80,6 +80,7 @@ media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
 media-video/ffmpeg:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
 media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
+media-video/nageru:html - Enable support for html inputs using CEF
 media-video/voctomix:gui - Voctomix GTK+ application
 net-analyzer/check_mk_agent:apache_status - Install check_mk-agent apache-status plugin.
 net-analyzer/check_mk_agent:inventory - Install check_mk-agent HW-/SW-Inventory plugin.
