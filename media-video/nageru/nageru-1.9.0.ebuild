@@ -29,7 +29,7 @@ dev-qt/qtgui:5
 dev-qt/qtopengl:5
 dev-qt/qtprintsupport:5
 dev-libs/qcustomplot
->=dev-lang/luajit-2.1.0:2
+>=dev-lang/luajit-2.1.0_beta3
 virtual/opengl
 "
 RDEPEND="${DEPEND}"
