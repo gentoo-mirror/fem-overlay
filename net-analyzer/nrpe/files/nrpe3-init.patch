@@ -1,0 +1,23 @@
+commit 464201feeea9043e2e09caddb9fc31ad6e32a0e1
+Author: Jonas Licht <jonas.licht@fem.tu-ilmenau.de>
+Date:   Thu Nov 7 15:17:59 2019 +0100
+
+    openrc-init: use service name for pid file to allow multiple instances
+
+diff --git a/startup/openrc-init.in b/startup/openrc-init.in
+index baac193..d076625 100644
+--- a/startup/openrc-init.in
++++ b/startup/openrc-init.in
+@@ -8,10 +8,10 @@ command_args="--config=${NRPE_CFG} ${NRPE_OPTS}"
+ command_args_background="--daemon"
+ description="Nagios Remote Plugin Executor (NRPE) daemon"
+ extra_started_commands="reload"
+-pidfile="@piddir@/nrpe.pid"
++pidfile="@piddir@/${RC_SVCNAME}.pid"
+ 
+ reload() {
+-    ebegin "Reloading ${SVCNAME}"
++    ebegin "Reloading ${RC_SVCNAME}"
+     start-stop-daemon --signal HUP --pidfile "${pidfile}"
+     eend $?
+ }
