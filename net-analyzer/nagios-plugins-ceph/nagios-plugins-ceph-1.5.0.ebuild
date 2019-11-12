@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit user
+
 DESCRIPTION="Nagios plugins for Ceph"
 HOMEPAGE="https://github.com/ceph/ceph-nagios-plugins"
 SRC_URI="https://github.com/ceph/ceph-nagios-plugins/archive/ceph-nagios-plugins_${PV}.tar.gz"
@@ -19,6 +21,11 @@ DEPEND="
 RDEPEND="${DEPEND}"
 BDEPEND=""
 S="${WORKDIR}/ceph-nagios-plugins-ceph-nagios-plugins_${PV}"
+
+pkg_setup() {
+	enewgroup nagios
+	enewuser nagios -1 /bin/bash /var/nagios/home nagios
+}
 
 src_prepare() {
 	default
