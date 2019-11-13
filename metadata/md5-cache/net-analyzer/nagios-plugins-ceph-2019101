@@ -1,0 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install prepare setup unpack
+DEPEND=dev-lang/python:2.7 sys-cluster/ceph
+DESCRIPTION=Nagios plugins for Ceph
+EAPI=7
+HOMEPAGE=https://github.com/ceph/ceph-nagios-plugins
+KEYWORDS=~amd64 ~x86
+LICENSE=Apache-2.0
+PROPERTIES=live
+RDEPEND=dev-lang/python:2.7 sys-cluster/ceph
+SLOT=0
+_eclasses_=git-r3	562b380fc59ae6a8622171d0acb777d1	user	00484e1be1aac73e24fca1c99557a7d6
+_md5_=00175524a326103e256276551d702f07
