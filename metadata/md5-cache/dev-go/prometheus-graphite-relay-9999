@@ -6,5 +6,5 @@ HOMEPAGE=https://bitbucket.fem.tu-ilmenau.de/projects/MONITOR/repos/prometheus-g
 LICENSE=ISC
 PROPERTIES=live
 SLOT=0
-_eclasses_=git-r3	562b380fc59ae6a8622171d0acb777d1	user	00484e1be1aac73e24fca1c99557a7d6
+_eclasses_=git-r3	6d22636df236df4cc8475f7b7668bdcd	user	00484e1be1aac73e24fca1c99557a7d6
 _md5_=8f013360c933b22e3eb32e685e1a45e5
