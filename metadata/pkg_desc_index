@@ -3,7 +3,6 @@ app-backup/bontmia 0.14 0.14-r1 0.15 0.15.1: An incremental network backup tool 
 app-backup/duplicity 0.6.26-r1: Secure backup system using gnupg to encrypt data
 app-backup/sql-ssh-backup 1.8.1 1.8.2 1.8.3 1.9_beta5: Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication.
 app-crypt/ecdsautils 0.3.2: Tiny collection of programs used for ECDSA (keygen, sign, verify)
-app-crypt/seahorse 3.30.0: A GNOME application for managing encryption keys
 app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-misc/anki 2.1.0_beta37: A spaced-repetition memory training program (flash cards)
 app-misc/supertee 9999: Multithreaded multisink pipe
