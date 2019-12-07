@@ -25,7 +25,7 @@ dev-php/pecl-pthreads 3.1.6: Threading API for PHP
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/python-nbxmpp 0.6.10: Python library to use Jabber/XMPP networks in a non-blocking way
-dev-python/sphinxcontrib-phpdomain 0.4.1: Extension providing a Sphinx domain for describing PHP code
+dev-python/sphinxcontrib-phpdomain 0.6.2: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 19.2.0: Structured Logging for Python
 mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
 media-libs/melted 9999: MLT Video Server
