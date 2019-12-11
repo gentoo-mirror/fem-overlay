@@ -37,7 +37,6 @@ media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debug
 media-video/decklink-drivers 10.9.11: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/disper 0.2.3 0.3.1: Disper is an on-the-fly display switch utility
 media-video/ffmpeg 3.4 3.4.4 4.0.2 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
-media-video/flussonic 3.69.19: Flussonic (Erlyvideo 3) media streaming server
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
 media-video/nageru 1.7.4 1.9.0: A modern free software video mixer
 media-video/ndi-sdk 3.8.0: NewTek NDI SDK
