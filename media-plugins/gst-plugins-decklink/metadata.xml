@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>jonas.licht@fem.tu-ilmenau.de</email>
+	</maintainer>
+	<longdescription lang="en">
+			DeckLink src and sink plugin for the GStreamer Multimedia Framework.
+	</longdescription>
+</pkgmetadata>
