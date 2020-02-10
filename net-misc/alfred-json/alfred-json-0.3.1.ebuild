@@ -1,8 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
+EAPI=7
 
 inherit cmake-utils
 
@@ -10,7 +9,7 @@ DESCRIPTION="JSON-Client for Almighty Lightweight Fact Remote Exchange Daemon"
 HOMEPAGE="https://github.com/tcatm/alfred-json"
 
 if [[ ${PV} == *9999* ]]; then
-	inherit git-2
+	inherit git-r3
 	EGIT_REPO_URI="git://github.com/tcatm/${PN}"
 	KEYWORDS=""
 else
@@ -26,5 +25,4 @@ RDEPEND="${DEPEND}"
 
 src_install() {
 	cmake-utils_src_install
-	dodoc README
 }
