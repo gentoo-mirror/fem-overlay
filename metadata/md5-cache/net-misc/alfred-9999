@@ -1,11 +1,12 @@
-DEFINED_PHASES=compile install
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install unpack
 DEPEND=gps? ( sci-geosciences/gpsd )
 DESCRIPTION=Almighty Lightweight Fact Remote Exchange Daemon
 EAPI=7
 HOMEPAGE=http://www.open-mesh.org/projects/open-mesh/wiki/Alfred
 IUSE=gps
-KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
+PROPERTIES=live
 SLOT=0
-SRC_URI=http://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2014.3.0.tar.gz
-_md5_=2495cca67e9420ab272cb6eb2c518d4c
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33
+_md5_=9b8528658e54bda4af864cf136012cc3
