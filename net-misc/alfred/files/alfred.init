@@ -1,7 +1,6 @@
-#!/sbin/runscript
-# Copyright 1999-2015 Gentoo Foundation
+#!/sbin/openrc-run
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
 command="/usr/sbin/alfred"
 command_args="-b ${BATMAN_IFACE} --interface ${IFACE}"

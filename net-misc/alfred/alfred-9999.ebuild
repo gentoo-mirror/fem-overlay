@@ -1,13 +1,13 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 DESCRIPTION="Almighty Lightweight Fact Remote Exchange Daemon"
 HOMEPAGE="http://www.open-mesh.org/projects/open-mesh/wiki/Alfred"
 
 if [[ ${PV} == *9999* ]]; then
-	inherit git-2
+	inherit git-r3
 	EGIT_REPO_URI="git://git.open-mesh.org/alfred.git"
 	KEYWORDS=""
 else
@@ -35,5 +35,4 @@ src_install() {
 	emake ${EMAKE_OPTS} PREFIX="${D}"/usr install
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
-	dodoc README CHANGELOG
 }
