@@ -1,11 +1,9 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI="7"
 
-SCM="git-2"
-
-inherit eutils ${SCM}
+inherit eutils git-r3
 
 EGIT_REPO_URI="https://github.com/a-tze/fuse-ts.git"
 
