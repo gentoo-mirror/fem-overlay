@@ -1,8 +1,8 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit systemd user
+inherit systemd
 
 DESCRIPTION="Nagios Remote Plugin Executor"
 HOMEPAGE="https://github.com/NagiosEnterprises/nrpe"
@@ -13,7 +13,10 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 IUSE="command-args libressl selinux ssl"
 
-DEPEND="sys-apps/tcp-wrappers
+DEPEND="
+	acct-group/nagios
+	acct-user/nagios
+	sys-apps/tcp-wrappers
 	ssl? (
 		!libressl? ( dev-libs/openssl:0= )
 		libressl? ( dev-libs/libressl:0= )
@@ -26,11 +29,6 @@ PATCHES=(
 	"${FILESDIR}/nrpe-3.2.1-eliminate-systemd-pid.patch"
 	"${FILESDIR}/nrpe3-init.patch"
 )
-
-pkg_setup() {
-	enewgroup nagios
-	enewuser nagios -1 -1 -1 nagios
-}
 
 src_configure() {
 	# The configure script tries to detect what OS, distribution, and

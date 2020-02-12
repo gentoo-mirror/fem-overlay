@@ -1,8 +1,8 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
-inherit eutils systemd toolchain-funcs multilib user autotools
+inherit eutils systemd toolchain-funcs multilib autotools
 
 DESCRIPTION="Nagios Remote Plugin Executor"
 HOMEPAGE="http://www.nagios.org/"
@@ -10,10 +10,12 @@ SRC_URI="mirror://sourceforge/nagios/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86"
+KEYWORDS="amd64 hppa ppc ppc64 sparc x86"
 IUSE="command-args libressl minimal selinux ssl tcpd"
 
 DEPEND="
+	acct-group/nagios
+	acct-user/nagios
 	ssl? (
 		!libressl? ( dev-libs/openssl:0= )
 		libressl? ( dev-libs/libressl:0= )
@@ -26,9 +28,6 @@ RDEPEND="${DEPEND}
 	selinux? ( sec-policy/selinux-nagios )"
 
 pkg_setup() {
-	enewgroup nagios
-	enewuser nagios -1 /bin/bash /dev/null nagios
-
 	elog "If you plan to use \"nrpe_check_control\" then you may want to specify"
 	elog "different command and services files. You can override the defaults"
 	elog "through the \"NAGIOS_COMMAND_FILE\" and \"NAGIOS_SERVICES_FILE\" environment variables."
