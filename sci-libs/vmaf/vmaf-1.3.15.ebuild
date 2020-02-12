@@ -1,9 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{6,7} )
 DISTUTILS_OPTIONAL=1
 
 inherit distutils-r1
@@ -41,11 +41,6 @@ BUILD_DIR=${S}/python
 
 src_prepare() {
 	eapply_user
-#	find "${S}/python" \( -name ffmpeg2vmaf.py -o -name run_vmaf.py -o -name run_psnr \) \
-#		-exec sed \
-#			-e '/#!\/usr\/bin\/env /s/python$/python2/' \
-#			-i {} + || die "failed to fix python version"
-#
 #	if use ffmpeg ; then
 #		echo "FFMPEG_PATH='/usr/bin/ffmpeg'" > "${S}/python/externals.py"
 #	fi
@@ -62,11 +57,11 @@ src_prepare() {
 		-e 's;mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/share;mkdir -p $(DESTDIR)$(INSTALL_PREFIX)/share/vmaf;' \
 		-e 's;cp -r ../model $(DESTDIR)$(INSTALL_PREFIX)/share/;cp -r ../model $(DESTDIR)$(INSTALL_PREFIX)/share/vmaf/;'
 
-#	if use python; then
-#		pushd python >/dev/null || die
-#		distutils-r1_src_prepare
-#		popd >/dev/null || die
-#	fi
+	if use python; then
+		pushd python >/dev/null || die
+		distutils-r1_src_prepare
+		popd >/dev/null || die
+	fi
 }
 
 src_compile() {
@@ -83,22 +78,22 @@ src_compile() {
 		emake -C feature
 	fi
 
-#	if use python; then
-#		pushd python >/dev/null || die
-#		distutils-r1_src_compile
-#		popd >/dev/null || die
-#	fi
+	if use python; then
+		pushd python >/dev/null || die
+		distutils-r1_src_compile
+		popd >/dev/null || die
+	fi
 }
 
-#src_install() {
-#	default_src_install
-#
-#	if use python; then
-#		pushd python >/dev/null || die
-#		distutils-r1_src_install
-#		popd >/dev/null || die
-#	fi
-#
+src_install() {
+	default_src_install
+
+	if use python; then
+		pushd python >/dev/null || die
+		distutils-r1_src_install
+		popd >/dev/null || die
+	fi
+
 #	if use tools; then
 #		dobin feature/moment
 #		dobin feature/psnr
@@ -126,5 +121,5 @@ src_compile() {
 #	dosym ../../share/vmaf/python/run_vmaf.py "${D}/usr/local/bin/run_vmaf"
 #	dosym ../../share/vmaf/python/run_psnr.py "${D}/usr/local/bin/run_psnr"
 
-#	einstalldocs
-#}
+	einstalldocs
+}
