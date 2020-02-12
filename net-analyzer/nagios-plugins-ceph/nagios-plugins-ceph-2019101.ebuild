@@ -1,9 +1,9 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit user git-r3
+inherit git-r3
 
 DESCRIPTION="Nagios plugins for Ceph"
 HOMEPAGE="https://github.com/ceph/ceph-nagios-plugins"
@@ -13,20 +13,17 @@ EGIT_COMMIT="e2dc0c994b8636cc1537f83fbe7320f1546e4338"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
+	acct-group/nagios
+	acct-user/nagios
 	dev-lang/python:2.7
 	sys-cluster/ceph
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
-
-pkg_setup() {
-	enewgroup nagios
-	enewuser nagios -1 /bin/bash /var/nagios/home nagios
-}
 
 src_prepare() {
 	default
