@@ -3,6 +3,10 @@
 
 EAPI=7
 
+PYTHON_COMPAT=( python2_7 )
+
+inherit python-single-r1
+
 DESCRIPTION="Nagios plugins for Ceph"
 HOMEPAGE="https://github.com/ceph/ceph-nagios-plugins"
 SRC_URI="https://github.com/ceph/ceph-nagios-plugins/archive/ceph-nagios-plugins_${PV}.tar.gz"
@@ -15,24 +19,23 @@ IUSE=""
 DEPEND="
 	acct-group/nagios
 	acct-user/nagios
-	dev-lang/python:2.7
+"
+RDEPEND="
+	${DEPEND}
+	${PYTHON_REQ_USE}
 	sys-cluster/ceph
 "
-RDEPEND="${DEPEND}"
 BDEPEND=""
 S="${WORKDIR}/ceph-nagios-plugins-ceph-nagios-plugins_${PV}"
 
 src_prepare() {
 	default
-	sed -i -e 's;python;python2;g' "${S}"/src/*
+	python_fix_shebang "${S}"/src/*
 }
 
 src_install() {
 	emake DESTDIR="${D}" install sysconfdir=/etc libdir=/usr/$(get_libdir)
 
-	chown -R nagios:nagios "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chown of ${D}usr/$(get_libdir)/nagios/plugins"
-
-	chmod -R o-rwx "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chmod of ${D}usr/$(get_libdir)/nagios/plugins"
+	fowners -R nagios:nagios /usr/$(get_libdir)/nagios/plugins
+	fperms -R o-rwx /usr/$(get_libdir)/nagios/plugins
 }
