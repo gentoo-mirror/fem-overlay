@@ -24,7 +24,7 @@ DEPEND="
 "
 RDEPEND="
 	${DEPEND}
-	${PYTHON_REQ_USE}
+	${PYTHON_DEPS}
 	sys-cluster/ceph
 "
 BDEPEND=""
