@@ -1,11 +1,13 @@
-DEFINED_PHASES=install prepare
-DEPEND=acct-group/nagios acct-user/nagios dev-lang/python:2.7 sys-cluster/ceph
+DEFINED_PHASES=install prepare setup
+DEPEND=acct-group/nagios acct-user/nagios
 DESCRIPTION=Nagios plugins for Ceph
 EAPI=7
 HOMEPAGE=https://github.com/ceph/ceph-nagios-plugins
+IUSE=+python_single_target_python2_7
 KEYWORDS=~amd64
 LICENSE=Apache-2.0
-RDEPEND=acct-group/nagios acct-user/nagios dev-lang/python:2.7 sys-cluster/ceph
+RDEPEND=acct-group/nagios acct-user/nagios python_single_target_python2_7? ( >=dev-lang/python-2.7.5-r2:2.7 >=dev-lang/python-exec-2:=[python_targets_python2_7] ) sys-cluster/ceph
 SLOT=0
 SRC_URI=https://github.com/ceph/ceph-nagios-plugins/archive/ceph-nagios-plugins_1.5.0.tar.gz
-_md5_=b974ae3e2d373a178758f25052681411
+_eclasses_=multilib	1d91b03d42ab6308b5f4f6b598ed110e	python-single-r1	fdfdbe462f245e931069310e892a8538	python-utils-r1	611c493a4cfef5254350fabc04b606f5	toolchain-funcs	512eb3367f507ebaa1d1d43ab7d66e6c
+_md5_=58fda414425b4d10de36521782cbc869
