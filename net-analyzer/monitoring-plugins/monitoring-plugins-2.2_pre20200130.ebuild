@@ -1,18 +1,18 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
-inherit eutils flag-o-matic multilib
+inherit autotools eutils flag-o-matic multilib git-r3
 
 DESCRIPTION="50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu"
 HOMEPAGE="https://www.monitoring-plugins.org/"
-SRC_URI="https://www.monitoring-plugins.org/download/${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/monitoring-plugins/${PN}.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~x86"
-IUSE="gnutls ipv6 ldap libressl mysql dns fping game postgres samba snmp ssh +ssl"
+KEYWORDS="~amd64 ~arm ~arm64 ~sparc ~x86"
+IUSE="gnutls ipv6 ldap libressl mysql dns fping game postgres radius samba snmp ssh +ssl"
 
 # Most of the plugins use automagic dependencies, i.e. the plugin will
 # get built if the binary it uses is installed. For example, check_snmp
@@ -25,7 +25,7 @@ IUSE="gnutls ipv6 ldap libressl mysql dns fping game postgres samba snmp ssh +ss
 #
 REAL_DEPEND="dev-lang/perl
 	ldap? ( net-nds/openldap )
-	mysql? ( virtual/mysql )
+	mysql? ( dev-db/mysql-connector-c:= )
 	postgres? ( dev-db/postgresql:= )
 	ssl? (
 		!gnutls? (
@@ -33,7 +33,8 @@ REAL_DEPEND="dev-lang/perl
 			libressl? ( dev-libs/libressl:= )
 		)
 		gnutls? ( net-libs/gnutls )
-	)"
+	)
+	radius? ( net-dialup/freeradius-client )"
 
 DEPEND="acct-group/nagios
 	acct-user/nagios
@@ -44,7 +45,7 @@ DEPEND="acct-group/nagios
 	samba? ( net-fs/samba )
 	ssh? ( net-misc/openssh )
 	snmp? ( dev-perl/Net-SNMP
-			net-analyzer/net-snmp[-minimal] )"
+		net-analyzer/net-snmp[-minimal] )"
 
 # Basically everything collides with nagios-plugins.
 RDEPEND="${DEPEND}
@@ -54,7 +55,12 @@ RDEPEND="${DEPEND}
 RESTRICT="test"
 
 src_prepare() {
-	epatch "${FILESDIR}/check_icmp_v6.patch"
+	default
+
+	# use newer gettext version
+	sed -i 's;AM_GNU_GETTEXT_VERSION(0.15);AM_GNU_GETTEXT_VERSION(0.18);' "${S}/configure.ac"
+
+	eautoreconf
 }
 
 src_configure() {
@@ -73,10 +79,10 @@ src_configure() {
 
 	# The autodetection for these two commands can hang if localhost is
 	# down or ICMP traffic is filtered. Bug #468296.
-	myconf+=( --with-ping-command="/bin/ping -n -U -w %d -c %d %s" )
+	myconf+=( --with-ping-command="/bin/ping -4 -n -U -w %d -c %d %s" )
 
 	if use ipv6; then
-		myconf+=( --with-ping6-command="/bin/ping6 -n -U -w %d -c %d %s" )
+		myconf+=( --with-ping6-command="/bin/ping -6 -n -U -w %d -c %d %s" )
 	fi
 
 	econf \
@@ -84,23 +90,24 @@ src_configure() {
 		$(use_with ipv6) \
 		$(use_with ldap) \
 		$(use_with postgres pgsql /usr) \
+		$(use_with radius) \
 		"${myconf[@]}" \
 		--libexecdir="/usr/$(get_libdir)/nagios/plugins" \
 		--sysconfdir="/etc/nagios"
 }
 
-DOCS=( ACKNOWLEDGEMENTS AUTHORS CODING ChangeLog FAQ \
-		NEWS README REQUIREMENTS SUPPORT THANKS )
+src_install() {
+	emake THANKS
 
-pkg_preinst() {
-	enewgroup nagios
-	enewuser nagios -1 /bin/bash /var/nagios/home nagios
+	default
 }
+
+DOCS=( ACKNOWLEDGEMENTS AUTHORS CODING FAQ NEWS README.md REQUIREMENTS SUPPORT THANKS )
 
 pkg_postinst() {
 	elog "This ebuild has a number of USE flags that determine what you"
 	elog "are able to monitor. Depending on what you want to monitor, some"
 	elog "or all of these USE flags need to be set."
 	elog
-	elog "The plugins are installed in ${ROOT}usr/$(get_libdir)/nagios/plugins"
+	elog "The plugins are installed in ${EROOT%/}/usr/$(get_libdir)/nagios/plugins"
 }
