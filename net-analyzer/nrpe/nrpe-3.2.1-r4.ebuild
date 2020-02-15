@@ -6,15 +6,14 @@ inherit systemd
 
 DESCRIPTION="Nagios Remote Plugin Executor"
 HOMEPAGE="https://github.com/NagiosEnterprises/nrpe"
-SRC_URI="${HOMEPAGE}/releases/download/${P}/${P}.tar.gz"
+SRC_URI="https://github.com/NagiosEnterprises/nrpe/releases/download/${P}/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 IUSE="command-args libressl selinux ssl"
 
-DEPEND="
-	acct-group/nagios
+DEPEND="acct-group/nagios
 	acct-user/nagios
 	sys-apps/tcp-wrappers
 	ssl? (
@@ -37,6 +36,13 @@ src_configure() {
 	# because we don't want it guessing, for example, whether or not
 	# to install the tmpfiles.d entry based on whether or not systemd
 	# is currently running (OpenRC uses them too).
+	#
+	# Note: upstream defaults to using "nagios" as the default NRPE
+	# user and group. I have a feeling that this isn't quite correct
+	# on a system where "nagios" is also the user running the nagios
+	# server daemon. In the future, it would be nice if someone who
+	# actually uses NRPE could test with an unprivileged "nrpe" as
+	# the user and group.
 	econf \
 		--libexecdir=/usr/$(get_libdir)/nagios/plugins \
 		--localstatedir=/var/lib/nagios \
