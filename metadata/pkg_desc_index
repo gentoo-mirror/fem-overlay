@@ -1,12 +1,13 @@
 app-admin/reprepro 5.1.1: Debian APT repository creator and maintainer application
-app-backup/bontmia 0.14 0.14-r1 0.15 0.15.1: An incremental network backup tool for snapshotting directories using rsync
+app-backup/bontmia 0.15.1: An incremental network backup tool for snapshotting directories using rsync
 app-backup/sql-ssh-backup 1.8.1 1.8.2 1.8.3 1.9_beta5: Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication.
 app-crypt/ecdsautils 0.3.2: Tiny collection of programs used for ECDSA (keygen, sign, verify)
 app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-misc/supertee 9999: Multithreaded multisink pipe
 app-misc/tksuite-server-bin 3.3.20: TK Suite Server for AGFEO telecommunication systems
-app-pda/ifuse 1.1.3-r1: Mount Apple iPhone/iPod Touch file systems for backup purposes
+app-pda/ifuse 1.1.3-r1 9999: Mount Apple iPhone/iPod Touch file systems for backup purposes
 app-pda/libimobiledevice 1.2.1_pre20181004 9999: Support library to communicate with Apple iPhone/iPod Touch devices
+app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 1.1.0_pre20181004 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
 app-pda/usbmuxd 1.1.0_pre20181004 1.1.0 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
 dev-go/prometheus-graphite-relay 1.0.1 9999: Utility to push metrics scraped from prometheus into graphite.
@@ -17,7 +18,6 @@ dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
 dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8: No description available
 dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
-dev-php/pecl-pthreads 3.1.6: Threading API for PHP
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/python-nbxmpp 0.6.10: Python library to use Jabber/XMPP networks in a non-blocking way
