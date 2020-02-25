@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 #https://github.com/Icinga/icinga-core/blob/master/sample-config/cgi.cfg.in
@@ -23,7 +23,7 @@ IUSE="+apache2 lighttpd"
 DEPEND="media-libs/gd[jpeg,png]
 	lighttpd? ( www-servers/lighttpd )
 
-	net-analyzer/icinga2[-classicui]
+	net-analyzer/icinga2
 	!net-analyzer/icinga[web]
 	!net-analyzer/nagios-core
 "
