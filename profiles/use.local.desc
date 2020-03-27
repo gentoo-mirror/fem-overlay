@@ -93,14 +93,6 @@ media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
 media-video/nageru:html - Enable support for html inputs using CEF
 media-video/voctomix:gui - Voctomix GTK+ application
-net-analyzer/check_mk_agent:apache_status - Install check_mk-agent apache-status plugin.
-net-analyzer/check_mk_agent:inventory - Install check_mk-agent HW-/SW-Inventory plugin.
-net-analyzer/check_mk_agent:logwatch - Install check_mk-agent logwatch plugin.
-net-analyzer/check_mk_agent:mysql - Install check_mk-agent mysql plugin.
-net-analyzer/check_mk_agent:nfsexports - Install check_mk-agent nfsexports plugin.
-net-analyzer/check_mk_agent:postgres - Install check_mk-agent postgres plugin.
-net-analyzer/check_mk_agent:smart - Install check_mk-agent S.M.A.R.T plugin.
-net-analyzer/check_mk_agent:zypper - Install check_mk-agent zypper plugin.
 net-analyzer/fem-nagios-plugins:bandwidth - add plugin check_bindwidth checks switch SNMP
 net-analyzer/fem-nagios-plugins:cgiirc - add plugin check_cgiirc
 net-analyzer/fem-nagios-plugins:gentoo-portage - add plugin check_gentoo_portage
@@ -138,8 +130,6 @@ net-analyzer/nagios-plugins-extended:suid - Set SUID-Flag for several plugins
 net-analyzer/nagios-plugins-extended:tcptraffic - Install TCP-Traffic plugin
 net-analyzer/nagios-plugins-extended:temp - Install Temperature-sensor plugin
 net-analyzer/nagios-plugins-extended:timestamp - Install Timestamp-Check plugin
-net-analyzer/nrpe:command-args - Build support for specifying the command-line arguments from the Nagios/Icinga master. Make sure you understand the implications of this flag as it can be a security risk.
-net-analyzer/nrpe:minimal - Only build the check plugins for Nagios/Icinga, and not the daemon.
 net-dns/pdns:botan - Make it possible to use the dev-libs/botan library for crypto-related stuff (like DNSSec) which can be significantly faster than PolarSSL.
 net-dns/pdns:mydns - Making it possible to use a MyDNS MySQL database with PowerDNS (not recommended for new deployments).
 net-dns/pdns:opendbx - Use a database supported by dev-db/opendbx as backend.
@@ -148,9 +138,6 @@ net-dns/pdns:remote - Use a generic socket or pipe as a backend (via JSON RPC re
 net-dns/pdns:tinydns - Use a TinyDNS CDB database as backend.
 net-dns/pdns:tools - Build optional tools (dnsscan, dnsscope, etc..).
 net-dns/pdns-recursor:protobuf - Enable support for dev-libs/protobuf.
-net-firewall/conntrack-tools:cthelper - Use net-libs/libnetfilter_cthelper for userspace conntrack helper support
-net-firewall/conntrack-tools:cttimeout - Use net-libs/libnetfilter_cttimeout for conntrack timeout support
-net-firewall/conntrack-tools:libtirpc - Use net-libs/libtirpc for RPC support
 net-im/gajim:crypt - End to end encryption and GPG encryption
 net-im/gajim:jingle - Audio and video calls
 net-im/gajim:keyring - Saving your password to your system keyring
@@ -166,7 +153,6 @@ net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
 net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
 net-misc/icecast:yp - Build support for yp public directory listings
 sci-libs/vmaf:tools - Also install feature binaries
-sys-cluster/keepalived:lvs - 
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
