@@ -47,7 +47,7 @@ net-analyzer/check_mk_agent 1.2.8_p16: Agent to report data to Check_MK for moni
 net-analyzer/fem-nagios-plugins 1.1 9999: Nagios plugins written by FeM
 net-analyzer/graphite-api 1.1.5-r2: Graphite-web, without the interface. Just the rendering HTTP API.
 net-analyzer/icinga-classicui 1.13.3 1.14.2: Icinca ClassicUI for Icinga2
-net-analyzer/monitoring-plugins 2.1.2-r1 2.2_pre20200130: 50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu
+net-analyzer/monitoring-plugins 2.1.2-r1 2.2_pre20200130-r2: 50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu
 net-analyzer/nagios-plugins-ceph 1.5.0 2019101: Nagios plugins for Ceph
 net-analyzer/nagios-plugins-extended 0.7.5-r2 0.7.5-r4: Nagios 0.7.5 plugins - Pack of plugins to make Nagios work properly
 net-analyzer/nrpe 2.15-r4 3.2.1-r4: Nagios Remote Plugin Executor
