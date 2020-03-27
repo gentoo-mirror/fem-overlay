@@ -8,6 +8,7 @@ inherit autotools eutils flag-o-matic multilib git-r3
 DESCRIPTION="50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu"
 HOMEPAGE="https://www.monitoring-plugins.org/"
 EGIT_REPO_URI="https://github.com/monitoring-plugins/${PN}.git"
+EGIT_COMMIT="d008be68255b192f0354c523938c40643e39795f"
 
 LICENSE="GPL-3"
 SLOT="0"
