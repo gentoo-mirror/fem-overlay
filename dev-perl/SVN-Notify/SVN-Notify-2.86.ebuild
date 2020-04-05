@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 inherit perl-module
 
@@ -11,11 +11,11 @@ HOMEPAGE="http://search.cpan.org/~dwheeler/SVN-Notify/"
 
 SLOT="0"
 LICENSE="Artistic"
-KEYWORDS="~alpha ~amd64 ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86
+KEYWORDS="~alpha ~amd64 ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86
 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
 IUSE=""
 
-DEPEND=">=dev-vcs/subversion-1.1.3
+DEPEND=">=dev-vcs/subversion-1.1.3[perl]
 	dev-perl/Email-Address
 	dev-perl/HTML-Parser
 	dev-perl/Module-Build
@@ -23,12 +23,3 @@ DEPEND=">=dev-vcs/subversion-1.1.3
 	virtual/perl-libnet"
 
 RDEPEND="${DEPEND}"
-
-pkg_setup() {
-	if ! perl -MSVN::Core < /dev/null 2> /dev/null
-	then
-		eerror "You need subversion-1.0.4+ compiled with Perl bindings."
-		eerror "USE=\"perl\" emerge subversion"
-		die "Need Subversion compiled with Perl bindings."
-	fi
-}
