@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
 
 EGIT_REPO_URI="git://git.universe-factory.net/libuecc.git"
 
@@ -11,12 +11,12 @@ inherit cmake-utils
 DESCRIPTION="Very small elliptic curve cryptography library"
 HOMEPAGE="http://git.universe-factory.net/libuecc/"
 [[ ${PV} == *9999* ]] || \
-SRC_URI="http://git.universe-factory.net/libuecc/snapshot/${P}.tar.xz"
+SRC_URI="http://git.universe-factory.net/libuecc/snapshot/${P}.tar"
 
 LICENSE="BSD"
 SLOT="0"
 [[ ${PV} == *9999* ]] || \
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~s390 ~sh ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~s390 ~sparc ~x86"
 
 src_prepare() {
 	cmake-utils_src_prepare
