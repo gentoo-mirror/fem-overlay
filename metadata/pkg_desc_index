@@ -14,7 +14,7 @@ app-pda/libusbmuxd 1.1.0_pre20181004 9999: USB multiplex daemon for use with App
 app-pda/usbmuxd 1.1.0_pre20181004 1.1.0 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
 dev-go/prometheus-graphite-relay 1.0.1 9999: Utility to push metrics scraped from prometheus into graphite.
 dev-libs/gemalto-dotnetv2-pkcs11 2.2.0.10-r3: PKCS#11 library for Gemalto .NET V2 smart cards
-dev-libs/libuecc 4: Very small elliptic curve cryptography library
+dev-libs/libuecc 4 7: Very small elliptic curve cryptography library
 dev-libs/mxml 2.10: Tiny XML Library
 dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
 dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
