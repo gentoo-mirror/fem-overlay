@@ -11,7 +11,7 @@ EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 # tools/iproxy.c is GPL-2+, everything else is LGPL-2.1+
 LICENSE="GPL-2+ LGPL-2.1+"
 SLOT="0/6.0" # based on SONAME of libusbmuxd.so
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="kernel_linux static-libs"
 
 RDEPEND=">=app-pda/libplist-2.1.0:=
