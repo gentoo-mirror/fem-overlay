@@ -32,7 +32,7 @@ media-plugins/gst-plugins-decklink 1.14.5: Decklink Plugin for Gstreamer
 media-sound/zita-resampler 1.6.0: A C++ library for resampling audio signals
 media-tv/mumudvb 2.0.0: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
-media-video/bmusb 0.7.4: USB Driver for Blackmagic Ultrastudio cards
+media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
 media-video/decklink-drivers 10.9.11: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/disper 0.2.3 0.3.1: Disper is an on-the-fly display switch utility
