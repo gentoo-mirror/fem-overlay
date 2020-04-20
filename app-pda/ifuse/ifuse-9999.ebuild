@@ -11,10 +11,11 @@ EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
-RDEPEND=">=app-pda/libimobiledevice-1.1.5:=
+RDEPEND=">=app-pda/usbmuxd-1.1.0_pre
+	>=app-pda/libimobiledevice-1.2.1_pre
 	>=app-pda/libplist-1.8:=
 	>=sys-fs/fuse-2.7.0:="
 DEPEND="${RDEPEND}

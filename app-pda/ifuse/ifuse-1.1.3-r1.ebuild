@@ -14,8 +14,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-RDEPEND="~app-pda/usbmuxd-1.1.0_pre20181004
-	~app-pda/libimobiledevice-1.2.1_pre20181004
+RDEPEND=">=app-pda/usbmuxd-1.1.0_pre
+	>=app-pda/libimobiledevice-1.2.1_pre
 	>=app-pda/libplist-1.8
 	>=sys-fs/fuse-2.7.0:="
 DEPEND="${RDEPEND}
