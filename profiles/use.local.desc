@@ -23,6 +23,37 @@ app-pda/libimobiledevice:libressl - ...
 app-pda/libimobiledevice:python - ...
 app-pda/libimobiledevice:static-libs - ...
 app-pda/libusbmuxd:static-libs - ...
+dev-lang/php:bcmath - Add support for libbcmath
+dev-lang/php:cli - Enable CLI SAPI
+dev-lang/php:coverage - Include gcov symbols for test coverage and lcov reports. Only useful for extension developers, and requires GCC.
+dev-lang/php:ctype - Enable ctype functions
+dev-lang/php:embed - Enable embed SAPI
+dev-lang/php:enchant - Add supports Enchant spelling library.
+dev-lang/php:fileinfo - Add fileinfo extension support
+dev-lang/php:filter - Add filter extension support
+dev-lang/php:flatfile - Add dbm support for flat files
+dev-lang/php:fpm - Enable the FastCGI Process Manager SAPI
+dev-lang/php:gd - Adds support for gd (bundled with PHP)
+dev-lang/php:hash - Enable the hash extension
+dev-lang/php:inifile - Add dbm support for .ini files
+dev-lang/php:intl - Enables the intl extension for extended internalization support
+dev-lang/php:json - Enable JSON support
+dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension
+dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et al.
+dev-lang/php:pcntl - Add support for process creation functions
+dev-lang/php:pdo - Enable the bundled PDO extensions
+dev-lang/php:phar - Enables the phar extension to provide phar archive support
+dev-lang/php:phpdbg - Enable the PHP Debug Command Line SAPI (like gdb for php)
+dev-lang/php:session-mm - Include dev-libs/mm support for session storage
+dev-lang/php:sharedmem - Add support for shared memory use
+dev-lang/php:simplexml - Support for SimpleXML
+dev-lang/php:sysvipc - Support for System V-compatible inter-process communication
+dev-lang/php:tokenizer - Add support for the PHP file parser
+dev-lang/php:wddx - Add support for Web Distributed Data eXchange
+dev-lang/php:webp - Enable webp support for GD in php-7.x
+dev-lang/php:xmlreader - Enable XMLReader support
+dev-lang/php:xmlwriter - Enable XMLWriter support
+dev-lang/php:xslt - Enable the XSL extension
 dev-perl/XML-RPC-Fast:anyevent - Add support for AnyEvent event loop library
 media-libs/mlt:compressed-lumas - Compress the luma files in png.
 media-libs/mlt:decklink - Build support for Blackmagic DeckLink devices
