@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -149,7 +149,7 @@ HTTP_LDAP_MODULE_P="nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 HTTP_LDAP_MODULE_URI="https://github.com/kvspb/nginx-auth-ldap/archive/${HTTP_LDAP_MODULE_PV}.tar.gz"
 HTTP_LDAP_MODULE_WD="${WORKDIR}/nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 
-HTTP_VOD_MODULE_PV="1.24"
+HTTP_VOD_MODULE_PV="1.26"
 HTTP_VOD_MODULE_P="nginx-vod-module-${HTTP_VOD_MODULE_PV}"
 HTTP_VOD_MODULE_URI="https://github.com/kaltura/nginx-vod-module/archive/${HTTP_VOD_MODULE_PV}.tar.gz"
 HTTP_VOD_MODULE_WD="${WORKDIR}/nginx-vod-module-${HTTP_VOD_MODULE_PV}"
@@ -342,13 +342,14 @@ DEPEND="${CDEPEND}
 PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
+	nginx_modules_http_fancyindex? ( nginx_modules_http_addition )
 	nginx_modules_http_grpc? ( http2 )
 	nginx_modules_http_lua? (
 		luajit
 		nginx_modules_http_rewrite
 	)
 	nginx_modules_http_naxsi? ( pcre )
-	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
+	nginx_modules_http_dav_ext? ( nginx_modules_http_dav nginx_modules_http_xslt )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
 	nginx_modules_http_push_stream? ( ssl )
@@ -1009,15 +1010,15 @@ pkg_postinst() {
 			ewarn "following directories to mitigate a security bug"
 			ewarn "(CVE-2013-0337, bug #458726):"
 			ewarn ""
-			ewarn "  ${EPREFIX%/}/var/log/nginx"
-			ewarn "  ${EPREFIX%/}${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi}"
+			ewarn "  ${EPREFIX}/var/log/nginx"
+			ewarn "  ${EPREFIX}${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi}"
 			ewarn ""
 			ewarn "Check if this is correct for your setup before restarting nginx!"
 			ewarn "This is a one-time change and will not happen on subsequent updates."
-			ewarn "Furthermore nginx' temp directories got moved to '${EPREFIX%/}${NGINX_HOME_TMP}'"
+			ewarn "Furthermore nginx' temp directories got moved to '${EPREFIX}${NGINX_HOME_TMP}'"
 			chmod o-rwx \
-				"${EPREFIX%/}"/var/log/nginx \
-				"${EPREFIX%/}"${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi} || \
+				"${EPREFIX}"/var/log/nginx \
+				"${EPREFIX}"${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi} || \
 				_has_to_show_permission_warning=1
 		fi
 
@@ -1026,15 +1027,15 @@ pkg_postinst() {
 			ewarn "The permissions on the following directory have been reset in"
 			ewarn "order to mitigate a security bug (CVE-2016-1247, bug #605008):"
 			ewarn ""
-			ewarn "  ${EPREFIX%/}/var/log/nginx"
+			ewarn "  ${EPREFIX}/var/log/nginx"
 			ewarn ""
 			ewarn "Check if this is correct for your setup before restarting nginx!"
 			ewarn "Also ensure that no other log directory used by any of your"
 			ewarn "vhost(s) is not writeable for nginx user. Any of your log files"
 			ewarn "used by nginx can be abused to escalate privileges!"
 			ewarn "This is a one-time change and will not happen on subsequent updates."
-			chown 0:nginx "${EPREFIX%/}"/var/log/nginx || _has_to_show_permission_warning=1
-			chmod 710 "${EPREFIX%/}"/var/log/nginx || _has_to_show_permission_warning=1
+			chown 0:nginx "${EPREFIX}"/var/log/nginx || _has_to_show_permission_warning=1
+			chmod 710 "${EPREFIX}"/var/log/nginx || _has_to_show_permission_warning=1
 		fi
 
 		if [[ ${_has_to_show_permission_warning} -eq 1 ]]; then
@@ -1059,7 +1060,7 @@ pkg_postinst() {
 	# unmerged a affected installation on purpose in the past leaving
 	# /var/log/nginx on their system due to keepdir/non-empty folder
 	# and are now installing the package again.
-	local _sanity_check_testfile=$(mktemp --dry-run "${EPREFIX%/}"/var/log/nginx/.CVE-2016-1247.XXXXXXXXX)
+	local _sanity_check_testfile=$(mktemp --dry-run "${EPREFIX}"/var/log/nginx/.CVE-2016-1247.XXXXXXXXX)
 	su -s /bin/sh -c "touch ${_sanity_check_testfile}" nginx >&/dev/null
 	if [ $? -eq 0 ] ; then
 		# Cleanup -- no reason to die here!
@@ -1072,7 +1073,7 @@ pkg_postinst() {
 		ewarn "Looks like your installation is vulnerable to CVE-2016-1247"
 		ewarn "(bug #605008) because nginx user is able to create files in"
 		ewarn ""
-		ewarn "  ${EPREFIX%/}/var/log/nginx"
+		ewarn "  ${EPREFIX}/var/log/nginx"
 		ewarn ""
 		ewarn "Also ensure that no other log directory used by any of your"
 		ewarn "vhost(s) is not writeable for nginx user. Any of your log files"

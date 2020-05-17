@@ -47,8 +47,7 @@ COMMON_DEPEND="
 	>=app-eselect/eselect-php-0.9.1[apache2?,fpm?]
 	>=dev-libs/libpcre-8.32[unicode]
 	fpm? ( acl? ( sys-apps/acl ) )
-	apache2? ( || ( >=www-servers/apache-2.4[apache2_modules_unixd,threads=]
-		<www-servers/apache-2.4[threads=] ) )
+	apache2? ( www-servers/apache[apache2_modules_unixd,threads=] )
 	berkdb? ( || (	sys-libs/db:5.3
 					sys-libs/db:5.1
 					sys-libs/db:4.8
@@ -72,7 +71,7 @@ COMMON_DEPEND="
 	kerberos? ( virtual/krb5 )
 	ldap? ( >=net-nds/openldap-1.2.11 )
 	ldap-sasl? ( dev-libs/cyrus-sasl >=net-nds/openldap-1.2.11 )
-	libedit? ( || ( sys-freebsd/freebsd-lib dev-libs/libedit ) )
+	libedit? ( dev-libs/libedit )
 	mssql? ( dev-db/freetds[mssql] )
 	nls? ( sys-devel/gettext )
 	oci8-instant-client? ( dev-db/oracle-instantclient-basic )
