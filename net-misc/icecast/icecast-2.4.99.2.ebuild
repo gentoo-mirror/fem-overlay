@@ -10,7 +10,7 @@ SRC_URI="http://downloads.xiph.org/releases/icecast/${PN}-2.5-beta2.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="libressl logrotate +speex +ssl +theora +yp"
 
 #Although there is a --with-ogg and --with-orbis configure option, they're
