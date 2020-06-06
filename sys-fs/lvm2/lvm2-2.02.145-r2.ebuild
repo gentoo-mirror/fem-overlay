@@ -12,8 +12,8 @@ SRC_URI="ftp://sourceware.org/pub/lvm2/${PN/lvm/LVM}.${PV}.tgz
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="readline static static-libs systemd cman corosync lvm1 lvm2create_initrd openais selinux +udev +thin device-mapper-only"
-REQUIRED_USE="device-mapper-only? ( !cman !corosync !lvm1 !lvm2create_initrd !openais !thin )
+IUSE="readline static static-libs systemd lvm1 lvm2create_initrd selinux +udev +thin device-mapper-only"
+REQUIRED_USE="device-mapper-only? ( !lvm1 !lvm2create_initrd !thin )
 	systemd? ( udev )"
 
 DEPEND_COMMON="
