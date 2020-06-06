@@ -188,6 +188,13 @@ net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
 net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
 net-misc/icecast:yp - Build support for yp public directory listings
 sci-libs/vmaf:tools - Also install feature binaries
+sys-fs/lvm2:cman - Cman support for clustered lvm
+sys-fs/lvm2:corosync - Corosync support for clustered lvm
+sys-fs/lvm2:device-mapper-only - Build only device-mapper and not the rest of LVM2 (UNSUPPORTED)
+sys-fs/lvm2:lvm1 - Allow users to build lvm2 with lvm1 support
+sys-fs/lvm2:lvm2create_initrd - Install lvm2create_initrd script and pull in sys-apps/makedev for the /sbin/MAKEDEV command
+sys-fs/lvm2:openais - Openais support for clustered lvm
+sys-fs/lvm2:thin - Support for thin volumes
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
