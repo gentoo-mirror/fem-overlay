@@ -9,4 +9,4 @@ LICENSE=BSD-2
 RDEPEND=sys-boot/grub:2=[grub_platforms_xen] pvh? ( >=sys-boot/grub-2.04:2=[grub_platforms_xen-pvh] )
 RESTRICT=binchecks strip test
 SLOT=0
-_md5_=0f25e094997d44e0cfcf8f177d803389
+_md5_=51f1b8a5158a6030d44bcf9dbc944c1f
