@@ -79,7 +79,7 @@ src_compile() {
 			-c grub-bootstrap.cfg
 			-m memdisk.tar
 			-o grub-i386-xen_pvh.bin
-			/usr/lib/grub/x86_64-xen/*.mod
+			/usr/lib/grub/i386-xen_pvh/*.mod
 		)
 
 		echo "${args[@]}"
