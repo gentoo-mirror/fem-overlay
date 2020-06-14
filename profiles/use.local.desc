@@ -174,16 +174,6 @@ net-dns/pdns:remote - Use a generic socket or pipe as a backend (via JSON RPC re
 net-dns/pdns:tinydns - Use a TinyDNS CDB database as backend.
 net-dns/pdns:tools - Build optional tools (dnsscan, dnsscope, etc..).
 net-dns/pdns-recursor:protobuf - Enable support for dev-libs/protobuf.
-net-im/gajim:crypt - End to end encryption and GPG encryption
-net-im/gajim:jingle - Audio and video calls
-net-im/gajim:keyring - Saving your password to your system keyring
-net-im/gajim:networkmanager - Network lose detection using NetworkManager
-net-im/gajim:omemo - Enable OMEMO encryption
-net-im/gajim:remote - Controling Gajim instance from command line with gajim-remote
-net-im/gajim:rst - Generating XHTML output from RST code
-net-im/gajim:spell - Spellchecking of composed messages
-net-im/gajim:upnp - Ability to request your router to forward port for file transfer
-net-im/gajim:webp - Support WebP avatars
 net-misc/alfred:gps - Distributing GPS Information using a GPS device
 net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
 net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
