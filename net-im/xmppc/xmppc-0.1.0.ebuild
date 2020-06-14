@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="XMPP Command Line Interface"
 HOMEPAGE="https://codeberg.org/Anoxinon_e.V./xmppc"
-SRC_URI="https://codeberg.org/Anoxinon_e.V./xmppc/archive/${PV}-1.tar.gz"
+SRC_URI="https://codeberg.org/Anoxinon_e.V./xmppc/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -22,6 +22,6 @@ BDEPEND=""
 S="${WORKDIR}/${PN}"
 
 src_configure() {
-	./bootstrap.sh || die "Boostrapping failed"
+	./bootstrap.sh || die "Bootstrapping failed"
 	econf
 }
