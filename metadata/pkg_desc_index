@@ -5,6 +5,7 @@ app-crypt/ecdsautils 0.3.2: Tiny collection of programs used for ECDSA (keygen, 
 app-emulation/grub-xen-host 1.0-r1: Grub2 built as a PV grub per the Xen PV Boot Protocol
 app-emulation/xen 4.10.3-r1: The Xen virtual machine monitor
 app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
+app-emulation/xen-sriov 0.2020705: Xen sr-iov scripts
 app-emulation/xen-tools 4.10.3-r2: Xen tools including QEMU and xl
 app-misc/supertee 9999: Multithreaded multisink pipe
 app-misc/tksuite-server-bin 3.3.20: TK Suite Server for AGFEO telecommunication systems
