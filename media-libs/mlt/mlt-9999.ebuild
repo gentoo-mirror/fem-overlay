@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -30,7 +30,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="compressed-lumas cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 debug ffmpeg fftw frei0r
-gtk jack kdenlive kernel_linux libav libsamplerate lua melt opencv opengl python qt5 rtaudio ruby sdl
+gtk jack kdenlive kernel_linux libsamplerate lua melt opencv opengl python qt5 rtaudio ruby sdl
 vdpau vidstab xine xml decklink"
 # java perl php tcl
 
@@ -52,8 +52,7 @@ DEPEND="
 	>=media-libs/libebur128-1.2.2
 	decklink? ( media-video/decklink-drivers )
 	ffmpeg? (
-		libav? ( >=media-video/libav-12:0=[vdpau?] )
-		!libav? ( media-video/ffmpeg:0=[vdpau?] )
+		media-video/ffmpeg:0=[vdpau?]
 	)
 	fftw? ( sci-libs/fftw:3.0= )
 	frei0r? ( media-plugins/frei0r-plugins )
