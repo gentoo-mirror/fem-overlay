@@ -183,6 +183,7 @@ sys-fs/lvm2:device-mapper-only - Build only device-mapper and not the rest of LV
 sys-fs/lvm2:lvm1 - Allow users to build lvm2 with lvm1 support
 sys-fs/lvm2:lvm2create_initrd - Install lvm2create_initrd script and pull in sys-apps/makedev for the /sbin/MAKEDEV command
 sys-fs/lvm2:thin - Support for thin volumes
+sys-kernel/femxen-kernel:initramfs - Build initramfs along with the kernel.
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
