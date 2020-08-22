@@ -53,7 +53,7 @@ net-analyzer/nagios-plugins-ceph 1.5.0 2019101: Nagios plugins for Ceph
 net-analyzer/nagios-plugins-extended 0.7.5-r2 0.7.5-r4: Nagios 0.7.5 plugins - Pack of plugins to make Nagios work properly
 net-dns/pdns 4.0.9: The PowerDNS Daemon
 net-dns/pdns-recursor 4.0.9: The PowerDNS Recursor
-net-im/xmppc 0.0.3: XMPP Command Line Interface
+net-im/xmppc 0.1.0: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
 net-misc/alfred 2014.3.0 9999: Almighty Lightweight Fact Remote Exchange Daemon
 net-misc/alfred-json 0.3.1 9999: JSON-Client for Almighty Lightweight Fact Remote Exchange Daemon
