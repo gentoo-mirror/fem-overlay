@@ -22,7 +22,7 @@ DEPEND="
 virtual/opengl
 >=media-video/movit-1.5.3
 >=media-video/ffmpeg-4.0
-media-sound/zita-resampler
+media-libs/zita-resampler
 >=media-video/bmusb-0.7.4
 media-libs/libepoxy
 dev-libs/protobuf

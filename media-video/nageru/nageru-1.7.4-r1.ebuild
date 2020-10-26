@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -18,7 +18,7 @@ DEPEND="
 virtual/opengl
 >=media-video/movit-1.5.3
 >=media-video/ffmpeg-3.1
-media-sound/zita-resampler
+media-libs/zita-resampler
 media-video/bmusb
 media-libs/libepoxy
 dev-libs/protobuf
