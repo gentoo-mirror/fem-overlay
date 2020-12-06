@@ -64,6 +64,7 @@ net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in sta
 net-misc/minidlna 1.0.24: server software with the aim of being fully compliant with DLNA/UPnP-AV clients
 net-misc/radiusplugin 2.1a_beta 2.2: radius authentication and accounting support for OpenVPN.
 net-misc/rtsp-server 0.05-r1: Lightweight RTSP/RTP streaming media server
+net-misc/rtsp-simple-server 0.12.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 net-wireless/eapol_test 0.6.9: WPA Supplicants's EAP test utility
 sci-electronics/ghdl 0.35: VHDL 2008/93/87 simulator
