@@ -1,0 +1,201 @@
+From 78028cb17a93f404fe758c71fbb0584104ef2474 Mon Sep 17 00:00:00 2001
+From: Isaac Carter <icarter1391@gmail.com>
+Date: Wed, 8 Jan 2020 13:19:54 -0500
+Subject: [PATCH] Cleaned up and fixed compiler warnings. (#147)
+
+* Cleand up and fixed compiler warnings.
+
+* Update menubar.vala
+
+Removed commented code.
+
+* Update slick-greeter.vala
+---
+ src/greeter-list.vala         |  4 +--
+ src/menubar.vala              |  3 ++-
+ src/remote-login-service.vala |  8 +++---
+ src/slick-greeter.vala        | 50 +++++++++++++++++++++++++++++------
+ src/user-list.vala            |  6 ++---
+ 5 files changed, 53 insertions(+), 18 deletions(-)
+
+diff --git a/src/greeter-list.vala b/src/greeter-list.vala
+index cdbbb02..6d8f1f6 100644
+--- a/src/greeter-list.vala
++++ b/src/greeter-list.vala
+@@ -39,7 +39,7 @@ public class ListDBusInterface : Object
+         });
+     }
+ 
+-    public string get_active_entry ()
++    public string get_active_entry () throws GLib.DBusError, GLib.IOError
+     {
+         string entry = "";
+ 
+@@ -49,7 +49,7 @@ public class ListDBusInterface : Object
+         return entry;
+     }
+ 
+-    public void set_active_entry (string entry_name)
++    public void set_active_entry (string entry_name) throws GLib.DBusError, GLib.IOError
+     {
+         list.set_active_entry (entry_name);
+     }
+diff --git a/src/menubar.vala b/src/menubar.vala
+index c0c4f30..c713b3c 100644
+--- a/src/menubar.vala
++++ b/src/menubar.vala
+@@ -27,7 +27,8 @@
+         // public abstract async void hibernate() throws IOError;
+         // public abstract bool suspend_allowed() throws IOError;
+         // public abstract bool hibernate_allowed() throws IOError;
+-        public abstract ObjectPath[] enumerate_devices() throws IOError;
++       
++        public abstract ObjectPath[] enumerate_devices() throws GLib.DBusError, GLib.IOError;
+ 
+         public abstract string daemon_version { owned get; }
+         // public abstract bool can_suspend { owned get; }
+diff --git a/src/remote-login-service.vala b/src/remote-login-service.vala
+index 7099ac2..11952fb 100644
+--- a/src/remote-login-service.vala
++++ b/src/remote-login-service.vala
+@@ -43,10 +43,10 @@ protected struct RemoteServer
+ [DBus (name = "com.canonical.RemoteLogin")]
+ interface RemoteLoginService : Object
+ {
+-    public abstract async void get_servers (out RemoteServer[] serverList) throws IOError;
+-    public abstract async void get_servers_for_login (string url, string emailAddress, string password, bool allowCache, out bool loginSuccess, out string dataType, out RemoteServer[] serverList) throws IOError;
+-    public abstract async void get_cached_domains_for_server (string url, out string[] domains) throws IOError;
+-    public abstract async void set_last_used_server (string uccsUrl, string serverUrl) throws IOError;
++    public abstract async void get_servers (out RemoteServer[] serverList) throws GLib.DBusError, IOError;
++    public abstract async void get_servers_for_login (string url, string emailAddress, string password, bool allowCache, out bool loginSuccess, out string dataType, out RemoteServer[] serverList) throws GLib.DBusError, IOError;
++    public abstract async void get_cached_domains_for_server (string url, out string[] domains) throws GLib.DBusError, IOError;
++    public abstract async void set_last_used_server (string uccsUrl, string serverUrl) throws GLib.DBusError, IOError;
+ 
+     public signal void servers_updated (RemoteServer[] serverList);
+     public signal void login_servers_updated (string url, string emailAddress, string dataType, RemoteServer[] serverList);
+diff --git a/src/slick-greeter.vala b/src/slick-greeter.vala
+index 8d4ef8d..78b946c 100644
+--- a/src/slick-greeter.vala
++++ b/src/slick-greeter.vala
+@@ -58,7 +58,15 @@ public class SlickGreeter
+         greeter = new LightDM.Greeter ();
+         greeter.show_message.connect ((text, type) => { show_message (text, type); });
+         greeter.show_prompt.connect ((text, type) => { show_prompt (text, type); });
+-        greeter.autologin_timer_expired.connect (() => { greeter.authenticate_autologin (); });
++        greeter.autologin_timer_expired.connect (() => { 
++		try {
++			greeter.authenticate_autologin ();
++		}
++		catch(Error e) {
++			warning("Unable to authenticate autologin: %s", e.message);
++		}
++	});
++
+         greeter.authentication_complete.connect (() => { authentication_complete (); });
+         var connected = false;
+         try
+@@ -306,27 +314,53 @@ public class SlickGreeter
+ 
+     public void authenticate (string? userid = null)
+     {
+-        greeter.authenticate (userid);
++	try {
++		greeter.authenticate (userid);
++	}
++	catch(Error e) {
++		warning ("Unable to authenticate greeter for %s, %s", userid, e.message);
++	}
+     }
+ 
+     public void authenticate_as_guest ()
+     {
+-        greeter.authenticate_as_guest ();
++	try {
++		greeter.authenticate_as_guest ();
++	}
++	catch(Error e) {
++		warning ("Unable to authenticate greeter for guest: %s", e.message);
++	}
+     }
+ 
+     public void authenticate_remote (string session, string? userid)
+     {
+-        SlickGreeter.singleton.greeter.authenticate_remote (session, userid);
++	try {
++		SlickGreeter.singleton.greeter.authenticate_remote (session, userid);
++	}
++	catch (Error e) {
++		warning("Unable to authenticate session for user %s, %s", userid, e.message);
++	}
+     }
+ 
+     public void cancel_authentication ()
+     {
+-        greeter.cancel_authentication ();
++	try {
++		greeter.cancel_authentication ();
++	}
++	catch(Error e) {
++		warning ("Unable to cancel authentication: %s", e.message);
++	}
+     }
+ 
++
+     public void respond (string response)
+     {
+-        greeter.respond (response);
++	try {
++		greeter.respond (response);
++	}
++	catch(Error e) {
++		warning ("Greeter unable to respond: %s", e.message);
++	}
+     }
+ 
+     public string authentication_user ()
+@@ -755,12 +789,12 @@ public class DialogDBusInterface : Object
+     public signal void open_dialog (uint32 type);
+     public signal void close_dialog ();
+ 
+-    public void open (uint32 type, uint32 timestamp, uint32 seconds_to_stay_open, ObjectPath[] inhibitor_object_paths)
++    public void open (uint32 type, uint32 timestamp, uint32 seconds_to_stay_open, ObjectPath[] inhibitor_object_paths) throws GLib.DBusError, GLib.IOError
+     {
+         open_dialog (type);
+     }
+ 
+-    public void close ()
++    public void close () throws GLib.DBusError, GLib.IOError 
+     {
+         close_dialog ();
+     }
+diff --git a/src/user-list.vala b/src/user-list.vala
+index 53ffa6b..77388be 100644
+--- a/src/user-list.vala
++++ b/src/user-list.vala
+@@ -199,7 +199,7 @@ public class UserList : GreeterList
+             yield remote_login_service.get_servers (out server_list);
+             set_remote_directory_servers (server_list);
+         }
+-        catch (IOError e)
++        catch (Error e)
+         {
+             debug ("Calling GetServers on com.canonical.RemoteLogin dbus service failed. Error: %s", e.message);
+             remove_remote_servers ();
+@@ -487,7 +487,7 @@ public class UserList : GreeterList
+                 currently_browsing_server_url = url;
+                 currently_browsing_server_email = email;
+             }
+-            catch (IOError e)
++            catch (Error e)
+             {
+                 debug ("Calling get_servers in com.canonical.RemoteLogin dbus service failed. Error: %s", e.message);
+             }
+@@ -774,7 +774,7 @@ public class UserList : GreeterList
+                             else
+                                 yield remote_login_service.get_cached_domains_for_server (url, out email_domains);
+                         }
+-                        catch (IOError e)
++                        catch (Error e)
+                         {
+                             email_domains.resize (0);
+                             debug ("Calling get_cached_domains_for_server in com.canonical.RemoteLogin dbus service failed. Error: %s", e.message);
