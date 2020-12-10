@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -17,10 +17,10 @@ IUSE="+ffmpeg"
 DEPEND=""
 RDEPEND="
 	>=dev-python/numpy-1.12.0
-	>=sci-libs/scipy-0.17.1
+	>=dev-python/scipy-0.17.1
 	>=dev-python/matplotlib-2.0.0
 	>=dev-python/pandas-0.19.2
-	>=sci-libs/scikits_learn-0.18.1
+	>=sci-libs/scikit-learn-0.18.1
 	>=dev-python/h5py-2.6.0
 "
 pkg_setup() {
