@@ -3,7 +3,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python3_{6,7} )
+PYTHON_COMPAT=( python3_{6,7,8} )
 DISTUTILS_OPTIONAL=1
 
 inherit distutils-r1
@@ -22,11 +22,10 @@ RDEPEND="${DEPEND}
 	python? (
 		${PYTHON_DEPS}
 		>=dev-python/numpy-1.12.0[${PYTHON_USEDEP}]
-		>=sci-libs/scipy-0.17.1[${PYTHON_USEDEP}]
+		>=dev-python/scipy-0.17.1[${PYTHON_USEDEP}]
 		>=dev-python/matplotlib-2.0.0[${PYTHON_USEDEP}]
 		>=dev-python/pandas-0.19.2[${PYTHON_USEDEP}]
-		>=sci-libs/scikits_learn-0.13.0[${PYTHON_USEDEP}]
-		>=sci-libs/scikits_learn-0.18.1[${PYTHON_USEDEP}]
+		>=sci-libs/scikit-learn-0.18.1[${PYTHON_USEDEP}]
 		>=dev-python/h5py-2.6.0[${PYTHON_USEDEP}]
 	)
 "
