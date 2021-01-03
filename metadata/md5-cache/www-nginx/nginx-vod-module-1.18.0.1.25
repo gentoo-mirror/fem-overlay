@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile configure install
+DEPEND=dev-libs/libxml2 media-video/ffmpeg sys-libs/zlib
+DESCRIPTION=NGINX-based MP4 Repackager
+EAPI=7
+HOMEPAGE=https://github.com/kaltura/nginx-vod-module
+KEYWORDS=~amd64 ~x86
+LICENSE=AGPL-3
+RDEPEND=dev-libs/libxml2 media-video/ffmpeg sys-libs/zlib
+SLOT=0
+SRC_URI=https://nginx.org/download/nginx-1.18.0.tar.gz https://github.com/kaltura/nginx-vod-module/archive/1.25.tar.gz -> nginx-vod-module-1.25.tar.gz
+_eclasses_=nginx-module	1b74e24c7e4bfdd5857729814ac4678c
+_md5_=ff70fb9ac082471e68509ff0f0b7df6c

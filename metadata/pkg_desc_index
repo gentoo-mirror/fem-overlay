@@ -24,7 +24,6 @@ dev-perl/XML-RPC-Fast 0.8: No description available
 dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
-dev-python/python-nbxmpp 0.6.10: Python library to use Jabber/XMPP networks in a non-blocking way
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 19.2.0: Structured Logging for Python
 mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
@@ -77,6 +76,7 @@ sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS 
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
 sys-kernel/femxen-kernel 5.4.52 5.4.66: Linux kernel built with Gentoo patches
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
+www-nginx/nginx-vod-module 1.18.0.1.25: NGINX-based MP4 Repackager
 www-servers/nginx 1.12.2-r1 1.16.1-r2: Robust, small and high performance http and reverse proxy server
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-plugins/lurch 0.6.1 0.6.5 0.6.6 0.6.7: OMEMO for libpurple - interoperable with other OMEMO clients
