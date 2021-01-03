@@ -51,7 +51,8 @@ nginx-module_src_configure() {
 		die "module uses old unsupported static config file syntax: https://www.nginx.com/resources/wiki/extending/converting/"
 	fi
 
-	NGX_ORIGIN_CONFIGURE=`nginx -V 2>&1 | grep "configure arguments:" | cut -d: -f2`
+	#grep nginx configure from nginx -V add drop all other external modules
+	NGX_ORIGIN_CONFIGURE=`nginx -V 2>&1 | grep "configure arguments:" | cut -d: -f2 | sed "s/--add-module=\([^\s]\)*\s/ /"`
 	./configure ${NGX_ORIGIN_CONFIGURE} --add-dynamic-module="../${PN}-${MODULE_PV}" "$@" || die "configure failed"
 }
 
