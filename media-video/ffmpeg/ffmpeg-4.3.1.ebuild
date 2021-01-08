@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -52,6 +52,7 @@ LICENSE="
 		gpl? ( GPL-3 )
 		!gpl? ( LGPL-3 )
 	)
+	libvmaf? ( GPL-3 )
 	encode? (
 		amrenc? (
 			gpl? ( GPL-3 )
@@ -87,7 +88,7 @@ FFMPEG_FLAG_MAP=(
 		# libavfilter options
 		appkit
 		bs2b:libbs2b chromaprint cuda:cuda-llvm flite:libflite frei0r
-		fribidi:libfribidi fontconfig ladspa libass libtesseract lv2 truetype:libfreetype vidstab:libvidstab
+		fribidi:libfribidi fontconfig ladspa libass libtesseract libvmaf lv2 truetype:libfreetype vidstab:libvidstab
 		rubberband:librubberband zeromq:libzmq zimg:libzimg
 		# libswresample options
 		libsoxr
@@ -233,6 +234,7 @@ RDEPEND="
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libtesseract? ( >=app-text/tesseract-4.1.0-r1[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
+	libvmaf? ( sci-libs/vmaf )
 	libxml2? ( dev-libs/libxml2:=[${MULTILIB_USEDEP}] )
 	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
@@ -387,6 +389,8 @@ multilib_src_configure() {
 	use gmp && myconf+=( --enable-version3 )
 	use libaribb24 && myconf+=( --enable-version3 )
 	use fdk && use gpl && myconf+=( --enable-nonfree )
+
+	use libvmaf && myconf+=( --enable-version3 )
 
 	for i in "${ffuse[@]#+}" ; do
 		myconf+=( $(use_enable ${i%:*} ${i#*:}) )
