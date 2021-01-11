@@ -26,7 +26,7 @@ dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that ma
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pytimeparse 1.1.8: A small Python library to parse various kinds of time expressions
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
-dev-python/structlog 19.2.0: Structured Logging for Python
+dev-python/structlog 20.2.0: Structured Logging for Python
 mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
 media-libs/melted 9999: MLT Video Server
 media-libs/mlt 9999: Open source multimedia framework for television broadcasting
