@@ -30,14 +30,12 @@ dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain fo
 dev-python/structlog 20.2.0: Structured Logging for Python
 mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
 media-libs/melted 9999: MLT Video Server
-media-libs/mlt 9999: Open source multimedia framework for television broadcasting
 media-plugins/gst-plugins-decklink 1.14.5: Decklink Plugin for Gstreamer
 media-tv/mumudvb 2.0.0: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
 media-video/decklink-drivers 10.9.11 11.4 11.6: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
-media-video/disper 0.2.3 0.3.1: Disper is an on-the-fly display switch utility
 media-video/ffmpeg 3.4 3.4.4 4.0.2 4.2.2 4.3.1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
 media-video/flussonic 3.69.19: Flussonic (Erlyvideo 3) media streaming server
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
@@ -48,7 +46,6 @@ net-analyzer/fem-nagios-plugins 1.1 9999: Nagios plugins written by FeM
 net-analyzer/graphite-api 1.1.5-r2: Graphite-web, without the interface. Just the rendering HTTP API.
 net-analyzer/icinga-classicui 1.13.3 1.14.2: Icinca ClassicUI for Icinga2
 net-analyzer/monitoring-plugins 2.1.2-r1 2.2_pre20200130-r2: 50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu
-net-analyzer/nagios-plugins-ceph 1.5.0 2019101: Nagios plugins for Ceph
 net-analyzer/nagios-plugins-extended 0.7.5-r2 0.7.5-r4: Nagios 0.7.5 plugins - Pack of plugins to make Nagios work properly
 net-dns/pdns 4.0.9: The PowerDNS Daemon
 net-dns/pdns-recursor 4.0.9: The PowerDNS Recursor
@@ -59,7 +56,6 @@ net-misc/alfred-json 0.3.1 9999: JSON-Client for Almighty Lightweight Fact Remot
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/fastd 14: Fast and secure tunneling daemon with very small binary
 net-misc/icecast 2.4.4 2.4.99.2: Opensource alternative to shoutcast that supports mp3, ogg and aac streaming
-net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in standard web server like format
 net-misc/radiusplugin 2.1a_beta 2.2: radius authentication and accounting support for OpenVPN.
 net-misc/rtsp-server 0.05-r1: Lightweight RTSP/RTP streaming media server
 net-misc/rtsp-simple-server 0.12.2: ready-to-use RTSP server and RTSP proxy
