@@ -1,15 +1,16 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python3_{8..9} )
 
 inherit python-single-r1
 
 DESCRIPTION="Nagios plugins for Ceph"
 HOMEPAGE="https://github.com/ceph/ceph-nagios-plugins"
-SRC_URI="https://github.com/ceph/ceph-nagios-plugins/archive/ceph-nagios-plugins_${PV}.tar.gz"
+#SRC_URI="https://github.com/ceph/ceph-nagios-plugins/archive/ceph-nagios-plugins_${PV}.tar.gz"
+SRC_URI="https://github.com/j-licht/ceph-nagios-plugins/archive/ceph-nagios-plugins_${PV}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
