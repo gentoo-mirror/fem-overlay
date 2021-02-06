@@ -17,7 +17,6 @@ dev-go/prometheus-graphite-relay 1.0.1 9999: Utility to push metrics scraped fro
 dev-lang/php 7.1.33: The PHP language runtime engine
 dev-libs/gemalto-dotnetv2-pkcs11 2.2.0.10-r3: PKCS#11 library for Gemalto .NET V2 smart cards
 dev-libs/libuecc 4 7: Very small elliptic curve cryptography library
-dev-libs/mxml 2.10: Tiny XML Library
 dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
 dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8: No description available
@@ -80,5 +79,4 @@ www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
 www-nginx/nginx-vod-module 1.18.0.1.25: NGINX-based MP4 Repackager
 www-servers/nginx 1.12.2-r1 1.16.1-r2: Robust, small and high performance http and reverse proxy server
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
-x11-plugins/lurch 0.6.1 0.6.5 0.6.6 0.6.7: OMEMO for libpurple - interoperable with other OMEMO clients
 x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple
