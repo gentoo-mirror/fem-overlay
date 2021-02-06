@@ -1,0 +1,13 @@
+BDEPEND=>=app-portage/elt-patches-20170815 || ( >=sys-devel/automake-1.16.2-r1:1.16 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DEFINED_PHASES=install prepare
+DEPEND=dev-libs/boost net-libs/libpcap
+DESCRIPTION=TCP packet sniffer supporting traffic logging in standard web server like format
+EAPI=7
+HOMEPAGE=http://onotelli.github.io/justniffer/
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=dev-libs/boost net-libs/libpcap
+SLOT=0
+SRC_URI=https://github.com/onotelli/justniffer/archive/v0.5.15.tar.gz -> justniffer-0.5.15.tar.gz
+_eclasses_=autotools	9988ecbe04129214297a7bbf3d253710	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_md5_=5882737b31258462ed94565b6d910855
