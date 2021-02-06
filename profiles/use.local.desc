@@ -45,14 +45,12 @@ dev-perl/XML-RPC-Fast:anyevent - Add support for AnyEvent event loop library
 media-libs/mlt:compressed-lumas - Compress the luma files in png.
 media-libs/mlt:decklink - Build support for Blackmagic DeckLink devices
 media-libs/mlt:frei0r - Build the module for media-plugins/frei0r-plugins
-media-libs/mlt:kdenlive - Build support for kde-apps/kdenlive
 media-libs/mlt:lua - Build SWIG bindings for Lua
-media-libs/mlt:melt - Build the melt commandline tool
 media-libs/mlt:opencv - Build motion tracking module using media-libs/opencv
 media-libs/mlt:python - Build SWIG bindings for Python
-media-libs/mlt:rtaudio - Builds rtaudio consumer for native audio support on multiple platforms.
-media-libs/mlt:ruby - Build SWIG bindings for Ruby
-media-libs/mlt:vidstab - Enabled video stabilization with media-libs/vidstab.
+media-libs/mlt:rtaudio - Builds rtaudio consumer for native audio support on multiple platforms
+media-libs/mlt:rubberband - Enable audio pitch-shifting using media-libs/rubberband
+media-libs/mlt:vidstab - Enabled video stabilization with media-libs/vidstab
 media-video/decklink-drivers:autostart - Add DesktopVideoHelper to autostart
 media-video/decklink-drivers:headers - Install Decklink API headers.
 media-video/ffmpeg:amr - Enables Adaptive Multi-Rate Audio support
