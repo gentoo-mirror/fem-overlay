@@ -21,6 +21,7 @@ dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
 dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8: No description available
 dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
+dev-python/arubaos-client 9999: Library to interact with the ArubaOS REST API
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 3.2.1-r1: Low-level library to interact with keepass databases (supports the v.4 format)
