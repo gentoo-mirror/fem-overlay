@@ -1,35 +1,34 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit eutils user
+inherit eutils
 
-DESCRIPTION="Nagios $PV plugins - Pack of plugins to make Nagios work properly"
-HOMEPAGE="http://www.nagios.org/"
-SRC_URI=""
+DESCRIPTION="Nagios $PV plugins - Additional Icinga/Nagios plugins"
+HOMEPAGE="https://github.com/fem/nagios-plugins-extended"
+SRC_URI="https://github.com/fem/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="tcptraffic corosync haproxy apache megaraid nginx portage portageagewarn timestamp temp hddtemp +suid"
 
-DEPEND="tcptraffic? ( dev-perl/Monitoring-Plugin virtual/perl-version ) \
+DEPEND="acct-group/nagios
+	acct-user/nagios
+	tcptraffic? ( dev-perl/Monitoring-Plugin virtual/perl-version ) \
 	corosync? ( dev-perl/Monitoring-Plugin ) \
-	haproxy? ( dev-perl/Monitoring-Plugin dev-perl/LWP-UserAgent-Determined ) \
-	apache?	( sys-devel/bc ) \
+	haproxy? ( dev-perl/Monitoring-Plugin dev-perl/libwww-perl ) \
+	apache?	( dev-perl/Monitoring-Plugin dev-perl/libwww-perl ) \
 	megaraid? ( sys-block/megarc ) \
 	nginx? ( sys-devel/bc net-misc/wget ) \
 	portage? ( app-portage/gentoolkit ) \
 	temp? ( net-analyzer/netcat sys-devel/bc ) \
 	timestamp? ( dev-perl/TimeDate ) \
 	hddtemp? ( app-admin/hddtemp )"
-
-RESTRICT="test"
-
 RDEPEND="${DEPEND}"
 
-S=${WORKDIR}
+RESTRICT="test"
 
 PLUGIN_LIST="check_mdstat \
 		 check_mount \
@@ -40,12 +39,8 @@ PLUGIN_LIST="check_mdstat \
 		 ssl-cert-check"
 SUID_PLUGIN_LIST="check_smart_sectors"
 
-pkg_setup() {
-	enewgroup nagios
-	enewuser nagios -1 /bin/bash /var/nagios/home nagios
-}
-
-src_unpack() {
+src_prepare() {
+	default_src_prepare
 
 	if use tcptraffic; then
 		PLUGIN_LIST="${PLUGIN_LIST} check_tcptraffic"
@@ -60,7 +55,7 @@ src_unpack() {
 	fi
 
 	if use apache; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_apache2"
+		PLUGIN_LIST="${PLUGIN_LIST} check_apache_status"
 	fi
 
 	if use megaraid; then
@@ -88,21 +83,14 @@ src_unpack() {
 		PLUGIN_LIST="${PLUGIN_LIST} check_hddtemp.sh"
 	fi
 
-	for PLUGIN in ${PLUGIN_LIST}; do
-		cp "${FILESDIR}"/${PLUGIN} "${WORKDIR}"
-	done
-}
-
-src_prepare() {
-	default_src_prepare
-	use portage && use portageagewarn && epatch "${FILESDIR}"/check_gentoo_portage-0.8.2-age-warning.patch
+	use portage && use portageagewarn && eapply "${FILESDIR}"/check_gentoo_portage-0.9.1-age-warning.patch
 }
 
 src_install() {
 	dodir /usr/$(get_libdir)/nagios/plugins
 	exeinto /usr/$(get_libdir)/nagios/plugins
 	for PLUGIN in ${PLUGIN_LIST}; do
-		doexe ${PLUGIN}
+		doexe "${S}"/plugins/${PLUGIN}
 	done
 
 	chown -R nagios:nagios "${D}"/usr/$(get_libdir)/nagios/plugins \
