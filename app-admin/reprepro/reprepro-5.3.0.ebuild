@@ -5,7 +5,7 @@ EAPI=7
 
 inherit flag-o-matic
 
-TAG="reprepro-debian-5.1.1-1"
+TAG="reprepro-debian-5.3.0-1"
 
 DESCRIPTION="Debian APT repository creator and maintainer application"
 HOMEPAGE="https://salsa.debian.org/brlink/reprepro"
