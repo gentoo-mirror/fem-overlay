@@ -1,11 +1,13 @@
---- check_gentoo_portage	2011-01-14 10:58:55.000000000 +0100
-+++ check_gentoo_portage	2011-12-06 10:57:09.932027894 +0100
-@@ -359,7 +359,7 @@
+diff --git a/plugins/check_gentoo_portage b/plugins/check_gentoo_portage
+index 23450e3..5985eec 100755
+--- a/plugins/check_gentoo_portage
++++ b/plugins/check_gentoo_portage
+@@ -323,7 +323,7 @@ class PortageTester(object):
          portage_age = (now - portage_tree_time)/3600.0
          self.vprint(2, "portage tree is %.1f hours old" % portage_age)
          if portage_age > self.max_portage_tree_age:
 -            end(CRITICAL, "Portage tree is %.1f hours out of date, " \
 +            end(WARNING, "Portage tree is %.1f hours out of date, " \
-                                                                    % portage_age
+                                                                    % portage_age \
                          + "security package information is not reliable")
          elif portage_age < 0:
