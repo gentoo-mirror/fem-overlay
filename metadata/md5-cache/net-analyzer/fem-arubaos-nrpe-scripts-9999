@@ -1,0 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DEPEND=dev-python/arubaos-client
+DESCRIPTION=FeM NRPE scripts for ArubaOS monitoring
+EAPI=7
+HOMEPAGE=https://bitbucket.fem.tu-ilmenau.de/users/v0tti/repos/arubaos-nrpe-scripts/browse
+KEYWORDS=~amd64
+LICENSE=MIT
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
+_md5_=85e0153325caaa7dfcebbf36cea746aa
