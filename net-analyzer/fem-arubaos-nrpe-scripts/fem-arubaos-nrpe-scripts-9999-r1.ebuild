@@ -6,9 +6,9 @@ EAPI=7
 inherit git-r3
 
 DESCRIPTION="FeM NRPE scripts for ArubaOS monitoring"
-HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/users/v0tti/repos/arubaos-nrpe-scripts/browse"
+HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
 SRC_URI=""
-EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/~v0tti/arubaos-nrpe-scripts.git"
+EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
 
 LICENSE="MIT"
 SLOT="0"
