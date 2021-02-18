@@ -10,6 +10,10 @@ HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.g
 SRC_URI=""
 EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
 
+if [[ ${PV} != *9999 ]]; then
+	EGIT_COMMIT="v${PV}"
+fi
+
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
