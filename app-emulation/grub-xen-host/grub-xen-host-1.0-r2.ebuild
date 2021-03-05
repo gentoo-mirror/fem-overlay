@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -50,6 +50,11 @@ src_compile() {
 		if search -s -f /grub/grub.cfg ; then
 			echo "Reading (${root})/grub/grub.cfg"
 			configfile /grub/grub.cfg
+		fi
+
+		if search -s -f /efi/boot/grub.cfg ; then
+			echo "Reading (${root})/efi/boot/grub.cfg"
+			configfile /efi/boot/grub.cfg
 		fi
 	EOF
 
