@@ -1,9 +1,0 @@
-# ChangeLog for net-analyzer/monitoring-plugins
-# $Header: $
-
-*monitoring-plugins-2.1.2 (19 Oct 2015)
-
-  08 May 2016; Dustin Funk <nuts@fem.tu-ilmenau.de>
-  +monitoring-plugins-2.1.2-r1.ebuild, +files/check_icmp_v6.patch:
-  add ipv6 support for check_icmp
-
