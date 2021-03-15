@@ -13,12 +13,12 @@ EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/~v0tti/${PN}.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 DEPEND="
-	>=dev-python/netaddr-0.8.0
-	>=dev-python/pytimeparse-1.1.8
-	>=dev-python/requests-2.24.0
+	>=dev-python/netaddr-0.8.0[${PYTHON_USEDEP}]
+	>=dev-python/pytimeparse-1.1.8[${PYTHON_USEDEP}]
+	>=dev-python/requests-2.24.0[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
