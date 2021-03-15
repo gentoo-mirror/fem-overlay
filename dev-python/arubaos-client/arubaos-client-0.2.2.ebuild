@@ -10,10 +10,11 @@ DESCRIPTION="Library to interact with the ArubaOS REST API"
 HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/users/v0tti/repos/arubaos-client/browse"
 SRC_URI=""
 EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/~v0tti/${PN}.git"
+EGIT_COMMIT="afa66717ef92a8607c09a0cbdee304f451403f40"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 DEPEND="
 	>=dev-python/netaddr-0.8.0[${PYTHON_USEDEP}]

@@ -3,7 +3,8 @@
 
 EAPI=7
 
-inherit git-r3
+PYTHON_COMPAT=( python3_7 python3_8 python3_9 )
+inherit git-r3 python-single-r1
 
 DESCRIPTION="FeM NRPE scripts for ArubaOS monitoring"
 HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
@@ -16,12 +17,19 @@ fi
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
 
-RDEPEND=""
-DEPEND="
-	dev-python/arubaos-client
+if [[ ${PV} != *9999 ]]; then
+	KEYWORDS="~amd64"
+fi
+
+IUSE=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="
+	${PYTHON_DEPS}
+	$(python_gen_cond_dep 'dev-python/arubaos-client[${PYTHON_USEDEP}]')
 "
+DEPEND=""
 BDEPEND=""
 
 src_install() {
