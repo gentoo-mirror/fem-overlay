@@ -4,10 +4,11 @@ DEPEND=>=app-pda/libplist-2.1.0:= virtual/libusb:1 !~app-pda/usbmuxd-1.0.9 !<app
 DESCRIPTION=USB multiplex daemon for use with Apple iPhone/iPod Touch devices
 EAPI=7
 HOMEPAGE=http://www.libimobiledevice.org/
+INHERIT=autotools git-r3
 IUSE=kernel_linux static-libs
 LICENSE=GPL-2+ LGPL-2.1+
 PROPERTIES=live
 RDEPEND=>=app-pda/libplist-2.1.0:= virtual/libusb:1 !~app-pda/usbmuxd-1.0.9 !<app-pda/usbmuxd-1.0.8_p1
 SLOT=0/6.0
-_eclasses_=autotools	9988ecbe04129214297a7bbf3d253710	git-r3	3e7ec3d6619213460c85e2aa48398441	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
+_eclasses_=toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	libtool	f143db5a74ccd9ca28c1234deffede96	autotools	4ba6c345bf49883c84d5fa5c9bf40c0b	git-r3	3e7ec3d6619213460c85e2aa48398441
 _md5_=91650e66d2238b21259bf54622d06d47
