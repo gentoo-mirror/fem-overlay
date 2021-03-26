@@ -80,7 +80,6 @@ sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS 
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
 sys-kernel/femxen-kernel 5.4.52 5.4.66: Linux kernel built with Gentoo patches
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
-www-nginx/nginx-vod-module 1.18.0.1.25: NGINX-based MP4 Repackager
-www-servers/nginx 1.12.2-r1 1.16.1-r2: Robust, small and high performance http and reverse proxy server
+www-nginx/nginx-vod-module 1.18.0.1.25 1.18.0.1.27: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple

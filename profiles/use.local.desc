@@ -169,13 +169,3 @@ sys-fs/lvm2:lvm1 - Allow users to build lvm2 with lvm1 support
 sys-fs/lvm2:lvm2create_initrd - Install lvm2create_initrd script and pull in sys-apps/makedev for the /sbin/MAKEDEV command
 sys-fs/lvm2:thin - Support for thin volumes
 sys-kernel/femxen-kernel:initramfs - Build initramfs along with the kernel.
-www-servers/nginx:aio - Enables file AIO support
-www-servers/nginx:http - Enable HTTP core support
-www-servers/nginx:http-cache - Enable HTTP cache support
-www-servers/nginx:http2 - Enable HTTP2 module support
-www-servers/nginx:libatomic - Use libatomic instead of builtin atomic operations
-www-servers/nginx:luajit - Use dev-lang/luajit instead of dev-lang/lua for lua support when building the lua http module.
-www-servers/nginx:nginx_modules_http_vod - Adding a NGINX-based MP4 Repackager module.
-www-servers/nginx:pcre-jit - Enable JIT for pcre
-www-servers/nginx:rtmp - NGINX-based Media Streaming Server
-www-servers/nginx:ssl - Enable HTTPS module for http. Enable SSL/TLS support for POP3/IMAP/SMTP for mail.
