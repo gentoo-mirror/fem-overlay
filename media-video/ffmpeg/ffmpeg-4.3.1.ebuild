@@ -62,7 +62,7 @@ LICENSE="
 	samba? ( GPL-3 )
 "
 if [ "${PV#9999}" = "${PV}" ] ; then
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~arm64"
 fi
 
 # Options to use as use_enable in the foo[:bar] form.
@@ -183,7 +183,7 @@ RDEPEND="
 	chromaprint? ( >=media-libs/chromaprint-1.2-r1[${MULTILIB_USEDEP}] )
 	codec2? ( media-libs/codec2[${MULTILIB_USEDEP}] )
 	dav1d? ( >=media-libs/dav1d-0.4.0:0=[${MULTILIB_USEDEP}] )
-	decklink? ( media-video/decklink-drivers )
+	decklink? ( amd64? ( media-video/decklink-drivers ) )
 	encode? (
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
 		kvazaar? ( >=media-libs/kvazaar-1.2.0[${MULTILIB_USEDEP}] )
@@ -229,12 +229,12 @@ RDEPEND="
 	libcaca? ( >=media-libs/libcaca-0.99_beta18-r1[${MULTILIB_USEDEP}] )
 	libdrm? ( x11-libs/libdrm[${MULTILIB_USEDEP}] )
 	libilbc? ( >=media-libs/libilbc-2[${MULTILIB_USEDEP}] )
-	libndi_newtek? ( media-video/ndi-sdk )
+	libndi_newtek? ( amd64? ( media-video/ndi-sdk ) arm64? ( media-video/ndi-sdk-embedded ) )
 	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libtesseract? ( >=app-text/tesseract-4.1.0-r1[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
-	libvmaf? ( sci-libs/vmaf )
+	libvmaf? ( amd64? ( sci-libs/vmaf ) )
 	libxml2? ( dev-libs/libxml2:=[${MULTILIB_USEDEP}] )
 	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
@@ -321,6 +321,7 @@ REQUIRED_USE="
 	libv4l? ( v4l )
 	fftools_cws2fws? ( zlib )
 	test? ( encode )
+	arm64? ( !decklink !libvmaf )
 	${GPL_REQUIRED_USE}
 	${CPU_REQUIRED_USE}"
 RESTRICT="
