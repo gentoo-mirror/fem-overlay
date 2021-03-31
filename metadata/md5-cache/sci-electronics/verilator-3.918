@@ -2,6 +2,7 @@ DEFINED_PHASES=-
 DESCRIPTION=Verilog compiler and simulator
 EAPI=6
 HOMEPAGE=http://www.veripool.org/wiki/verilator
+INHERIT=multilib
 IUSE=doc
 KEYWORDS=~amd64 ~x86
 LICENSE=|| ( Artistic-2 LGPL-3 )

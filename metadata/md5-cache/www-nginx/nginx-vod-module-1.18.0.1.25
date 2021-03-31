@@ -3,6 +3,7 @@ DEPEND=dev-libs/libxml2 media-video/ffmpeg sys-libs/zlib
 DESCRIPTION=NGINX-based MP4 Repackager
 EAPI=7
 HOMEPAGE=https://github.com/kaltura/nginx-vod-module
+INHERIT=nginx-module
 KEYWORDS=~amd64 ~x86
 LICENSE=AGPL-3
 RDEPEND=dev-libs/libxml2 media-video/ffmpeg sys-libs/zlib

@@ -3,6 +3,7 @@ DEPEND=>=app-pda/usbmuxd-1.1.0_pre >=app-pda/libimobiledevice-1.2.1_pre >=app-pd
 DESCRIPTION=Mount Apple iPhone/iPod Touch file systems for backup purposes
 EAPI=7
 HOMEPAGE=http://www.libimobiledevice.org/
+INHERIT=readme.gentoo-r1
 KEYWORDS=~amd64
 LICENSE=LGPL-2.1
 RDEPEND=>=app-pda/usbmuxd-1.1.0_pre >=app-pda/libimobiledevice-1.2.1_pre >=app-pda/libplist-1.8 >=sys-fs/fuse-2.7.0:=
