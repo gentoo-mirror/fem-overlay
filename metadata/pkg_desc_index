@@ -74,7 +74,6 @@ sci-electronics/icarus 10.1: A free implementation of Verilog (IEEE-1364)
 sci-electronics/verilator 3.918: Verilog compiler and simulator
 sci-electronics/vhd2vl 2.5: VHDL to Verilog Konverter
 sci-libs/vmaf 1.2.0 1.3.15 2.1.0: Perceptual video quality assessment based on multi-method fusion.
-sys-auth/pam_radius 1.3.17-r1: PAM RADIUS authentication module
 sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
 sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
