@@ -16,6 +16,7 @@ RDEPEND="
 	${DEPEND}
 	acct-group/nagios
 	acct-user/nagios
+	sys-apps/smartmontools
 	virtual/perl-Getopt-Long
 "
 S=${WORKDIR}/check_smart-${PV}
