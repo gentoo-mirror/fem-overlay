@@ -1,8 +1,8 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
-PYTHON_COMPAT=( python3_{5,6,7} )
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 
 SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
@@ -31,6 +31,7 @@ IUSE="examples gui"
 
 DEPEND=""
 RDEPEND="
+	${PYTHON_DEPS}
 	media-libs/gstreamer:1.0
 	media-libs/gst-plugins-base:1.0
 	media-libs/gst-plugins-good:1.0
@@ -46,6 +47,7 @@ RDEPEND="
 		dev-python/pygobject[cairo]
 	)
 "
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 src_install() {
 	# install voctocore
