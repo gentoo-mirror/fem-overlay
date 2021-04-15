@@ -3,11 +3,12 @@ DESCRIPTION=Full-HD Software Live-Video-Mixer in python
 EAPI=7
 HOMEPAGE=https://github.com/voc/voctomix
 INHERIT=python-single-r1
-IUSE=examples gui +python_single_target_python3_7
+IUSE=examples gui python_single_target_python3_7 python_single_target_python3_8 python_single_target_python3_9
 KEYWORDS=~amd64
 LICENSE=MIT
-RDEPEND=media-libs/gstreamer:1.0 media-libs/gst-plugins-base:1.0 media-libs/gst-plugins-good:1.0 media-libs/gst-plugins-bad:1.0 media-libs/gst-plugins-ugly:1.0 media-plugins/gst-plugins-jpeg:1.0 python_single_target_python3_7? ( dev-python/pygobject:3[python_targets_python3_7(-)] ) examples? ( media-plugins/gst-plugins-libav:1.0 ) gui? ( media-libs/gst-plugins-base:1.0[alsa] dev-python/pygobject[cairo] )
+RDEPEND=python_single_target_python3_7? ( dev-lang/python:3.7 >=dev-lang/python-exec-2:=[python_targets_python3_7] ) python_single_target_python3_8? ( dev-lang/python:3.8 >=dev-lang/python-exec-2:=[python_targets_python3_8] ) python_single_target_python3_9? ( dev-lang/python:3.9 >=dev-lang/python-exec-2:=[python_targets_python3_9] ) media-libs/gstreamer:1.0 media-libs/gst-plugins-base:1.0 media-libs/gst-plugins-good:1.0 media-libs/gst-plugins-bad:1.0 media-libs/gst-plugins-ugly:1.0 media-plugins/gst-plugins-jpeg:1.0 python_single_target_python3_7? ( dev-python/pygobject:3[python_targets_python3_7(-)] ) python_single_target_python3_8? ( dev-python/pygobject:3[python_targets_python3_8(-)] ) python_single_target_python3_9? ( dev-python/pygobject:3[python_targets_python3_9(-)] ) examples? ( media-plugins/gst-plugins-libav:1.0 ) gui? ( media-libs/gst-plugins-base:1.0[alsa] dev-python/pygobject[cairo] )
+REQUIRED_USE=^^ ( python_single_target_python3_7 python_single_target_python3_8 python_single_target_python3_9 )
 SLOT=0
 SRC_URI=https://github.com/voc/voctomix/archive/1.3.tar.gz -> voctomix-1.3.tar.gz
 _eclasses_=toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	python-utils-r1	3ea803de86891185c7b1db2c0b5bc8c8	python-single-r1	d25ac9d5d91fe9d44fda6ec192aca11a
-_md5_=6726c1f71f34a8b83511e7a2e77a4a78
+_md5_=b443a172f10e2f4809d1d5e657318d61
