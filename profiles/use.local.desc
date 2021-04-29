@@ -163,6 +163,9 @@ net-misc/alfred:gps - Distributing GPS Information using a GPS device
 net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
 net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
 net-misc/icecast:yp - Build support for yp public directory listings
+net-misc/kea:msg-compiler - Build message compiler
+net-misc/kea:openssl - Use dev-libs/openssl instead of Botan
+net-misc/kea:samples - Install sample configuration files
 sci-libs/vmaf:tools - Also install feature binaries
 sys-fs/lvm2:device-mapper-only - Build only device-mapper and not the rest of LVM2 (UNSUPPORTED)
 sys-fs/lvm2:lvm1 - Allow users to build lvm2 with lvm1 support

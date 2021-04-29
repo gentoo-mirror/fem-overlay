@@ -64,6 +64,7 @@ net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/fastd 14: Fast and secure tunneling daemon with very small binary
 net-misc/icecast 2.4.4 2.4.99.2: Opensource alternative to shoutcast that supports mp3, ogg and aac streaming
 net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in standard web server like format
+net-misc/kea 1.8.2: High-performance production grade DHCPv4 & DHCPv6 server
 net-misc/radiusplugin 2.1a_beta 2.2: radius authentication and accounting support for OpenVPN.
 net-misc/rtsp-server 0.05-r1: Lightweight RTSP/RTP streaming media server
 net-misc/rtsp-simple-server 0.12.2: ready-to-use RTSP server and RTSP proxy
