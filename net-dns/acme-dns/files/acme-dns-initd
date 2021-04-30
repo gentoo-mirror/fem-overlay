@@ -1,0 +1,44 @@
+#!/sbin/openrc-run
+# Copyright 2021 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="acme-dns daemon"
+description="ACME-DNS server"
+command=/usr/bin/acme-dns
+command_args="-c ${ACME_DNS_CONFIG:-/etc/acme-dns/config.cfg}"
+command_user="acme-dns:acme-dns"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+: ${ACME_DNS_STDOUT_LOG:=/var/log/acme-dns.stdout.log}
+
+depend() {
+	use net
+}
+
+start_pre() {
+	einfo "Setting file capabilities"
+	setcap cap_net_bind_service=+ep ${command} \
+		|| return 1
+
+	einfo "Preparing log file"
+	touch ${ACME_DNS_STDOUT_LOG}
+	chown ${command_user} ${ACME_DNS_STDOUT_LOG} \
+		|| return 1
+
+	checkpath -d -m 700 -o ${command_user} /var/lib/acme-dns
+}
+
+start() {
+	ebegin "Starting acme-dns"
+	start-stop-daemon \
+		-x "${command}" \
+		-p "${pidfile}" \
+		-u "${command_user}" \
+		-b \
+		-m \
+		-w 100 \
+		-1 "${ACME_DNS_STDOUT_LOG}" \
+		-2 "${ACME_DNS_STDOUT_LOG}" \
+		-- ${command_args}
+	eend $?
+}

@@ -1,0 +1,6 @@
+# Path to ACME-DNS config file
+#ACME_DNS_CONFIG="/etc/acme-dns/config.cfg"
+
+# Path where ACME-DNS stdout should be logged
+# (ACME-DNS logs to stdout per default)
+#ACME_DNS_STDOUT_LOG="/var/log/acme-dns.stdout.log"
