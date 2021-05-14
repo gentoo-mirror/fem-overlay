@@ -1,5 +1,6 @@
 acct-group/acme-dns 1: System group: acme-dns
 acct-user/acme-dns 1: user for net-dns/acme-dns
+app-admin/fem-netbox-user-scripts 0.1: Scripts for NetBox users by FeM e.V.
 app-admin/reprepro 5.1.1 5.3.0: Debian APT repository creator and maintainer application
 app-backup/bontmia 0.15.1: An incremental network backup tool for snapshotting directories using rsync
 app-backup/sql-ssh-backup 1.8.1 1.8.2 1.8.3 1.9_beta5: Create MySQL- or PostgreSQL-Dumps via SSH using key-authentication.
@@ -26,6 +27,7 @@ dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
 dev-python/arubaos-client 0.2.2 9999: Library to interact with the ArubaOS REST API
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
+dev-python/fem-netbox-user-scripts-common 0.1: Common script modules for FeM e.V.'s NetBox
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 3.2.1-r1: Low-level library to interact with keepass databases (supports the v.4 format)
 dev-python/pynetbox 5.3.1 6.1.2: Python library to interact with the NetBox REST API
@@ -47,6 +49,7 @@ media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing M
 media-video/nageru 1.7.4-r1 1.9.3-r1: A modern free software video mixer
 media-video/ndi-sdk 4.6.2: NewTek NDI SDK
 media-video/ndi-sdk-embedded 4.5.3: NewTek NDI SDK
+media-video/srtrelay 9999: SRT relay server to distribute media streams to multiple clients
 media-video/voctomix 1.3 9999: Full-HD Software Live-Video-Mixer in python
 net-analyzer/fem-arubaos-nrpe-scripts 1.0.0 1.1.0 1.2.0 1.3.0 9999-r1: FeM NRPE scripts for ArubaOS monitoring
 net-analyzer/fem-nagios-plugins 1.1 9999: Nagios plugins written by FeM
