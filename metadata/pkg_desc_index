@@ -1,6 +1,6 @@
 acct-group/acme-dns 1: System group: acme-dns
 acct-user/acme-dns 1: user for net-dns/acme-dns
-app-admin/fem-netbox-user-scripts 0.1: Scripts for NetBox users by FeM e.V.
+app-admin/fem-netbox-user-scripts 0.1 0.2: Scripts for NetBox users by FeM e.V.
 app-admin/reprepro 5.1.1 5.3.0: Debian APT repository creator and maintainer application
 app-backup/bontmia 0.15.1 0.16: An incremental network backup tool for snapshotting directories using rsync
 app-backup/sql-ssh-backup 1.8.3 1.9_beta5 2.0: Create MySQL-, PostgreSQL- or MongoDB-Dumps via SSH using key-authentication.
@@ -26,7 +26,7 @@ dev-perl/XML-RPC-Fast 0.8: No description available
 dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
 dev-python/arubaos-client 0.2.2 9999: Library to interact with the ArubaOS REST API
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
-dev-python/fem-netbox-user-scripts-common 0.1: Common script modules for FeM e.V.'s NetBox
+dev-python/fem-netbox-user-scripts-common 0.1 0.2: Common script modules for FeM e.V.'s NetBox
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 3.2.1-r1: Low-level library to interact with keepass databases (supports the v.4 format)
 dev-python/pynetbox 5.3.1 6.1.2: Python library to interact with the NetBox REST API
