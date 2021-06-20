@@ -9,5 +9,5 @@ LICENSE=Apache-2.0
 RDEPEND=>=dev-python/numpy-1.12.0 >=dev-python/scipy-0.17.1 >=dev-python/matplotlib-2.0.0 >=dev-python/pandas-0.19.2 >=sci-libs/scikit-learn-0.18.1 >=dev-python/h5py-2.6.0
 SLOT=0
 SRC_URI=https://github.com/Netflix/vmaf/archive/v1.2.0.tar.gz
-_eclasses_=user-info	a2abd4e2f4c3b9b06d64bf1329359a02	user	26d8ce6329c43cbac965617f1c0627e2
+_eclasses_=user-info	8eda7e0ed7acb4b9678bea151579e154	user	851cc5d467389d7cfb5f6b33d575807b
 _md5_=dc0d3f2bb25af5c616985620baee4f17

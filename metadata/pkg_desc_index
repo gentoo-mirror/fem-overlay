@@ -34,7 +34,6 @@ dev-python/pynetbox 5.3.1 6.1.2: Python library to interact with the NetBox REST
 dev-python/pytimeparse 1.1.8: A small Python library to parse various kinds of time expressions
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 20.2.0: Structured Logging for Python
-mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
 media-libs/melted 9999: MLT Video Server
 media-libs/mlt 9999: Open source multimedia framework for television broadcasting
 media-plugins/gst-plugins-decklink 1.14.5: Decklink Plugin for Gstreamer
@@ -76,7 +75,6 @@ net-misc/radiusplugin 2.1a_beta 2.2: radius authentication and accounting suppor
 net-misc/rtsp-server 0.05-r1: Lightweight RTSP/RTP streaming media server
 net-misc/rtsp-simple-server 0.12.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
-net-wireless/eapol_test 0.6.9: WPA Supplicants's EAP test utility
 sci-electronics/ghdl 0.35: VHDL 2008/93/87 simulator
 sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
 sci-electronics/icarus 10.1: A free implementation of Verilog (IEEE-1364)
@@ -84,7 +82,6 @@ sci-electronics/verilator 3.918: Verilog compiler and simulator
 sci-electronics/vhd2vl 2.5: VHDL to Verilog Konverter
 sci-libs/vmaf 1.2.0 1.3.15 2.1.0: Perceptual video quality assessment based on multi-method fusion.
 sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
-sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.27: Linux kernel built with Gentoo patches
