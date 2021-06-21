@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=4
+EAPI=7
 
 inherit eutils user
 
@@ -20,14 +19,14 @@ RDEPEND="virtual/perl-Sys-Syslog
 	dev-perl/Net-DNS
 	>=mail-mta/postfix-2.1"
 
+PATCHES=(
+# See Bug #538902
+"${FILESDIR}/replace_net_dns_dn_expand.patch"
+)
+
 pkg_setup() {
 	enewgroup 'polw'
 	enewuser 'polw' -1 -1 -1 'polw'
-}
-
-src_prepare() {
-	# See Bug #538902
-	epatch "${FILESDIR}/replace_net_dns_dn_expand.patch"
 }
 
 src_compile() { :; }
