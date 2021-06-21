@@ -1,7 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-inherit eutils rpm versionator
+EAPI=7
+
+inherit eutils rpm
 
 DESCRIPTION="Adaptec(tm) Storage Manager"
 HOMEPAGE="http://www.adaptec.com/en-US/speed/raid/aac/sm/asm_linux_v4_30-16038_rpm.htm"
@@ -16,6 +18,8 @@ IUSE=""
 
 DEPEND="sys-libs/glibc"
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}"
 
 src_install() {
 	exeinto /usr/bin
