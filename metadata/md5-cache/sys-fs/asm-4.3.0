@@ -1,4 +1,4 @@
-BDEPEND=>=app-arch/rpm2targz-9.0.0.3g
+BDEPEND=app-arch/rpm2targz
 DEFINED_PHASES=install unpack
 DEPEND=sys-libs/glibc
 DESCRIPTION=Adaptec(tm) Storage Manager
@@ -11,5 +11,5 @@ RDEPEND=sys-libs/glibc
 RESTRICT=mirror strip
 SLOT=0
 SRC_URI=amd64? ( http://download.adaptec.com/raid/aac/sm/asm_linux_x64_v4.30-16038.rpm ) x86? ( http://download.adaptec.com/raid/aac/sm/asm_linux_v4.30-16038.rpm )
-_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	l10n	3c7381c56a184f0dd5ba3fb824808f30	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	9a53f21c753d823ba20a22f857c25cb4	estack	055c42df72f76a4f45ec92b35e83cd56	rpm	17ff2249b50738c17c3824b58c813a5b
+_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	ac3ee41ee2d31d8c41a77c0838320cc7	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	dab5d8ec471d025b79c9e6906bcf3bff	estack	055c42df72f76a4f45ec92b35e83cd56	rpm	142025d51eac82f782a2dcb4f04a4b12
 _md5_=6dfcf2dc6ca4835ec0611b7667eddae6
