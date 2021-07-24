@@ -29,7 +29,7 @@ dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that ma
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.1 0.2: Common script modules for FeM e.V.'s NetBox
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
-dev-python/pykeepass 3.2.1-r1: Low-level library to interact with keepass databases (supports the v.4 format)
+dev-python/pykeepass 4.0.1: Python library to interact with keepass databases (supports KDBX3 and KDBX4)
 dev-python/pynetbox 5.3.1 6.1.2: Python library to interact with the NetBox REST API
 dev-python/pytimeparse 1.1.8: A small Python library to parse various kinds of time expressions
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
