@@ -4,15 +4,19 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_7 python3_8 python3_9 )
-inherit git-r3 python-single-r1
+
+if [[ ${PV} == *9999 ]]; then
+	SCM="git-r3"
+fi
+inherit ${SCM:-} python-single-r1
 
 DESCRIPTION="FeM NRPE scripts for ArubaOS monitoring"
-HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
-SRC_URI=""
-EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
-
-if [[ ${PV} != *9999 ]]; then
-	EGIT_COMMIT="v${PV}"
+HOMEPAGE="https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins"
+if [[ ${PV} == *9999 ]]; then
+	SRC_URI=""
+	EGIT_REPO_URI="https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins.git"
+else
+	SRC_URI="https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins/-/archive/v${PV}/arubaos-monitoring-plugins-v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 LICENSE="MIT"
@@ -32,9 +36,13 @@ RDEPEND="
 DEPEND=""
 BDEPEND=""
 
+if [[ ${PV} != *9999 ]]; then
+	S="${WORKDIR}"/arubaos-monitoring-plugins-v${PV}
+fi
+
 src_install() {
-	exeinto /usr/$(get_libdir)/nagios/plugins
+	python_scriptinto /usr/$(get_libdir)/nagios/plugins
 	for plugin in *.py; do
-		doexe ${plugin}
+		python_doscript ${plugin}
 	done
 }
