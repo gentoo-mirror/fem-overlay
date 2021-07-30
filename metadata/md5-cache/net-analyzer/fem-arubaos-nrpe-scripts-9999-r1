@@ -2,7 +2,7 @@ BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=install setup unpack
 DESCRIPTION=FeM NRPE scripts for ArubaOS monitoring
 EAPI=7
-HOMEPAGE=https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git
+HOMEPAGE=https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins
 INHERIT=git-r3 python-single-r1
 IUSE=python_single_target_python3_8 python_single_target_python3_9
 LICENSE=MIT
@@ -11,4 +11,4 @@ RDEPEND=python_single_target_python3_8? ( dev-lang/python:3.8 >=dev-lang/python-
 REQUIRED_USE=^^ ( python_single_target_python3_8 python_single_target_python3_9 )
 SLOT=0
 _eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	python-utils-r1	2f5967e7ced9abfa71ff7b0ea8d61b3a	python-single-r1	73f113f91928e0d16bceb65ecbcd8e75
-_md5_=532aeccf2f952ae7be8baac2707c8181
+_md5_=8f692315e80f0c0b1c0329f2e35a2fd7
