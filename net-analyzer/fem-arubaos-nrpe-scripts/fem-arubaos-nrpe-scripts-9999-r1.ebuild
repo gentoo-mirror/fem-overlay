@@ -33,8 +33,8 @@ DEPEND=""
 BDEPEND=""
 
 src_install() {
-	exeinto /usr/$(get_libdir)/nagios/plugins
+	python_scriptinto /usr/$(get_libdir)/nagios/plugins
 	for plugin in *.py; do
-		doexe ${plugin}
+		python_doscript ${plugin}
 	done
 }
