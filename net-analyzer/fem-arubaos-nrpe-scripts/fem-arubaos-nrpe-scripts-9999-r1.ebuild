@@ -14,7 +14,7 @@ DESCRIPTION="FeM NRPE scripts for ArubaOS monitoring"
 HOMEPAGE="https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins"
 if [[ ${PV} == *9999 ]]; then
 	SRC_URI=""
-	EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/arubaos-nrpe-scripts.git"
+	EGIT_REPO_URI="https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins.git"
 else
 	SRC_URI="https://gitlab.fem-net.de/monitoring/arubaos-monitoring-plugins/-/archive/v${PV}/arubaos-monitoring-plugins-v${PV}.tar.gz -> ${P}.tar.gz"
 fi
