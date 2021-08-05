@@ -1,9 +1,9 @@
 # Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_7 python3_8 python3_9 )
+PYTHON_COMPAT=( python3_8 python3_9 python3_10 )
 inherit distutils-r1
 
 DESCRIPTION="Python library to interact with the NetBox REST API"
@@ -22,3 +22,7 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
+
+# Tests require pytest-docker, which is not present in ::gentoo or
+# ::fem-overlay
+RESTRICT="test"
