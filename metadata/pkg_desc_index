@@ -30,7 +30,7 @@ dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.1 0.2: Common script modules for FeM e.V.'s NetBox
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 4.0.1: Python library to interact with keepass databases (supports KDBX3 and KDBX4)
-dev-python/pynetbox 5.3.1 6.1.2: Python library to interact with the NetBox REST API
+dev-python/pynetbox 6.1.2: Python library to interact with the NetBox REST API
 dev-python/pytimeparse 1.1.8: A small Python library to parse various kinds of time expressions
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 20.2.0: Structured Logging for Python
