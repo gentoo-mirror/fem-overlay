@@ -27,7 +27,7 @@ dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
 dev-python/arubaos-client 0.2.2 9999: Library to interact with the ArubaOS REST API
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
-dev-python/fem-netbox-user-scripts-common 0.1 0.2: Common script modules for FeM e.V.'s NetBox
+dev-python/fem-netbox-user-scripts-common 0.2: Common script modules for FeM e.V.'s NetBox
 dev-python/gitlab 2.10.0: Python library to interact with the GitLab API
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 4.0.1: Python library to interact with keepass databases (supports KDBX3 and KDBX4)
