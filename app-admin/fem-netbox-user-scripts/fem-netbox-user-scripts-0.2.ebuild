@@ -4,13 +4,11 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{8..9} )
-inherit git-r3 python-single-r1
+inherit python-single-r1
 
 DESCRIPTION="Scripts for NetBox users by FeM e.V."
-HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/projects/NETBOX/repos/netbox-user-scripts/browse"
-SRC_URI=""
-EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/netbox/netbox-user-scripts.git"
-EGIT_COMMIT="v${PV}"
+HOMEPAGE="https://gitlab.fem-net.de/nexbox/netbox-user-scripts"
+SRC_URI="https://gitlab.fem-net.de/nexbox/netbox-user-scripts/-/archive/v${PV}/netbox-user-scripts-v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -34,6 +32,8 @@ RDEPEND="
 	)
 "
 BDEPEND=""
+
+S="${WORKDIR}/netbox-user-scripts-v${PV}"
 
 src_install() {
 	default
