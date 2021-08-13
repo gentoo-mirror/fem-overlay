@@ -1,0 +1,49 @@
+Title: fem-overlay moves to a new upstream repository
+Author: Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de>
+Posted: 2021-08-13
+Revision: 1
+News-Item-Format: 2.0
+
+The current FeM Bitbucket is being replaced with a GitLab instance. As such,
+the fem-overlay, whose upstream repository is currently located in the FeM
+Bitbucket [0], will also be moved to the GitLab instance.
+
+The new repository is:
+* https://gitlab.fem-net.de/gentoo/fem-overlay.git
+
+We will continue to mirror the fem-overlay to the old repository [0] until
+2021-10-31. After that day, it is no longer guaranteed that the old repository
+will be up to date and it will be removed some time later. Furthermore, the
+SVN mirror [1] will also be disabled.
+
+Depending on the overlay management tool being used (and if such a tool is
+being used at all), the repository URL in /etc/portage/repos.conf might have
+to be adjusted to match the new upstream URL. If in doubt, check
+/etc/portage/repos.conf for any occurences of the fem-overlay, e.g.:
+
+  $ grep -R fem-overlay /etc/portage/repos.conf
+
+If a line pops up with the old upstream clone URL [2], edit the corresponding
+file and insert the new upstream URL instead. If a line pops up, containing
+the GitHub mirror URL [3], the system is not affected by this change and
+nothing needs to be done.
+
+If the URL had to be changed in repos.conf, it has to be changed in the cloned
+repo as well. Assuming, the repository is cloned to /var/db/repos/fem-overlay,
+run the following:
+
+  # cd /var/db/repos/fem-overlay
+  # git remote set-url origin https://gitlab.fem-net.de/gentoo/fem-overlay.git
+
+Alternatively, you can just remove the repository so that the repository is
+freshly cloned upon the next emerge --sync:
+
+  # rm -r /var/db/repos/fem-overlay
+
+Afterwards syncing now fetches from the new upstream repository and further
+changes should not be necessary.
+
+[0] https://bitbucket.fem.tu-ilmenau.de/projects/GENTOO/repos/fem-overlay/browse
+[1] http://subversion.fem.tu-ilmenau.de/repository/fem-overlay/trunk/
+[2] https://bitbucket.fem.tu-ilmenau.de/scm/gentoo/fem-overlay.git
+[3] https://github.com/gentoo-mirror/fem-overlay.git
