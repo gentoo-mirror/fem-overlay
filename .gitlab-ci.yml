@@ -1,0 +1,39 @@
+image: gentoo/stage3
+
+stages:
+  - repoman
+  - lint
+
+default:
+  before_script:
+    - ./tools/sync_portage.sh
+
+repoman:
+  stage: repoman
+  script:
+    - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
+    - repoman full -x
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
+
+overlint:
+  stage: lint
+  script:
+    - emerge --quiet --noreplace app-portage/overlint
+    - overlint-cli .
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
+
+pkgcheck:
+  stage: lint
+  script:
+    - emerge --quiet --noreplace dev-util/pkgcheck
+    - pkgcheck scan --exit
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
