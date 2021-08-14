@@ -12,7 +12,7 @@ repoman:
   stage: repoman
   script:
     - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
-    - repoman full -x
+    - repoman full -x -j4
   cache:
     key: fem-overlay-gentoo-stage3
     paths:
