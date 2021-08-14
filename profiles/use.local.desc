@@ -161,9 +161,6 @@ net-dns/pdns:tinydns - Use a TinyDNS CDB database as backend.
 net-dns/pdns:tools - Build optional tools (dnsscan, dnsscope, etc..).
 net-dns/pdns-recursor:protobuf - Enable support for dev-libs/protobuf.
 net-misc/alfred:gps - Distributing GPS Information using a GPS device
-net-misc/icecast:kate - Add karaoke and text encapsulation support for Ogg files
-net-misc/icecast:logrotate - Install support files for app-admin/logrotate?
-net-misc/icecast:yp - Build support for yp public directory listings
 net-misc/kea:msg-compiler - Build message compiler
 net-misc/kea:openssl - Use dev-libs/openssl instead of Botan
 net-misc/kea:samples - Install sample configuration files
