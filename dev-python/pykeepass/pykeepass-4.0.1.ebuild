@@ -15,14 +15,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
+BDEPEND="
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/argon2-cffi[${PYTHON_USEDEP}]
 	dev-python/construct[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
 	dev-python/pycryptodome[${PYTHON_USEDEP}]
+	test? (
+		dev-python/future[${PYTHON_USEDEP}]
+		dev-python/construct[${PYTHON_USEDEP}]
+	)
 "
-RDEPEND="${DEPEND}"
 
 distutils_enable_tests unittest
 
