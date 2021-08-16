@@ -8,21 +8,30 @@ inherit distutils-r1
 
 DESCRIPTION="Python library to interact with keepass databases (supports KDBX3 and KDBX4)"
 HOMEPAGE="https://github.com/libkeepass/pykeepass"
-SRC_URI="https://github.com/libkeepass/${PN}/archive/refs/tags/${PV}.tar.gz"
+SRC_URI="https://github.com/libkeepass/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
+BDEPEND="
+	test? (
+		dev-python/lxml[${PYTHON_USEDEP}]
+		dev-python/construct[${PYTHON_USEDEP}]
+		dev-python/argon2-cffi[${PYTHON_USEDEP}]
+		dev-python/python-dateutil[${PYTHON_USEDEP}]
+		dev-python/pycryptodome[${PYTHON_USEDEP}]
+		dev-python/future[${PYTHON_USEDEP}]
+	)
+"
+RDEPEND="
 	dev-python/lxml[${PYTHON_USEDEP}]
-	dev-python/argon2-cffi[${PYTHON_USEDEP}]
 	dev-python/construct[${PYTHON_USEDEP}]
+	dev-python/argon2-cffi[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
 	dev-python/pycryptodome[${PYTHON_USEDEP}]
 "
-RDEPEND="${DEPEND}"
 
 distutils_enable_tests unittest
 
