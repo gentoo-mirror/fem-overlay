@@ -1,8 +1,8 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=6
+EAPI=8
 
 inherit autotools
 
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
+BDEPEND="
 	sys-devel/bison
 	sys-devel/flex
 	dev-util/gperf
@@ -27,9 +27,9 @@ S="${WORKDIR}/iverilog-${PV//./_}"
 
 src_prepare() {
 	default
-	eautoreconf
+	sh autoconf.sh
 }
 
 src_install() {
-	emake -j1 DESTDIR="${D}" install
+	emake DESTDIR="${D}" install
 }
