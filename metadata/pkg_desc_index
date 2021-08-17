@@ -78,7 +78,6 @@ net-misc/rtsp-simple-server 0.12.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 sci-electronics/ghdl 0.35: VHDL 2008/93/87 simulator
 sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
-sci-electronics/icarus 10.1: A free implementation of Verilog (IEEE-1364)
 sci-electronics/verilator 3.918: Verilog compiler and simulator
 sci-electronics/vhd2vl 2.5: VHDL to Verilog Konverter
 sci-libs/vmaf 1.2.0 1.3.15 2.1.0: Perceptual video quality assessment based on multi-method fusion.
