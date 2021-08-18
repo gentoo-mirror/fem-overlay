@@ -20,6 +20,7 @@ echo "${repo_conf}" > /etc/portage/repos.conf/gentoo.conf
 
 echo 'PORTAGE_BINHOST="https://dist-mirror.fem.tu-ilmenau.de/gentoobin/"' >> /etc/portage/make.conf
 echo 'FEATURES="getbinpkg"' >> /etc/portage/make.conf
+echo "MAKEOPTS=\"\${MAKEOPTS} -j$(nproc)\"" >> /etc/portage/make.conf
 
 mkdir -p tmp/repos
 ln -sf $(pwd)/tmp/repos /var/db/repos/gentoo
