@@ -2,15 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit git-r3
 
-EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/monitor/fem-nagios-plugins.git"
 if [[ ${PV} == 9999 ]]; then
+	EGIT_REPO_URI="https://gitlab.fem-net.de/monitoring/fem-nagios-plugins.git"
+	inherit git-r3
 	EGIT_BRANCH="master"
 	KEYWORDS=""
 else
-	EGIT_COMMIT="v${PV}"
+	SRC_URI="https://gitlab.fem-net.de/monitoring/fem-nagios-plugins/-/archive/v${PV}/fem-nagios-plugins-v${PV}.tar.gz"
 	KEYWORDS="~amd64 ~x86"
+	S="${WORKDIR}/${PN}-v${PV}"
 fi
 
 DESCRIPTION="Nagios plugins written by FeM"
