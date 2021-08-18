@@ -32,7 +32,7 @@ pkgcheck:
   stage: lint
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck
-    - pkgcheck scan --exit
+    - pkgcheck scan --exit --checks="-ManifestCheck"
   cache:
     key: fem-overlay-gentoo-stage3
     paths:
