@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: nginx-module.eclass
@@ -22,23 +22,24 @@ case ${EAPI:-0} in
 	*) die "This eclass only supports EAPI 7" ;;
 esac
 
-# @ECLASS-VARIABLE:	NGX_PV
+inherit toolchain-funcs
+
+# @ECLASS-VARIABLE: NGINX_PV
 # @DESCRIPTION:
-# Uses version cut of the first three parts of the version to determine the proposed nginx version.
+# Uses version cut of the first three parts of the version to determine the nginx version providing the module.
 # This version is used for SRC_URI, BDPEND and compiling process.
-NGX_PV=$(ver_cut 1-3)
+NGINX_PV=$(ver_cut 1-3)
 
 # @ECLASS-VARIABLE: MODULE_PV
 # @DESCRIPTION:
 # Uses version cut to get the version of the module.
-# Variable can uses for SRC_URI.
+# Variable can be used for SRC_URI of the nginx module.
 MODULE_PV=$(ver_cut 4-)
 
-BDPEND="=www-servers/nginx-${NGX_PV}:="
-SRC_URI="https://nginx.org/download/nginx-${NGX_PV}.tar.gz
-	"
+BDEPEND="~www-servers/nginx-${NGINX_PV}:="
+SRC_URI="https://nginx.org/download/nginx-${NGINX_PV}.tar.gz"
 
-S="${WORKDIR}/nginx-${NGX_PV}"
+S="${WORKDIR}/nginx-${NGINX_PV}"
 
 EXPORT_FUNCTIONS src_configure src_compile src_install
 
@@ -47,13 +48,12 @@ EXPORT_FUNCTIONS src_configure src_compile src_install
 # @DESCRIPTION:
 # Parses the configure from the original nginx binary by exicution 'nginx -V' and adds the package as dynamic module.
 nginx-module_src_configure() {
-	if [ `grep -c "\.[[:space:]]auto/module" ${WORKDIR}/${PN}-${MODULE_PV}/config` -eq 0 ]; then
+	if [ $(grep -c "\.[[:space:]]auto/module" "${WORKDIR}/${PN}-${MODULE_PV}/config") -eq 0 ]; then
 		die "module uses old unsupported static config file syntax: https://www.nginx.com/resources/wiki/extending/converting/"
 	fi
-
 	#grep nginx configure from nginx -V add drop all other external modules
-	NGX_ORIGIN_CONFIGURE=`nginx -V 2>&1 | grep "configure arguments:" | cut -d: -f2 | sed "s/--add-module=\([^\s]\)*\s/ /"`
-	./configure ${NGX_ORIGIN_CONFIGURE} --add-dynamic-module="../${PN}-${MODULE_PV}" "$@" || die "configure failed"
+	NGINX_ORIGIN_CONFIGURE=$(nginx -V 2>&1 | grep "configure arguments:" | cut -d: -f2 | sed "s/--add-module=\([^\s]\)*\s/ /")
+	./configure ${NGINX_ORIGIN_CONFIGURE} --add-dynamic-module="../${PN}-${MODULE_PV}" "$@" || die "configure failed"
 }
 
 # @FUNCTION: nginx-module_src_compile
@@ -61,14 +61,16 @@ nginx-module_src_configure() {
 # @DESCRIPTION:
 # Runs 'make modules' to only build our package module.
 nginx-module_src_compile() {
-	emake modules "$@"
+	# https://bugs.gentoo.org/286772
+	export LANG=C LC_ALL=C
+	emake modules "$@" CC="$(tc-getCC)" LINK="$(tc-getCC) ${LDFLAGS}" OTHERLDFLAGS="${LDFLAGS}"
 }
 
 # @FUNCTION: nginx-module_src_install
 # @DESCRIPTION:
 # Parses the module config file to get the so file name and install the shared object file to '/usr/$(get_libdir)/nginx/modules'
 nginx-module_src_install() {
-	NGX_MODULE_NAME=`grep ${WORKDIR}/${PN}-${MODULE_PV}/config -e "ngx_addon_name" | cut -d= -f2`
+	NGINX_MODULE_NAME=$(grep ${WORKDIR}/${PN}-${MODULE_PV}/config -e "ngx_addon_name" | cut -d= -f2)
 	exeinto /usr/$(get_libdir)/nginx/modules
-	doexe ${S}/objs/${NGX_MODULE_NAME}.so
+	doexe ${S}/objs/${NGINX_MODULE_NAME}.so
 }
