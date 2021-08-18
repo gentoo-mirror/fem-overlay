@@ -1,14 +1,16 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit eutils user git-r3
+inherit git-r3
 
 EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/monitor/fem-nagios-plugins.git"
 if [[ ${PV} == 9999 ]]; then
 	EGIT_BRANCH="master"
+	KEYWORDS=""
 else
 	EGIT_COMMIT="v${PV}"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 DESCRIPTION="Nagios plugins written by FeM"
@@ -16,10 +18,12 @@ HOMEPAGE="http://fem.tu-ilmenau.de"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc lvm xen net_traffic"
 
-DEPEND="bandwidth? ( dev-perl/Net-SNMP ) \
+DEPEND="
+		acct-group/nagios
+		acct-user/nagios
+		bandwidth? ( dev-perl/Net-SNMP ) \
 		raid? ( virtual/perl-Getopt-Long ) \
 		sensors? ( virtual/perl-Getopt-Long ) \
 		uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) \
@@ -31,11 +35,6 @@ RESTRICT="test"
 RDEPEND="${DEPEND}"
 
 PLUGIN_LIST=""
-
-pkg_setup() {
-	enewgroup nagios
-	enewuser nagios -1 /bin/bash /var/nagios/home nagios
-}
 
 src_install () {
 	if use bandwidth; then
