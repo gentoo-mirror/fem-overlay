@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -13,7 +13,7 @@ EGIT_COMMIT="d008be68255b192f0354c523938c40643e39795f"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~sparc ~x86"
-IUSE="gnutls ipv6 ldap libressl mysql dns fping game postgres radius samba snmp ssh +ssl"
+IUSE="gnutls ipv6 ldap mysql dns fping game postgres radius samba snmp ssh +ssl"
 
 # Most of the plugins use automagic dependencies, i.e. the plugin will
 # get built if the binary it uses is installed. For example, check_snmp
@@ -29,10 +29,7 @@ REAL_DEPEND="dev-lang/perl
 	mysql? ( dev-db/mysql-connector-c:= )
 	postgres? ( dev-db/postgresql:= )
 	ssl? (
-		!gnutls? (
-			!libressl? ( dev-libs/openssl:0= )
-			libressl? ( dev-libs/libressl:= )
-		)
+		!gnutls? ( dev-libs/openssl:0= )
 		gnutls? ( net-libs/gnutls )
 	)
 	radius? ( net-dialup/freeradius-client )"
