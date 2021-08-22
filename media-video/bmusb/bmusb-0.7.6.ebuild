@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -19,10 +19,10 @@ IUSE=""
 DEPEND=">=virtual/libusb-1-r2"
 RDEPEND="${DEPEND}"
 
-#src_prepare() {
-#	eapply_user
-#	eapply "${FILESDIR}/${P}-makefile.patch"
-#}
+src_prepare() {
+	eapply_user
+	eapply "${FILESDIR}/bmusb-0.7.6-respect-cflags-ldflags.patch"
+}
 
 src_install() {
 	emake DESTDIR="${D}" PREFIX="/usr" LIBDIR="/usr/$(get_libdir)" install
