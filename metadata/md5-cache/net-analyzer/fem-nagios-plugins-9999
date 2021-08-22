@@ -1,16 +1,15 @@
 BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
-DEFINED_PHASES=install setup unpack
-DEPEND=bandwidth? ( dev-perl/Net-SNMP ) raid? ( virtual/perl-Getopt-Long ) sensors? ( virtual/perl-Getopt-Long ) uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) xen? ( app-emulation/xen-tools )
+DEFINED_PHASES=install unpack
+DEPEND=acct-group/nagios acct-user/nagios bandwidth? ( dev-perl/Net-SNMP ) raid? ( virtual/perl-Getopt-Long ) sensors? ( virtual/perl-Getopt-Long ) uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) xen? ( app-emulation/xen-tools )
 DESCRIPTION=Nagios plugins written by FeM
 EAPI=7
 HOMEPAGE=http://fem.tu-ilmenau.de
-INHERIT=eutils user git-r3
+INHERIT=git-r3
 IUSE=bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc lvm xen net_traffic
-KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 PROPERTIES=live
-RDEPEND=bandwidth? ( dev-perl/Net-SNMP ) raid? ( virtual/perl-Getopt-Long ) sensors? ( virtual/perl-Getopt-Long ) uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) xen? ( app-emulation/xen-tools )
+RDEPEND=acct-group/nagios acct-user/nagios bandwidth? ( dev-perl/Net-SNMP ) raid? ( virtual/perl-Getopt-Long ) sensors? ( virtual/perl-Getopt-Long ) uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) xen? ( app-emulation/xen-tools )
 RESTRICT=test
 SLOT=0
-_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	ac3ee41ee2d31d8c41a77c0838320cc7	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	dab5d8ec471d025b79c9e6906bcf3bff	user-info	2e75eaea3582b052ec16d9d5aa74ced3	user	1033b6bed7cf367c4507ea9a3ff503d0	git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
-_md5_=7d50aaca121ad0b379ccae254eefc861
+_eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
+_md5_=a06ae4fdf74c470a290d8f6047c2d67e

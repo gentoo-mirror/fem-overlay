@@ -1,15 +1,14 @@
 DEFINED_PHASES=compile configure install postinst preinst
-DEPEND=libressl? ( dev-libs/libressl:= ) !libressl? ( dev-libs/openssl:= ) >=dev-libs/boost-1.35:= botan? ( dev-libs/botan:2= ) lua? ( !luajit? ( dev-lang/lua:= ) luajit? ( dev-lang/luajit:= ) ) mysql? ( dev-db/mysql-connector-c ) postgres? ( dev-db/postgresql:= ) ldap? ( >=net-nds/openldap-2.0.27-r4 ) sqlite? ( dev-db/sqlite:3 ) opendbx? ( dev-db/opendbx ) geoip? ( >=dev-cpp/yaml-cpp-0.5.1:= dev-libs/geoip ) tinydns? ( >=dev-db/tinycdb-0.77 ) protobuf? ( dev-libs/protobuf ) virtual/pkgconfig doc? ( app-doc/doxygen )
+DEPEND=>=dev-libs/boost-1.35:= dev-libs/openssl:= botan? ( dev-libs/botan:2= ) lua? ( !luajit? ( dev-lang/lua:= ) luajit? ( dev-lang/luajit:= ) ) mysql? ( dev-db/mysql-connector-c ) postgres? ( dev-db/postgresql:= ) ldap? ( >=net-nds/openldap-2.0.27-r4 ) sqlite? ( dev-db/sqlite:3 ) opendbx? ( dev-db/opendbx ) geoip? ( >=dev-cpp/yaml-cpp-0.5.1:= dev-libs/geoip ) tinydns? ( >=dev-db/tinycdb-0.77 ) protobuf? ( dev-libs/protobuf ) virtual/pkgconfig doc? ( app-doc/doxygen )
 DESCRIPTION=The PowerDNS Daemon
 EAPI=7
 HOMEPAGE=https://www.powerdns.com/
 INHERIT=eutils multilib user toolchain-funcs
-IUSE=botan debug doc geoip ldap libressl lua luajit mydns mysql opendbx postgres protobuf remote sqlite systemd tools tinydns test
-KEYWORDS=~amd64 ~x86
+IUSE=botan debug doc geoip ldap lua luajit mydns mysql opendbx postgres protobuf remote sqlite systemd tools tinydns test
 LICENSE=GPL-2
-RDEPEND=libressl? ( dev-libs/libressl:= ) !libressl? ( dev-libs/openssl:= ) >=dev-libs/boost-1.35:= botan? ( dev-libs/botan:2= ) lua? ( !luajit? ( dev-lang/lua:= ) luajit? ( dev-lang/luajit:= ) ) mysql? ( dev-db/mysql-connector-c ) postgres? ( dev-db/postgresql:= ) ldap? ( >=net-nds/openldap-2.0.27-r4 ) sqlite? ( dev-db/sqlite:3 ) opendbx? ( dev-db/opendbx ) geoip? ( >=dev-cpp/yaml-cpp-0.5.1:= dev-libs/geoip ) tinydns? ( >=dev-db/tinycdb-0.77 ) protobuf? ( dev-libs/protobuf )
+RDEPEND=>=dev-libs/boost-1.35:= dev-libs/openssl:= botan? ( dev-libs/botan:2= ) lua? ( !luajit? ( dev-lang/lua:= ) luajit? ( dev-lang/luajit:= ) ) mysql? ( dev-db/mysql-connector-c ) postgres? ( dev-db/postgresql:= ) ldap? ( >=net-nds/openldap-2.0.27-r4 ) sqlite? ( dev-db/sqlite:3 ) opendbx? ( dev-db/opendbx ) geoip? ( >=dev-cpp/yaml-cpp-0.5.1:= dev-libs/geoip ) tinydns? ( >=dev-db/tinycdb-0.77 ) protobuf? ( dev-libs/protobuf )
 REQUIRED_USE=mydns? ( mysql )
 SLOT=0
 SRC_URI=https://downloads.powerdns.com/releases/pdns-4.0.9.tar.bz2
 _eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	ac3ee41ee2d31d8c41a77c0838320cc7	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	dab5d8ec471d025b79c9e6906bcf3bff	multilib	97566c1a256d07b00848aa767e38a352	toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	user-info	2e75eaea3582b052ec16d9d5aa74ced3	user	1033b6bed7cf367c4507ea9a3ff503d0
-_md5_=8b0ef5d2bc441c830cd1588b456876bc
+_md5_=651c7d272e38a0a422b817ea12c080d1

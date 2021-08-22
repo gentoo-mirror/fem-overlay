@@ -38,12 +38,12 @@ mail-filter/policyd-weight 0.1.15.2-r2: Weighted Policy daemon for Postfix
 media-libs/melted 9999: MLT Video Server
 media-libs/mlt 9999: Open source multimedia framework for television broadcasting
 media-plugins/gst-plugins-decklink 1.14.5: Decklink Plugin for Gstreamer
-media-tv/mumudvb 2.0.0: Multi Multicast DVB to redistribute streams from DVB or ATSC
+media-tv/mumudvb 2.0.0 20210619: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
 media-video/decklink-drivers 10.9.11 11.4 11.6: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
-media-video/ffmpeg 3.4 3.4.4 4.0.2 4.2.2 4.3.1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
+media-video/ffmpeg 4.2.2 4.3.1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
 media-video/flussonic 3.69.19: Flussonic (Erlyvideo 3) media streaming server
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
 media-video/nageru 2.0.1: A modern free software video mixer
@@ -52,7 +52,7 @@ media-video/ndi-sdk-embedded 4.5.3: NewTek NDI SDK
 media-video/srtrelay 9999: SRT relay server to distribute media streams to multiple clients
 media-video/voctomix 1.3 9999: Full-HD Software Live-Video-Mixer in python
 net-analyzer/fem-arubaos-nrpe-scripts 1.3.0 9999-r1: FeM NRPE scripts for ArubaOS monitoring
-net-analyzer/fem-nagios-plugins 1.1 9999: Nagios plugins written by FeM
+net-analyzer/fem-nagios-plugins 1.1 2.0 9999: Nagios plugins written by FeM
 net-analyzer/graphite-api 1.1.5-r2: Graphite-web, without the interface. Just the rendering HTTP API.
 net-analyzer/icinga-classicui 1.13.3 1.14.2: Icinca ClassicUI for Icinga2
 net-analyzer/monitoring-plugins 2.2_pre20200130-r2: 50+ standard plugins for Icinga, Naemon, Nagios, Shinken, Sensu
@@ -77,7 +77,7 @@ net-misc/rtsp-simple-server 0.17.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 sci-electronics/ghdl 0.35: VHDL 2008/93/87 simulator
 sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
-sci-electronics/verilator 3.918: Verilog compiler and simulator
+sci-electronics/verilator 4.210: Verilog compiler and simulator
 sci-electronics/vhd2vl 2.5: VHDL to Verilog Konverter
 sci-libs/vmaf 1.3.15 2.2.0: Perceptual video quality assessment based on multi-method fusion.
 sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
@@ -86,6 +86,6 @@ sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS 
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.27: Linux kernel built with Gentoo patches
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
-www-nginx/nginx-vod-module 1.18.0.1.25 1.18.0.1.27: NGINX-based MP4 Repackager
+www-nginx/nginx-vod-module 1.20.1.1.25 1.20.1.1.27: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple
