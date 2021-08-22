@@ -7,7 +7,7 @@ inherit nginx-module
 
 DESCRIPTION="NGINX-based MP4 Repackager"
 HOMEPAGE="https://github.com/kaltura/nginx-vod-module"
-SRC_URI+="https://github.com/kaltura/nginx-vod-module/archive/${MODULE_PV}.tar.gz -> ${PN}-${MODULE_PV}.tar.gz"
+SRC_URI+=" https://github.com/kaltura/nginx-vod-module/archive/${MODULE_PV}.tar.gz -> ${PN}-${MODULE_PV}.tar.gz"
 
 LICENSE="AGPL-3"
 SLOT="0"

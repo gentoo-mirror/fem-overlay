@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
@@ -11,21 +11,20 @@ SRC_URI="https://downloads.powerdns.com/releases/${P/_/-}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 # other possible flags:
 # db2: we lack the dep
 # oracle: dito (need Oracle Client Libraries)
 # xdb: (almost) dead, surely not supported
 
-IUSE="botan debug doc geoip ldap libressl lua luajit mydns mysql opendbx postgres protobuf remote sqlite systemd tools tinydns test"
+IUSE="botan debug doc geoip ldap lua luajit mydns mysql opendbx postgres protobuf remote sqlite systemd tools tinydns test"
 
 REQUIRED_USE="mydns? ( mysql )"
 
 RDEPEND="
-	libressl? ( dev-libs/libressl:= )
-	!libressl? ( dev-libs/openssl:= )
 	>=dev-libs/boost-1.35:=
+	dev-libs/openssl:=
 	botan? ( dev-libs/botan:2= )
 	lua? (
 		!luajit? ( dev-lang/lua:= )

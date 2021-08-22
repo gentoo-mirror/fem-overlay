@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="7"
@@ -32,7 +32,7 @@ IUSE="${IUSE} acl bcmath berkdb bzip2 calendar cdb cjk
 	coverage crypt +ctype curl debug
 	enchant exif +fileinfo +filter firebird
 	flatfile ftp gd gdbm gmp +hash +iconv imap inifile
-	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit libressl
+	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit
 	mhash mssql mysql mysqli nls
 	oci8-instant-client odbc +opcache pcntl pdo +phar +posix postgres qdbm
 	readline recode selinux +session session-mm sharedmem
@@ -86,10 +86,7 @@ COMMON_DEPEND="
 	soap? ( >=dev-libs/libxml2-2.6.8 )
 	spell? ( >=app-text/aspell-0.50 )
 	sqlite? ( >=dev-db/sqlite-3.7.6.3 )
-	ssl? (
-		!libressl? ( dev-libs/openssl:0= )
-		libressl? ( dev-libs/libressl:0= )
-	)
+	ssl? ( dev-libs/openssl:0= )
 	tidy? ( || ( app-text/tidy-html5 app-text/htmltidy ) )
 	truetype? ( =media-libs/freetype-2* )
 	unicode? ( dev-libs/oniguruma:= )
