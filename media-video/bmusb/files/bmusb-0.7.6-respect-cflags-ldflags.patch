@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 5160e83..c962572 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ PKG_CONFIG ?= pkg-config
+-CXXFLAGS := -std=gnu++14 -O2 -Wall -I. -g $(shell $(PKG_CONFIG) libusb-1.0 --cflags) -pthread
+-LDFLAGS := $(shell $(PKG_CONFIG) libusb-1.0 --libs) -pthread
++CXXFLAGS := -std=gnu++14 -O2 -Wall -I. -g $(shell $(PKG_CONFIG) libusb-1.0 --cflags) -pthread $(CXXFLAGS)
++LDFLAGS := $(shell $(PKG_CONFIG) libusb-1.0 --libs) -pthread $(LDFLAGS)
+ AR := ar
+ LN := ln
+ RANLIB := ranlib
