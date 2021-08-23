@@ -8,7 +8,7 @@ inherit distutils-r1
 
 DESCRIPTION="Common script modules for FeM e.V.'s NetBox"
 HOMEPAGE="https://gitlab.fem-net.de/nexbox/netbox-user-scripts"
-SRC_URI="https://gitlab.fem-net.de/nexbox/netbox-user-scripts/-/archive/v${PV}/netbox-user-scripts-v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://gitlab.fem-net.de/nexbox/netbox-user-scripts/-/archive/v${PV}/netbox-user-scripts-v${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
