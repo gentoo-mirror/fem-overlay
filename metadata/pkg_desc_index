@@ -65,8 +65,6 @@ net-dns/pdns-recursor 4.0.9: The PowerDNS Recursor
 net-im/matterhorn-bin 50200.12.0-r1 50200.13.0: Terminal based Mattermost client
 net-im/xmppc 0.1.0: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
-net-misc/alfred 2014.3.0 9999: Almighty Lightweight Fact Remote Exchange Daemon
-net-misc/alfred-json 0.3.1 9999: JSON-Client for Almighty Lightweight Fact Remote Exchange Daemon
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/fastd 14: Fast and secure tunneling daemon with very small binary
 net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in standard web server like format

@@ -158,7 +158,6 @@ net-dns/pdns:remote - Use a generic socket or pipe as a backend (via JSON RPC re
 net-dns/pdns:tinydns - Use a TinyDNS CDB database as backend.
 net-dns/pdns:tools - Build optional tools (dnsscan, dnsscope, etc..).
 net-dns/pdns-recursor:protobuf - Enable support for dev-libs/protobuf.
-net-misc/alfred:gps - Distributing GPS Information using a GPS device
 net-misc/kea:msg-compiler - Build message compiler
 net-misc/kea:openssl - Use dev-libs/openssl instead of Botan
 net-misc/kea:samples - Install sample configuration files
