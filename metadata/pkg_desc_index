@@ -1,5 +1,7 @@
 acct-group/acme-dns 1: System group: acme-dns
 acct-user/acme-dns 1: user for net-dns/acme-dns
+app-admin/admindb-python-scripts 1.0.1: Python utility scripts for use with FeM's AdminDB2
+app-admin/fem-arubawlan-python-scripts 1.0.0: Python utility scripts for FeM's Aruba WLAN system
 app-admin/fem-netbox-user-scripts 0.2: Scripts for NetBox users by FeM e.V.
 app-admin/reprepro 5.1.1 5.3.0: Debian APT repository creator and maintainer application
 app-backup/bontmia 0.15.1 0.16: An incremental network backup tool for snapshotting directories using rsync
@@ -22,6 +24,7 @@ dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
 dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8: No description available
 dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
+dev-python/admindb-dbhandler 1.0.0: Python wrapper for interactions with FeM's AdminDB
 dev-python/arubaos-client 0.2.2 0.2.3 9999: Library to interact with the ArubaOS REST API
 dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
