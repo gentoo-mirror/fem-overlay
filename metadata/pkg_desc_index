@@ -61,7 +61,7 @@ net-analyzer/nagios-plugins-extended 0.7.9: Nagios 0.7.9 plugins - Additional Ic
 net-dns/acme-dns 0.8: Limited DNS server with RESTful API to handle ACME DNS challenges securely
 net-dns/pdns 4.0.9: The PowerDNS Daemon
 net-dns/pdns-recursor 4.0.9: The PowerDNS Recursor
-net-im/matterhorn-bin 50200.12.0-r1 50200.13.0: Terminal based Mattermost client
+net-im/matterhorn-bin 50200.13.0: Terminal based Mattermost client
 net-im/xmppc 0.1.0: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
