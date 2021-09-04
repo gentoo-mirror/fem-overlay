@@ -12,7 +12,7 @@ SRC_URI="https://github.com/matterhorn-chat/${MY_PN}/releases/download/${PV}/${M
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="-* ~amd64"
+KEYWORDS="-* amd64"
 
 DEPEND=""
 RDEPEND="
