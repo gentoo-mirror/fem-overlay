@@ -117,8 +117,8 @@ src_install () {
 	done
 
 	chown -R nagios:nagios "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chown of ${D}usr/$(get_libdir)/nagios/plugins"
+		|| die "Failed chown of ${D}/usr/$(get_libdir)/nagios/plugins"
 
 	chmod -R o-rwx "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chmod of ${D}usr/$(get_libdir)/nagios/plugins"
+		|| die "Failed chmod of ${D}/usr/$(get_libdir)/nagios/plugins"
 }

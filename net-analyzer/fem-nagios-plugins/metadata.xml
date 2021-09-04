@@ -25,6 +25,4 @@
 	<flag name="lvm">add plugins check_vg_size check_lvm_cache</flag>
 	<flag name="net_traffic">add plugin check_net_traffic</flag>
 </use>
-<longdescription lang="en">
-</longdescription>
 </pkgmetadata>
