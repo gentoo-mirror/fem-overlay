@@ -12,4 +12,4 @@ RDEPEND=acct-group/nagios acct-user/nagios bandwidth? ( dev-perl/Net-SNMP ) raid
 RESTRICT=test
 SLOT=0
 _eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
-_md5_=a06ae4fdf74c470a290d8f6047c2d67e
+_md5_=7f553b97a045928940c5ec0a903d8cd5
