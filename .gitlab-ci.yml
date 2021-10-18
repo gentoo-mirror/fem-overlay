@@ -46,7 +46,7 @@ overlint:
   rules:
     - when: always
 
-pkgcheck:
+pkgcheck_all:
   stage: pkgcheck
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck
@@ -56,13 +56,13 @@ pkgcheck:
     paths:
       - ./tmp
   needs: []
-  only: [master]
+  except: [merge_requests]
 
 pkgcheck_commits:
   stage: pkgcheck
   script:
-    - emerge --quiet --noreplace dev-util/pkgcheck
-    - pkgcheck scan --exit --commits
+    - emerge --quiet --noreplace dev-util/pkgcheck dev-vcs/git
+    - pkgcheck scan --exit --commits origin/master..HEAD
   cache:
     key: fem-overlay-gentoo-stage3
     paths:
