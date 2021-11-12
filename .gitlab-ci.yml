@@ -2,7 +2,8 @@ image: gentoo/stage3
 
 stages:
   - repoman
-  - lint
+  - overlint
+  - pkgcheck
 
 default:
   before_script:
@@ -17,9 +18,10 @@ repoman:
     key: fem-overlay-gentoo-stage3
     paths:
       - ./tmp
+  needs: []
 
 overlint:
-  stage: lint
+  stage: overlint
   script:
     - emerge --quiet --noreplace app-portage/overlint
     - overlint-cli .
@@ -27,9 +29,10 @@ overlint:
     key: fem-overlay-gentoo-stage3
     paths:
       - ./tmp
+  needs: []
 
 pkgcheck:
-  stage: lint
+  stage: pkgcheck
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck
     - pkgcheck scan --exit --checks="-ManifestCheck"
@@ -37,3 +40,4 @@ pkgcheck:
     key: fem-overlay-gentoo-stage3
     paths:
       - ./tmp
+  needs: []
