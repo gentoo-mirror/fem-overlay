@@ -19,6 +19,19 @@ repoman:
     paths:
       - ./tmp
   needs: []
+  only: [master]
+
+repoman_commits:
+  stage: repoman
+  script:
+    - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
+    - ./tools/repoman_changed_files.sh
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
+  needs: []
+  only: [merge_requests]
 
 overlint:
   stage: overlint
@@ -30,6 +43,8 @@ overlint:
     paths:
       - ./tmp
   needs: []
+  rules:
+    - when: always
 
 pkgcheck:
   stage: pkgcheck
@@ -41,3 +56,16 @@ pkgcheck:
     paths:
       - ./tmp
   needs: []
+  only: [master]
+
+pkgcheck_commits:
+  stage: pkgcheck
+  script:
+    - emerge --quiet --noreplace dev-util/pkgcheck
+    - pkgcheck scan --exit --commits
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
+  needs: []
+  only: [merge_requests]
