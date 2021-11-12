@@ -9,7 +9,7 @@ default:
   before_script:
     - ./tools/sync_portage.sh
 
-repoman:
+repoman_all:
   stage: repoman
   script:
     - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
@@ -19,7 +19,7 @@ repoman:
     paths:
       - ./tmp
   needs: []
-  only: [master]
+  except: [merge_requests]
 
 repoman_commits:
   stage: repoman
