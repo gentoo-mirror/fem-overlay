@@ -9,7 +9,7 @@ default:
   before_script:
     - ./tools/sync_portage.sh
 
-repoman:
+repoman_all:
   stage: repoman
   script:
     - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
@@ -19,6 +19,19 @@ repoman:
     paths:
       - ./tmp
   needs: []
+  except: [merge_requests]
+
+repoman_commits:
+  stage: repoman
+  script:
+    - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
+    - ./tools/repoman_changed_files.sh
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
+  needs: []
+  only: [merge_requests]
 
 overlint:
   stage: overlint
@@ -30,8 +43,10 @@ overlint:
     paths:
       - ./tmp
   needs: []
+  rules:
+    - when: always
 
-pkgcheck:
+pkgcheck_all:
   stage: pkgcheck
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck
@@ -41,3 +56,16 @@ pkgcheck:
     paths:
       - ./tmp
   needs: []
+  except: [merge_requests]
+
+pkgcheck_commits:
+  stage: pkgcheck
+  script:
+    - emerge --quiet --noreplace dev-util/pkgcheck dev-vcs/git
+    - pkgcheck scan --exit --commits origin/master..HEAD
+  cache:
+    key: fem-overlay-gentoo-stage3
+    paths:
+      - ./tmp
+  needs: []
+  only: [merge_requests]
