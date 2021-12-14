@@ -1,0 +1,12 @@
+# Log file name
+LOG_FILE="/var/log/jamulus"
+# Use multithreading
+MULTITHREADING=true
+# Maximum number of channels
+MAX_CHANNELS="128"
+# Port to listen on
+PORT="6543"
+# Address of the central server ("localhost" to be the central server)
+CENTRAL_SERVER="jamulus.fischvolk.de"
+# Info of this server
+SERVER_INFO="[name];[city];[country as QLocale ID]"
