@@ -37,6 +37,7 @@ dev-python/structlog 20.2.0: Structured Logging for Python
 media-libs/melted 9999: MLT Video Server
 media-libs/mlt 9999: Open source multimedia framework for television broadcasting
 media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
+media-sound/jamulus 3.8.1: Internet jam session software
 media-tv/mumudvb 2.0.0 20210619: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards

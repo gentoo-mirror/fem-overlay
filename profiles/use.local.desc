@@ -51,6 +51,7 @@ media-libs/mlt:python - Build SWIG bindings for Python
 media-libs/mlt:rtaudio - Builds rtaudio consumer for native audio support on multiple platforms
 media-libs/mlt:rubberband - Enable audio pitch-shifting using media-libs/rubberband
 media-libs/mlt:vidstab - Enabled video stabilization with media-libs/vidstab
+media-sound/jamulus:headless - Build headless components only
 media-video/decklink-drivers:autostart - Add DesktopVideoHelper to autostart
 media-video/decklink-drivers:headers - Install Decklink API headers.
 media-video/ffmpeg:amr - Enables Adaptive Multi-Rate Audio support
