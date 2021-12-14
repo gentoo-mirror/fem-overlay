@@ -9,7 +9,7 @@ die() {
 	exit 1
 }
 
-dirs="$(git diff ${COMPARE_TO} --name-only | xargs dirname | grep -v "\." | uniq | grep -E "/" | xargs)"
+dirs="$(git diff ${COMPARE_TO} --name-only | xargs dirname | grep -v "\." | uniq | grep -E "^[^/]*/[^/]*$" | uniq | xargs)"
 exit_code=0
 failed_packages=()
 
