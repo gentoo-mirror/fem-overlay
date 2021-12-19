@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS=""
 
 DEPEND="
-	net-libs/srt
+	>=net-libs/srt-1.4.2:=
 "
 RDEPEND="${DEPEND}"
 BDEPEND=""
