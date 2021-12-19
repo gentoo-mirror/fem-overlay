@@ -1,13 +1,13 @@
 BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install unpack
-DEPEND=net-libs/srt
+DEPEND=>=net-libs/srt-1.4.2:=
 DESCRIPTION=SRT relay server to distribute media streams to multiple clients
 EAPI=7
 HOMEPAGE=https://github.com/voc/srtrelay
 INHERIT=git-r3
 LICENSE=MIT
 PROPERTIES=live
-RDEPEND=net-libs/srt
+RDEPEND=>=net-libs/srt-1.4.2:=
 SLOT=0
 _eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
-_md5_=788c513ce14ebe8cb41b07a42da8b4ad
+_md5_=4ad5b3f6e9988c4bc3cb570fb6441a9f
