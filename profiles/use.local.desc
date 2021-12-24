@@ -42,6 +42,10 @@ dev-lang/php:xmlreader - Enable XMLReader support
 dev-lang/php:xmlwriter - Enable XMLWriter support
 dev-lang/php:xslt - Enable the XSL extension
 dev-perl/XML-RPC-Fast:anyevent - Add support for AnyEvent event loop library
+media-libs/gst-plugins-bad:bzip2 - Enable bzip2 encoder/decoder plugin
+media-libs/gst-plugins-bad:egl - Enable EGL support
+media-libs/gst-plugins-bad:fdk - Enable Fraunhofer AAC audio codec support
+media-libs/gst-plugins-bad:gles2 - Enable GLES2 support
 media-libs/mlt:compressed-lumas - Compress the luma files in png.
 media-libs/mlt:decklink - Build support for Blackmagic DeckLink devices
 media-libs/mlt:frei0r - Build the module for media-plugins/frei0r-plugins

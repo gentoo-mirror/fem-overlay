@@ -34,6 +34,7 @@ dev-python/pykeepass 4.0.1: Python library to interact with keepass databases (s
 dev-python/pynetbox 6.1.2 6.4.0: Python library to interact with the NetBox REST API
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 20.2.0: Structured Logging for Python
+media-libs/gst-plugins-bad 1.18.4-r2: Less plugins for GStreamer
 media-libs/melted 9999: MLT Video Server
 media-libs/mlt 9999: Open source multimedia framework for television broadcasting
 media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
