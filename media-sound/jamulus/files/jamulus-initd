@@ -1,10 +1,10 @@
 #!/sbin/openrc-run
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 name="Jamulus server"
 description="Internet jam session server"
-command=/usr/bin/jamulus
+command=/usr/bin/Jamulus
 command_args="-s -n -p ${PORT} -e ${CENTRAL_SERVER} -o ${SERVER_INFO} -l ${LOG_FILE} -u ${MAX_CHANNELS}"
 pid_file="/run/jamulus.pid"
 
