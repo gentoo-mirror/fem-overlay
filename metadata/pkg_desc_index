@@ -1,5 +1,7 @@
 acct-group/acme-dns 1: System group: acme-dns
+acct-group/jamulus 1: System group: jamulus
 acct-user/acme-dns 1: user for net-dns/acme-dns
+acct-user/jamulus 1: User for media-sound/jamulus
 app-admin/admindb-python-scripts 1.2.0 9999: Python utility scripts for use with FeM's AdminDB2
 app-admin/fem-arubawlan-python-scripts 1.0.0: Python utility scripts for FeM's Aruba WLAN system
 app-admin/fem-netbox-user-scripts 0.2: Scripts for NetBox users by FeM e.V.
@@ -38,7 +40,7 @@ media-libs/gst-plugins-bad 1.18.4-r2: Less plugins for GStreamer
 media-libs/melted 9999: MLT Video Server
 media-libs/mlt 9999: Open source multimedia framework for television broadcasting
 media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
-media-sound/jamulus 3.8.1: Internet jam session software
+media-sound/jamulus 3.8.1-r1: Internet jam session software
 media-tv/mumudvb 2.0.0 20210619: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
