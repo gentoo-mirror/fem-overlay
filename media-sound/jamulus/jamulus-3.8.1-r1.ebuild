@@ -1,7 +1,7 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit desktop qmake-utils
 
@@ -17,6 +17,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="headless"
 
 DEPEND="
+	acct-group/jamulus
+	acct-user/jamulus
+
 	dev-qt/qtcore:5=
 	dev-qt/qtnetwork:5=
 	dev-qt/qtconcurrent:5=
@@ -54,4 +57,7 @@ src_install() {
 
 	newconfd "${FILESDIR}"/${PN}-confd ${PN}-server
 	newinitd "${FILESDIR}"/${PN}-initd ${PN}-server
+
+	keepdir /var/log/jamulus
+	fowners jamulus:jamulus /var/log/jamulus
 }
