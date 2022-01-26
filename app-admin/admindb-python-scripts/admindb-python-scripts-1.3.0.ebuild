@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -44,6 +44,6 @@ src_install() {
 		fi
 		local script_wrapper_name="${script%.py}"
 		script_wrapper_name="${script_wrapper_name//_/-}"
-		make_wrapper "${script_wrapper_name}" "${EPYTHON} $(python_get_sitedir)/${PN//-/_}/${script}"
+		make_wrapper "${script_wrapper_name}" "${EPYTHON} -m ${PN//-/_}.${script%.py}"
 	done
 }
