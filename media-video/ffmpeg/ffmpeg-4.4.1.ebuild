@@ -93,7 +93,7 @@ FFMPEG_FLAG_MAP=(
 FFMPEG_ENCODER_FLAG_MAP=(
 	amrenc:libvo-amrwbenc mp3:libmp3lame
 	kvazaar:libkvazaar libaom
-	openh264:libopenh264 rav1e:librav1e snappy:libsnappy theora:libtheora twolame:libtwolame
+	openh264:libopenh264 svtav1:libsvtav1 rav1e:librav1e snappy:libsnappy theora:libtheora twolame:libtwolame
 	webp:libwebp x264:libx264 x265:libx265 xvid:libxvid
 )
 
@@ -182,6 +182,7 @@ RDEPEND="
 		kvazaar? ( >=media-libs/kvazaar-1.2.0[${MULTILIB_USEDEP}] )
 		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
 		openh264? ( >=media-libs/openh264-1.4.0-r1:=[${MULTILIB_USEDEP}] )
+		svtav1? ( >=media-libs/svt-av1-0.8.4 )
 		rav1e? ( >=media-video/rav1e-0.4:=[capi] )
 		snappy? ( >=app-arch/snappy-1.1.2-r1:=[${MULTILIB_USEDEP}] )
 		theora? (
@@ -389,7 +390,7 @@ multilib_src_configure() {
 
 	# (temporarily) disable non-multilib deps
 	if ! multilib_is_native_abi; then
-		for i in librav1e libzmq ; do
+		for i in libsvtav1 librav1e libzmq ; do
 			myconf+=( --disable-${i} )
 		done
 	fi
