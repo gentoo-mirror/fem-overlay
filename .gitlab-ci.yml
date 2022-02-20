@@ -25,6 +25,7 @@ repoman_commits:
   stage: repoman
   script:
     - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
+    - git fetch
     - ./tools/repoman_changed_files.sh
   cache:
     key: fem-overlay-gentoo-stage3
@@ -62,6 +63,7 @@ pkgcheck_commits:
   stage: pkgcheck
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck dev-vcs/git
+    - git fetch
     - pkgcheck scan --exit --commits origin/master..HEAD
   cache:
     key: fem-overlay-gentoo-stage3
