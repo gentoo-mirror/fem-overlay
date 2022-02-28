@@ -9,5 +9,5 @@ LICENSE=Apache-2.0
 PROPERTIES=live
 RDEPEND=dev-perl/DateTime dev-perl/DateTime-Format-SQLite dev-perl/File-Which dev-perl/JSON dev-perl/Math-Round dev-perl/Proc-ProcessTable dev-perl/REST-Client dev-perl/XML-RPC-Fast dev-perl/XML-Simple dev-perl/boolean dev-perl/rename media-video/ffmpeg
 SLOT=0
-_eclasses_=estack	055c42df72f76a4f45ec92b35e83cd56	subversion	c74febd1baf21b1229704d6a953c27db
+_eclasses_=estack	055c42df72f76a4f45ec92b35e83cd56	subversion	c68c8559f821cf5c144f3867244db4a3
 _md5_=4125b7f46a3109e0c03a31e6ceb85d17
