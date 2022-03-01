@@ -1,7 +1,9 @@
 acct-group/acme-dns 1: System group: acme-dns
 acct-group/jamulus 1: System group: jamulus
+acct-group/prometheus-graphite-relay 1: System group: prometheus-graphite-relay
 acct-user/acme-dns 1: user for net-dns/acme-dns
 acct-user/jamulus 1: User for media-sound/jamulus
+acct-user/prometheus-graphite-relay 1: Group for dev-go/prometheus-graphite-relay
 app-admin/admindb-python-scripts 1.3.0 9999: Python utility scripts for use with FeM's AdminDB2
 app-admin/fem-arubawlan-python-scripts 1.0.0: Python utility scripts for FeM's Aruba WLAN system
 app-admin/fem-netbox-user-scripts 0.3.1: Scripts for NetBox users by FeM e.V.

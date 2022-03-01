@@ -1,14 +1,14 @@
-BDEPEND=>=dev-vcs/git-1.8.2.1[curl] virtual/pkgconfig
-DEFINED_PHASES=install unpack
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
 DEPEND=virtual/udev
 DESCRIPTION=Xen sr-iov scripts
 EAPI=7
-HOMEPAGE=https://bitbucket.fem.tu-ilmenau.de/projects/TEC/repos/xen-sriov-scripts
-INHERIT=git-r3 udev
+HOMEPAGE=https://gitlab.fem-net.de/technik/xen/xen-sriov-scripts
+INHERIT=udev
 KEYWORDS=~amd64 ~x86
 LICENSE=MIT
-PROPERTIES=live
 RDEPEND=virtual/udev app-emulation/xen-tools
 SLOT=0
-_eclasses_=git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784	udev	2d229ad4bfa09058e0184b1ca900db32
-_md5_=1ab4488e4ad39b829e9e2292f805ddb7
+SRC_URI=https://gitlab.fem-net.de/technik/xen/xen-sriov-scripts/-/archive/365fb06e0ba158b46773bd5d4978878383f2ebcc/xen-sriov-scripts-365fb06e0ba158b46773bd5d4978878383f2ebcc.tar.bz2
+_eclasses_=toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784	udev	2d229ad4bfa09058e0184b1ca900db32
+_md5_=bd98721c0c6351d69b71f35f1c172c1f
