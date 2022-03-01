@@ -1,4 +1,4 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2019-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -21,6 +21,8 @@ DEPEND="${RDEPEND}
 	test? ( dev-perl/Test-Pod )"
 
 SRC_TEST="do"
+
+RESTRICT="!test? ( test )"
 
 src_prepare() {
 	eapply "${FILESDIR}/destroy-xen-shell-fix.patch"
@@ -47,9 +49,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "Updating ${ROOT}etc/shells"
-	( grep -v -e "^/usr/bin/xen-\(login-\)\?shell$" "${ROOT}"etc/shells; echo "/usr/bin/xen-login-shell"; echo "/usr/bin/xen-shell" ) > "${T}"/shells
-	mv -f "${T}"/shells "${ROOT}"etc/shells
+	einfo "Updating ${ROOT}/etc/shells"
+	( grep -v -e "^/usr/bin/xen-\(login-\)\?shell$" "${ROOT}"/etc/shells; echo "/usr/bin/xen-login-shell"; echo "/usr/bin/xen-shell" ) > "${T}"/shells
+	mv -f "${T}"/shells "${ROOT}"/etc/shells
 
 	elog ""
 	elog " To use xen-shell, set /usr/bin/xen-login-shell as users login shell"
