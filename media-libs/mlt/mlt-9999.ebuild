@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -24,7 +24,9 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+if [ "${PV#9999}" = "${PV}" ] ; then
+	KEYWORDS="~amd64"
+fi
 IUSE="compressed-lumas cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 debug
 ffmpeg fftw frei0r gtk jack kernel_linux libsamplerate lua opencv opengl python
 qt5 rtaudio rubberband sdl vdpau vidstab xine xml decklink"
