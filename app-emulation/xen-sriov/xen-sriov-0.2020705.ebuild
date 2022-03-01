@@ -1,14 +1,18 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit git-r3 udev
+SRIOV_COMMIT="365fb06e0ba158b46773bd5d4978878383f2ebcc"
+
+MY_PN="${PN}-scripts"
+MY_P="${MY_PN}-${SRIOV_COMMIT}"
+
+inherit udev
 
 DESCRIPTION="Xen sr-iov scripts"
-HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/projects/TEC/repos/xen-sriov-scripts"
-EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/tec/xen-sriov-scripts.git"
-EGIT_COMMIT="365fb06e0ba158b46773bd5d4978878383f2ebcc"
+HOMEPAGE="https://gitlab.fem-net.de/technik/xen/xen-sriov-scripts"
+SRC_URI="https://gitlab.fem-net.de/technik/xen/xen-sriov-scripts/-/archive/${SRIOV_COMMIT}/${MY_P}.tar.bz2"
 
 LICENSE="MIT"
 SLOT="0"
@@ -21,6 +25,8 @@ RDEPEND="
 	app-emulation/xen-tools
 "
 BDEPEND=""
+
+S="${WORKDIR}/${MY_P}"
 
 src_install() {
 	exeinto /usr/bin
