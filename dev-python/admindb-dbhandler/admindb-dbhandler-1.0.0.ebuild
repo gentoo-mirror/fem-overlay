@@ -1,10 +1,10 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 PYTHON_COMPAT=( python3_8 python3_9 python3_10 )
-inherit distutils-r1 wrapper
+inherit distutils-r1
 
 MY_PN="${PN#admindb-}"
 MY_P="${MY_PN}-v${PV}"
