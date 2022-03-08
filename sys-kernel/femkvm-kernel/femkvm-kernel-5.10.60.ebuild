@@ -1,4 +1,4 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -21,9 +21,7 @@ S=${WORKDIR}/${MY_P}
 LICENSE="GPL-2"
 KEYWORDS="~amd64"
 
-RDEPEND="
-	!sys-kernel/vanilla-kernel:${SLOT}
-	!sys-kernel/vanilla-kernel-bin:${SLOT}"
+RDEPEND="!sys-kernel/vanilla-kernel:${SLOT}"
 
 src_prepare() {
 	local PATCHES=(

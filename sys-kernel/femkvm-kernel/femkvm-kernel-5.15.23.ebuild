@@ -21,9 +21,7 @@ S=${WORKDIR}/${MY_P}
 LICENSE="GPL-2"
 KEYWORDS="~amd64"
 
-RDEPEND="
-	!sys-kernel/vanilla-kernel:${SLOT}
-	!sys-kernel/vanilla-kernel-bin:${SLOT}"
+RDEPEND="!sys-kernel/vanilla-kernel:${SLOT}"
 
 src_prepare() {
 	local PATCHES=(
