@@ -6,15 +6,15 @@ EAPI=7
 inherit kernel-build
 
 MY_P=linux-${PV%.*}
-GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 6 ))
-CONFIG_VER=5.10.27
+GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 2 ))
+CONFIG_VER=5.15.23
 
 DESCRIPTION="Linux kernel built with Gentoo patches"
 HOMEPAGE="https://www.kernel.org/"
 SRC_URI+=" https://cdn.kernel.org/pub/linux/kernel/v$(ver_cut 1).x/${MY_P}.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.base.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.extras.tar.xz
-	https://gitlab.fem-net.de/gentoo/kernel-configs/-/raw/kvm-kernel/kernel-kvm-x86_64.config.${CONFIG_VER}
+	https://gitlab.fem-net.de/gentoo/kernel-configs/-/raw/master/kernel-kvm-x86_64.config.${CONFIG_VER}
 	"
 S=${WORKDIR}/${MY_P}
 
