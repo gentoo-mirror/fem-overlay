@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,6 +19,14 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/MuMuDVB-${COMMIT_ID}"
+
+DOCS=(
+	"ChangeLog"
+	"doc/README.asciidoc"
+	"doc/README_CONF.asciidoc"
+	"doc/FAQ.asciidoc"
+	"doc/QUICKSTART.asciidoc"
+)
 
 src_prepare() {
 	autoreconf -i -f
