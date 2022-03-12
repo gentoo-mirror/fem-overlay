@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 #https://github.com/Icinga/icinga-core/blob/master/sample-config/cgi.cfg.in
@@ -14,7 +14,7 @@ HOMEPAGE="http://www.icinga.org/"
 #S=${WORKDIR}/${PN}-${MY_PV}
 #SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 MY_PN="${PN/-classicui/}"
-SRC_URI="https://github.com/${MY_PN}/${MY_PN}-core/releases/download/v${PV}/${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/${MY_PN}/${MY_PN}-core/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
