@@ -1,39 +1,34 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2019-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit git-r3 user
-
-SRC_URI=""
-EGIT_REPO_URI="https://bitbucket.fem.tu-ilmenau.de/scm/monitor/${PN}.git"
-
 DESCRIPTION="Utility to push metrics scraped from prometheus into graphite."
-HOMEPAGE="https://bitbucket.fem.tu-ilmenau.de/projects/MONITOR/repos/prometheus-graphite-relay"
+HOMEPAGE="https://gitlab.fem-net.de/monitoring/prometheus-graphite-relay"
+SRC_URI="https://gitlab.fem-net.de/monitoring/prometheus-graphite-relay/-/archive/v${PV}/prometheus-graphite-relay-v${PV}.tar.bz2"
+
 LICENSE="ISC"
 SLOT="0"
 
 if [[ ${PV} != *9999 ]]; then
-	EGIT_COMMIT="v${PV}"
 	KEYWORDS="~amd64 ~x86"
 fi
 
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="
+	acct-user/prometheus-graphite-relay
+	acct-group/prometheus-graphite-relay
+"
 BDEPEND="dev-lang/go"
 
-pkg_setup() {
-	enewgroup prometheus-graphite-relay
-	enewuser prometheus-graphite-relay -1 -1 -1 prometheus-graphite-relay
-}
+S="${WORKDIR}/${PN}-v${PV}"
 
 src_unpack() {
-	git-r3_src_unpack
-
+	default
 	# setup module dependencies
-	cd "${S}"
+	cd "${S}" || die
 	env GOCACHE="${T}/go-cache" \
 		go mod download || die
 }
