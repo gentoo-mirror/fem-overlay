@@ -51,7 +51,7 @@ pkgcheck_all:
   stage: pkgcheck
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck
-    - pkgcheck scan --exit --checks="-ManifestCheck"
+    - pkgcheck scan
   cache:
     key: fem-overlay-gentoo-stage3
     paths:
@@ -64,7 +64,7 @@ pkgcheck_commits:
   script:
     - emerge --quiet --noreplace dev-util/pkgcheck dev-vcs/git
     - git fetch
-    - pkgcheck scan --exit --commits origin/master..HEAD
+    - pkgcheck scan --commits origin/master..HEAD
   cache:
     key: fem-overlay-gentoo-stage3
     paths:
