@@ -7,5 +7,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3
 RDEPEND=dev-lang/erlang
 SLOT=0
-SRC_URI=https://github.com/iSchluff/flussonic-old/archive/v3.69.19.tar.gz
-_md5_=27e6cdcff21b42a95e2c8b28f7e70af0
+SRC_URI=https://github.com/iSchluff/flussonic-old/archive/v3.69.19.tar.gz -> flussonic-3.69.19.tar.gz
+_md5_=f85e4493fb2fcc2d0c25f5c06b79fe76
