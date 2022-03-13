@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit perl-module
 
 DESCRIPTION="Lightweight RTSP/RTP streaming media server"
 HOMEPAGE="https://github.com/revmischa/rtsp-server"
-SRC_URI="https://github.com/revmischa/${PN}/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/revmischa/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 SRC_TEST=do
 
 LICENSE="|| ( Artistic GPL-1+ )"
