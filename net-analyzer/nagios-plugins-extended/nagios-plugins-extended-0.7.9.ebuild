@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -94,16 +94,16 @@ src_install() {
 	done
 
 	chown -R nagios:nagios "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chown of ${D}usr/$(get_libdir)/nagios/plugins"
+		|| die "Failed chown of ${D}/usr/$(get_libdir)/nagios/plugins"
 
 	chmod -R o-rwx "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chmod of ${D}usr/$(get_libdir)/nagios/plugins"
+		|| die "Failed chmod of ${D}/usr/$(get_libdir)/nagios/plugins"
 
 	if use suid ; then
 		for PLUGIN in ${SUID_PLUGIN_LIST}; do
 			chown -R root:nagios \
 				"${D}"/usr/$(get_libdir)/nagios/plugins/${PLUGIN} \
-				|| die "Failed chown of ${D}usr/$(get_libdir)/nagios/plugins"
+				|| die "Failed chown of ${D}/usr/$(get_libdir)/nagios/plugins"
 			chmod 6750 \
 				"${D}"/usr/$(get_libdir)/nagios/plugins/${PLUGIN} \
 				|| die "Failed setting the suid bit for various plugins"
