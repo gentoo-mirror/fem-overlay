@@ -31,6 +31,11 @@
 
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (15 Mar 2022)
+# Package is no longer in use and has no reverse dependencies. Removal from the
+# fem-overlay is planned for 2022-04-15.
+net-misc/radiusplugin
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (01 Mar 2021)
 # net-dns/pdns will be removed from the fem-overlay after 2022-04-01, since
 # the stable version exists in ::gentoo and older versions are no longer used
