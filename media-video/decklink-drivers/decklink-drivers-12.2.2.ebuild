@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,7 +9,7 @@ DESCRIPTION="Desktop Video drivers & tools for products by Blackmagic Design (e.
 HOMEPAGE="http://www.blackmagicdesign.com/"
 
 # Desktop Video Revision
-REV="a26"
+REV="a6"
 
 # SDK Package Version
 SDK_VERSION="${PV}"
@@ -81,13 +81,13 @@ src_install() {
 			'usr/lib/libDeckLinkAPI.so'
 			'usr/lib/libDeckLinkPreviewAPI.so'
 			'usr/lib/blackmagic'
-			#'usr/sbin/DesktopVideoHelper'
 			'usr/share/doc/desktopvideo'
 	)
 	for path in "${symlinks[@]}"; do
 		relpath=$(realpath -m -s --relative-to="/${path}" "/${optdir}")
 		dosym ${relpath:3}/${path} ${path}
 	done
+	dosym "../../opt/blackmagic-desktop-video/usr/lib/blackmagic/DesktopVideo/DesktopVideoHelper" "usr/sbin/DesktopVideoHelper"
 
 	if use X; then
 		symlinks=(
@@ -143,10 +143,11 @@ pkg_postinst() {
 	einfo ""
 	einfo "Please do *NOT* report any QA errors to Gentoo or Blackmagic!"
 	einfo ""
-	einfo "The kernel module is simply called blackmagic or blckmagic-io depends on your BMD device. You may want to modprobe it now"
+	einfo "The kernel module is simply called blackmagic or blackmagic-io depends on your BMD device. You may want to modprobe it now"
 	einfo "to see if it works (it should print your devices to kernel log)."
 	einfo ""
 	einfo "Installed tools are DesktopVideoUpdateTool.  !!!! Notice rename. !!!!"
+	einfo "maybe you need to add blackmagic-DesktopVideoHelper to autostart, to be able to list devices"
 	einfo ""
 	if use autostart; then
 		einfo "Automated update check has been installed."
