@@ -1,11 +1,11 @@
 #!/sbin/openrc-run
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 name=blackmagic-DesktopVideoHelper
 pidfile=/run/blackmagic-DesktopVideoHelper.pid
 command=/usr/sbin/DesktopVideoHelper
 retry="TERM/10/KILL/5"
-command_args=""
+command_args="-p ${pidfile}"
 
 # vim:ft=gentoo-init-d:noet:ts=4:sts=4:sw=4:
