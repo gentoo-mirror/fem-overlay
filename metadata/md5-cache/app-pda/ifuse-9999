@@ -3,11 +3,11 @@ DEFINED_PHASES=install postinst prepare unpack
 DEPEND=>=app-pda/usbmuxd-1.1.0_pre >=app-pda/libimobiledevice-1.2.1_pre >=app-pda/libplist-1.8:= >=sys-fs/fuse-2.7.0:= virtual/pkgconfig
 DESCRIPTION=Mount Apple iPhone/iPod Touch file systems for backup purposes
 EAPI=7
-HOMEPAGE=http://www.libimobiledevice.org/
+HOMEPAGE=https://www.libimobiledevice.org/
 INHERIT=autotools readme.gentoo-r1 git-r3
 LICENSE=LGPL-2.1
 PROPERTIES=live
 RDEPEND=>=app-pda/usbmuxd-1.1.0_pre >=app-pda/libimobiledevice-1.2.1_pre >=app-pda/libplist-1.8:= >=sys-fs/fuse-2.7.0:=
 SLOT=0
 _eclasses_=gnuconfig	262062cef0ba4f22b397193da514a350	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	de4beb52bfa93c4c5d96792a6b5e1784	libtool	241a8f577b9781a42a7421e53448a44e	autotools	6cc26735fa9dd59e8c62880beda05b6e	readme.gentoo-r1	eebd0164fe61f4f7b64a683e83fdceb1	git-r3	cc875b0c1e9b3bdac1af0f82f3ba29da
-_md5_=cb899c41f22381deb215c48a142df1bf
+_md5_=c1d9ea11a0c6c3333b22c5cfc0f6143b
