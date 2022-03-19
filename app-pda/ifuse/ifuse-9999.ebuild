@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,7 +6,7 @@ EAPI=7
 inherit autotools readme.gentoo-r1 git-r3
 
 DESCRIPTION="Mount Apple iPhone/iPod Touch file systems for backup purposes"
-HOMEPAGE="http://www.libimobiledevice.org/"
+HOMEPAGE="https://www.libimobiledevice.org/"
 EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 
 LICENSE="LGPL-2.1"
