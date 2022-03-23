@@ -1,7 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
+
+inherit autotools
 
 DESCRIPTION="XMPP Command Line Interface"
 HOMEPAGE="https://codeberg.org/Anoxinon_e.V./xmppc"
@@ -13,7 +15,8 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	app-crypt/gpgme
+	>=app-crypt/gpgme-1.12:=
+	>=dev-libs/glib-2.58:2
 	>=dev-libs/libstrophe-0.9.2
 "
 RDEPEND="${DEPEND}"
@@ -21,7 +24,11 @@ BDEPEND=""
 
 S="${WORKDIR}/${PN}"
 
+src_prepare() {
+	eautoreconf
+	default
+}
+
 src_configure() {
-	./bootstrap.sh || die "Bootstrapping failed"
 	econf
 }
