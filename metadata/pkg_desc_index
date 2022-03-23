@@ -35,7 +35,7 @@ dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e
 dev-python/gitlab 2.10.0: Python library to interact with the GitLab API
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 4.0.1: Python library to interact with keepass databases (supports KDBX3 and KDBX4)
-dev-python/pynetbox 6.1.2 6.4.0 6.6.1: Python library to interact with the NetBox REST API
+dev-python/pynetbox 6.4.0 6.6.1: Python library to interact with the NetBox REST API
 dev-python/sphinxcontrib-phpdomain 0.7.0: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 21.5.0: Structured Logging for Python
 media-libs/dav1d 0.9.2: dav1d is an AV1 Decoder :)
