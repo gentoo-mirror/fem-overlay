@@ -161,14 +161,6 @@ net-analyzer/nagios-plugins-extended:suid - Set SUID-Flag for several plugins
 net-analyzer/nagios-plugins-extended:tcptraffic - Install TCP-Traffic plugin
 net-analyzer/nagios-plugins-extended:temp - Install Temperature-sensor plugin
 net-analyzer/nagios-plugins-extended:timestamp - Install Timestamp-Check plugin
-net-dns/pdns:botan - Make it possible to use the dev-libs/botan library for crypto-related stuff (like DNSSec) which can be significantly faster than PolarSSL.
-net-dns/pdns:mydns - Making it possible to use a MyDNS MySQL database with PowerDNS (not recommended for new deployments).
-net-dns/pdns:opendbx - Use a database supported by dev-db/opendbx as backend.
-net-dns/pdns:protobuf - Enable support for dev-libs/protobuf.
-net-dns/pdns:remote - Use a generic socket or pipe as a backend (via JSON RPC requests).
-net-dns/pdns:tinydns - Use a TinyDNS CDB database as backend.
-net-dns/pdns:tools - Build optional tools (dnsscan, dnsscope, etc..).
-net-dns/pdns-recursor:protobuf - Enable support for dev-libs/protobuf.
 net-misc/kea:msg-compiler - Build message compiler
 net-misc/kea:openssl - Use dev-libs/openssl instead of Botan
 net-misc/kea:samples - Install sample configuration files
