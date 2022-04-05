@@ -40,12 +40,10 @@ src_install() {
 
 	dodoc CHANGELOG.md
 
-	local myscripts=(
-		get-aruba-ap-uplinks.py
-	)
-	use dokuwiki && myscripts+=(export-netbox-to-dokuwiki.py)
+	local plugin_list="get-aruba-ap-uplinks.py"
+	use dokuwiki && plugin_list="${plugin_list} export-netbox-to-dokuwiki.py"
 
-	for script in "${myscripts}"; do
+	for script in ${plugin_list}; do
 		python_newscript ${script} ${script%.py}
 	done
 
