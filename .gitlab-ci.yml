@@ -1,48 +1,29 @@
-image: gentoo/stage3
+image: registry.gitlab.fem-net.de/gentoo/fem-overlay-ci-image:master
 
 stages:
   - repoman
   - overlint
   - pkgcheck
 
-default:
-  before_script:
-    - ./tools/sync_portage.sh
-
 repoman_all:
   stage: repoman
   script:
-    - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
     - repoman full -x -j4
-  cache:
-    key: fem-overlay-gentoo-stage3
-    paths:
-      - ./tmp
   needs: []
   except: [merge_requests]
 
 repoman_commits:
   stage: repoman
   script:
-    - emerge --quiet --noreplace app-portage/repoman dev-vcs/git
     - git fetch
     - ./tools/repoman_changed_files.sh
-  cache:
-    key: fem-overlay-gentoo-stage3
-    paths:
-      - ./tmp
   needs: []
   only: [merge_requests]
 
 overlint:
   stage: overlint
   script:
-    - emerge --quiet --noreplace app-portage/overlint
     - overlint-cli .
-  cache:
-    key: fem-overlay-gentoo-stage3
-    paths:
-      - ./tmp
   needs: []
   rules:
     - when: always
@@ -50,24 +31,14 @@ overlint:
 pkgcheck_all:
   stage: pkgcheck
   script:
-    - emerge --quiet --noreplace dev-util/pkgcheck
     - pkgcheck scan
-  cache:
-    key: fem-overlay-gentoo-stage3
-    paths:
-      - ./tmp
   needs: []
   except: [merge_requests]
 
 pkgcheck_commits:
   stage: pkgcheck
   script:
-    - emerge --quiet --noreplace dev-util/pkgcheck dev-vcs/git
     - git fetch
     - pkgcheck scan --commits origin/master..HEAD
-  cache:
-    key: fem-overlay-gentoo-stage3
-    paths:
-      - ./tmp
   needs: []
   only: [merge_requests]
