@@ -31,6 +31,12 @@
 
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (08 Apr 2022)
+# Package was only temporarily added to provide a version with a bugfix. This
+# is now obsolete. Removal from the fem-overlay is planned for 2022-05-08.
+# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/99
+media-libs/dav1d
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (15 Mar 2022)
 # Package is no longer in use and has no reverse dependencies. Removal from the
 # fem-overlay is planned for 2022-04-15.
