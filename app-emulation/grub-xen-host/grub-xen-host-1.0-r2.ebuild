@@ -4,7 +4,7 @@
 EAPI=7
 
 DESCRIPTION="Grub2 built as a PV grub per the Xen PV Boot Protocol"
-HOMEPAGE="https://blog.xenproject.org/2015/01/07/using-grub-2-as-a-bootloader-for-xen-pv-guests/"
+HOMEPAGE="https://xenproject.org/2015/01/07/using-grub-2-as-a-bootloader-for-xen-pv-guests/"
 SRC_URI=""
 
 LICENSE="BSD-2"

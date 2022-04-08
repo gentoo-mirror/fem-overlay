@@ -5,4 +5,7 @@
 		<email>gentoo@friiks.de</email>
 		<name>Peter Grosse</name>
 	</maintainer>
+	<slots>
+		<subslots>follows SONAME of libgtop11dotnet.so</subslots>
+	</slots>
 </pkgmetadata>

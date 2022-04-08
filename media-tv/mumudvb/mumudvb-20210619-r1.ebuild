@@ -4,7 +4,7 @@
 EAPI=8
 
 DESCRIPTION="Multi Multicast DVB to redistribute streams from DVB or ATSC"
-HOMEPAGE="http://mumudvb.net"
+HOMEPAGE="https://mumudvb.net"
 COMMIT_ID="ed1c176759b544d178c6741789588e6005299de6"
 SRC_URI="https://github.com/braice/MuMuDVB/archive/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
 

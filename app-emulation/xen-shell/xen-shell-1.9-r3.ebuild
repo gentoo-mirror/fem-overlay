@@ -5,8 +5,8 @@ EAPI=7
 inherit "bash-completion-r1"
 
 DESCRIPTION="allow a user to control multiple Xen instances"
-HOMEPAGE="http://www.xen-tools.org/software/xen-shell"
-SRC_URI="http://www.xen-tools.org/software/xen-shell/${P}.tar.gz"
+HOMEPAGE="https://www.xen-tools.org/software/xen-shell/"
+SRC_URI="https://www.xen-tools.org/software/xen-shell/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"

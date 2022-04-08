@@ -6,7 +6,7 @@ EAPI=7
 inherit autotools readme.gentoo-r1 git-r3
 
 DESCRIPTION="Mount Apple iPhone/iPod Touch file systems for backup purposes"
-HOMEPAGE="https://www.libimobiledevice.org/"
+HOMEPAGE="https://libimobiledevice.org/"
 EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 
 LICENSE="LGPL-2.1"

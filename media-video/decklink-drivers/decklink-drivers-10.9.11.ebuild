@@ -6,7 +6,7 @@ EAPI=6
 inherit linux-mod
 
 DESCRIPTION="Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)"
-HOMEPAGE="http://www.blackmagicdesign.com/"
+HOMEPAGE="https://www.blackmagicdesign.com/"
 
 # Desktop Video Revision
 REV="a2"

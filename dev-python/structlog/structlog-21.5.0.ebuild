@@ -9,7 +9,7 @@ DISTUTILS_USE_SETUPTOOLS=pyproject.toml
 inherit distutils-r1
 
 DESCRIPTION="Structured Logging for Python"
-HOMEPAGE="http://www.structlog.org/en/stable/"
+HOMEPAGE="https://www.structlog.org/en/stable/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="Apache-2.0 MIT"

@@ -6,7 +6,7 @@ EAPI=7
 inherit autotools
 
 DESCRIPTION="TCP packet sniffer supporting traffic logging in standard web server like format"
-HOMEPAGE="http://onotelli.github.io/justniffer/"
+HOMEPAGE="https://onotelli.github.io/justniffer/"
 SRC_URI="https://github.com/onotelli/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"

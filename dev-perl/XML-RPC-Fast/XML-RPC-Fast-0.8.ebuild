@@ -6,7 +6,7 @@ EAPI=6
 inherit perl-module
 
 DESCRIPTION="No description available"
-HOMEPAGE="http://search.cpan.org/search?query=XML-RPC-Fast&mode=dist"
+HOMEPAGE="https://search.cpan.org/search?query=XML-RPC-Fast&mode=dist"
 SRC_URI="mirror://cpan/authors/id/M/MO/MONS/${P}.tar.gz"
 
 IUSE="+curl +anyevent"

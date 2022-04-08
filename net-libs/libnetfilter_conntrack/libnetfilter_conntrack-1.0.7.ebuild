@@ -5,7 +5,7 @@ EAPI=6
 inherit autotools linux-info git-r3
 
 DESCRIPTION="programming interface (API) to the in-kernel connection tracking state table"
-HOMEPAGE="http://www.netfilter.org/projects/libnetfilter_conntrack/"
+HOMEPAGE="https://www.netfilter.org/projects/libnetfilter_conntrack/"
 EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/nat/libnetfilter_conntrack.git"
 EGIT_COMMIT="${P}"
 SRC_URI=""

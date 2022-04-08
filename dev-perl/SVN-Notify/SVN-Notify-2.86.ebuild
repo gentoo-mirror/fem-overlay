@@ -7,7 +7,7 @@ inherit perl-module
 
 DESCRIPTION="SVN::Notify - Subversion activity notification"
 SRC_URI="mirror://cpan/authors/id/D/DW/DWHEELER/${P}.tar.gz"
-HOMEPAGE="http://search.cpan.org/~dwheeler/SVN-Notify/"
+HOMEPAGE="https://search.cpan.org/~dwheeler/SVN-Notify/"
 
 SLOT="0"
 LICENSE="Artistic"

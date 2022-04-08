@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python3_{7,8,9} )
 inherit distutils-r1
 
 DESCRIPTION="Graphite-web, without the interface. Just the rendering HTTP API."
-HOMEPAGE="http://graphite-api.readthedocs.org"
+HOMEPAGE="https://graphite-api.readthedocs.org"
 SRC_URI="https://github.com/iSchluff/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 EGO_PN="github.com/${PN}/${PN}"
 
@@ -40,7 +40,7 @@ python_install() {
 
 pkg_postinst() {
 	einfo "You will still need to deploy ${PN}. Please check"
-	einfo "http://graphite-api.readthedocs.org/en/latest/deployment.html"
+	einfo "https://graphite-api.readthedocs.org/en/latest/deployment.html"
 	einfo "for more info. Additionally give your wsgi-user write-access"
 	einfo "to /var/lib/${PN}/index"
 }

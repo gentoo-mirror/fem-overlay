@@ -4,8 +4,8 @@
 EAPI=5
 
 DESCRIPTION="radius authentication and accounting support for OpenVPN."
-HOMEPAGE="http://www.nongnu.org/radiusplugin/index.html"
-SRC_URI="http://www.nongnu.org/radiusplugin/radiusplugin_v2.1a_beta1.tar.gz"
+HOMEPAGE="https://www.nongnu.org/radiusplugin/index.html"
+SRC_URI="https://www.nongnu.org/radiusplugin/radiusplugin_v2.1a_beta1.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
