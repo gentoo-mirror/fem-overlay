@@ -3,8 +3,8 @@
 # * generated automatically using pmaint *
 
 app-admin/fem-netbox-user-scripts:dokuwiki - Install also DokuWiki scripts
-app-admin/reprepro:archive - 
-app-admin/reprepro:gpgme - 
+app-admin/reprepro:archive - Use libarchive to handle archives
+app-admin/reprepro:gpgme - Enable signature checking and creation using gpgme
 app-emulation/grub-xen-host:pvh - Build an additional grub bin for pvh.
 app-pda/libimobiledevice:gnutls - ...
 app-pda/libimobiledevice:python - ...

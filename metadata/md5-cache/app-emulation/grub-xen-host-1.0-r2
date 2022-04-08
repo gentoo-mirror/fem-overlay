@@ -2,11 +2,11 @@ DEFINED_PHASES=compile configure install
 DEPEND=sys-boot/grub:2=[grub_platforms_xen] pvh? ( >=sys-boot/grub-2.04:2=[grub_platforms_xen-pvh] )
 DESCRIPTION=Grub2 built as a PV grub per the Xen PV Boot Protocol
 EAPI=7
-HOMEPAGE=https://blog.xenproject.org/2015/01/07/using-grub-2-as-a-bootloader-for-xen-pv-guests/
+HOMEPAGE=https://xenproject.org/2015/01/07/using-grub-2-as-a-bootloader-for-xen-pv-guests/
 IUSE=pvh
 KEYWORDS=~amd64
 LICENSE=BSD-2
 RDEPEND=sys-boot/grub:2=[grub_platforms_xen] pvh? ( >=sys-boot/grub-2.04:2=[grub_platforms_xen-pvh] )
 RESTRICT=binchecks strip test
 SLOT=0
-_md5_=a73fdd4e970cb3a8322f5096ce13bf8e
+_md5_=a0e75939364d8cbd52676625b65a34b7

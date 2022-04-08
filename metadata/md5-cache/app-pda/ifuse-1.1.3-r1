@@ -2,7 +2,7 @@ DEFINED_PHASES=install postinst prepare
 DEPEND=>=app-pda/usbmuxd-1.1.0_pre >=app-pda/libimobiledevice-1.2.1_pre >=app-pda/libplist-1.8 >=sys-fs/fuse-2.7.0:= virtual/pkgconfig
 DESCRIPTION=Mount Apple iPhone/iPod Touch file systems for backup purposes
 EAPI=7
-HOMEPAGE=https://www.libimobiledevice.org/
+HOMEPAGE=https://libimobiledevice.org/
 INHERIT=readme.gentoo-r1
 KEYWORDS=~amd64
 LICENSE=LGPL-2.1
@@ -10,4 +10,4 @@ RDEPEND=>=app-pda/usbmuxd-1.1.0_pre >=app-pda/libimobiledevice-1.2.1_pre >=app-p
 SLOT=0
 SRC_URI=https://github.com/libimobiledevice/ifuse/archive/refs/tags/1.1.3.tar.gz -> ifuse-1.1.3.tar.gz
 _eclasses_=readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55
-_md5_=ea6750a6ae5475ac73795adf92f7a07d
+_md5_=e45eb5c4b5ead7c497c74c79602c00db
