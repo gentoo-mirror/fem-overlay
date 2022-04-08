@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python3_{8,9} )
 inherit distutils-r1
 
 DESCRIPTION="Powerful and flexible toolkit that makes it easy to build Web APIs using Django"
-HOMEPAGE="https://django-rest-framework.org/"
+HOMEPAGE="https://www.django-rest-framework.org/"
 SRC_URI="https://github.com/encode/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
