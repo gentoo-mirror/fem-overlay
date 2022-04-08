@@ -6,7 +6,7 @@ EAPI=7
 inherit cmake
 
 DESCRIPTION="Simple ncurses based interface for accessing tmux sessions"
-HOMEPAGE="https://gitlab.com/nexadn/tmux-starter"
+HOMEPAGE="https://gitlab.com/NexAdn/tmux-starter"
 SRC_URI="https://gitlab.com/NexAdn/tmux-starter/-/archive/v${PV}/${PN}-v${PV}.tar.gz"
 
 LICENSE="GPL-3"

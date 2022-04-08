@@ -8,7 +8,7 @@ MY_PV="${MY_PV/_/-}"
 MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="High-performance production grade DHCPv4 & DHCPv6 server"
-HOMEPAGE="http://www.isc.org/kea/"
+HOMEPAGE="https://www.isc.org/kea/"
 
 inherit autotools systemd tmpfiles
 

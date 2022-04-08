@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{3_6,3_7,3_8} )
 inherit autotools python-r1 git-r3
 
 DESCRIPTION="Support library to communicate with Apple iPhone/iPod Touch devices"
-HOMEPAGE="http://www.libimobiledevice.org/"
+HOMEPAGE="https://libimobiledevice.org/"
 EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 
 # While COPYING* doesn't mention 'or any later version', all the headers do, hence use +

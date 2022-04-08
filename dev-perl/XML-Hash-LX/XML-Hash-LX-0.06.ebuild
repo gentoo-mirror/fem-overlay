@@ -6,7 +6,7 @@ EAPI=6
 inherit perl-module
 
 DESCRIPTION="Convert hash to xml and xml to hash using LibXML"
-HOMEPAGE="http://search.cpan.org/search?query=XML-Hash-LX&mode=dist"
+HOMEPAGE="https://search.cpan.org/search?query=XML-Hash-LX&mode=dist"
 SRC_URI="mirror://cpan/authors/id/M/MO/MONS/${P}.tar.gz"
 
 IUSE=""

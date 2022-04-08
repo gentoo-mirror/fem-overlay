@@ -5,7 +5,7 @@ EAPI=7
 inherit autotools git-r3
 
 DESCRIPTION="USB multiplex daemon for use with Apple iPhone/iPod Touch devices"
-HOMEPAGE="http://www.libimobiledevice.org/"
+HOMEPAGE="https://libimobiledevice.org/"
 EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 
 # tools/iproxy.c is GPL-2+, everything else is LGPL-2.1+

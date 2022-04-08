@@ -6,7 +6,7 @@ EAPI=7
 inherit readme.gentoo-r1
 
 DESCRIPTION="Mount Apple iPhone/iPod Touch file systems for backup purposes"
-HOMEPAGE="https://www.libimobiledevice.org/"
+HOMEPAGE="https://libimobiledevice.org/"
 SRC_URI="https://github.com/libimobiledevice/ifuse/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-2.1"

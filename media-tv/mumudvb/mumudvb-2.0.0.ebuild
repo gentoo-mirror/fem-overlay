@@ -5,7 +5,7 @@
 EAPI=6
 
 DESCRIPTION="Multi Multicast DVB to redistribute streams from DVB or ATSC"
-HOMEPAGE="http://mumudvb.net"
+HOMEPAGE="https://mumudvb.net"
 SRC_URI="https://github.com/braice/MuMuDVB/archive/mumudvb2.zip"
 
 LICENSE="GPL-2"

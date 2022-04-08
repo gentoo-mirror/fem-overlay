@@ -6,7 +6,7 @@ PYTHON_COMPAT=( python{3_6,3_7,3_8} )
 inherit autotools eutils python-r1 git-r3
 
 DESCRIPTION="Support library to deal with Apple Property Lists (Binary & XML)"
-HOMEPAGE="http://www.libimobiledevice.org/"
+HOMEPAGE="https://libimobiledevice.org/"
 EGIT_REPO_URI="https://github.com/libimobiledevice/${PN}.git"
 
 LICENSE="GPL-2 LGPL-2.1"
