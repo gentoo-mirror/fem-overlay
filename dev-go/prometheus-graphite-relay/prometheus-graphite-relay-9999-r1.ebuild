@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit git-r3
+inherit go-module git-r3
 
 DESCRIPTION="Utility to push metrics scraped from prometheus into graphite."
 HOMEPAGE="https://gitlab.fem-net.de/monitoring/prometheus-graphite-relay"
@@ -29,16 +29,11 @@ BDEPEND="dev-lang/go"
 
 src_unpack() {
 	git-r3_src_unpack
-
-	# setup module dependencies
-	cd "${S}" || die
-	env GOCACHE="${T}/go-cache" \
-		go mod download || die
+	go-module_live_vendor
 }
 
 src_compile() {
-	env GOCACHE="${T}/go-cache" \
-		go build -v -work -x || die
+	ego build -v -work -x
 }
 
 src_install() {
