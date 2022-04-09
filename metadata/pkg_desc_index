@@ -20,7 +20,7 @@ app-pda/libimobiledevice 9999: Support library to communicate with Apple iPhone/
 app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
 app-pda/usbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
-dev-go/prometheus-graphite-relay 1.0.1 9999: Utility to push metrics scraped from prometheus into graphite.
+dev-go/prometheus-graphite-relay 1.0.1-r1 9999-r1: Utility to push metrics scraped from prometheus into graphite.
 dev-lang/php 7.1.33: The PHP language runtime engine
 dev-libs/gemalto-dotnetv2-pkcs11 2.2.0.10-r4: PKCS#11 library for Gemalto .NET V2 smart cards
 dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
