@@ -10,7 +10,7 @@ HOMEPAGE="https://gitlab.fem-net.de/monitoring/prometheus-graphite-relay"
 SRC_URI=""
 EGIT_REPO_URI="https://gitlab.fem-net.de/monitoring/prometheus-graphite-relay.git"
 
-LICENSE="ISC"
+LICENSE="ISC MIT Apache-2.0 BSD"
 SLOT="0"
 
 if [[ ${PV} != *9999 ]]; then

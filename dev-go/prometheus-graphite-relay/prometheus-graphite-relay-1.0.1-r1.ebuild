@@ -41,7 +41,7 @@ SRC_URI="
 	${EGO_SUM_SRC_URI}
 "
 
-LICENSE="ISC"
+LICENSE="ISC MIT BSD Apache-2.0"
 SLOT="0"
 
 if [[ ${PV} != *9999 ]]; then
