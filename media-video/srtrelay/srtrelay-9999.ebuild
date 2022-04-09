@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit git-r3
+inherit go-module git-r3
 
 DESCRIPTION="SRT relay server to distribute media streams to multiple clients"
 HOMEPAGE="https://github.com/voc/srtrelay"
@@ -22,15 +22,11 @@ BDEPEND=""
 
 src_unpack() {
 	git-r3_src_unpack
-
-	cd "${S}"
-	env GOCACHE="${T}/go-cache" \
-		go mod download || die
+	go-module_live_vendor
 }
 
 src_compile() {
-	env GOCACHE="${T}/go-cache" \
-		go build -o ${PN} || die
+	ego build -v -o ${PN}
 }
 
 src_install() {
