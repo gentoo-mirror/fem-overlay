@@ -19,7 +19,7 @@ HOMEPAGE="http://fem.tu-ilmenau.de"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc lvm xen net_traffic"
+IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc lvm xen net_traffic zfs"
 
 DEPEND="
 		acct-group/nagios
@@ -110,15 +110,13 @@ src_install () {
 	PLUGIN_LIST="${PLUGIN_LIST} check_net_traffic"
 	fi
 
+	if use zfs; then
+		PLUGIN_LIST="${PLUGIN_LIST} check_zfs"
+	fi
+
 	dodir /usr/$(get_libdir)/nagios/plugins
 	exeinto /usr/$(get_libdir)/nagios/plugins
 	for PLUGIN in ${PLUGIN_LIST}; do
 		doexe ${PLUGIN}
 	done
-
-	chown -R nagios:nagios "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chown of ${D}/usr/$(get_libdir)/nagios/plugins"
-
-	chmod -R o-rwx "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chmod of ${D}/usr/$(get_libdir)/nagios/plugins"
 }
