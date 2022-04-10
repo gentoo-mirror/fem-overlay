@@ -142,6 +142,7 @@ net-analyzer/fem-nagios-plugins:temp_sensor - add plugin check_sensor
 net-analyzer/fem-nagios-plugins:uptime - add plugin check_uptime checks switch SNMP
 net-analyzer/fem-nagios-plugins:xen - add plugin check_xen_cpu
 net-analyzer/fem-nagios-plugins:xml-rpc - add plugin check_xml-rpc
+net-analyzer/fem-nagios-plugins:zfs - add ZFS checks
 net-analyzer/icinga-classicui:apache2 - Conifg support for apache2 webserver.
 net-analyzer/icinga-classicui:lighttpd - Conifg support for lighttpd webserver.
 net-analyzer/monitoring-plugins:dns - Install net-dns/bind-tools required for monitoring DNS servers. Disabling the flag does not remove any plugins.
