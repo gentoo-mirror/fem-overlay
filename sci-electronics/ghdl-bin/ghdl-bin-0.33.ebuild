@@ -19,6 +19,8 @@ RDEPEND="${DEPEND}"
 
 S=${WORKDIR}
 
+QA_PREBUILT="*"
+
 src_install() {
 	cp -R "${S}"/* "${D}" || die "Install failed!"
 }

@@ -21,6 +21,8 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
 
+QA_PREBUILT="/usr/bin/arcconf"
+
 src_install() {
 	exeinto /usr/bin
 	doexe "${WORKDIR}/usr/StorMan/arcconf"
