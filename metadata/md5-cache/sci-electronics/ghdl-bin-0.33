@@ -6,4 +6,4 @@ KEYWORDS=~amd64
 LICENSE=GPL-2
 SLOT=0
 SRC_URI=https://github.com/tgingold/ghdl/releases/download/v0.33/ghdl-0.33-x86_64-linux.tgz
-_md5_=28876b2947223d2ee2f62e5be3cb689b
+_md5_=53d1711abc5745438e17911ce3e2cecd
