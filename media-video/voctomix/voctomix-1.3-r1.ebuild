@@ -60,7 +60,7 @@ src_install() {
 
 	exeinto /usr/share/voctocore/
 	doexe voctocore/voctocore.py
-	dosym ../../../usr/share/voctocore/voctocore.py /usr/bin/voctocore
+	dosym ../../usr/share/voctocore/voctocore.py /usr/bin/voctocore
 
 	# install voctogui
 	if use gui ; then
@@ -74,7 +74,7 @@ src_install() {
 
 		exeinto /usr/share/voctogui/
 		doexe voctogui/voctogui.py
-		dosym ../../../usr/share/voctogui/voctogui.py /usr/bin/voctogui
+		dosym ../../usr/share/voctogui/voctogui.py /usr/bin/voctogui
 	fi
 
 	# install documentation
