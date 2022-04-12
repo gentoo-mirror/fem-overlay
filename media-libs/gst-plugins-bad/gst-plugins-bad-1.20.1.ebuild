@@ -1,15 +1,13 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 GST_ORG_MODULE="gst-plugins-bad"
-
-inherit flag-o-matic gstreamer-meson
+PYTHON_COMPAT=( python3_{8,9,10} )
+inherit flag-o-matic gstreamer-meson python-any-r1
 
 DESCRIPTION="Less plugins for GStreamer"
 HOMEPAGE="https://gstreamer.freedesktop.org/"
-# glib/misuse of volatile fix, can be dropped in 1.18.5
-SRC_URI+=" https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${P}-glib-volatile.patch.bz2"
 
 LICENSE="LGPL-2"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
@@ -20,34 +18,41 @@ IUSE="X bzip2 +egl fdk gles2 gtk +introspection +opengl +orc vnc wayland" # Keep
 # X11 is automagic for now, upstream #709530 - only used by librfb USE=vnc plugin
 # We mirror opengl/gles2 from -base to ensure no automagic openglmixers plugin (with "opengl?" it'd still get built with USE=-opengl here)
 # FIXME	gtk? ( >=media-plugins/gst-plugins-gtk-${PV}:${SLOT}[${MULTILIB_USEDEP}] )
-RDEPEND="
+DEPEND="
 	!media-plugins/gst-transcoder
 	>=media-libs/gstreamer-${PV}:${SLOT}[${MULTILIB_USEDEP},introspection?]
 	>=media-libs/gst-plugins-base-${PV}:${SLOT}[${MULTILIB_USEDEP},egl?,introspection?,gles2=,opengl=]
 	introspection? ( >=dev-libs/gobject-introspection-1.31.1:= )
-	fdk? ( media-libs/fdk-aac:= )
 
 	bzip2? ( >=app-arch/bzip2-1.0.6-r4[${MULTILIB_USEDEP}] )
 	vnc? ( X? ( x11-libs/libX11[${MULTILIB_USEDEP}] ) )
 	wayland? (
 		>=dev-libs/wayland-1.4.0[${MULTILIB_USEDEP}]
 		>=x11-libs/libdrm-2.4.55[${MULTILIB_USEDEP}]
-		>=dev-libs/wayland-protocols-1.4
+		>=dev-libs/wayland-protocols-1.15
 	)
 
 	orc? ( >=dev-lang/orc-0.4.17[${MULTILIB_USEDEP}] )
 "
 
-DEPEND="${RDEPEND}
-	dev-util/glib-utils
-	>=dev-util/gtk-doc-am-1.12
+RDEPEND="${DEPEND}
+	amd64? (
+		fdk? ( >=media-plugins/gst-plugins-fdkaac-${PV} )
+	)
 "
+
+BDEPEND="
+	${PYTHON_DEPS}
+	dev-util/glib-utils
+"
+
+DOCS=( AUTHORS ChangeLog NEWS README.md RELEASE )
 
 # FIXME: gstharness.c:889:gst_harness_new_with_padnames: assertion failed: (element != NULL)
 RESTRICT="test"
 
+# Fixes backported to 1.20.1, to be removed in 1.20.2+
 PATCHES=(
-	"${WORKDIR}"/${P}-glib-volatile.patch
 )
 
 src_prepare() {
@@ -56,12 +61,12 @@ src_prepare() {
 }
 
 multilib_src_configure() {
-	GST_PLUGINS_NOAUTO="shm fdkaac ipcpipeline librfb hls"
+	GST_PLUGINS_NOAUTO="shm ipcpipeline librfb hls"
+
 	local emesonargs=(
 		-Dshm=enabled
 		-Dipcpipeline=enabled
 		-Dhls=disabled
-		$(meson_feature fdk fdkaac)
 		$(meson_feature vnc librfb)
 
 		$(meson_feature wayland)
@@ -82,7 +87,6 @@ multilib_src_test() {
 }
 
 multilib_src_install_all() {
-	DOCS="AUTHORS ChangeLog NEWS README RELEASE"
 	einstalldocs
 	find "${ED}" -name '*.la' -delete || die
 }
