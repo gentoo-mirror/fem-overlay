@@ -31,6 +31,12 @@
 
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (12 Apr 2022)
+# Broken package, non-live ebuild exists in ::gentoo.
+# Removal from the fem-overlay is planned fro 2022-05-16.
+# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/102
+media-libs/mlt
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (08 Apr 2022)
 # Package was only temporarily added to provide a version with a bugfix. This
 # is now obsolete. Removal from the fem-overlay is planned for 2022-05-08.
