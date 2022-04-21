@@ -1,0 +1,16 @@
+BDEPEND=dev-lang/perl test? ( virtual/perl-Test-Simple )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-perl/IO-Socket-SSL dev-perl/Mojolicious dev-perl/Net-SSLeay virtual/perl-Carp virtual/perl-Exporter virtual/perl-File-Temp dev-lang/perl
+DESCRIPTION=Perl module to look up the vendor of a MAC
+EAPI=8
+HOMEPAGE=https://metacpan.org/release/Net-MAC-Vendor
+INHERIT=perl-module
+IUSE=test
+KEYWORDS=~amd64
+LICENSE=Artistic-2
+RDEPEND=dev-perl/IO-Socket-SSL dev-perl/Mojolicious dev-perl/Net-SSLeay virtual/perl-Carp virtual/perl-Exporter virtual/perl-File-Temp dev-lang/perl:=
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/E/ET/ETHER/Net-MAC-Vendor-1.268.tar.gz
+_eclasses_=multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	8eed4e2982026c684ff7c19cd4c88ed0
+_md5_=6124f594b88765a66225aa1077137188

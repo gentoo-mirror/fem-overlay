@@ -1,0 +1,16 @@
+BDEPEND=dev-perl/Module-Build dev-lang/perl test? ( virtual/perl-Test-Simple )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-perl/Bit-Vector dev-perl/Class-Gomor dev-perl/Net-IPv6Addr virtual/perl-Socket dev-lang/perl
+DESCRIPTION=Base framework for frame crafting
+EAPI=8
+HOMEPAGE=https://metacpan.org/release/Net-Frame
+INHERIT=perl-module
+IUSE=test
+KEYWORDS=~amd64
+LICENSE=Artistic
+RDEPEND=dev-perl/Bit-Vector dev-perl/Class-Gomor dev-perl/Net-IPv6Addr virtual/perl-Socket dev-lang/perl:=
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/G/GO/GOMOR/Net-Frame-1.21.tar.gz
+_eclasses_=multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	8eed4e2982026c684ff7c19cd4c88ed0
+_md5_=450deef5a6c5903d1a9a605209931698

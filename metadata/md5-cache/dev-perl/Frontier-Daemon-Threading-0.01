@@ -1,0 +1,16 @@
+BDEPEND=dev-lang/perl test? ( virtual/perl-Test-Simple )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-perl/Frontier-RPC dev-perl/HTTP-Daemon dev-perl/HTTP-Message dev-lang/perl
+DESCRIPTION=Drop-in replacement for Frontier::Daemon using threads
+EAPI=8
+HOMEPAGE=https://metacpan.org/release/Frontier-Daemon-Threading
+INHERIT=perl-module
+IUSE=test
+KEYWORDS=~amd64
+LICENSE=|| ( Artistic GPL-1+ )
+RDEPEND=dev-perl/Frontier-RPC dev-perl/HTTP-Daemon dev-perl/HTTP-Message dev-lang/perl:=
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://gitlab.fem-net.de/nex/admindb-vendored/-/archive/perl-Frontier-Daemon-Threading-0.01/admindb-vendored-perl-Frontier-Daemon-Threading-0.01.tar.bz2
+_eclasses_=multiprocessing	61c959fc55c15c00bbb1079d6a71370b	perl-functions	fea344a91ebf37efadf172c6a3de5a72	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	8eed4e2982026c684ff7c19cd4c88ed0
+_md5_=13d691494ee6cbd14f7dce3f880302a8
