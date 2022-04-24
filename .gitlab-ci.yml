@@ -4,6 +4,10 @@ stages:
   - repoman
   - overlint
   - pkgcheck
+  - manifest
+
+variables:
+  DISTDIR: ./tmp_distdir
 
 repoman_all:
   stage: repoman
@@ -41,4 +45,34 @@ pkgcheck_commits:
     - git fetch
     - pkgcheck scan --commits origin/master..HEAD
   needs: []
+  only: [merge_requests]
+
+
+.manifest:
+  stage: manifest
+  before_script:
+    - git fetch
+  script:
+    - ./tools/manifest_packages.sh
+
+  needs: []
+
+  cache:
+    - key: manifest
+      paths:
+        - "${DISTDIR}"
+
+manifest_all:
+  extends: .manifest
+  variables:
+    MANIFEST_ONLY_DIFF: "false"
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+manifest_commits:
+  extends: .manifest
+  variables:
+    MANIFEST_ONLY_DIFF: "true"
+
   only: [merge_requests]
