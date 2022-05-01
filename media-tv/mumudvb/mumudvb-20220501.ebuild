@@ -1,12 +1,12 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=6
+EAPI=8
 
 DESCRIPTION="Multi Multicast DVB to redistribute streams from DVB or ATSC"
 HOMEPAGE="https://mumudvb.net"
-SRC_URI="https://github.com/braice/MuMuDVB/archive/mumudvb2.zip"
+COMMIT_ID="f80fecddd24dce26b1090f2e7332e65f6535d82c"
+SRC_URI="https://github.com/braice/MuMuDVB/archive/${COMMIT_ID}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -18,10 +18,15 @@ DEPEND="
 	media-tv/linuxtv-dvb-apps"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	default
-	S="${WORKDIR}/MuMuDVB-mumudvb2"
-}
+S="${WORKDIR}/MuMuDVB-${COMMIT_ID}"
+
+DOCS=(
+	"ChangeLog"
+	"doc/README.asciidoc"
+	"doc/README_CONF.asciidoc"
+	"doc/FAQ.asciidoc"
+	"doc/QUICKSTART.asciidoc"
+)
 
 src_prepare() {
 	autoreconf -i -f
