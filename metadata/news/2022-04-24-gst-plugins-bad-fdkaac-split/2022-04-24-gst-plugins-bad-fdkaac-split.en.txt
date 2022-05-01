@@ -1,0 +1,24 @@
+Title: gst-plugins-bad splits off fdkaac plugin
+Author: Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de>
+Posted: 2022-04-24
+Revision: 1
+News-Item-Format: 2.0
+Display-If-Installed: >=media-libs/gst-plugins-bad-1.18.4
+
+gst-plugins-bad was imported into the FeM Overlay to add support for the
+fdkaac plugin. In the Gentoo Bugzilla, Bug #837809 [1] has been opened,
+requesting addition of the fdkaac plugin. The maintainers have decided to make
+the fdkaac plugin available in a split package. As soon as the split package
+gets added to ::gentoo, the cleanup of gst-plugins-bad in the FeM Overlay
+shall start.
+
+To ease with the transition, a split package media-plugins/gst-plugins-fdkaac
+has been created, which is equivalent to the package in the open pull request.
+The current revision of media-libs/gst-plugins-bad in the FeM Overlay pulls in
+media-plugins/gst-plugins-fdkaac conditionally if the fdk USE flag is present.
+However, to make sure the plugin doesn't get removed in the next deplean,
+users must add the package to the world set:
+
+  emerge --ask --noreplace media-plugins/gst-plugins-fdkaac
+
+[1] https://bugs.gentoo.org/837809
