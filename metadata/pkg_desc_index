@@ -65,7 +65,7 @@ media-libs/mlt 9999: Open source multimedia framework for television broadcastin
 media-libs/svt-av1 0.9.0: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
 media-sound/jamulus 3.8.2: Internet jam session software
-media-tv/mumudvb 2.0.0 20210619-r1: Multi Multicast DVB to redistribute streams from DVB or ATSC
+media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
@@ -104,7 +104,7 @@ sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
 sys-kernel/femkvm-kernel 5.10.60 5.15.23 5.15.28: Linux kernel built with Gentoo patches
-sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.27: Linux kernel built with Gentoo patches
+sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
 www-nginx/nginx-vod-module 1.20.1.1.25 1.20.1.1.27: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team

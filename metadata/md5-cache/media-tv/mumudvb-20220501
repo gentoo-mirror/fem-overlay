@@ -7,5 +7,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 RDEPEND=media-tv/dvbtune media-tv/linuxtv-dvb-apps
 SLOT=0
-SRC_URI=https://github.com/braice/MuMuDVB/archive/ed1c176759b544d178c6741789588e6005299de6.tar.gz -> mumudvb-20210619.tar.gz
-_md5_=58f39b0c7d5a947783fea40a8e982c7c
+SRC_URI=https://github.com/braice/MuMuDVB/archive/f80fecddd24dce26b1090f2e7332e65f6535d82c.tar.gz -> mumudvb-20220501.tar.gz
+_md5_=13d3740c17cffc643bf53f273d2ad688
