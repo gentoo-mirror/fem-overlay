@@ -42,10 +42,6 @@ dev-lang/php:xmlreader - Enable XMLReader support
 dev-lang/php:xmlwriter - Enable XMLWriter support
 dev-lang/php:xslt - Enable the XSL extension
 dev-perl/XML-RPC-Fast:anyevent - Add support for AnyEvent event loop library
-media-libs/dav1d:10bit - Add support for building 10-bit and 12-bit AV1.
-media-libs/dav1d:8bit - Add support for decoding 8-bit AV1.
-media-libs/dav1d:asm - Enable custom assembly for faster decoding.
-media-libs/dav1d:xxhash - Enable dev-libs/xxhash support for hashing muxer
 media-libs/gst-plugins-bad:bzip2 - Enable bzip2 encoder/decoder plugin
 media-libs/gst-plugins-bad:egl - Enable EGL support
 media-libs/gst-plugins-bad:fdk - Enable Fraunhofer AAC audio codec support
