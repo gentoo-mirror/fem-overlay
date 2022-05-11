@@ -31,6 +31,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (11 May 2022)
+# Ebuild exists in ::gentoo. Removal planned for 2022-06-11.
+app-pda/ifuse
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (12 Apr 2022)
 # Broken package, non-live ebuild exists in ::gentoo.
 # Removal from the fem-overlay is planned fro 2022-05-16.
