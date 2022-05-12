@@ -57,14 +57,9 @@ for c in ${categories}; do
 
 		atom="${c}/${d}::fem-overlay"
 		banner " * ${atom}... "
-		if grep pkg_nofetch *.ebuild >/dev/null; then
-			echo "Ignoring ${atom} due to pkg_nofetch!"
-			ignored_packages+=( "${atom}" )
-			continue
-		fi
 
 		echo "Regenerating manifest"
-		output="$(pkgdev manifest -qfd ${dist_dir})"
+		output="$(pkgdev manifest --ignore-fetch-restricted -qfd ${dist_dir})"
 		if [[ "$?" != "0" ]]; then
 			failed_packages+=( "${atom}" )
 			echo ""
