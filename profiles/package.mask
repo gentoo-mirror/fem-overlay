@@ -31,6 +31,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (13 May 2022)
+# Dead upstream. Still uses EAPI=5. Removal ofter 2022-06-13.
+net-misc/rtsp-server
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (11 May 2022)
 # Ebuild exists in ::gentoo. Removal planned for 2022-06-11.
 app-pda/ifuse
