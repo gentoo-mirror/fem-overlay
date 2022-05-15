@@ -31,6 +31,12 @@
 
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (15 May 2022)
+# Exists in ::gentoo as dev-python/djangorestframework. Not up-to-date in
+# ::fem-overlay. Removal on 2022-06-15.
+# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/110
+dev-python/django-rest-framework
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (13 May 2022)
 # Dead upstream. Still uses EAPI=5. Removal ofter 2022-06-13.
 net-misc/rtsp-server
