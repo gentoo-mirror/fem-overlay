@@ -14,7 +14,8 @@ repoman_all:
   script:
     - repoman full -x -j4
   needs: []
-  except: [merge_requests]
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'master'"
 
 repoman_commits:
   stage: repoman
@@ -22,7 +23,8 @@ repoman_commits:
     - git fetch
     - ./tools/repoman_changed_files.sh
   needs: []
-  only: [merge_requests]
+  rules:
+    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
 overlint:
   stage: overlint
@@ -37,7 +39,8 @@ pkgcheck_all:
   script:
     - pkgcheck scan
   needs: []
-  except: [merge_requests]
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'master'"
 
 pkgcheck_commits:
   stage: pkgcheck
@@ -45,7 +48,8 @@ pkgcheck_commits:
     - git fetch
     - pkgcheck scan --commits origin/master..HEAD
   needs: []
-  only: [merge_requests]
+  rules:
+    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
 
 .manifest:
@@ -75,4 +79,5 @@ manifest_commits:
   variables:
     MANIFEST_ONLY_DIFF: "true"
 
-  only: [merge_requests]
+  rules:
+    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
