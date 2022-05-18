@@ -46,15 +46,6 @@ media-libs/gst-plugins-bad:bzip2 - Enable bzip2 encoder/decoder plugin
 media-libs/gst-plugins-bad:egl - Enable EGL support
 media-libs/gst-plugins-bad:fdk - Enable Fraunhofer AAC audio codec support
 media-libs/gst-plugins-bad:gles2 - Enable GLES2 support
-media-libs/mlt:compressed-lumas - Compress the luma files in png.
-media-libs/mlt:decklink - Build support for Blackmagic DeckLink devices
-media-libs/mlt:frei0r - Build the module for media-plugins/frei0r-plugins
-media-libs/mlt:lua - Build SWIG bindings for Lua
-media-libs/mlt:opencv - Build motion tracking module using media-libs/opencv
-media-libs/mlt:python - Build SWIG bindings for Python
-media-libs/mlt:rtaudio - Builds rtaudio consumer for native audio support on multiple platforms
-media-libs/mlt:rubberband - Enable audio pitch-shifting using media-libs/rubberband
-media-libs/mlt:vidstab - Enabled video stabilization with media-libs/vidstab
 media-sound/jamulus:headless - Build headless components only
 media-video/decklink-drivers:autostart - Add DesktopVideoHelper to autostart
 media-video/decklink-drivers:headers - Install Decklink API headers.
