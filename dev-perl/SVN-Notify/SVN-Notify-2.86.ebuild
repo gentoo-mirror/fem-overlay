@@ -11,7 +11,7 @@ HOMEPAGE="https://search.cpan.org/~dwheeler/SVN-Notify/"
 
 SLOT="0"
 LICENSE="Artistic"
-KEYWORDS="~alpha ~amd64 ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86
+KEYWORDS="~alpha ~amd64 ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86
 ~amd64-linux ~x86-linux ~ppc-macos"
 IUSE=""
 
