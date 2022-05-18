@@ -5,6 +5,10 @@
 	<email>jonas.licht@fem.tu-ilmenau.de</email>
 	<name>Jonas Licht</name>
 </maintainer>
+<maintainer type="person">
+	<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+	<name>Adrian Schollmeyer</name>
+</maintainer>
 <use>
 	<flag name="bandwidth">add plugin check_bindwidth checks switch SNMP</flag>
 	<flag name="cgiirc">add plugin check_cgiirc</flag>
