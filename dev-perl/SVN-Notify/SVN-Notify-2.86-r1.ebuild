@@ -18,8 +18,8 @@ IUSE=""
 DEPEND=">=dev-vcs/subversion-1.1.3[perl]
 	dev-perl/Email-Address
 	dev-perl/HTML-Parser
-	dev-perl/Module-Build
 	virtual/perl-Getopt-Long
 	virtual/perl-libnet"
 
 RDEPEND="${DEPEND}"
+BDEPEND="dev-perl/Module-Build"
