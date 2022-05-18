@@ -42,7 +42,7 @@ dev-perl/Net-MAC 2.103622: Perl extension for representing and manipulating MAC 
 dev-perl/Net-MAC-Vendor 1.268: Perl module to look up the vendor of a MAC
 dev-perl/Net-Write 1.10: Interface to open and send raw data to network
 dev-perl/ProCurve-SNMP-Wrapper 2.00.01: Perl SNMP wrapper for HP ProCurve switches
-dev-perl/SVN-Notify 2.86: SVN::Notify - Subversion activity notification
+dev-perl/SVN-Notify 2.86-r1: SVN::Notify - Subversion activity notification
 dev-perl/Sys-Prctl 1.02: Perl module to access prctl syscall
 dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8: No description available
