@@ -1,6 +1,6 @@
 BDEPEND=dev-perl/Module-Build dev-lang/perl test? ( virtual/perl-Test-Simple )
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=dev-perl/Class-Gomor dev-lang/perl
+DEPEND=dev-libs/libdnet dev-perl/Class-Gomor dev-lang/perl
 DESCRIPTION=Perl binding for libdnet
 EAPI=8
 HOMEPAGE=https://metacpan.org/release/Net-Libdnet
@@ -8,9 +8,9 @@ INHERIT=perl-module
 IUSE=test
 KEYWORDS=~amd64
 LICENSE=BSD
-RDEPEND=dev-perl/Class-Gomor dev-lang/perl:=
+RDEPEND=dev-libs/libdnet dev-perl/Class-Gomor dev-lang/perl:=
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/G/GO/GOMOR/Net-Libdnet-0.99.tar.gz
 _eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	fea344a91ebf37efadf172c6a3de5a72	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	8eed4e2982026c684ff7c19cd4c88ed0
-_md5_=06589f99115f54da942866a067b0d45b
+_md5_=4c27c106a27801e2ff21fcbec24007a4
