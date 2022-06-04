@@ -11,7 +11,7 @@ LICENSE="NDI_EULA_END"
 SLOT="0"
 KEYWORDS="~arm64"
 IUSE=""
-RESTRICT="fetch"
+RESTRICT="fetch bindist"
 
 HOMEPAGE="https://www.newtek.com/ndi/sdk/"
 # supress QA warnings about stripping etc., i.e. stuff we cannot change since we install prebuilt binaries
@@ -22,7 +22,6 @@ RDEPEND="
 net-dns/avahi[dbus]
 ${DEPEND}"
 
-RESTRICT="bindist"
 
 src_unpack() {
 	unpack ${A}
