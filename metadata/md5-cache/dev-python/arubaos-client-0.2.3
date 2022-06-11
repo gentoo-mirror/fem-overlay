@@ -1,16 +1,16 @@
-BDEPEND=python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8 ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9 ) >=dev-python/setuptools-42.0.2[python_targets_python3_8(-)?,python_targets_python3_9(-)?]
+BDEPEND=python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8 ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9 ) python_targets_python3_10? ( >=dev-lang/python-3.10.0_p1-r1:3.10 ) python_targets_python3_11? ( >=dev-lang/python-3.11.0_beta1-r1:3.11 ) >=dev-python/setuptools-42.0.2[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?]
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=>=dev-python/netaddr-0.8.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?] >=dev-python/pytimeparse-1.1.8[python_targets_python3_8(-)?,python_targets_python3_9(-)?] >=dev-python/requests-2.24.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?]
+DEPEND=>=dev-python/netaddr-0.8.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/pytimeparse-1.1.8[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/requests-2.24.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?]
 DESCRIPTION=Library to interact with the ArubaOS REST API
 EAPI=7
 HOMEPAGE=https://fem.tu-ilmenau.de https://gitlab.fem-net.de/technik/arubaos-client
 INHERIT=distutils-r1
-IUSE=python_targets_python3_8 python_targets_python3_9
+IUSE=python_targets_python3_8 python_targets_python3_9 python_targets_python3_10 python_targets_python3_11
 KEYWORDS=~amd64
 LICENSE=MIT
-RDEPEND=>=dev-python/netaddr-0.8.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?] >=dev-python/pytimeparse-1.1.8[python_targets_python3_8(-)?,python_targets_python3_9(-)?] >=dev-python/requests-2.24.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?] python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8 ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9 )
-REQUIRED_USE=|| ( python_targets_python3_8 python_targets_python3_9 )
+RDEPEND=>=dev-python/netaddr-0.8.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/pytimeparse-1.1.8[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/requests-2.24.0[python_targets_python3_8(-)?,python_targets_python3_9(-)?,python_targets_python3_10(-)?,python_targets_python3_11(-)?] python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8 ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9 ) python_targets_python3_10? ( >=dev-lang/python-3.10.0_p1-r1:3.10 ) python_targets_python3_11? ( >=dev-lang/python-3.11.0_beta1-r1:3.11 )
+REQUIRED_USE=|| ( python_targets_python3_8 python_targets_python3_9 python_targets_python3_10 python_targets_python3_11 )
 SLOT=0
 SRC_URI=https://gitlab.fem-net.de/technik/arubaos-client/-/archive/v0.2.3/arubaos-client-v0.2.3.tar.bz2
 _eclasses_=multibuild	d26d81f242cb193d899a72bca423d0bd	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	python-utils-r1	648fe6a039e87233d7f48da72cadb76f	python-r1	8638751691200e941f26fe0ac3aef1d1	distutils-r1	197b6711aac35c87e9536c55ad3b909d
-_md5_=cfbb358f54d7ff9e00fdc235a4437759
+_md5_=fd30fa2032a5492b06e97e18ce21fe8f

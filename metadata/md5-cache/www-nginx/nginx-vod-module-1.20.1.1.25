@@ -10,5 +10,5 @@ LICENSE=AGPL-3
 RDEPEND=dev-libs/libxml2 media-video/ffmpeg sys-libs/zlib
 SLOT=0
 SRC_URI=https://nginx.org/download/nginx-1.20.1.tar.gz https://github.com/kaltura/nginx-vod-module/archive/1.25.tar.gz -> nginx-vod-module-1.25.tar.gz
-_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85	nginx-module	7876c2aabfb541ff49a79161a4f8d5d2
+_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85	nginx-module	3dcbf4cde4aee80b6f4e8967ef5541c2
 _md5_=5229f14117ade300d51776ab2b9f5d4c
