@@ -30,7 +30,7 @@ overlint:
     - overlint-cli .
   needs: []
   rules:
-    - when: always
+    - if: "$CI_COMMIT_BRANCH == 'master'"
 
 pkgcheck_all:
   stage: pkgcheck
