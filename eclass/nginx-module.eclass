@@ -24,13 +24,13 @@ esac
 
 inherit toolchain-funcs
 
-# @ECLASS-VARIABLE: NGINX_PV
+# @ECLASS_VARIABLE: NGINX_PV
 # @DESCRIPTION:
 # Uses version cut of the first three parts of the version to determine the nginx version providing the module.
 # This version is used for SRC_URI, BDPEND and compiling process.
 NGINX_PV=$(ver_cut 1-3)
 
-# @ECLASS-VARIABLE: MODULE_PV
+# @ECLASS_VARIABLE: MODULE_PV
 # @DESCRIPTION:
 # Uses version cut to get the version of the module.
 # Variable can be used for SRC_URI of the nginx module.

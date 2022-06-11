@@ -5,7 +5,7 @@ EAPI=7
 
 MY_P="${PN}-v${PV}"
 
-PYTHON_COMPAT=( python3_8 python3_9 )
+PYTHON_COMPAT=( python3_{8..11} )
 inherit distutils-r1
 
 DESCRIPTION="Library to interact with the ArubaOS REST API"
