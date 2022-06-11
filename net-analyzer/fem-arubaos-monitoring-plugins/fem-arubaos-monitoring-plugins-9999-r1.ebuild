@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7..11} )
+PYTHON_COMPAT=( python3_{8..11} )
 
 if [[ ${PV} == *9999 ]]; then
 	SCM="git-r3"
