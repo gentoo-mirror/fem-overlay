@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_8 python3_9 )
+PYTHON_COMPAT=( python3_{8..10} )
 inherit distutils-r1 wrapper
 
 MY_PN="${PN#fem-}"
