@@ -16,7 +16,6 @@ app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-emulation/xen-sriov 0.2020705: Xen sr-iov scripts
 app-misc/supertee 9999: Multithreaded multisink pipe
 app-misc/tmux-starter 1.1.1: Simple ncurses based interface for accessing tmux sessions
-app-pda/ifuse 1.1.3-r1 1.1.4 9999: Mount Apple iPhone/iPod Touch file systems for backup purposes
 app-pda/libimobiledevice 9999: Support library to communicate with Apple iPhone/iPod Touch devices
 app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
