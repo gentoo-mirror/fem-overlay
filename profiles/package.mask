@@ -42,34 +42,3 @@ app-misc/supertee
 # ::fem-overlay. Removal on 2022-06-15.
 # See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/110
 dev-python/django-rest-framework
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (13 May 2022)
-# Dead upstream. Still uses EAPI=5. Removal ofter 2022-06-13.
-net-misc/rtsp-server
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (11 May 2022)
-# Ebuild exists in ::gentoo. Removal planned for 2022-06-11.
-app-pda/ifuse
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (12 Apr 2022)
-# Broken package, non-live ebuild exists in ::gentoo.
-# Removal from the fem-overlay is planned fro 2022-05-16.
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/102
-media-libs/mlt
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (15 Mar 2022)
-# Package is no longer in use and has no reverse dependencies. Removal from the
-# fem-overlay is planned for 2022-04-15.
-net-misc/radiusplugin
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (01 Mar 2021)
-# net-dns/pdns will be removed from the fem-overlay after 2022-04-01, since
-# the stable version exists in ::gentoo and older versions are no longer used
-# by FeM.
-net-dns/pdns
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (01 Mar 2021)
-# net-dns/pdns-recursor will be removed from the fem-overlay after 2022-04-01,
-# since the stable version exists in ::gentoo and older versions are no longer
-# used by FeM.
-net-dns/pdns-recursor
