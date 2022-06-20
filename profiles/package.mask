@@ -36,9 +36,3 @@
 # Removal on 2022-07-11.
 # See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/121
 app-misc/supertee
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (15 May 2022)
-# Exists in ::gentoo as dev-python/djangorestframework. Not up-to-date in
-# ::fem-overlay. Removal on 2022-06-15.
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/110
-dev-python/django-rest-framework
