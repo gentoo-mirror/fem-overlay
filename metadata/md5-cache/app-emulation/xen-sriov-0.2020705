@@ -10,5 +10,5 @@ LICENSE=MIT
 RDEPEND=virtual/udev app-emulation/xen-tools
 SLOT=0
 SRC_URI=https://gitlab.fem-net.de/technik/xen/xen-sriov-scripts/-/archive/365fb06e0ba158b46773bd5d4978878383f2ebcc/xen-sriov-scripts-365fb06e0ba158b46773bd5d4978878383f2ebcc.tar.bz2
-_eclasses_=toolchain-funcs	fd9cde67030b26e479eeadaced488253	multilib	4fbbbc98f236f1b43acd99476bc3cd85	udev	f3a0a3964e2028a140c181f00eea9712
+_eclasses_=toolchain-funcs	e9da88162e7a3c60376e80c2c2adcdfb	multilib	4fbbbc98f236f1b43acd99476bc3cd85	udev	f3a0a3964e2028a140c181f00eea9712
 _md5_=bd98721c0c6351d69b71f35f1c172c1f
