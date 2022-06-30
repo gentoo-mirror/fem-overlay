@@ -49,7 +49,6 @@ dev-perl/XML-RPC-Fast 0.8: No description available
 dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
 dev-python/admindb-dbhandler 1.0.0: Python wrapper for interactions with FeM's AdminDB
 dev-python/arubaos-client 0.2.2 0.2.3 9999: Library to interact with the ArubaOS REST API
-dev-python/django-rest-framework 3.9.0-r1: Powerful and flexible toolkit that makes it easy to build Web APIs using Django
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
 dev-python/gitlab 2.10.0: Python library to interact with the GitLab API
@@ -91,7 +90,6 @@ net-im/xmppc 0.1.1: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in standard web server like format
-net-misc/kea 1.8.2-r1: High-performance production grade DHCPv4 & DHCPv6 server
 net-misc/rtsp-simple-server 0.17.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator

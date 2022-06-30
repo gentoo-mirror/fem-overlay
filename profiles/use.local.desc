@@ -149,9 +149,6 @@ net-analyzer/nagios-plugins-extended:suid - Set SUID-Flag for several plugins
 net-analyzer/nagios-plugins-extended:tcptraffic - Install TCP-Traffic plugin
 net-analyzer/nagios-plugins-extended:temp - Install Temperature-sensor plugin
 net-analyzer/nagios-plugins-extended:timestamp - Install Timestamp-Check plugin
-net-misc/kea:msg-compiler - Build message compiler
-net-misc/kea:openssl - Use dev-libs/openssl instead of Botan
-net-misc/kea:samples - Install sample configuration files
 sci-libs/vmaf:tools - Also install feature binaries
 sys-fs/lvm2:device-mapper-only - Build only device-mapper and not the rest of LVM2 (UNSUPPORTED)
 sys-fs/lvm2:lvm1 - Allow users to build lvm2 with lvm1 support
