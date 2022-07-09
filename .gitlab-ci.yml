@@ -8,6 +8,8 @@ stages:
 
 variables:
   DISTDIR: ./tmp_distdir
+  NOCOLOR: "false"
+  PKGCHECK_COMMON_OPTS: "--color true"
 
 repoman_all:
   stage: repoman
@@ -37,7 +39,7 @@ overlint:
 pkgcheck_all:
   stage: pkgcheck
   script:
-    - pkgcheck scan
+    - pkgcheck scan $PKGCHECK_COMMON_OPTS
   needs: []
   rules:
     - if: "$CI_COMMIT_BRANCH == 'master'"
@@ -46,7 +48,7 @@ pkgcheck_commits:
   stage: pkgcheck
   script:
     - git fetch
-    - pkgcheck scan --commits origin/master..HEAD
+    - pkgcheck scan $PKGCHECK_COMMON_OPTS --commits origin/master..HEAD
   needs: []
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
