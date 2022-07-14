@@ -5,7 +5,7 @@
 
 EAPI=7
 
-inherit eutils multilib pax-utils toolchain-funcs user
+inherit eutils multilib pax-utils toolchain-funcs
 
 DESCRIPTION="Icinca ClassicUI for Icinga2"
 HOMEPAGE="http://www.icinga.org/"
@@ -20,7 +20,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+apache2 lighttpd"
-DEPEND="media-libs/gd[jpeg,png]
+DEPEND="
+	acct-user/icinga
+	acct-group/icinga
+
+	media-libs/gd[jpeg,png]
 	lighttpd? ( www-servers/lighttpd )
 
 	net-analyzer/icinga2
