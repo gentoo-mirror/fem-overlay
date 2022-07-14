@@ -101,7 +101,7 @@ sys-kernel/femkvm-kernel 5.10.60 5.15.23 5.15.28 5.15.41: Linux kernel built wit
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 sys-kernel/modprobed-db 2.46: Keeps track of every kernel module that has been modprobed.
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
-www-nginx/nginx-vod-module 1.20.1.1.25 1.20.1.1.27: NGINX-based MP4 Repackager
+www-nginx/nginx-vod-module 1.21.6.1.25 1.21.6.1.27: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2: pass integration for rofi
 x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple
