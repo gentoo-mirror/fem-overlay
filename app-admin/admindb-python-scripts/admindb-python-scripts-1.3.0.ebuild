@@ -14,7 +14,7 @@ SRC_URI="https://gitlab.fem-net.de/admindb/admindb-python-scripts/-/archive/v${P
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 
 DEPEND=""
 RDEPEND="
