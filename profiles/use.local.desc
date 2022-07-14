@@ -132,11 +132,6 @@ net-analyzer/fem-nagios-plugins:xml-rpc - add plugin check_xml-rpc
 net-analyzer/fem-nagios-plugins:zfs - add ZFS checks
 net-analyzer/icinga-classicui:apache2 - Conifg support for apache2 webserver.
 net-analyzer/icinga-classicui:lighttpd - Conifg support for lighttpd webserver.
-net-analyzer/monitoring-plugins:dns - Install net-dns/bind-tools required for monitoring DNS servers. Disabling the flag does not remove any plugins.
-net-analyzer/monitoring-plugins:fping - Install net-analyzer/fping required for fancy ping monitoring. Disabling the flag does not remove any plugins.
-net-analyzer/monitoring-plugins:game - Install games-util/qstat required for monitoring FPS servers. Disabling the flag does not remove any plugins.
-net-analyzer/monitoring-plugins:snmp - Install dev-perl/Net-SNMP and net-analyzer/net-snmp required for monitoring SNMP values. Disabling the flag does not remove any plugins.
-net-analyzer/monitoring-plugins:ssh - Install net-misc/openssh required for monitoring SSH servers. Disabling the flag does not remove any plugins.
 net-analyzer/nagios-plugins-extended:apache - Install Apache plugin
 net-analyzer/nagios-plugins-extended:corosync - Install Corosync plugins
 net-analyzer/nagios-plugins-extended:haproxy - Install HA-Proxy plugin
