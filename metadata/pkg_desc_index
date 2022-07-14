@@ -62,6 +62,7 @@ media-libs/svt-av1 0.9.0: Scalable Video Technology for AV1 (SVT-AV1 Encoder and
 media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.1: Fraunhofer AAC encoder plugin for GStreamer
 media-sound/jamulus 3.8.2: Internet jam session software
+media-sound/x32edit-bin 4.3: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
