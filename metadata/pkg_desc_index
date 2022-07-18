@@ -43,9 +43,6 @@ dev-perl/Net-Write 1.10: Interface to open and send raw data to network
 dev-perl/ProCurve-SNMP-Wrapper 2.00.01: Perl SNMP wrapper for HP ProCurve switches
 dev-perl/SVN-Notify 2.86-r1: SVN::Notify - Subversion activity notification
 dev-perl/Sys-Prctl 1.02: Perl module to access prctl syscall
-dev-perl/XML-Hash-LX 0.06: Convert hash to xml and xml to hash using LibXML
-dev-perl/XML-RPC-Fast 0.8: No description available
-dev-perl/lib-abs 0.93: lib that makes relative path absolute to caller
 dev-python/admindb-dbhandler 1.0.0: Python wrapper for interactions with FeM's AdminDB
 dev-python/arubaos-client 0.2.2 0.2.3 9999: Library to interact with the ArubaOS REST API
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
