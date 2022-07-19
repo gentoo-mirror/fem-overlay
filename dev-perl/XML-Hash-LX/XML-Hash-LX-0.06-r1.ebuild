@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 inherit perl-module
 
@@ -15,7 +15,10 @@ SLOT="0"
 LICENSE="|| ( Artistic GPL-2 )"
 KEYWORDS="~amd64"
 
-DEPEND=">=dev-perl/lib-abs-0.90
-	dev-perl/XML-LibXML"
+RDEPEND="
+	>=dev-perl/lib-abs-0.90
+	dev-perl/XML-LibXML
+"
+DEPEND="${RDEPEND}"
 
 PATCHES=("${FILESDIR}/perl-526.patch")
