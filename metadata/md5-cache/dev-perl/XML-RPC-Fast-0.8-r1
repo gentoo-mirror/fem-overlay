@@ -1,0 +1,16 @@
+BDEPEND=dev-lang/perl test? ( virtual/perl-Test-Simple )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=>=dev-perl/lib-abs-0.90 >=dev-perl/XML-Hash-LX-0.06 dev-perl/Test-NoWarnings dev-perl/libwww-perl dev-perl/XML-LibXML curl? ( dev-perl/WWW-Curl ) anyevent? ( dev-perl/AnyEvent-HTTP dev-perl/AnyEvent ) dev-lang/perl
+DESCRIPTION=No description available
+EAPI=8
+HOMEPAGE=https://search.cpan.org/search?query=XML-RPC-Fast&mode=dist
+INHERIT=perl-module
+IUSE=+curl +anyevent test
+KEYWORDS=~amd64
+LICENSE=|| ( Artistic GPL-2 )
+RDEPEND=>=dev-perl/lib-abs-0.90 >=dev-perl/XML-Hash-LX-0.06 dev-perl/Test-NoWarnings dev-perl/libwww-perl dev-perl/XML-LibXML curl? ( dev-perl/WWW-Curl ) anyevent? ( dev-perl/AnyEvent-HTTP dev-perl/AnyEvent ) dev-lang/perl:=
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/M/MO/MONS/XML-RPC-Fast-0.8.tar.gz
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	4f80b00fab088c2f6d68edb55a6c4bf4
+_md5_=48cb6f2419baa8dee42f77533a05bc90

@@ -1,0 +1,16 @@
+BDEPEND=dev-lang/perl test? ( virtual/perl-Test-Simple )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=>=dev-perl/lib-abs-0.90 dev-perl/XML-LibXML dev-lang/perl
+DESCRIPTION=Convert hash to xml and xml to hash using LibXML
+EAPI=8
+HOMEPAGE=https://search.cpan.org/search?query=XML-Hash-LX&mode=dist
+INHERIT=perl-module
+IUSE=test
+KEYWORDS=~amd64
+LICENSE=|| ( Artistic GPL-2 )
+RDEPEND=>=dev-perl/lib-abs-0.90 dev-perl/XML-LibXML dev-lang/perl:=
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=mirror://cpan/authors/id/M/MO/MONS/XML-Hash-LX-0.06.tar.gz
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	4f80b00fab088c2f6d68edb55a6c4bf4
+_md5_=c6a07e70e12d38968bdd553c86df084c
