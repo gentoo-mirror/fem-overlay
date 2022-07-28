@@ -9,7 +9,7 @@ SRC_URI="https://github.com/graysky2/modprobed-db/archive/refs/tags/v${PV}.tar.g
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 
 RDEPEND="
 	sys-apps/kmod
