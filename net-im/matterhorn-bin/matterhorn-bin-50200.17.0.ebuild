@@ -12,7 +12,7 @@ SRC_URI="https://gitlab.fem-net.de/nex/matterhorn-gentoo-bin/-/jobs/${MATTERHORN
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="-* ~amd64"
+KEYWORDS="-* amd64"
 
 RDEPEND="
 	dev-libs/gmp:0/10.4
