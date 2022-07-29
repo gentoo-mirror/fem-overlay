@@ -86,7 +86,7 @@ net-analyzer/nagios-check_smart 6.9.1: Nagios Plugin to check hdds, ssds and NVM
 net-analyzer/nagios-plugins-ceph 1.6.0: Nagios plugins for Ceph
 net-analyzer/nagios-plugins-extended 0.7.9: Nagios 0.7.9 plugins - Additional Icinga/Nagios plugins
 net-dns/acme-dns 0.8: Limited DNS server with RESTful API to handle ACME DNS challenges securely
-net-im/matterhorn-bin 50200.13.0 50200.17.0: Terminal based Mattermost client
+net-im/matterhorn-bin 50200.17.0: Terminal based Mattermost client
 net-im/xmppc 0.1.1: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
