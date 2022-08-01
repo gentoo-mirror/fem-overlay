@@ -100,7 +100,7 @@ sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
 sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
-sys-kernel/femkvm-kernel 5.10.60 5.15.23 5.15.28 5.15.41: Linux kernel built with Gentoo patches
+sys-kernel/femkvm-kernel 5.10.60 5.15.23 5.15.28 5.15.41 5.15.52: Linux kernel built with Gentoo patches
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 sys-kernel/modprobed-db 2.46: Keeps track of every kernel module that has been modprobed.
 www-apache/mod_rangecnt 1.0: fixes apache Range header vulnerability
