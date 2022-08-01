@@ -31,8 +31,8 @@
 
 #--- END OF EXAMPLES ---
 
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (11 Jun 2022)
-# Dead upstream. Doesn't compile with recent versions of dev-libs/boost.
-# Removal on 2022-07-11.
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/121
-app-misc/supertee
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (01 Aug 2022)
+# Not actively maintained. Does not run on recent Gentoo Linux systems
+# (Issue #63). Removal on 2022-09-01.
+# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/145
+sys-fs/asm
