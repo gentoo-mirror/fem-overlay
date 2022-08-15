@@ -15,7 +15,7 @@ SRC_URI="https://mediadl.musictribe.com/download/software/behringer/X32/X32-Edit
 
 LICENSE="x32edit-EULA"
 SLOT="0"
-KEYWORDS="-* ~amd64"
+KEYWORDS="-* amd64"
 # Some required symbols are otherwise stripped out
 RESTRICT="strip"
 
