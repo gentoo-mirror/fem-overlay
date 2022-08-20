@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python{3_6,3_7,3_8} )
+PYTHON_COMPAT=( python3_{6..11} )
 inherit autotools eutils python-r1 git-r3
 
 DESCRIPTION="Support library to deal with Apple Property Lists (Binary & XML)"
