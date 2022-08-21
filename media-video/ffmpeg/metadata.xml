@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="project">
-	<email>media-video@gentoo.org</email>
+<maintainer type="person">
+	<email>jonas.licht@fem.tu-ilmenau.de</email>
+</maintainer>
+<maintainer type="person">
+	<email>anton.schubert@fem.tu-ilmenau.de</email>
 </maintainer>
 <use>
 	<flag name="amr">Enables Adaptive Multi-Rate Audio support</flag>
