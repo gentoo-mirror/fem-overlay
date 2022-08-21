@@ -232,7 +232,7 @@ RDEPEND="
 	svg? ( gnome-base/librsvg:2=[${MULTILIB_USEDEP}] )
 	truetype? ( >=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}] )
 	vaapi? ( >=x11-libs/libva-1.2.1-r1[${MULTILIB_USEDEP}] )
-	video_cards_nvidia? ( media-libs/nv-codec-headers[${MULTILIB_USEDEP}] )
+	video_cards_nvidia? ( media-libs/nv-codec-headers )
 	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
 	vorbis? (
 		>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
