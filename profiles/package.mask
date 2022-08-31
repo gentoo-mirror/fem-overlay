@@ -59,9 +59,3 @@ media-video/flussonic
 # Removal on 2022-09-20
 # See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/146
 media-video/nageru
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (01 Aug 2022)
-# Not actively maintained. Does not run on recent Gentoo Linux systems
-# (Issue #63). Removal on 2022-09-01.
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/145
-sys-fs/asm
