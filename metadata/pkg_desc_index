@@ -97,7 +97,6 @@ sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
 sci-electronics/verilator 4.210: Verilog compiler and simulator
 sci-libs/vmaf 1.3.15 2.2.0: Perceptual video quality assessment based on multi-method fusion.
 sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
-sys-fs/asm 4.3.0: Adaptec(tm) Storage Manager
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
 sys-fs/lvm2 2.02.145-r2: User-land utilities for LVM2 (device-mapper) software
 sys-kernel/femkvm-kernel 5.10.60 5.15.23 5.15.28 5.15.41 5.15.52 5.15.59: Linux kernel built with Gentoo patches
