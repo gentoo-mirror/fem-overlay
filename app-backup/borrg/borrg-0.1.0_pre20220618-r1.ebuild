@@ -79,6 +79,10 @@ LICENSE="Apache-2.0 Apache-2.0-with-LLVM-exceptions Boost-1.0 MIT Unlicense"
 SLOT="0"
 KEYWORDS="~amd64"
 
+RDEPEND="
+	<app-backup/borgbackup-2
+"
+
 S="${WORKDIR}/${PN}-${BORRG_COMMIT}"
 
 DOCS=( "readme.md" )
