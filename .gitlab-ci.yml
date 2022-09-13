@@ -1,7 +1,6 @@
 image: registry.gitlab.fem-net.de/gentoo/fem-overlay-ci-image:master
 
 stages:
-  - repoman
   - overlint
   - pkgcheck
   - manifest
@@ -10,23 +9,6 @@ variables:
   DISTDIR: ./tmp_distdir
   NOCOLOR: "false"
   PKGCHECK_COMMON_OPTS: "--color true"
-
-repoman_all:
-  stage: repoman
-  script:
-    - repoman full -x -j4
-  needs: []
-  rules:
-    - if: "$CI_COMMIT_BRANCH == 'master'"
-
-repoman_commits:
-  stage: repoman
-  script:
-    - git fetch
-    - ./tools/repoman_changed_files.sh
-  needs: []
-  rules:
-    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
 overlint:
   stage: overlint
