@@ -42,7 +42,6 @@ dev-perl/Net-MAC 2.103622: Perl extension for representing and manipulating MAC 
 dev-perl/Net-MAC-Vendor 1.268: Perl module to look up the vendor of a MAC
 dev-perl/Net-Write 1.10: Interface to open and send raw data to network
 dev-perl/ProCurve-SNMP-Wrapper 2.00.01: Perl SNMP wrapper for HP ProCurve switches
-dev-perl/SVN-Notify 2.86-r1: SVN::Notify - Subversion activity notification
 dev-perl/Sys-Prctl 1.02: Perl module to access prctl syscall
 dev-perl/XML-Hash-LX 0.06-r1: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8-r1: No description available
@@ -72,9 +71,7 @@ media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
 media-video/decklink-drivers 10.9.11 11.4 11.6-r1 12.2.2: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/ffmpeg 4.2.2 4.3.1 4.4.1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
-media-video/flussonic 3.69.19: Flussonic (Erlyvideo 3) media streaming server
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
-media-video/nageru 2.0.1: A modern free software video mixer
 media-video/ndi-sdk 4.6.2: NewTek NDI SDK
 media-video/ndi-sdk-embedded 4.5.3: NewTek NDI SDK
 media-video/srtrelay 9999: SRT relay server to distribute media streams to multiple clients
@@ -91,7 +88,6 @@ net-im/matterhorn-bin 50200.17.0: Terminal based Mattermost client
 net-im/xmppc 0.1.1: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
-net-misc/justniffer 0.5.15: TCP packet sniffer supporting traffic logging in standard web server like format
 net-misc/rtsp-simple-server 0.17.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
