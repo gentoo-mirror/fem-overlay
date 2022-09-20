@@ -38,11 +38,6 @@
 media-video/ffmpeg
 
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (20 Aug 2022)
-# Unmaintained, missing version bumps.
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/149
-dev-perl/SVN-Notify
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (20 Aug 2022)
 # Maintainer inactive, serious open issue.
 # Removal on 2022-09-20
 # See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/148
