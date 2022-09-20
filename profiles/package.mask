@@ -38,12 +38,6 @@
 media-video/ffmpeg
 
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (20 Aug 2022)
-# Upstread dead, maintainer inactive. Open bug with compile failure.
-# Removal on 2022-09-20
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/147
-media-video/flussonic
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (20 Aug 2022)
 # Maintainer inactive, serious bugs preventing build (#105, #116)
 # Removal on 2022-09-20
 # See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/146
