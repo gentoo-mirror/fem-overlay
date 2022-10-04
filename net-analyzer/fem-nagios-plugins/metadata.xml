@@ -28,6 +28,5 @@
 	<flag name="xen">add plugin check_xen_cpu</flag>
 	<flag name="lvm">add plugins check_vg_size check_lvm_cache</flag>
 	<flag name="net_traffic">add plugin check_net_traffic</flag>
-	<flag name="zfs">add ZFS checks</flag>
 </use>
 </pkgmetadata>
