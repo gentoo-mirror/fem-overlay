@@ -49,6 +49,11 @@ PLUGIN_LIST=(
 
 DOCS=( README.md CHANGELOG.md )
 
+# The provided Makefile only has an install function
+src_compile() {
+	:
+}
+
 src_install () {
 	einstalldocs
 

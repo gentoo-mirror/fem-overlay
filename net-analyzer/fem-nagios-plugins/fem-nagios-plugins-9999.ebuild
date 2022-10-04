@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://gitlab.fem-net.de/monitoring/fem-nagios-plugins.git"
@@ -15,110 +15,66 @@ else
 fi
 
 DESCRIPTION="Nagios plugins written by FeM"
-HOMEPAGE="http://fem.tu-ilmenau.de"
+HOMEPAGE="https://gitlab.fem-net.de/monitoring/fem-nagios-plugins/"
 
-LICENSE="GPL-2"
+# Mappings between USE flag and plugin name in the form: flag[:plugin].
+# If the plugin is not explicitly specified, it is the same as the flag name.
+PLUGIN_FLAG_MAP=(
+	bandwidth hddtemp raid sensors uptime xml-rpc xen:xen_cpu
+)
+
+LICENSE="BSD GPL-2 GPL-3 MIT"
 SLOT="0"
-IUSE="bandwidth cgiirc gentoo-portage hddtemp mailqueue-exim nfs nrpe_wrapper openvpn_clients raid +ram sensors +smart_sectors temp_sensor uptime xml-rpc lvm xen net_traffic"
+IUSE="${PLUGIN_FLAG_MAP[@]%:*}"
 
-DEPEND="
+RDEPEND="
 		acct-group/nagios
 		acct-user/nagios
-		bandwidth? ( dev-perl/Net-SNMP ) \
-		raid? ( virtual/perl-Getopt-Long ) \
-		sensors? ( virtual/perl-Getopt-Long ) \
-		uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) \
-		xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) \
-		xen? ( app-emulation/xen-tools ) \
+		bandwidth? ( dev-perl/Net-SNMP )
+		hddtemp? ( app-admin/hddtemp )
+		raid? ( virtual/perl-Getopt-Long )
+		sensors? ( virtual/perl-Getopt-Long )
+		uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP )
+		xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML )
+		xen? ( app-emulation/xen-tools )
 "
 RESTRICT="test"
 
-RDEPEND="${DEPEND}"
+# List of all plugins to be installed, without the `check_` prefix.
+# This list is extended conditionally using PLUGIN_FLAG_MAP depending on the
+# USE flags set
+PLUGIN_LIST=(
+	cgiirc gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram smart_sectors temp_sensor vg_size lvm_cache net_traffic zfs
+)
 
-PLUGIN_LIST=""
+DOCS=( README.md CHANGELOG.md )
+
+# The provided Makefile only has an install function
+src_compile() {
+	:
+}
 
 src_install () {
-	if use bandwidth; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_bandwidth"
-	fi
+	einstalldocs
 
-	if use cgiirc; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_cgiirc"
-	fi
+	for mapping in "${PLUGIN_FLAG_MAP[@]}"; do
+		local flag="${mapping%:*}"
 
-	if use gentoo-portage; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_gentoo_portage"
-	fi
+		if ! use "${flag}"; then
+			continue
+		fi
 
-	if use hddtemp; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_hddtemp.sh"
-	fi
+		local plugin="${mapping#*:}"
+		if [[ "${plugin}" == "" ]]; then
+			plugin="${flag#+}"
+		fi
 
-	if use mailqueue-exim; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_mailqueue_exim"
-	fi
-
-	if use nfs; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_nfs"
-	fi
-
-	if use nrpe_wrapper; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_nrpe_wrapper"
-	fi
-
-	if use openvpn_clients; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_openvpn_clients"
-	fi
-
-	if use raid; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_raid"
-	fi
-
-	if use ram; then
-		PLUGIN_LIST="${PLUGIN_LIST} check_ram"
-	fi
-
-	if use sensors; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_sensors"
-	fi
-
-	if use smart_sectors; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_smart_sectors"
-	fi
-
-	if use temp_sensor; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_temp_sensor"
-	fi
-
-	if use uptime; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_uptime"
-	fi
-
-	if use xml-rpc; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_xml-rpc"
-	fi
-
-	if use lvm; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_vg_size check_lvm_cache"
-	fi
-
-	if use xen; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_xen_cpu"
-	fi
-
-	if use net_traffic; then
-	PLUGIN_LIST="${PLUGIN_LIST} check_net_traffic"
-	fi
+		PLUGIN_LIST+=( "${plugin}" )
+	done
 
 	dodir /usr/$(get_libdir)/nagios/plugins
 	exeinto /usr/$(get_libdir)/nagios/plugins
-	for PLUGIN in ${PLUGIN_LIST}; do
-		doexe ${PLUGIN}
+	for plugin in "${PLUGIN_LIST[@]}"; do
+		doexe "check_${plugin}"
 	done
-
-	chown -R nagios:nagios "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chown of ${D}/usr/$(get_libdir)/nagios/plugins"
-
-	chmod -R o-rwx "${D}"/usr/$(get_libdir)/nagios/plugins \
-		|| die "Failed chmod of ${D}/usr/$(get_libdir)/nagios/plugins"
 }
