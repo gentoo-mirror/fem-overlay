@@ -51,7 +51,7 @@ dev-python/arubaos-client 0.2.2 0.2.3 9999: Library to interact with the ArubaOS
 dev-python/ddlparse 1.10.0: Python DDL parser
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
-dev-python/gitlab 2.10.0 3.9.0 3.10.0: Python library to interact with the GitLab API
+dev-python/gitlab 3.9.0 3.10.0: Python library to interact with the GitLab API
 dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 4.0.1: Python library to interact with keepass databases (supports KDBX3 and KDBX4)
 dev-python/pynetbox 6.4.0 6.6.1: Python library to interact with the NetBox REST API
