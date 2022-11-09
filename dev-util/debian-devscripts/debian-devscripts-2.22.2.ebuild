@@ -20,19 +20,47 @@ IUSE="test"
 
 RDEPEND="
 	dev-lang/perl
+	dev-perl/File-DirList
+	dev-perl/File-Touch
 	dev-perl/Git-Wrapper
+	dev-perl/GitLab-API-v4
+	dev-perl/IPC-Run
 	dev-perl/List-Compare
 	dev-perl/Moo
 	dev-perl/String-ShellQuote
 	virtual/perl-DB_File
 "
+DEPEND="
+	test? (
+		${RDEPEND}
+	)
+
+	$(python_gen_any_dep '
+		test? (
+			dev-python/pyftpdlib[${PYTHON_USEDEP}]
+		)
+	')
+"
 BDEPEND="
 	${PYTHON_DEPS}
 	app-arch/dpkg
+	dev-util/shunit2
 	virtual/pkgconfig
+
+	test? (
+		dev-vcs/git
+		dev-vcs/subversion
+		sys-libs/libfaketime
+	)
 "
 
+PATCHES=(
+	# Some tests are broken on Gentoo and need to be disabled
+	"${FILESDIR}"/${P}-disable-broken-tests.patch
+)
+
 S="${WORKDIR}/${MY_P}"
+RESTRICT="!test? ( test )"
 
 src_prepare() {
 	default
@@ -58,9 +86,20 @@ src_compile() {
 		conf.default
 }
 
+src_test() {
+	# Set DEBEMAIL to prevent interactive debchange warnings
+	DEBEMAIL="fake email <fake@email.org>" \
+		emake test
+}
+
 src_install() {
 	einstalldocs
-	emake COMPL_DIR="$(get_bashcompdir)" PREFIX="${EPREFIX}/usr" DESTDIR="${D}" install_scripts install_doc
+	emake \
+		COMPL_DIR="$(get_bashcompdir)" \
+		PREFIX="${EPREFIX}/usr" \
+		DESTDIR="${D}" \
+		install_scripts \
+		install_doc
 
 	perl_domodule -r lib/*
 
