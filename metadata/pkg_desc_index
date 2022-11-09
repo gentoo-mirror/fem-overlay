@@ -26,8 +26,13 @@ dev-lang/php 7.1.33: The PHP language runtime engine
 dev-libs/gemalto-dotnetv2-pkcs11 2.2.0.10-r4: PKCS#11 library for Gemalto .NET V2 smart cards
 dev-perl/AnyEvent-XMLRPC 0.05: Non-blocking XMLRPC server
 dev-perl/Class-Gomor 1.03: Another class and object builder
+dev-perl/File-DirList 0.05: Provide a sorted list of directory content
+dev-perl/File-Touch 0.12: Update file access and modification times, creating files if needed
 dev-perl/Frontier-Client-Easy 1.03: Perl extension for easy use of Frontier::Client
 dev-perl/Frontier-Daemon-Threading 0.01: Drop-in replacement for Frontier::Daemon using threads
+dev-perl/GitLab-API-v4 0.26: A complete GitLab API v4 client
+dev-perl/HTTP-Tiny-Multipart 0.08: Add post_multipart to HTTP::Tiny
+dev-perl/List-Compare 0.55: Compare elements of two or more lists
 dev-perl/Net-Frame 1.21: Base framework for frame crafting
 dev-perl/Net-Frame-Device 1.12: Get network device information and gateway
 dev-perl/Net-Frame-Dump 1.18: Base-class for a tcpdump like implementation
@@ -58,6 +63,7 @@ dev-python/pynetbox 6.4.0 6.6.1: Python library to interact with the NetBox REST
 dev-python/sphinx-sql 1.3.2: Sphinx extension for building documentation from SQL sources
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
 dev-python/structlog 21.5.0 22.1.0: Structured Logging for Python
+dev-util/debian-devscripts 2.22.2: Scripts to help Debian package maintenance
 media-libs/gst-plugins-bad 1.20.1: Less plugins for GStreamer
 media-libs/melted 9999: MLT Video Server
 media-libs/svt-av1 0.9.0: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
