@@ -41,7 +41,7 @@ pkgcheck_commits:
   before_script:
     - git fetch
   script:
-    - ./tools/manifest_packages.sh
+    - /tools/manifest_packages.sh
 
   needs: []
 
