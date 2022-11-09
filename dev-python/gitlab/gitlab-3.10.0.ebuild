@@ -23,7 +23,12 @@ DEPEND="
 	>=dev-python/requests-2.25.0[${PYTHON_USEDEP}]
 	>=dev-python/requests-toolbelt-0.9.1[${PYTHON_USEDEP}]
 "
-RDEPEND="${DEPEND}"
+# dev-vcs/python-gitlab is the same package, but in ::gentoo
+RDEPEND="
+	${DEPEND}
+
+	!dev-vcs/python-gitlab
+"
 
 S="${WORKDIR}/${MY_P}"
 
