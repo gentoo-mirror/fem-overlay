@@ -1,6 +1,6 @@
-BDEPEND=|| ( >=dev-lang/python-3.11.0_beta4:3.11 >=dev-lang/python-3.10.4:3.10 >=dev-lang/python-3.9.12:3.9 >=dev-lang/python-3.8.13:3.8 ) app-arch/dpkg dev-util/shunit2 virtual/pkgconfig test? ( dev-vcs/git dev-vcs/subversion sys-libs/libfaketime )
+BDEPEND=|| ( >=dev-lang/python-3.11.0_p2:3.11 >=dev-lang/python-3.10.8_p3:3.10 >=dev-lang/python-3.9.15_p3:3.9 >=dev-lang/python-3.8.15_p3:3.8 ) app-arch/dpkg dev-util/shunit2 virtual/pkgconfig test? ( dev-vcs/git dev-vcs/subversion sys-libs/libfaketime )
 DEFINED_PHASES=compile install prepare setup test
-DEPEND=test? ( dev-lang/perl dev-perl/File-DirList dev-perl/File-Touch dev-perl/Git-Wrapper dev-perl/GitLab-API-v4 dev-perl/IPC-Run dev-perl/List-Compare dev-perl/Moo dev-perl/String-ShellQuote virtual/perl-DB_File ) || ( ( >=dev-lang/python-3.11.0_beta4:3.11 test? ( dev-python/pyftpdlib[python_targets_python3_11(-)] ) ) ( >=dev-lang/python-3.10.4:3.10 test? ( dev-python/pyftpdlib[python_targets_python3_10(-)] ) ) ( >=dev-lang/python-3.9.12:3.9 test? ( dev-python/pyftpdlib[python_targets_python3_9(-)] ) ) ( >=dev-lang/python-3.8.13:3.8 test? ( dev-python/pyftpdlib[python_targets_python3_8(-)] ) ) )
+DEPEND=test? ( dev-lang/perl dev-perl/File-DirList dev-perl/File-Touch dev-perl/Git-Wrapper dev-perl/GitLab-API-v4 dev-perl/IPC-Run dev-perl/List-Compare dev-perl/Moo dev-perl/String-ShellQuote virtual/perl-DB_File ) || ( ( >=dev-lang/python-3.11.0_p2:3.11 test? ( dev-python/pyftpdlib[python_targets_python3_11(-)] ) ) ( >=dev-lang/python-3.10.8_p3:3.10 test? ( dev-python/pyftpdlib[python_targets_python3_10(-)] ) ) ( >=dev-lang/python-3.9.15_p3:3.9 test? ( dev-python/pyftpdlib[python_targets_python3_9(-)] ) ) ( >=dev-lang/python-3.8.15_p3:3.8 test? ( dev-python/pyftpdlib[python_targets_python3_8(-)] ) ) )
 DESCRIPTION=Scripts to help Debian package maintenance
 EAPI=8
 HOMEPAGE=https://www.debian.org/ https://salsa.debian.org/debian/devscripts
@@ -12,5 +12,5 @@ RDEPEND=dev-lang/perl dev-perl/File-DirList dev-perl/File-Touch dev-perl/Git-Wra
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://salsa.debian.org/debian/devscripts/-/archive/v2.22.2/devscripts-v2.22.2.tar.bz2 -> debian-devscripts-2.22.2.tar.bz2
-_eclasses_=toolchain-funcs	441f754fd75cd4fd1fa06fbc17da6144	multilib	5ca4e49abed8e3a2f7b56920eadee157	bash-completion-r1	f5e7a020fd9c741740756aac61bf75ff	perl-functions	c3fca037246e877693badea0df3b0ef8	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	python-utils-r1	b9fc5e97e886514e5132f50465185401	python-any-r1	f2f00fb79b5e888b5011d4c51240ae97
+_eclasses_=toolchain-funcs	441f754fd75cd4fd1fa06fbc17da6144	multilib	5ca4e49abed8e3a2f7b56920eadee157	bash-completion-r1	f5e7a020fd9c741740756aac61bf75ff	perl-functions	c3fca037246e877693badea0df3b0ef8	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	python-utils-r1	25c880c1db58e21b80b684bacc964958	python-any-r1	f2f00fb79b5e888b5011d4c51240ae97
 _md5_=408148a8fe4d7b6c9611e1c8ee5c1c08
