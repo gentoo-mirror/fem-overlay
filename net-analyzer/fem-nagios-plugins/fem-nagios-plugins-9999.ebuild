@@ -30,6 +30,7 @@ IUSE="${PLUGIN_FLAG_MAP[@]%:*}"
 RDEPEND="
 		acct-group/nagios
 		acct-user/nagios
+		sys-devel/bc
 		bandwidth? ( dev-perl/Net-SNMP )
 		hddtemp? ( app-admin/hddtemp )
 		raid? ( virtual/perl-Getopt-Long )
@@ -44,7 +45,7 @@ RESTRICT="test"
 # This list is extended conditionally using PLUGIN_FLAG_MAP depending on the
 # USE flags set
 PLUGIN_LIST=(
-	cgiirc gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram smart_sectors temp_sensor vg_size lvm_cache net_traffic zfs
+	cgiirc gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram ram2 smart_sectors temp_sensor vg_size lvm_cache net_traffic zfs
 )
 
 DOCS=( README.md CHANGELOG.md )
