@@ -30,6 +30,7 @@ IUSE="${PLUGIN_FLAG_MAP[@]%:*}"
 RDEPEND="
 		acct-group/nagios
 		acct-user/nagios
+		sys-devel/bc
 		bandwidth? ( dev-perl/Net-SNMP )
 		hddtemp? ( app-admin/hddtemp )
 		raid? ( virtual/perl-Getopt-Long )
