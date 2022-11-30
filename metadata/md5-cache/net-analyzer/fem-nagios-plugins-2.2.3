@@ -1,14 +1,12 @@
-BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
-DEFINED_PHASES=compile install unpack
+DEFINED_PHASES=compile install
 DESCRIPTION=Nagios plugins written by FeM
 EAPI=8
 HOMEPAGE=https://gitlab.fem-net.de/monitoring/fem-nagios-plugins/
-INHERIT=git-r3
 IUSE=bandwidth hddtemp raid sensors uptime xml-rpc xen
+KEYWORDS=~amd64 ~x86
 LICENSE=BSD GPL-2 GPL-3 MIT
-PROPERTIES=live
 RDEPEND=acct-group/nagios acct-user/nagios sys-devel/bc bandwidth? ( dev-perl/Net-SNMP ) hddtemp? ( app-admin/hddtemp ) raid? ( virtual/perl-Getopt-Long ) sensors? ( virtual/perl-Getopt-Long ) uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) xen? ( app-emulation/xen-tools )
 RESTRICT=test
 SLOT=0
-_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f
+SRC_URI=https://gitlab.fem-net.de/monitoring/fem-nagios-plugins/-/archive/v2.2.3/fem-nagios-plugins-v2.2.3.tar.gz
 _md5_=31243802795cfcbc0d3e38af45c1272e
