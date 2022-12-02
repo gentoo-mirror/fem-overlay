@@ -5,4 +5,7 @@
         <email>jonas.licht@fem.tu-ilmenau.d</email>
         <name>Jonas Licht</name>
     </maintainer>
+    <upstream>
+        <remote-id type="github">kaltura/nginx-vod-module</remote-id>
+    </upstream>
 </pkgmetadata>
