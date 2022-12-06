@@ -70,6 +70,8 @@ nginx-module_src_compile() {
 # @DESCRIPTION:
 # Parses the module config file to get the so file name and install the shared object file to '/usr/$(get_libdir)/nginx/modules'
 nginx-module_src_install() {
+	einstalldocs
+
 	NGINX_MODULE_NAME=$(grep ${WORKDIR}/${PN}-${MODULE_PV}/config -e "ngx_addon_name" | cut -d= -f2)
 	exeinto /usr/$(get_libdir)/nginx/modules
 	doexe ${S}/objs/${NGINX_MODULE_NAME}.so

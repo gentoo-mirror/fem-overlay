@@ -14,8 +14,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="
-	dev-libs/libxml2
-	media-video/ffmpeg
-	sys-libs/zlib
+	dev-libs/libxml2:=
+	media-video/ffmpeg:=
+	sys-libs/zlib:=
 "
 RDEPEND="${DEPEND}"
