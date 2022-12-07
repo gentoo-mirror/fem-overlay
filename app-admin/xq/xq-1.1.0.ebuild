@@ -3,7 +3,7 @@
 
 EAPI=8
 
-GO_FEM_DEP_ARCHIVE_VER=2022-08-28
+GO_FEM_DEP_ARCHIVE_VER=2022-12-07
 inherit go-module-fem
 
 DESCRIPTION="Command-line XML beautifier and content extractor"
@@ -15,4 +15,4 @@ SRC_URI="
 
 LICENSE="BSD MIT Apache-2.0 MPL-2.0"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
