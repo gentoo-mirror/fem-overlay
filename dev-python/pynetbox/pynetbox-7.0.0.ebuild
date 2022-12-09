@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_8 python3_9 python3_10 )
+PYTHON_COMPAT=( python3_{8..11} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Python library to interact with the NetBox REST API"
@@ -17,11 +18,8 @@ KEYWORDS="amd64 ~x86"
 DEPEND="
 	>=dev-python/requests-2.20.0[${PYTHON_USEDEP}]
 	<dev-python/requests-3[${PYTHON_USEDEP}]
-	>=dev-python/six-1[${PYTHON_USEDEP}]
-	<dev-python/six-2[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
-BDEPEND=""
 
 # Tests require pytest-docker, which is not present in ::gentoo or
 # ::fem-overlay
