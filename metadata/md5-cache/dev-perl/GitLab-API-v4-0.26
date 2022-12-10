@@ -6,11 +6,11 @@ EAPI=8
 HOMEPAGE=https://metacpan.org/release/GitLab-API-v4
 INHERIT=perl-module
 IUSE=test test
-KEYWORDS=~amd64
+KEYWORDS=amd64
 LICENSE=GPL-3+
 RDEPEND=dev-perl/Const-Fast dev-perl/HTTP-Tiny-Multipart dev-perl/JSON dev-perl/Log-Any dev-perl/Moo dev-perl/Path-Tiny dev-perl/Type-Tiny dev-perl/URI dev-perl/namespace-clean dev-perl/strictures virtual/perl-Carp virtual/perl-Exporter virtual/perl-Getopt-Long virtual/perl-HTTP-Tiny dev-lang/perl:=
 RESTRICT=!test? ( test ) !test? ( test )
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/B/BL/BLUEFEET/GitLab-API-v4-0.26.tar.gz
 _eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	21a0cb6221498d0e7894bdf445b79887
-_md5_=32d62fe2b8c79bdc6a452b1f7f365475
+_md5_=b7af4620d901a0a130e85bc8ed56743a

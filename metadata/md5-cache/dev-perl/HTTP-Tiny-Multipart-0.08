@@ -6,11 +6,11 @@ EAPI=8
 HOMEPAGE=https://metacpan.org/release/HTTP-Tiny-Multipart
 INHERIT=perl-module
 IUSE=test test
-KEYWORDS=~amd64
+KEYWORDS=amd64
 LICENSE=Artistic-2
 RDEPEND=virtual/perl-Carp virtual/perl-HTTP-Tiny virtual/perl-MIME-Base64 dev-lang/perl:=
 RESTRICT=!test? ( test ) !test? ( test )
 SLOT=0
 SRC_URI=mirror://cpan/authors/id/R/RE/RENEEB/HTTP-Tiny-Multipart-0.08.tar.gz
 _eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	perl-functions	c3fca037246e877693badea0df3b0ef8	readme.gentoo-r1	b776ad4b42f564c406a95c41ccb42c55	perl-module	21a0cb6221498d0e7894bdf445b79887
-_md5_=09fe1ced35f18a2e7e5014f06db00886
+_md5_=7968a774e7ce51d066469c52574b6d1b
