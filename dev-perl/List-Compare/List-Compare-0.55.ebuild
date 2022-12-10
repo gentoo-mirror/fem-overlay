@@ -9,7 +9,7 @@ inherit perl-module
 DESCRIPTION="Compare elements of two or more lists"
 
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="test"
 
 DEPEND="
