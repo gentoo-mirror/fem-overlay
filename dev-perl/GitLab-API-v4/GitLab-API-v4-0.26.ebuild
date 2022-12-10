@@ -10,7 +10,7 @@ DESCRIPTION="A complete GitLab API v4 client"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="test"
 
 RDEPEND="
