@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -14,19 +14,26 @@ EAPI=7
 # doing so since such a case is unlikely.
 FFMPEG_SUBSLOT=56.58.58
 
-EGIT_REPO_URI="https://gitlab.fem-net.de/broadcast/ffmpeg.git"
+EGIT_REPO_URI="https://stash.fem.tu-ilmenau.de/scm/broadcast/ffmpeg.git"
 EGIT_MIN_CLONE_TYPE="single"
+
 if [ "${PV#9999}" != "${PV}" ] ; then
 	EGIT_BRANCH="fem-master"
 else
 	EGIT_BRANCH="fem-${PV}"
 fi
 
-inherit flag-o-matic multilib multilib-minimal toolchain-funcs git-r3
+inherit eutils flag-o-matic multilib multilib-minimal toolchain-funcs git-r3
 
 DESCRIPTION="Complete solution to record/convert/stream audio and video. Includes libavcodec"
 HOMEPAGE="https://ffmpeg.org/"
-SRC_URI=""
+if [ "${PV#9999}" != "${PV}" ] ; then
+	SRC_URI=""
+elif [ "${PV%_p*}" != "${PV}" ] ; then # Snapshot
+	SRC_URI="mirror://gentoo/${P}.tar.bz2"
+else # Release
+	SRC_URI="https://ffmpeg.org/releases/${P/_/-}.tar.bz2"
+fi
 FFMPEG_REVISION="${PV#*_p}"
 
 SLOT="0/${FFMPEG_SUBSLOT}"
@@ -55,7 +62,7 @@ LICENSE="
 	samba? ( GPL-3 )
 "
 if [ "${PV#9999}" = "${PV}" ] ; then
-	KEYWORDS="~arm64 ~amd64 ~x86 ~amd64-linux ~x86-linux"
+	KEYWORDS="~amd64 ~arm64"
 fi
 
 # Options to use as use_enable in the foo[:bar] form.
@@ -76,7 +83,7 @@ FFMPEG_FLAG_MAP=(
 		amr:libopencore-amrwb amr:libopencore-amrnb codec2:libcodec2 +dav1d:libdav1d fdk:libfdk-aac
 		jpeg2k:libopenjpeg bluray:libbluray gme:libgme gsm:libgsm
 		libaribb24 mmal modplug:libmodplug opus:libopus libilbc librtmp ssh:libssh
-		speex:libspeex srt:libsrt svg:librsvg nvenc:ffnvcodec
+		speex:libspeex srt:libsrt svg:librsvg video_cards_nvidia:ffnvcodec
 		vorbis:libvorbis vpx:libvpx zvbi:libzvbi
 		# libavfilter options
 		appkit
@@ -93,12 +100,12 @@ FFMPEG_FLAG_MAP=(
 FFMPEG_ENCODER_FLAG_MAP=(
 	amrenc:libvo-amrwbenc mp3:libmp3lame
 	kvazaar:libkvazaar libaom
-	openh264:libopenh264 svtav1:libsvtav1 rav1e:librav1e snappy:libsnappy theora:libtheora twolame:libtwolame
-	webp:libwebp x264:libx264 x265:libx265 xvid:libxvid
+	openh264:libopenh264 rav1e:librav1e snappy:libsnappy theora:libtheora twolame:libtwolame
+	wavpack:libwavpack webp:libwebp x264:libx264 x265:libx265 xvid:libxvid
 )
 
 IUSE="
-	alsa chromium doc +encode oss pic sndio static-libs test v4l
+	alsa chromium doc +encode oss pic static-libs test v4l
 	${FFMPEG_FLAG_MAP[@]%:*}
 	${FFMPEG_ENCODER_FLAG_MAP[@]%:*}
 "
@@ -182,14 +189,14 @@ RDEPEND="
 		kvazaar? ( >=media-libs/kvazaar-1.2.0[${MULTILIB_USEDEP}] )
 		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
 		openh264? ( >=media-libs/openh264-1.4.0-r1:=[${MULTILIB_USEDEP}] )
-		svtav1? ( >=media-libs/svt-av1-0.8.4 )
-		rav1e? ( >=media-video/rav1e-0.4:=[capi] )
+		rav1e? ( media-video/rav1e:=[capi] )
 		snappy? ( >=app-arch/snappy-1.1.2-r1:=[${MULTILIB_USEDEP}] )
 		theora? (
 			>=media-libs/libtheora-1.1.1[encode,${MULTILIB_USEDEP}]
 			>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
 		)
 		twolame? ( >=media-sound/twolame-0.3.13-r1[${MULTILIB_USEDEP}] )
+		wavpack? ( >=media-sound/wavpack-4.60.1-r1[${MULTILIB_USEDEP}] )
 		webp? ( >=media-libs/libwebp-0.3.0:=[${MULTILIB_USEDEP}] )
 		x264? ( >=media-libs/x264-0.0.20130506:=[${MULTILIB_USEDEP}] )
 		x265? ( >=media-libs/x265-1.6:=[${MULTILIB_USEDEP}] )
@@ -198,7 +205,7 @@ RDEPEND="
 	fdk? ( >=media-libs/fdk-aac-0.1.3:=[${MULTILIB_USEDEP}] )
 	flite? ( >=app-accessibility/flite-1.4-r4[${MULTILIB_USEDEP}] )
 	fontconfig? ( >=media-libs/fontconfig-2.10.92[${MULTILIB_USEDEP}] )
-	frei0r? ( media-plugins/frei0r-plugins[${MULTILIB_USEDEP}] )
+	frei0r? ( media-plugins/frei0r-plugins )
 	fribidi? ( >=dev-libs/fribidi-0.19.6[${MULTILIB_USEDEP}] )
 	gcrypt? ( >=dev-libs/libgcrypt-1.6:0=[${MULTILIB_USEDEP}] )
 	gme? ( >=media-libs/game-music-emu-0.6.0[${MULTILIB_USEDEP}] )
@@ -227,7 +234,7 @@ RDEPEND="
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libtesseract? ( >=app-text/tesseract-4.1.0-r1[${MULTILIB_USEDEP}] )
 	libv4l? ( >=media-libs/libv4l-0.9.5[${MULTILIB_USEDEP}] )
-	libvmaf? ( amd64? ( sci-libs/vmaf ) )
+	libvmaf? ( amd64? ( media-libs/libvmaf[${MULTILIB_USEDEP}] ) )
 	libxml2? ( dev-libs/libxml2:=[${MULTILIB_USEDEP}] )
 	lv2? ( media-libs/lv2[${MULTILIB_USEDEP}] media-libs/lilv[${MULTILIB_USEDEP}] )
 	lzma? ( >=app-arch/xz-utils-5.0.5-r1[${MULTILIB_USEDEP}] )
@@ -241,17 +248,13 @@ RDEPEND="
 	rubberband? ( >=media-libs/rubberband-1.8.1-r1[${MULTILIB_USEDEP}] )
 	samba? ( >=net-fs/samba-3.6.23-r1[client,${MULTILIB_USEDEP}] )
 	sdl? ( media-libs/libsdl2[sound,video,${MULTILIB_USEDEP}] )
-	sndio? ( media-sound/sndio:=[${MULTILIB_USEDEP}] )
 	speex? ( >=media-libs/speex-1.2_rc1-r1[${MULTILIB_USEDEP}] )
-	srt? ( >=net-libs/srt-1.3.0:=[${MULTILIB_USEDEP}] )
+	srt? ( >=net-libs/srt-1.3.0[${MULTILIB_USEDEP}] )
 	ssh? ( >=net-libs/libssh-0.5.5[${MULTILIB_USEDEP}] )
-	svg? (
-		gnome-base/librsvg:2=[${MULTILIB_USEDEP}]
-		x11-libs/cairo[${MULTILIB_USEDEP}]
-	)
+	svg? ( gnome-base/librsvg:2=[${MULTILIB_USEDEP}] )
 	truetype? ( >=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}] )
 	vaapi? ( >=media-libs/libva-1.2.1-r1:0=[${MULTILIB_USEDEP}] )
-	nvenc? ( >=media-libs/nv-codec-headers-9.1.23.1 )
+	video_cards_nvidia? ( >=media-libs/nv-codec-headers-9.1.23.1 )
 	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
 	vidstab? ( >=media-libs/vidstab-1.1.0[${MULTILIB_USEDEP}] )
 	vorbis? (
@@ -264,7 +267,7 @@ RDEPEND="
 		>=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}]
 		>=x11-libs/libXext-1.3.2[${MULTILIB_USEDEP}]
 		>=x11-libs/libXv-1.0.10[${MULTILIB_USEDEP}]
-		>=x11-libs/libxcb-1.4:=[${MULTILIB_USEDEP}]
+		>=x11-libs/libxcb-1.4[${MULTILIB_USEDEP}]
 	)
 	zeromq? ( >=net-libs/zeromq-4.1.6 )
 	zimg? ( >=media-libs/zimg-2.7.4:=[${MULTILIB_USEDEP}] )
@@ -273,9 +276,14 @@ RDEPEND="
 	postproc? ( !media-libs/libpostproc )
 "
 
+# Crypto & co provider magic
+# - libressl is a useflag meaning it should always favor libressl over openssl
+# - libressl and openssl provide more features to ffmpeg than gnutls
+#
+# The ordering is thus: libressl > openssl > gnutls
 RDEPEND="${RDEPEND}
-		openssl? ( >=dev-libs/openssl-1.0.1h-r2:0=[${MULTILIB_USEDEP}] )
-		!openssl? ( gnutls? ( >=net-libs/gnutls-2.12.23-r6:=[${MULTILIB_USEDEP}] ) )
+	openssl? ( >=dev-libs/openssl-1.0.1h-r2:0=[${MULTILIB_USEDEP}] )
+	!openssl? ( gnutls? ( >=net-libs/gnutls-2.12.23-r6:=[${MULTILIB_USEDEP}] ) )
 "
 
 DEPEND="${RDEPEND}
@@ -306,11 +314,11 @@ GPL_REQUIRED_USE="
 	)
 "
 REQUIRED_USE="
-	arm64? ( !decklink !libvmaf )
-	cuda? ( nvenc )
+	cuda? ( video_cards_nvidia )
 	libv4l? ( v4l )
 	fftools_cws2fws? ( zlib )
 	test? ( encode )
+	arm64? ( !decklink !libvmaf )
 	${GPL_REQUIRED_USE}
 	${CPU_REQUIRED_USE}"
 RESTRICT="
@@ -322,6 +330,8 @@ S=${WORKDIR}/${P/_/-}
 
 PATCHES=(
 	"${FILESDIR}"/chromium-r1.patch
+	"${FILESDIR}"/${PN}-4.3-fix-build-without-SSSE3.patch
+	"${FILESDIR}"/${PN}-4.3-altivec-novsx-yuv2rgb.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -361,14 +371,14 @@ multilib_src_configure() {
 
 	# Indevs
 	use v4l || myconf+=( --disable-indev=v4l2 --disable-outdev=v4l2 )
-	for i in alsa oss jack sndio ; do
+	for i in alsa oss jack ; do
 		use ${i} || myconf+=( --disable-indev=${i} )
 	done
 
 	use decklink && append-flags "-I${EPREFIX}/usr/include/blackmagic"
 
 	# Outdevs
-	for i in alsa oss sndio ; do
+	for i in alsa oss ; do
 		use ${i} || myconf+=( --disable-outdev=${i} )
 	done
 
@@ -378,19 +388,20 @@ multilib_src_configure() {
 	use libaribb24 && myconf+=( --enable-version3 )
 	use fdk && use gpl && myconf+=( --enable-nonfree )
 
+	use libvmaf && myconf+=( --enable-version3 )
+
 	for i in "${ffuse[@]#+}" ; do
 		myconf+=( $(use_enable ${i%:*} ${i#*:}) )
 	done
 
+	# Incompatible features: openssl or libressl and gnutls
 	if use openssl ; then
 		myconf+=( --disable-gnutls )
 	fi
 
-	use libvmaf && myconf+=( --enable-version3 )
-
 	# (temporarily) disable non-multilib deps
 	if ! multilib_is_native_abi; then
-		for i in libsvtav1 librav1e libzmq ; do
+		for i in frei0r librav1e libzmq ; do
 			myconf+=( --disable-${i} )
 		done
 	fi
@@ -419,9 +430,8 @@ multilib_src_configure() {
 		break
 	done
 
-	# LTO support, bug #566282, bug #754654
+	# LTO support, bug #566282
 	is-flagq "-flto*" && myconf+=( "--enable-lto" )
-	filter-flags "-flto*"
 
 	# Mandatory configuration
 	myconf=(
@@ -459,13 +469,6 @@ multilib_src_configure() {
 		$(multilib_native_enable manpages)
 	)
 
-	local extra_libs
-	if use arm || use ppc ; then
-		# bug #782811
-		# bug #790590
-		extra_libs+="$(test-flags-CCLD -latomic) "
-	fi
-
 	set -- "${S}/configure" \
 		--prefix="${EPREFIX}/usr" \
 		--libdir="${EPREFIX}/usr/$(get_libdir)" \
@@ -480,7 +483,6 @@ multilib_src_configure() {
 		--ranlib="$(tc-getRANLIB)" \
 		--pkg-config="$(tc-getPKG_CONFIG)" \
 		--optflags="${CFLAGS}" \
-		--extra-libs="${extra_libs}" \
 		$(use_enable static-libs static) \
 		"${myconf[@]}" \
 		${EXTRA_FFMPEG_CONF}
@@ -525,11 +527,6 @@ multilib_src_compile() {
 	fi
 }
 
-multilib_src_test() {
-	LD_LIBRARY_PATH="${BUILD_DIR}/libpostproc:${BUILD_DIR}/libswscale:${BUILD_DIR}/libswresample:${BUILD_DIR}/libavcodec:${BUILD_DIR}/libavdevice:${BUILD_DIR}/libavfilter:${BUILD_DIR}/libavformat:${BUILD_DIR}/libavutil:${BUILD_DIR}/libavresample" \
-		emake V=1 fate
-}
-
 multilib_src_install() {
 	emake V=1 DESTDIR="${D}" install install-doc
 
@@ -560,4 +557,9 @@ multilib_src_install() {
 multilib_src_install_all() {
 	dodoc Changelog README.md CREDITS doc/*.txt doc/APIchanges
 	[ -f "RELEASE_NOTES" ] && dodoc "RELEASE_NOTES"
+}
+
+multilib_src_test() {
+	LD_LIBRARY_PATH="${BUILD_DIR}/libpostproc:${BUILD_DIR}/libswscale:${BUILD_DIR}/libswresample:${BUILD_DIR}/libavcodec:${BUILD_DIR}/libavdevice:${BUILD_DIR}/libavfilter:${BUILD_DIR}/libavformat:${BUILD_DIR}/libavutil:${BUILD_DIR}/libavresample" \
+		emake V=1 fate
 }
