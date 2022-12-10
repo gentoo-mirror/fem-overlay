@@ -4,4 +4,7 @@
 	<maintainer type="person">
 		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">carnager/rofi-pass</remote-id>
+	</upstream>
 </pkgmetadata>
