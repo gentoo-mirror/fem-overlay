@@ -10,6 +10,6 @@ inherit perl-module
 DESCRIPTION="Provide a sorted list of directory content"
 
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 
 BDEPEND="virtual/perl-ExtUtils-MakeMaker"
