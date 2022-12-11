@@ -73,7 +73,7 @@ media-sound/jamulus 3.8.2: Internet jam session software
 media-sound/x32edit-bin 4.3: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
-media-video/bmusb 0.7.6: USB Driver for Blackmagic Ultrastudio cards
+media-video/bmusb 0.7.6 0.7.6-r1: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
 media-video/decklink-drivers 10.9.11 11.4 11.6-r1 12.2.2: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/ffmpeg 4.2.2 4.3.1 4.4.1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
@@ -96,7 +96,7 @@ net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-ker
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/rtsp-simple-server 0.17.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
-sci-electronics/ghdl-bin 0.33: VHDL 2008/93/87 simulator
+sci-electronics/ghdl-bin 0.33-r1: VHDL 2008/93/87 simulator
 sci-electronics/verilator 4.210: Verilog compiler and simulator
 sci-libs/vmaf 1.3.15 2.2.0: Perceptual video quality assessment based on multi-method fusion.
 sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
@@ -109,4 +109,4 @@ www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
 www-nginx/nginx-vod-module 1.23.2.1.30: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2 9999: pass integration for rofi
-x11-plugins/pidgin-carbons 0.1.3 0.1.4 0.1.5 0.1.6 0.2.1: Experimental XEP-0280: Message Carbons plugin for libpurple
+x11-plugins/pidgin-carbons 0.2.3: Experimental XEP-0280: Message Carbons plugin for libpurple

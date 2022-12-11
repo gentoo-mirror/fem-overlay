@@ -1,0 +1,15 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl] virtual/pkgconfig
+DEFINED_PHASES=install postinst postrm prepare unpack
+DEPEND=>=virtual/libusb-1-r2
+DESCRIPTION=USB Driver for Blackmagic Ultrastudio cards
+EAPI=7
+HOMEPAGE=https://git.sesse.net/?p=bmusb;a=summary
+INHERIT=git-r3 udev
+IUSE=static-libs
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=>=virtual/libusb-1-r2
+SLOT=0
+_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f	toolchain-funcs	37a4612ce5522df5a100359a8dbc8491	multilib	5ca4e49abed8e3a2f7b56920eadee157	udev	eec0bbab06977f1cfc5597269c1fa152
+_md5_=6e38f439110915dd676d807f27b08bc1
