@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI="6"
+EAPI=8
 
 DESCRIPTION="VHDL 2008/93/87 simulator"
 HOMEPAGE="http://ghdl.free.fr/"
@@ -14,13 +13,11 @@ SLOT="0"
 
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 S=${WORKDIR}
 
 QA_PREBUILT="*"
 
 src_install() {
-	cp -R "${S}"/* "${D}" || die "Install failed!"
+	dodir /usr
+	cp -vR "${S}"/* "${ED}/usr" || die "Install failed!"
 }
