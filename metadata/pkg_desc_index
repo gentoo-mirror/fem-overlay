@@ -96,6 +96,7 @@ net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-ker
 net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/rtsp-simple-server 0.17.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
+sci-calculators/taschenrechner 0.1.2: A commandline calculator with interactive ASCII art input and accurate results
 sci-electronics/ghdl-bin 0.33-r1: VHDL 2008/93/87 simulator
 sci-electronics/verilator 4.210: Verilog compiler and simulator
 sci-libs/vmaf 1.3.15 2.2.0: Perceptual video quality assessment based on multi-method fusion.
