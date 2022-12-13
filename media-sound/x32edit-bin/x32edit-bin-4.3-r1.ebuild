@@ -20,6 +20,7 @@ KEYWORDS="-* amd64"
 RESTRICT="strip"
 
 RDEPEND="
+	media-libs/alsa-lib
 	net-misc/curl
 "
 BDEPEND="
