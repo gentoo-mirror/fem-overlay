@@ -11,6 +11,10 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 
+BDEPEND="
+	app-text/asciidoc
+"
+
 src_install() {
 	emake PREFIX="${EPREFIX}/usr" DESTDIR="${D}" install
 }
