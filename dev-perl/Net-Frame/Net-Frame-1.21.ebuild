@@ -20,3 +20,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 BDEPEND="dev-perl/Module-Build"
+
+src_prepare() {
+	# Remove tests which require network access
+	rm t/13-gethostsubs.t || die
+
+	perl-module_src_prepare
+}
