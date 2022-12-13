@@ -5,7 +5,7 @@ acct-user/acme-dns 1: user for net-dns/acme-dns
 acct-user/jamulus 1: User for media-sound/jamulus
 acct-user/prometheus-graphite-relay 1: Group for dev-go/prometheus-graphite-relay
 app-admin/admindb-python-scripts 1.3.0 9999: Python utility scripts for use with FeM's AdminDB2
-app-admin/arch-install-scripts 24: Scripts to aid installing Linux system, originally for Arch Linux
+app-admin/arch-install-scripts 24 28: Scripts to aid installing Linux system, originally for Arch Linux
 app-admin/fem-arubawlan-python-scripts 1.0.0 1.1.0_pre20220819: Python utility scripts for FeM's Aruba WLAN system
 app-admin/fem-netbox-user-scripts 0.3.1-r1: Scripts for NetBox users by FeM e.V.
 app-admin/reprepro 5.1.1 5.3.0: Debian APT repository creator and maintainer application
@@ -29,7 +29,7 @@ dev-perl/Class-Gomor 1.03: Another class and object builder
 dev-perl/File-DirList 0.05: Provide a sorted list of directory content
 dev-perl/File-Touch 0.12: Update file access and modification times, creating files if needed
 dev-perl/Frontier-Client-Easy 1.03: Perl extension for easy use of Frontier::Client
-dev-perl/Frontier-Daemon-Threading 0.01: Drop-in replacement for Frontier::Daemon using threads
+dev-perl/Frontier-Daemon-Threading 0.01-r1: Drop-in replacement for Frontier::Daemon using threads
 dev-perl/GitLab-API-v4 0.26: A complete GitLab API v4 client
 dev-perl/HTTP-Tiny-Multipart 0.08: Add post_multipart to HTTP::Tiny
 dev-perl/List-Compare 0.55: Compare elements of two or more lists
@@ -70,7 +70,7 @@ media-libs/svt-av1 0.9.0: Scalable Video Technology for AV1 (SVT-AV1 Encoder and
 media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.1: Fraunhofer AAC encoder plugin for GStreamer
 media-sound/jamulus 3.8.2: Internet jam session software
-media-sound/x32edit-bin 4.3: Graphical editor for the X32 mixer
+media-sound/x32edit-bin 4.3-r1: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6 0.7.6-r1: USB Driver for Blackmagic Ultrastudio cards
