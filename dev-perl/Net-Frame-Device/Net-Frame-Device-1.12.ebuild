@@ -28,3 +28,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 BDEPEND="dev-perl/Module-Build"
+
+src_prepare() {
+	# These tests require don't work with FEATURES=network-sandbox
+	rm t/04-new-default.t t/05-new-target.t || die
+
+	perl-module_src_prepare
+}
