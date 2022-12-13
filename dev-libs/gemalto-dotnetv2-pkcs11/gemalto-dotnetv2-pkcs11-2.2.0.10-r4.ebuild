@@ -33,3 +33,8 @@ src_prepare() {
 src_configure() {
 	econf --enable-system-boost
 }
+
+src_install() {
+	default
+	find "${ED}" -name "*.la" -delete || die
+}
