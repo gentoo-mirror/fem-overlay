@@ -18,6 +18,7 @@ RDEPEND="
 	dev-perl/Frontier-RPC
 	dev-perl/HTTP-Daemon
 	dev-perl/HTTP-Message
+	dev-perl/Sys-Prctl
 "
 DEPEND="${RDEPEND}"
 
