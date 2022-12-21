@@ -76,7 +76,7 @@ media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design
 media-video/bmusb 0.7.6 0.7.6-r1: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
 media-video/decklink-drivers 10.9.11 11.4 11.6-r1 12.2.2: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
-media-video/ffmpeg 4.2.2 4.3.1 4.4.1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
+media-video/ffmpeg 4.2.2 4.3.1-r1 4.4.1-r1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
 media-video/ndi-sdk 4.6.2: NewTek NDI SDK
 media-video/ndi-sdk-embedded 4.5.3: NewTek NDI SDK

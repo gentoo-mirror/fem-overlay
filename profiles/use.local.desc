@@ -81,7 +81,7 @@ media-video/ffmpeg:librtmp - Enables Real Time Messaging Protocol using librtmp 
 media-video/ffmpeg:libsoxr - Enables audio resampling through media-libs/soxr.
 media-video/ffmpeg:libtesseract - Enables the OCR filter via app-text/tesseract.
 media-video/ffmpeg:libv4l - Uses media-libs/libv4l for video4linux instead of direct calls. Adds support for more devices via the userspace library.
-media-video/ffmpeg:libvmaf - Uses sci-libs/vmaf for perceptual video quality assessment.
+media-video/ffmpeg:libvmaf - Uses media-libs/libvmaf for perceptual video quality assessment.
 media-video/ffmpeg:libxml2 - Uses dev-libs/libxml2 to enable dash demuxing support.
 media-video/ffmpeg:lv2 - Enables lv2 audio filter wrapper.
 media-video/ffmpeg:mipsdspr1 - Enables MIPS DSP ASE R1 optimizations.
