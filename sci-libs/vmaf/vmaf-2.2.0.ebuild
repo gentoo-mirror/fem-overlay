@@ -41,6 +41,8 @@ BDEPEND="
 DEPEND=""
 RDEPEND="${DEPEND}
 ${pydeps}
+
+	!media-libs/libvmaf
 "
 #RESTRICT="!test? ( test )"
 # missing sureal dependency to run all tests
