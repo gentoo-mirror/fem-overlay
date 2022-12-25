@@ -4,6 +4,7 @@ stages:
   - overlint
   - pkgcheck
   - manifest
+  - global-scope-checks
 
 variables:
   DISTDIR: ./tmp_distdir
@@ -65,3 +66,11 @@ manifest_commits:
 
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
+
+pmaint_regen:
+  stage: global-scope-checks
+  script:
+    - pmaint regen `pwd`
+
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'master'"
