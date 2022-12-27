@@ -15,3 +15,7 @@ KEYWORDS="~amd64"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 BDEPEND="dev-perl/Module-Build"
+
+PATCHES=(
+	"${FILESDIR}/${P}-remove-broken-tests.patch"
+)
