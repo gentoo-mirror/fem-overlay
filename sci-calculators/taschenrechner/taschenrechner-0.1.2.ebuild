@@ -39,6 +39,8 @@ KEYWORDS="~amd64"
 IUSE=""
 RESTRICT="mirror"
 
+QA_FLAGS_IGNORED="/usr/bin/taschenrechner"
+
 src_install() {
 	cargo_src_install
 	einstalldocs
