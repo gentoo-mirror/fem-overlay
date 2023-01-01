@@ -4,6 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8..10} )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 wrapper
 
 APS_COMMIT=9805e3131a223ab1831bbd2913617dd70fa2bb14
