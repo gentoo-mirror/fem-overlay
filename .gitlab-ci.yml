@@ -72,5 +72,7 @@ pmaint_regen:
   script:
     - pmaint regen `pwd`
 
+  needs: []
+
   rules:
     - if: "$CI_COMMIT_BRANCH == 'master'"
