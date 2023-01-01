@@ -52,7 +52,7 @@ dev-perl/XML-Hash-LX 0.06-r1: Convert hash to xml and xml to hash using LibXML
 dev-perl/XML-RPC-Fast 0.8-r1: No description available
 dev-perl/lib-abs 0.93-r1: lib that makes relative path absolute to caller
 dev-python/admindb-dbhandler 1.0.0: Python wrapper for interactions with FeM's AdminDB
-dev-python/arubaos-client 0.2.2 0.2.3 9999: Library to interact with the ArubaOS REST API
+dev-python/arubaos-client 0.2.2-r1 0.2.3-r1 9999: Library to interact with the ArubaOS REST API
 dev-python/ddlparse 1.10.0: Python DDL parser
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
