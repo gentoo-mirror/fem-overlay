@@ -4,6 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_8 python3_9 python3_10 )
+DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 git-r3 wrapper
 
 DESCRIPTION="Python utility scripts for use with FeM's AdminDB2"
