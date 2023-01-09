@@ -100,7 +100,7 @@ sci-electronics/verilator 4.210: Verilog compiler and simulator
 sci-libs/vmaf 2.2.0: Perceptual video quality assessment based on multi-method fusion.
 sys-cluster/csync2 2.0_p20190813: Cluster synchronization tool
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
-sys-kernel/femkvm-kernel 5.15.59 5.15.68: Linux kernel built with Gentoo patches
+sys-kernel/femkvm-kernel 5.15.59 5.15.68 5.15.85: Linux kernel built with Gentoo patches
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 sys-kernel/modprobed-db 2.46: Keeps track of every kernel module that has been modprobed.
 www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
