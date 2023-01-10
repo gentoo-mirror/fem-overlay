@@ -31,11 +31,6 @@
 
 #--- END OF EXAMPLES ---
 
-# No upstream activity since 2020, unmaintained, open security issues.
-# Removal on 2023-01-10.
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/137
-sys-cluster/csync2
-
 # Broken homepage, upstream repo is about to be shut down, EAPI 6, last
 # upstream commit over 5 years ago. Removal on 2023-01-11.
 # See: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/158
