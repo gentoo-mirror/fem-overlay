@@ -11,7 +11,7 @@ SRC_URI="https://people.apache.org/~dirkx/mod_rangecnt.c -> mod_rangecnt_${PV}.c
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
+KEYWORDS="amd64 ~ppc ~ppc64 ~x86"
 IUSE=""
 
 APACHE2_MOD_CONF="28_mod_rangecnt"
