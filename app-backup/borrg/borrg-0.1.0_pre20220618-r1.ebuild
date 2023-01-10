@@ -87,6 +87,9 @@ S="${WORKDIR}/${PN}-${BORRG_COMMIT}"
 
 DOCS=( "readme.md" )
 
+# Rust doesn't respect CFLAGS
+QA_FLAGS_IGNORED="*"
+
 src_install() {
 	cargo_src_install
 	einstalldocs
