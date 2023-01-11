@@ -41,7 +41,6 @@ dev-lang/php:webp - Enable webp support for GD in php-7.x
 dev-lang/php:xmlreader - Enable XMLReader support
 dev-lang/php:xmlwriter - Enable XMLWriter support
 dev-lang/php:xslt - Enable the XSL extension
-dev-perl/XML-RPC-Fast:anyevent - Add support for AnyEvent event loop library
 media-libs/gst-plugins-bad:bzip2 - Enable bzip2 encoder/decoder plugin
 media-libs/gst-plugins-bad:egl - Enable EGL support
 media-libs/gst-plugins-bad:fdk - Enable Fraunhofer AAC audio codec support

@@ -48,9 +48,6 @@ dev-perl/Net-MAC-Vendor 1.268: Perl module to look up the vendor of a MAC
 dev-perl/Net-Write 1.10: Interface to open and send raw data to network
 dev-perl/ProCurve-SNMP-Wrapper 2.00.01: Perl SNMP wrapper for HP ProCurve switches
 dev-perl/Sys-Prctl 1.02: Perl module to access prctl syscall
-dev-perl/XML-Hash-LX 0.06-r1: Convert hash to xml and xml to hash using LibXML
-dev-perl/XML-RPC-Fast 0.8-r1: No description available
-dev-perl/lib-abs 0.93-r1: lib that makes relative path absolute to caller
 dev-python/admindb-dbhandler 1.0.0: Python wrapper for interactions with FeM's AdminDB
 dev-python/arubaos-client 0.2.2-r1 0.2.3-r1 9999: Library to interact with the ArubaOS REST API
 dev-python/ddlparse 1.10.0: Python DDL parser
@@ -91,7 +88,6 @@ net-dns/acme-dns 1.0: Limited DNS server with RESTful API to handle ACME DNS cha
 net-im/matterhorn-bin 50200.17.0.23716 50200.17.0.29705: Terminal based Mattermost client
 net-im/xmppc 0.1.1: XMPP Command Line Interface
 net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
-net-misc/c3tt-scripts 3.0: scripts for running clients of the c3tickettracker
 net-misc/rtsp-simple-server 0.17.2: ready-to-use RTSP server and RTSP proxy
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 sci-calculators/taschenrechner 0.1.2: A commandline calculator with interactive ASCII art input and accurate results
