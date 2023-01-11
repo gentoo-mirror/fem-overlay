@@ -31,18 +31,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Broken homepage, upstream repo is about to be shut down, EAPI 6, last
-# upstream commit over 5 years ago. Removal on 2023-01-11.
-# See: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/158
-net-misc/c3tt-scripts
-
-# Dependencies of net-misc/c3tt-scripts. No other reverse dependencies, open
-# issues. Removal on 2023-01-11.
-# See: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/158
-dev-perl/lib-abs
-dev-perl/XML-RPC-Fast
-dev-perl/XML-Hash-LX
-
 # Provided in ::gentoo as media-libs/libvmaf, which is more up-to-date.
 # Removal on 2023-01-21.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/152
