@@ -41,13 +41,15 @@ pkgcheck_commits:
   stage: manifest
   before_script:
     - git fetch
+    - mkdir -p "${DISTDIR}"
+    - find "${DISTDIR}" -type f -ctime -14 -delete
   script:
     - /tools/manifest_packages.sh
 
   needs: []
 
   cache:
-    - key: manifest
+    - key: "manifest.${CI_COMMIT_REF_SLUG}"
       paths:
         - "${DISTDIR}"
 
