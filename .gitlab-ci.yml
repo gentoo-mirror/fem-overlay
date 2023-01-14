@@ -49,7 +49,7 @@ pkgcheck_commits:
   needs: []
 
   cache:
-    - key: manifest
+    - key: "manifest.${CI_COMMIT_REF_SLUG}"
       paths:
         - "${DISTDIR}"
 
