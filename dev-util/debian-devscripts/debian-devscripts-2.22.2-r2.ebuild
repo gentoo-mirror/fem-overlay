@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2022-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -34,12 +34,15 @@ DEPEND="
 		${RDEPEND}
 	)
 "
+# app-arch/libarchive tar breaks tests due to the tar implementation not
+# supporting a set of command line flags which are supported by GNU tar.
 BDEPEND="
 	app-arch/dpkg
 	dev-util/shunit2
 	virtual/pkgconfig
 
 	test? (
+		app-alternatives/tar[-libarchive]
 		dev-vcs/git
 		dev-vcs/subversion
 		sys-libs/libfaketime
