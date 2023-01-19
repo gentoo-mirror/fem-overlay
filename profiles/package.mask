@@ -31,12 +31,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Packages with multiple QA problems. Maintainer inactive for years.
-# Removal on 2023-02-19.
-# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/197
-app-pda/libimobiledevice
-app-pda/usbmuxd
-
 # Provided in ::gentoo as media-libs/libvmaf, which is more up-to-date.
 # Removal on 2023-01-21.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/152
