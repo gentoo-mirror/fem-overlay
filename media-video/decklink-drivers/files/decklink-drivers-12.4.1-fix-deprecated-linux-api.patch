@@ -1,0 +1,28 @@
+Index: b/usr/src/blackmagic-io-12.4.1a15/bm_util.c
+===================================================================
+--- a/usr/src/blackmagic-io-12.4.1a15/bm_util.c
++++ b/usr/src/blackmagic-io-12.4.1a15/bm_util.c
+@@ -902,7 +902,9 @@ void bm_util_init()
+ // Random
+ uint32_t bm_random32(void)
+ {
+-#if KERNEL_VERSION_OR_LATER(3, 8, 0)
++#if KERNEL_VERSION_OR_LATER(5, 19, 0)
++	return get_random_u32();
++#elif KERNEL_VERSION_OR_LATER(3, 8, 0)
+ 	return prandom_u32();
+ #elif KERNEL_VERSION_OR_LATER(2, 6, 19)
+ 	return random32();
+Index: b/usr/src/blackmagic-io-12.4.1a15/bmio_audio.c
+===================================================================
+--- a/usr/src/blackmagic-io-12.4.1a15/bmio_audio.c
++++ b/usr/src/blackmagic-io-12.4.1a15/bmio_audio.c
+@@ -432,7 +432,7 @@ static int bmio_audio_init_pcm(bmio_audi
+ 
+ 	snd_pcm_lib_preallocate_pages_for_all(pcm,
+ 		SNDRV_DMA_TYPE_CONTINUOUS,
+-		snd_dma_continuous_data(GFP_KERNEL),
++		NULL,
+ 		bmio_audio_hardware.buffer_size,
+ 		bmio_audio_hardware.buffer_size);
+ 
