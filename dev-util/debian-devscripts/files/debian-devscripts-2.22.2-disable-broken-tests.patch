@@ -1,8 +1,8 @@
 diff --git a/test/Makefile b/test/Makefile
-index 7ad23420..06c303b4 100644
+index 7ad23420..79370d88 100644
 --- a/test/Makefile
 +++ b/test/Makefile
-@@ -3,16 +3,6 @@ OUR_TESTS= \
+@@ -3,17 +3,6 @@ OUR_TESTS= \
  	perl \
  	annotate-output \
  	checkbashisms \
@@ -16,6 +16,7 @@ index 7ad23420..06c303b4 100644
 -	package_lifecycle \
 -	sadt \
 -	uscan \
- 	uscan_ftp \
+-	uscan_ftp \
  	uscan_git \
  	uscan_svn \
+ 	uscan_mangle \
