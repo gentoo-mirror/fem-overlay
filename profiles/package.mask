@@ -30,8 +30,3 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
-
-# Provided in ::gentoo as media-libs/libvmaf, which is more up-to-date.
-# Removal on 2023-01-21.
-# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/152
-sci-libs/vmaf
