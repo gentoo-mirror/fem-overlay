@@ -138,6 +138,5 @@ net-analyzer/nagios-plugins-extended:suid - Set SUID-Flag for several plugins
 net-analyzer/nagios-plugins-extended:tcptraffic - Install TCP-Traffic plugin
 net-analyzer/nagios-plugins-extended:temp - Install Temperature-sensor plugin
 net-analyzer/nagios-plugins-extended:timestamp - Install Timestamp-Check plugin
-sci-libs/vmaf:tools - Also install feature binaries
 sys-kernel/femkvm-kernel:initramfs - Build initramfs along with the kernel.
 sys-kernel/femxen-kernel:initramfs - Build initramfs along with the kernel.
