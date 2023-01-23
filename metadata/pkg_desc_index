@@ -100,6 +100,7 @@ sys-kernel/femkvm-kernel 5.15.59 5.15.68 5.15.85: Linux kernel built with Gentoo
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 sys-kernel/modprobed-db 2.46: Keeps track of every kernel module that has been modprobed.
 www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
+www-apps/icinga-overview 9999: Simple Icinga-Classic-UI-like overview for Icinga2
 www-nginx/nginx-vod-module 1.23.2.1.30: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2 9999: pass integration for rofi

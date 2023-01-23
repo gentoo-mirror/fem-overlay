@@ -1,0 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=config install postinst prerm unpack
+DEPEND=acct-group/nginx
+DESCRIPTION=Simple Icinga-Classic-UI-like overview for Icinga2
+EAPI=8
+HOMEPAGE=https://gitlab.fem-net.de/monitoring/icinga-overview
+INHERIT=git-r3
+LICENSE=AGPL-3
+PROPERTIES=live
+RDEPEND=acct-group/nginx net-libs/nodejs[npm]
+SLOT=0
+_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f
+_md5_=cca19ee5f68773b2a1455cb7a69b0c3e
