@@ -1,0 +1,5 @@
+# Change if you'd like to use a different config file
+# SRTRELAY_CONFIG=config.toml
+
+# Set if you want to change the log file
+# LOG_FILE=/var/log/srtrelay.log
