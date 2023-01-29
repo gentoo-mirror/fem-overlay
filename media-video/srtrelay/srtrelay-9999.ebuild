@@ -1,7 +1,7 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit go-module git-r3
 
@@ -17,8 +17,12 @@ KEYWORDS=""
 DEPEND="
 	>=net-libs/srt-1.4.2:=
 "
-RDEPEND="${DEPEND}"
-BDEPEND=""
+RDEPEND="
+	${DEPEND}
+
+	acct-user/srtrelay
+	acct-group/srtrelay
+"
 
 src_unpack() {
 	git-r3_src_unpack
@@ -36,4 +40,10 @@ src_install() {
 
 	insinto /etc/${PN}
 	newins config.toml.example config.toml
+
+	insinto /etc/logrotate.d
+	newins "${FILESDIR}/logrotate.conf" "${PN}.conf"
+
+	newinitd "${FILESDIR}/${PN}-initd" "${PN}"
+	newconfd "${FILESDIR}/${PN}-confd" "${PN}"
 }
