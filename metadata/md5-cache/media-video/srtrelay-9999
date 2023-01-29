@@ -2,13 +2,13 @@ BDEPEND=>=dev-lang/go-1.18 app-arch/unzip >=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install unpack
 DEPEND=>=net-libs/srt-1.4.2:=
 DESCRIPTION=SRT relay server to distribute media streams to multiple clients
-EAPI=7
+EAPI=8
 HOMEPAGE=https://github.com/voc/srtrelay
 INHERIT=go-module git-r3
 LICENSE=MIT
 PROPERTIES=live
-RDEPEND=>=net-libs/srt-1.4.2:=
+RDEPEND=>=net-libs/srt-1.4.2:= acct-user/srtrelay acct-group/srtrelay
 RESTRICT=strip
 SLOT=0
 _eclasses_=go-module	75029f071ebc843223233ab1b0a2d4a5	git-r3	2347f8fe2d392b2a091191f94be37e6f
-_md5_=f8831fd4904567ccf3791c495a521a3a
+_md5_=1b65f7c17bd4b3dcca66a7369587a22e
