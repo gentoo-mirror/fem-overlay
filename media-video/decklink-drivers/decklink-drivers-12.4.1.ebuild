@@ -64,7 +64,7 @@ pkg_nofetch() {
 	if use headers; then
 		einfo "and \"Desktop Video ${SDK_VERSION} SDK for Linux\""
 	fi
-	einfo "for your product from the support section and move it to ${DISTDIR}"
+	einfo "for your product from the support section and move it to DISTDIR"
 	einfo ""
 	einfo "  expected filenames: ${SRC_URI}"
 	einfo ""
