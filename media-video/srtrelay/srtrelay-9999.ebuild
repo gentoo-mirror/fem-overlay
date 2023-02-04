@@ -3,16 +3,24 @@
 
 EAPI=8
 
-inherit go-module git-r3
+GO_FEM_DEP_ARCHIVE_VER=
+inherit go-module go-module-fem
 
 DESCRIPTION="SRT relay server to distribute media streams to multiple clients"
 HOMEPAGE="https://github.com/voc/srtrelay"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/voc/srtrelay.git"
+if [[ "${PV}" = 9999* ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/voc/srtrelay.git"
+else
+	SRC_URI="
+		https://github.com/voc/srtrelay/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz
+		${GO_FEM_SRC_URI}
+	"
+	KEYWORDS="~amd64"
+fi
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
 
 DEPEND="
 	>=net-libs/srt-1.4.2:=
@@ -24,19 +32,19 @@ RDEPEND="
 	acct-group/srtrelay
 "
 
-src_unpack() {
-	git-r3_src_unpack
-	go-module_live_vendor
-}
+DOCS=( "README.md" )
 
-src_compile() {
-	ego build -v -o ${PN}
+src_unpack() {
+	if [[ "${PV}" = 9999* ]]; then
+		git-r3_src_unpack
+		go-module_live_vendor
+	else
+		default
+	fi
 }
 
 src_install() {
-	dobin ${PN}
-
-	dodoc README.md
+	go-module-fem_src_install
 
 	insinto /etc/${PN}
 	newins config.toml.example config.toml
