@@ -7,8 +7,8 @@ INHERIT=git-r3 python-single-r1
 IUSE=examples gui +python_single_target_python3_9
 LICENSE=MIT
 PROPERTIES=live
-RDEPEND=python_single_target_python3_9? ( >=dev-lang/python-3.9.16:3.9 ) media-libs/gstreamer:1.0 media-libs/gst-plugins-base:1.0 media-libs/gst-plugins-good:1.0 media-libs/gst-plugins-bad:1.0 media-libs/gst-plugins-ugly:1.0 media-plugins/gst-plugins-jpeg:1.0 python_single_target_python3_9? ( dev-python/pygobject:3[python_targets_python3_9(-)] ) examples? ( media-plugins/gst-plugins-libav:1.0 ) gui? ( media-libs/gst-plugins-base:1.0[alsa] dev-python/pygobject[cairo] )
+RDEPEND=python_single_target_python3_9? ( >=dev-lang/python-3.9.16-r1:3.9 ) media-libs/gstreamer:1.0 media-libs/gst-plugins-base:1.0 media-libs/gst-plugins-good:1.0 media-libs/gst-plugins-bad:1.0 media-libs/gst-plugins-ugly:1.0 media-plugins/gst-plugins-jpeg:1.0 python_single_target_python3_9? ( dev-python/pygobject:3[python_targets_python3_9(-)] ) examples? ( media-plugins/gst-plugins-libav:1.0 ) gui? ( media-libs/gst-plugins-base:1.0[alsa] dev-python/pygobject[cairo] )
 REQUIRED_USE=^^ ( python_single_target_python3_9 )
 SLOT=0
-_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	9a610728b9bcca1919234cceb35a1027	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	8d5c1c4ecef47fa1b4576a718c620d1d	python-single-r1	75118e916668a74c660a13b0ecb22562
+_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	9a610728b9bcca1919234cceb35a1027	multilib	5ca4e49abed8e3a2f7b56920eadee157	python-utils-r1	429bfd4e8d8e39db5385ba5744f30788	python-single-r1	75118e916668a74c660a13b0ecb22562
 _md5_=7a325e2b43673a684a1faa6399bf6f6b
