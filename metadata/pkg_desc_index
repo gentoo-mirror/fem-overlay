@@ -66,7 +66,7 @@ dev-python/structlog 21.5.0 22.1.0: Structured Logging for Python
 dev-util/debian-devscripts 2.22.2 2.22.2-r1 2.22.2-r2: Scripts to help Debian package maintenance
 media-libs/gst-plugins-bad 1.20.1: Less plugins for GStreamer
 media-libs/melted 9999: MLT Video Server
-media-plugins/gst-plugins-decklink 1.14.5 1.18.4: Decklink Plugin for Gstreamer
+media-plugins/gst-plugins-decklink 1.18.4: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.1: Fraunhofer AAC encoder plugin for GStreamer
 media-sound/jamulus 3.8.2: Internet jam session software
 media-sound/x32edit-bin 4.3-r1: Graphical editor for the X32 mixer
