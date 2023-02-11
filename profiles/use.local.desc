@@ -115,6 +115,7 @@ media-video/voctomix:gui - Voctomix GTK+ application
 net-analyzer/fem-nagios-plugins:bandwidth - add plugin check_bindwidth checks switch SNMP
 net-analyzer/fem-nagios-plugins:cgiirc - add plugin check_cgiirc
 net-analyzer/fem-nagios-plugins:gentoo-portage - add plugin check_gentoo_portage
+net-analyzer/fem-nagios-plugins:haproxy - add plugin check_haproxy
 net-analyzer/fem-nagios-plugins:hddtemp - add plugin check_hddtemp.sh
 net-analyzer/fem-nagios-plugins:lvm - add plugins check_vg_size check_lvm_cache
 net-analyzer/fem-nagios-plugins:mailqueue-exim - add plugin check_mailqueue_exim
