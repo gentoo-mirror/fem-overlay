@@ -13,6 +13,7 @@
 	<flag name="bandwidth">add plugin check_bindwidth checks switch SNMP</flag>
 	<flag name="cgiirc">add plugin check_cgiirc</flag>
 	<flag name="gentoo-portage">add plugin check_gentoo_portage</flag>
+	<flag name="haproxy">add plugin check_haproxy</flag>
 	<flag name="hddtemp">add plugin check_hddtemp.sh</flag>
 	<flag name="mailqueue-exim">add plugin check_mailqueue_exim</flag>
 	<flag name="nfs">add plugin check_nfs</flag>
