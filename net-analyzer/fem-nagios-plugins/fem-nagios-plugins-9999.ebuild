@@ -20,7 +20,7 @@ HOMEPAGE="https://gitlab.fem-net.de/monitoring/fem-nagios-plugins/"
 # Mappings between USE flag and plugin name in the form: flag[:plugin].
 # If the plugin is not explicitly specified, it is the same as the flag name.
 PLUGIN_FLAG_MAP=(
-	bandwidth hddtemp raid sensors uptime xml-rpc xen:xen_cpu
+	bandwidth haproxy hddtemp raid sensors uptime xml-rpc xen:xen_cpu
 )
 
 LICENSE="BSD GPL-2 GPL-3 MIT"
@@ -32,6 +32,10 @@ RDEPEND="
 		acct-user/nagios
 		app-alternatives/bc
 		bandwidth? ( dev-perl/Net-SNMP )
+		haproxy? (
+			dev-perl/Monitoring-Plugin
+			dev-perl/libwww-perl
+		)
 		hddtemp? ( app-admin/hddtemp )
 		raid? ( virtual/perl-Getopt-Long )
 		sensors? ( virtual/perl-Getopt-Long )
@@ -45,7 +49,7 @@ RESTRICT="test"
 # This list is extended conditionally using PLUGIN_FLAG_MAP depending on the
 # USE flags set
 PLUGIN_LIST=(
-	cgiirc gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram ram2 smart_sectors temp_sensor vg_size lvm_cache net_traffic zfs
+	cgiirc gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram ram2 smart_sectors smartarray temp_sensor vg_size lvm_cache net_traffic zfs
 )
 
 DOCS=( README.md CHANGELOG.md )
