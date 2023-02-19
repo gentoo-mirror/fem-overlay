@@ -8,5 +8,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=|| ( Artistic-2 LGPL-3 )
 SLOT=4.210
 SRC_URI=https://www.veripool.org/ftp/verilator-4.210.tgz
-_eclasses_=multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	9a610728b9bcca1919234cceb35a1027
+_eclasses_=multilib	5ca4e49abed8e3a2f7b56920eadee157	toolchain-funcs	cf009a3ed4e5bef503e7a9f215791a78
 _md5_=6a123c4505a7baface4b99bac0f4a3cd
