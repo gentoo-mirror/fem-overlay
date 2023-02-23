@@ -14,7 +14,7 @@ SRC_URI="https://salsa.debian.org/debian/devscripts/-/archive/v${PV}/devscripts-
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="test"
 
 RDEPEND="
