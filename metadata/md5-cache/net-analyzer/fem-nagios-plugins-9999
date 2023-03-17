@@ -10,5 +10,5 @@ PROPERTIES=live
 RDEPEND=acct-group/nagios acct-user/nagios app-alternatives/bc bandwidth? ( dev-perl/Net-SNMP ) haproxy? ( dev-perl/Monitoring-Plugin dev-perl/libwww-perl ) hddtemp? ( app-admin/hddtemp ) raid? ( virtual/perl-Getopt-Long ) sensors? ( virtual/perl-Getopt-Long ) uptime? ( virtual/perl-Getopt-Long dev-perl/Net-SNMP ) xml-rpc? ( dev-python/nagiosplugin:* dev-perl/RPC-XML ) xen? ( app-emulation/xen-tools )
 RESTRICT=test
 SLOT=0
-_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f
+_eclasses_=git-r3	c57c50c922e121043788de0b40ada60a
 _md5_=378bb74deafa09212871cf4d6a56f7cf

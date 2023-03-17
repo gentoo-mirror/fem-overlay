@@ -9,5 +9,5 @@ LICENSE=MIT
 PROPERTIES=live
 RDEPEND=media-video/decklink-drivers net-libs/libmicrohttpd media-libs/libpng:0
 SLOT=0
-_eclasses_=git-r3	2347f8fe2d392b2a091191f94be37e6f
+_eclasses_=git-r3	c57c50c922e121043788de0b40ada60a
 _md5_=6f356bd6e34ef0737ef7df14ee137bd0
