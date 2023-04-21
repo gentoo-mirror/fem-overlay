@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -15,7 +15,7 @@ SRC_URI="https://gitlab.fem-net.de/nex/matterhorn-gentoo-bin/-/jobs/${MATTERHORN
 # BSD for software, Apache-2.0 for emojis
 LICENSE="BSD Apache-2.0"
 SLOT="0"
-KEYWORDS="-* amd64"
+KEYWORDS="-* ~amd64"
 
 RDEPEND="
 	dev-libs/gmp:0/10.4
