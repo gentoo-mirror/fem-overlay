@@ -11,5 +11,5 @@ RDEPEND=dev-lang/perl dev-perl/Term-ReadLine-Gnu app-misc/screen app-admin/sudo
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://www.xen-tools.org/software/xen-shell/xen-shell-1.9.tar.gz
-_eclasses_=toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	d1408425c7c4a7669b9b17735404b693	bash-completion-r1	f5e7a020fd9c741740756aac61bf75ff
+_eclasses_=toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	d1408425c7c4a7669b9b17735404b693	bash-completion-r1	59cf54afadd3b37d31d9d85c7d7d8067
 _md5_=51483464addb9ac5ae9c94140785a7b7
