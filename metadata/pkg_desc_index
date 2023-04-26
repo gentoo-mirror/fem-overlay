@@ -78,7 +78,7 @@ media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debug
 media-video/decklink-drivers 12.4.1: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/ffmpeg 4.2.2 4.3.1-r1 4.4.1-r1 5.1.2-r1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
-media-video/ndi-sdk 4.6.2: NewTek NDI SDK
+media-video/ndi-sdk 5.5.4: NewTek NDI SDK
 media-video/ndi-sdk-embedded 4.5.3: NewTek NDI SDK
 media-video/srtrelay 9999: SRT relay server to distribute media streams to multiple clients
 media-video/voctomix 1.3-r1 9999: Full-HD Software Live-Video-Mixer in python
