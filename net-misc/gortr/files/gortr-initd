@@ -1,0 +1,37 @@
+#!/sbin/openrc-run
+# Copyright 2020-2022 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="gortr daemon"
+description="Go RPKI-to-Router daemon"
+command=/usr/bin/gortr
+gortr_user=gortr
+gortr_group=gortr
+gortr_pidfile="/run/gortr.pid"
+: ${GORTR_LOGFILE:=/var/log/gortr/gortr.log}
+
+depend() {
+	need net
+	after net
+}
+
+start_pre() {
+	checkpath \
+		--directory \
+		--owner ${gortr_user}:${gortr_group} \
+		--mode 0750 \
+		$(dirname ${GORTR_LOGFILE})
+}
+
+start() {
+	ebegin "Starting gortr"
+	start-stop-daemon \
+		-x $command \
+		-p $gortr_pidfile \
+		-u $gortr_user:$gortr_group \
+		-b \
+		-m \
+		-1 $GORTR_LOGFILE \
+		-- $GORTR_OPTS
+	eend $?
+}
