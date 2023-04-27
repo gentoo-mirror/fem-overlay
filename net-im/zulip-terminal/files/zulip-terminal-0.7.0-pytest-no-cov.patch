@@ -1,0 +1,11 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -9,8 +9,6 @@ filterwarnings =
+     ignore::DeprecationWarning:bs4.*:
+ addopts =
+     -rxXs
+-    --cov=zulipterminal
+-    --no-cov-on-fail
+ 
+ [tool:isort]
+ # Use black for the default settings (with adjustments listed below)
