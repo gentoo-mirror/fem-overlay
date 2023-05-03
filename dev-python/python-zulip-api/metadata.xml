@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian 'nex' Schollmeyer</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="pypi">zulip</remote-id>
+		<remote-id type="github">zulip/python-zulip-api</remote-id>
+	</upstream>
+</pkgmetadata>

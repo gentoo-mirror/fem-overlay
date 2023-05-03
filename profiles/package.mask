@@ -29,4 +29,9 @@
 ## funny. (bug #987654)
 ## app-misc/some-package
 
+# Broken package, missing dependencies, dead upstream.
+# Removal on 2023-06-02.
+# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/220
+net-analyzer/graphite-api
+
 #--- END OF EXAMPLES ---
