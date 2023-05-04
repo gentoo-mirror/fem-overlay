@@ -34,4 +34,8 @@
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/220
 net-analyzer/graphite-api
 
+
+# Broken init script. Daemon won't start. Use -r2 instead.
+=net-dns/acme-dns-1.0-r1
+
 #--- END OF EXAMPLES ---
