@@ -1,0 +1,10 @@
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -1,7 +1,6 @@
+ [tool:pytest]
+ log_level = DEBUG
+ addopts =
+-    --cov-config=setup.cfg
+ 
+ [flake8]
+ exclude =
