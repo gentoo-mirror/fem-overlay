@@ -70,7 +70,7 @@ media-libs/gst-plugins-bad 1.20.1: Less plugins for GStreamer
 media-libs/melted 9999: MLT Video Server
 media-libs/svt-av1 1.4.1: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-plugins/gst-plugins-decklink 1.18.4: Decklink Plugin for Gstreamer
-media-plugins/gst-plugins-fdkaac 1.20.1: Fraunhofer AAC encoder plugin for GStreamer
+media-plugins/gst-plugins-fdkaac 1.20.1 1.20.4: Fraunhofer AAC encoder plugin for GStreamer
 media-sound/jamulus 3.8.2: Internet jam session software
 media-sound/x32edit-bin 4.3-r1: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
@@ -107,7 +107,7 @@ sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo 
 sys-kernel/modprobed-db 2.46: Keeps track of every kernel module that has been modprobed.
 www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
 www-apps/icinga-overview 9999: Simple Icinga-Classic-UI-like overview for Icinga2
-www-nginx/nginx-vod-module 1.23.2.1.30: NGINX-based MP4 Repackager
+www-nginx/nginx-vod-module 1.23.3.1.30: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2 9999: pass integration for rofi
 x11-plugins/pidgin-carbons 0.2.3: Experimental XEP-0280: Message Carbons plugin for libpurple
