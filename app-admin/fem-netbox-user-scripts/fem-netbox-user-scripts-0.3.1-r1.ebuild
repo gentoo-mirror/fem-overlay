@@ -1,9 +1,9 @@
-# Copyright 2021-2022 Gentoo Authors
+# Copyright 2021-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{10,11} )
 inherit python-single-r1
 
 DESCRIPTION="Scripts for NetBox users by FeM e.V."
@@ -17,6 +17,7 @@ IUSE="+dokuwiki"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND=""
+# shellcheck disable=SC2016
 RDEPEND="
 	${PYTHON_DEPS}
 
