@@ -3,12 +3,12 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 inherit distutils-r1
 
 DESCRIPTION="Python library to interact with keepass databases (supports KDBX3 and KDBX4)"
 HOMEPAGE="https://github.com/libkeepass/pykeepass"
-SRC_URI="https://github.com/libkeepass/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/libkeepass/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -42,6 +42,5 @@ src_prepare() {
 }
 
 python_install() {
-	rm -r "${BUILD_DIR}"/lib/tests || die
 	distutils-r1_python_install
 }
