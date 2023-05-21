@@ -21,7 +21,7 @@ app-backup/sql-ssh-backup 1.8.3 1.9_beta5 2.0: Create MySQL-, PostgreSQL- or Mon
 app-emulation/grub-xen-host 1.0-r2: Grub2 built as a PV grub per the Xen PV Boot Protocol
 app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-emulation/xen-sriov 0.2020705: Xen sr-iov scripts
-app-metrics/mimir-bin 2.5.0: Long term prometheus metrics storage
+app-metrics/mimir-bin 2.5.0 2.5.0-r1: Long term prometheus metrics storage
 app-misc/tmux-starter 1.1.1: Simple ncurses based interface for accessing tmux sessions
 app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
