@@ -1,0 +1,45 @@
+#!/sbin/openrc-run
+# Copyright 2023 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="mimir Prothetheus metrics storage"
+description="Horizontally scalable, highly available long term Prometheus metrics storage"
+command=/usr/bin/mimir
+command_args="--log.level $LOG_LEVEL $CUSTOM_ARGS"
+command_user=mimir:mimir
+command_chdir="/var/lib/mimir"
+supervisor="supervise-daemon"
+supervise_daemon_args="--stdout ${LOG_FILE:=/var/log/${RC_SVCNAME}.log} --stderr ${LOG_FILE}"
+extra_started_commands="reload"
+
+depend() {
+	use net
+	after net
+}
+
+start_pre() {
+	checkpath --owner "${command_user}" \
+		--mode 0755 \
+		--directory "/var/lib/mimir"
+	checkpath --mode 0640 \
+		--owner "${command_user}" \
+		--file "${LOG_FILE}"
+}
+
+start() {
+	ebegin "Starting ${RC_SVCNAME}"
+	${supervisor} "${RC_SVCNAME}" \
+		-u ${command_user%:*} \
+		-g ${command_user#*:} \
+		-d ${command_chdir} \
+		${supervise_daemon_args} \
+		-S "${command}" \
+		-- ${command_args}
+
+	eend $?
+}
+reload() {
+	ebegin "Reloading ${RC_SVCNAME}"
+	${supervisor} ${RC_SVCNAME} --signal HUP
+	eend $?
+}
