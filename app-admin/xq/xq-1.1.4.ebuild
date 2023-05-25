@@ -15,4 +15,4 @@ SRC_URI="
 
 LICENSE="BSD MIT Apache-2.0 MPL-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
