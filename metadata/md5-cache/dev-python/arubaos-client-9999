@@ -3,7 +3,7 @@ DEFINED_PHASES=compile configure install prepare test unpack
 DEPEND=>=dev-python/netaddr-0.8.0[python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/pytimeparse-1.1.8[python_targets_python3_10(-)?,python_targets_python3_11(-)?] >=dev-python/requests-2.24.0[python_targets_python3_10(-)?,python_targets_python3_11(-)?]
 DESCRIPTION=Library to interact with the ArubaOS REST API
 EAPI=8
-HOMEPAGE=https://bitbucket.fem.tu-ilmenau.de/users/v0tti/repos/arubaos-client/browse
+HOMEPAGE=https://gitlab.fem-net.de/technik/arubaos-client
 INHERIT=git-r3 distutils-r1
 IUSE=python_targets_python3_10 python_targets_python3_11
 LICENSE=MIT
@@ -12,4 +12,4 @@ RDEPEND=>=dev-python/netaddr-0.8.0[python_targets_python3_10(-)?,python_targets_
 REQUIRED_USE=|| ( python_targets_python3_10 python_targets_python3_11 )
 SLOT=0
 _eclasses_=git-r3	27e13c09a4c7e4c78ac812f74727e676	out-of-source-utils	1a9007554652a6e627edbccb3c25a439	multibuild	bddcb51b74f4a76724ff7cf8e7388869	multilib	104e1332efb829e2f7cbf89307a474f1	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	ninja-utils	76050953ad5b70d7e09a6ca55558db92	python-utils-r1	d676fb844e9408f4290d20bc7312f8bb	python-r1	3c6cd0f418ba702c186a9865b85e704d	distutils-r1	dc5ca9013da6279b2e24b0ae156f030e
-_md5_=ddf25af7e5435c8a6cbb807871107c7a
+_md5_=719056029b98ed95efd61f0c6105689f
