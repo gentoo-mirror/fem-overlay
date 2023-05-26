@@ -8,6 +8,7 @@ inherit perl-module
 MY_P="admindb-vendored-perl-${P}"
 
 DESCRIPTION="Drop-in replacement for Frontier::Daemon using threads"
+HOMEPAGE="https://wiki.gentoo.org/wiki/No_homepage"
 SRC_URI="https://gitlab.fem-net.de/nex/admindb-vendored/-/archive/perl-${P}/${MY_P}.tar.bz2"
 
 #LICENSE="|| ( Artistic GPL-1+ )"
