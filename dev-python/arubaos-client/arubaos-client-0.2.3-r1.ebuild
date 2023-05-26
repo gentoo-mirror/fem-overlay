@@ -10,7 +10,7 @@ DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
 DESCRIPTION="Library to interact with the ArubaOS REST API"
-HOMEPAGE="https://fem.tu-ilmenau.de https://gitlab.fem-net.de/technik/arubaos-client"
+HOMEPAGE="https://gitlab.fem-net.de/technik/arubaos-client"
 SRC_URI="https://gitlab.fem-net.de/technik/arubaos-client/-/archive/v${PV}/${MY_P}.tar.bz2"
 
 LICENSE="MIT"
