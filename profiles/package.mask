@@ -29,6 +29,11 @@
 ## funny. (bug #987654)
 ## app-misc/some-package
 
+# Replaced by dev-vcs/python-gitlab in ::gentoo.
+# Removal on 2023-06-26.
+# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/237
+dev-python/gitlab
+
 # Broken package, missing dependencies, dead upstream.
 # Removal on 2023-06-02.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/220

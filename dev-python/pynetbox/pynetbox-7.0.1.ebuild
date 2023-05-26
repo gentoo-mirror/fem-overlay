@@ -5,11 +5,10 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{8..11} )
 DISTUTILS_USE_PEP517=setuptools
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Python library to interact with the NetBox REST API"
 HOMEPAGE="https://pypi.org/project/pynetbox/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
