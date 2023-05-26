@@ -1,0 +1,20 @@
+## Conf file for gortr.
+## Comment in the options you'd like to use and leave the -arguments where they are.
+
+## Bind to a certain port. Default: 8282
+# GORTR_BIND="-bind :8282"
+
+## Set cache URL
+# GORTR_CACHE="-cace https://example.com/cache.json"
+
+## Set verify. Default: true
+# GORTR_VERIFY="-verify=true"
+
+## Set checktime.
+# GORTR_CHECKTIME="-checktime=false"
+
+## Where to send the logs to
+# GORTR_LOGFILE="/var/log/gortr/gortr.log"
+
+## Add all opts together and add additional opts
+GORTR_OPTS="${GORTR_BIND} ${GORTR_CACHE} ${GORTR_VERIFY} ${GORTR_CHECKTIME}"

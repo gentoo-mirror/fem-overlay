@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # This file specifies packages that are considered deprecated (but not
@@ -16,7 +16,3 @@
 ## dev-foo/foo
 
 #--- END OF EXAMPLES ---
-
-# Anton Schubert <ischluff@mailbox.org> (2021-01-16)
-# Unmaintained, please use net-misc/rtsp-simple-server instead
-net-misc/rtsp-server
