@@ -7,8 +7,8 @@ INHERIT=python-single-r1
 IUSE=python_single_target_python3_10 python_single_target_python3_11
 KEYWORDS=~amd64
 LICENSE=Apache-2.0
-RDEPEND=acct-group/nagios acct-user/nagios python_single_target_python3_10? ( >=dev-lang/python-3.10.9-r1:3.10 ) python_single_target_python3_11? ( >=dev-lang/python-3.11.1-r1:3.11 ) sys-cluster/ceph
+RDEPEND=acct-group/nagios acct-user/nagios python_single_target_python3_10? ( >=dev-lang/python-3.10.11:3.10 ) python_single_target_python3_11? ( >=dev-lang/python-3.11.3:3.11 ) sys-cluster/ceph
 SLOT=0
 SRC_URI=https://github.com/j-licht/ceph-nagios-plugins/archive/ceph-nagios-plugins_1.6.0.tar.gz
-_eclasses_=eapi8-dosym	741bfa77afb2a9321261501aca58c208	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	104e1332efb829e2f7cbf89307a474f1	python-utils-r1	d676fb844e9408f4290d20bc7312f8bb	python-single-r1	75118e916668a74c660a13b0ecb22562
+_eclasses_=eapi8-dosym	741bfa77afb2a9321261501aca58c208	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	14a8ae365191b518fad51caad7a08f3e	multilib	104e1332efb829e2f7cbf89307a474f1	python-utils-r1	ba15b8b81f30ca448294d759a9f7902c	python-single-r1	75118e916668a74c660a13b0ecb22562
 _md5_=c4d6d277a81db299a766482099176c40
