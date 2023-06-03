@@ -28,6 +28,7 @@
 ## with new libfoo. Upstream dead, gtk-1, smells
 ## funny. (bug #987654)
 ## app-misc/some-package
+#--- END OF EXAMPLES ---
 
 # Replaced by dev-vcs/python-gitlab in ::gentoo.
 # Removal on 2023-06-26.
@@ -38,9 +39,3 @@ dev-python/gitlab
 # Removal on 2023-06-02.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/220
 net-analyzer/graphite-api
-
-
-# Broken init script. Daemon won't start. Use -r2 instead.
-=net-dns/acme-dns-1.0-r1
-
-#--- END OF EXAMPLES ---
