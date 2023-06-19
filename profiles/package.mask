@@ -30,6 +30,11 @@
 ## app-misc/some-package
 #--- END OF EXAMPLES ---
 
+# No longer in in use. If anyone needs it, just notify us and
+# we can keep the package around. Removal on 2023-07-19
+# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/238
+app-admin/reprepro
+
 # No longer in use. Broken SRC_URI.
 # Removal on 2023-07-14.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/239
