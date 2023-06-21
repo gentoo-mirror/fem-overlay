@@ -102,7 +102,7 @@ sci-calculators/taschenrechner 0.1.2: A commandline calculator with interactive 
 sci-electronics/ghdl-bin 0.33-r1: VHDL 2008/93/87 simulator
 sci-electronics/verilator 4.210: Verilog compiler and simulator
 sys-fs/fuse-ts 2017.04.29.1 9999: FUSE module for working with splitted MPEG TS files
-sys-kernel/femkvm-kernel 5.15.59 5.15.68 5.15.85 5.15.88 6.1.28: Linux kernel built with Gentoo patches
+sys-kernel/femkvm-kernel 5.15.88 6.1.28 6.1.31: Linux kernel built with Gentoo patches
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 sys-kernel/modprobed-db 2.46: Keeps track of every kernel module that has been modprobed.
 www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
