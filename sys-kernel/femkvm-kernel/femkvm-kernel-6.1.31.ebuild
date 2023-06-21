@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,13 +6,14 @@ EAPI=8
 inherit kernel-build toolchain-funcs
 
 MY_P=linux-${PV%.*}
-GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 4 ))
-CONFIG_VER=5.15.59
-GENTOO_CONFIG_VER=g1
+GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 5 ))
+CONFIG_VER=6.1.28
+GENTOO_CONFIG_VER=g7
 
 DESCRIPTION="Linux kernel built with Gentoo patches"
 HOMEPAGE="https://www.kernel.org/"
-SRC_URI+=" https://cdn.kernel.org/pub/linux/kernel/v$(ver_cut 1).x/${MY_P}.tar.xz
+SRC_URI+="
+	https://cdn.kernel.org/pub/linux/kernel/v$(ver_cut 1).x/${MY_P}.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.base.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.extras.tar.xz
 	https://github.com/projg2/gentoo-kernel-config/archive/${GENTOO_CONFIG_VER}.tar.gz
@@ -25,9 +26,6 @@ LICENSE="GPL-2"
 KEYWORDS="~amd64"
 IUSE="debug hardened"
 
-RDEPEND="
-	!sys-kernel/vanilla-kernel:${SLOT}
-"
 BDEPEND="
 	debug? ( dev-util/pahole )
 "
