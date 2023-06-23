@@ -15,7 +15,7 @@ SRC_URI="https://github.com/grafana/mimir/releases/download/${MY_P}/${MY_P}_amd6
 # AGPL-3 for mimir, rest extracted using dev-go/lichen
 LICENSE="AGPL-3 Apache-2.0 BSD-2 BSD ISC LGPL-3 MIT MPL-2.0"
 SLOT="0"
-KEYWORDS="-* ~amd64"
+KEYWORDS="-* amd64"
 
 RDEPEND="
 	acct-user/mimir
