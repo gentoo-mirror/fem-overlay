@@ -30,6 +30,11 @@
 ## app-misc/some-package
 #--- END OF EXAMPLES ---
 
+# Broken package (dead repo URI, nonsolvable deps).
+# Unmaintained for a while. Removal on 2023-07-27.
+# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/255
+dev-python/nginx-relay-logparser
+
 # No longer in in use. If anyone needs it, just notify us and
 # we can keep the package around. Removal on 2023-07-19
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/238
@@ -39,8 +44,3 @@ app-admin/reprepro
 # Removal on 2023-07-14.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/239
 dev-python/sphinx-sql
-
-# Replaced by dev-vcs/python-gitlab in ::gentoo.
-# Removal on 2023-06-26.
-# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/237
-dev-python/gitlab
