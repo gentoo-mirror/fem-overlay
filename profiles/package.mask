@@ -39,8 +39,3 @@ app-admin/reprepro
 # Removal on 2023-07-14.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/239
 dev-python/sphinx-sql
-
-# Replaced by dev-vcs/python-gitlab in ::gentoo.
-# Removal on 2023-06-26.
-# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/237
-dev-python/gitlab
