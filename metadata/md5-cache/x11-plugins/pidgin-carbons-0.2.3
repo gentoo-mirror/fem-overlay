@@ -1,11 +1,13 @@
 DEFINED_PHASES=-
-DEPEND=net-im/pidgin dev-libs/libxml2 dev-libs/glib
+DEPEND=net-im/pidgin dev-libs/libxml2 dev-libs/glib test? ( dev-util/cmocka )
 DESCRIPTION=Experimental XEP-0280: Message Carbons plugin for libpurple
 EAPI=8
 HOMEPAGE=https://github.com/gkdr/carbons
+IUSE=test
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2+
-RDEPEND=net-im/pidgin dev-libs/libxml2 dev-libs/glib
+RDEPEND=net-im/pidgin dev-libs/libxml2 dev-libs/glib test? ( dev-util/cmocka )
+RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/gkdr/carbons/archive/v0.2.3.tar.gz -> pidgin-carbons-0.2.3.tar.gz
-_md5_=e0a7fad45919f705713278eabca8385c
+_md5_=02907f6b6b58327280bf099140687230
