@@ -10,13 +10,19 @@ SRC_URI="https://github.com/gkdr/carbons/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
 
 DEPEND="
 	net-im/pidgin
 	dev-libs/libxml2
 	dev-libs/glib
+
+	test? (
+		dev-util/cmocka
+	)
 "
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/carbons-${PV}"
+
+RESTRICT="!test? ( test )"
