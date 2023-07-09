@@ -4,7 +4,7 @@
 EAPI=8
 
 DIST_AUTHOR="GOMOR"
-inherit perl-module
+inherit toolchain-funcs perl-module
 
 DESCRIPTION="Perl binding for libdnet"
 
@@ -18,3 +18,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 BDEPEND="dev-perl/Module-Build"
+
+src_compile() {
+	emake CC="$(tc-getCC)"
+}
