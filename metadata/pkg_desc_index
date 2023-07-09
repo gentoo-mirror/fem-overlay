@@ -47,7 +47,7 @@ dev-perl/Net-Frame-Layer-IEEE8021Q 1.03: 802.1Q layer object for Net::Frame
 dev-perl/Net-Frame-Layer-IPv6 1.08: IPv6 object for Net::Frame
 dev-perl/Net-Frame-Simple 1.09: Frame crafting made easy
 dev-perl/Net-IPv6Addr 1.02: Module to check and manipulate IPv6 addresses
-dev-perl/Net-Libdnet 0.99-r1: Perl binding for libdnet
+dev-perl/Net-Libdnet 0.99-r2: Perl binding for libdnet
 dev-perl/Net-Libdnet6 0.28: Add IPv6 support to Net::Libdnet
 dev-perl/Net-MAC 2.103622: Perl extension for representing and manipulating MAC addresses
 dev-perl/Net-MAC-Vendor 1.268: Perl module to look up the vendor of a MAC
