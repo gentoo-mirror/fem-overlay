@@ -10,7 +10,9 @@ inherit distutils-r1
 
 DESCRIPTION="Extension providing a Sphinx domain for describing PHP code"
 HOMEPAGE="https://github.com/markstory/sphinxcontrib-phpdomain"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="
+	https://github.com/markstory/sphinxcontrib-phpdomain/archive/${PV}.tar.gz -> ${P}.gh.tar.gz
+"
 
 LICENSE="BSD-2"
 SLOT="0"
