@@ -9,8 +9,7 @@ stages:
 variables:
   DISTDIR: ./tmp_distdir
   NOCOLOR: "false"
-  PKGCHECK_CACHE: "pkgcheck-cache"
-  PKGCHECK_COMMON_OPTS: "--color true --cache-dir $PKGCHECK_CACHE"
+  PKGCHECK_COMMON_OPTS: "--color true"
 
 overlint:
   stage: overlint
@@ -20,17 +19,8 @@ overlint:
   rules:
     - if: "$CI_COMMIT_BRANCH == 'master'"
 
-.pkgcheck-cache:
-  cache:
-    key: "pkgcheck-cache"
-    paths:
-      - "$PKGCHECK_CACHE"
-
 pkgcheck_all:
-  extends:
-    - ".pkgcheck-cache"
   stage: pkgcheck
-
   script:
     - pkgcheck scan $PKGCHECK_COMMON_OPTS
   needs: []
@@ -38,9 +28,6 @@ pkgcheck_all:
     - if: "$CI_COMMIT_BRANCH == 'master'"
 
 pkgcheck_commits:
-  extends:
-    - ".pkgcheck-cache"
-
   stage: pkgcheck
   script:
     - git fetch
