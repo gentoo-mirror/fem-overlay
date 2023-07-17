@@ -1,4 +1,4 @@
-BDEPEND=~www-servers/nginx-1.23.3:=
+BDEPEND=~www-servers/nginx-1.24.0:=
 DEFINED_PHASES=compile configure install
 DEPEND=dev-libs/libxml2:= media-video/ffmpeg:= sys-libs/zlib:=
 DESCRIPTION=NGINX-based MP4 Repackager
@@ -9,6 +9,6 @@ KEYWORDS=~amd64 ~x86
 LICENSE=AGPL-3
 RDEPEND=dev-libs/libxml2:= media-video/ffmpeg:= sys-libs/zlib:=
 SLOT=0
-SRC_URI=https://nginx.org/download/nginx-1.23.3.tar.gz https://github.com/kaltura/nginx-vod-module/archive/1.30.tar.gz -> nginx-vod-module-1.30.tar.gz
+SRC_URI=https://nginx.org/download/nginx-1.24.0.tar.gz https://github.com/kaltura/nginx-vod-module/archive/1.30.tar.gz -> nginx-vod-module-1.30.tar.gz
 _eclasses_=toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0	nginx-module	1a9883445591317b0aeeefb751b1f4f1
 _md5_=d2b7b4dc8ec6a08a37b8d975580cc311
