@@ -10,5 +10,5 @@ RDEPEND=acct-user/acme-dns acct-group/acme-dns sys-libs/libcap
 RESTRICT=strip
 SLOT=0
 SRC_URI=https://github.com/joohoi/acme-dns/archive/refs/tags/v1.0.tar.gz -> acme-dns-1.0.tar.gz https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/acme-dns/1.0%2B2022-08-10/acme-dns-1.0-deps.tar.xz -> acme-dns-deps-1.0+2022-08-10.tar.xz
-_eclasses_=check-reqs	a5f1e025c53d62f98bc24bd63d7d95e1	toolchain-funcs	513c31b3346458ed1f3878b57da6d61c	multilib	c19072c3cd7ac5cb21de013f7e9832e0	systemd	5f4bb0758df2e483babf68cd517078ca	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	go-module	8624eede24936fd7666e5298e5332f22	go-module-fem	1e1506bf0aa593697a16764c66d6263a
+_eclasses_=check-reqs	a5f1e025c53d62f98bc24bd63d7d95e1	toolchain-funcs	67b3e3d8916d690003f645486ed86aac	multilib	c19072c3cd7ac5cb21de013f7e9832e0	systemd	5f4bb0758df2e483babf68cd517078ca	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	go-module	8624eede24936fd7666e5298e5332f22	go-module-fem	1e1506bf0aa593697a16764c66d6263a
 _md5_=a6fd3b6420b642a605ae58742ed5afab
