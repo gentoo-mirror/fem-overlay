@@ -10,5 +10,5 @@ RDEPEND=acct-user/prometheus-graphite-relay acct-group/prometheus-graphite-relay
 RESTRICT=strip
 SLOT=0
 SRC_URI=https://gitlab.fem-net.de/monitoring/prometheus-graphite-relay/-/archive/v1.0.1/prometheus-graphite-relay-v1.0.1.tar.bz2 https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/prometheus-graphite-relay/1.0.1%2B2022-07-09/prometheus-graphite-relay-1.0.1-deps.tar.xz -> prometheus-graphite-relay-deps-1.0.1+2022-07-09.tar.xz
-_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	67b3e3d8916d690003f645486ed86aac	multilib	c19072c3cd7ac5cb21de013f7e9832e0	go-module	8624eede24936fd7666e5298e5332f22	go-module-fem	1e1506bf0aa593697a16764c66d6263a
+_eclasses_=multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	fc2af1957597c539ae6e48f82bd43125	multilib	c19072c3cd7ac5cb21de013f7e9832e0	go-module	8624eede24936fd7666e5298e5332f22	go-module-fem	1e1506bf0aa593697a16764c66d6263a
 _md5_=a5295e038813409e247d1313775a8d56
