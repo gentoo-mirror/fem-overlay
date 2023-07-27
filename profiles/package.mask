@@ -35,8 +35,3 @@
 # Removal on 2023-08-25.
 # Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/269
 net-misc/rtsp-simple-server
-
-# Broken package (dead repo URI, nonsolvable deps).
-# Unmaintained for a while. Removal on 2023-07-27.
-# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/255
-dev-python/nginx-relay-logparser
