@@ -59,7 +59,6 @@ dev-python/crayons 0.4.0: Text UI colors for Python
 dev-python/ddlparse 1.10.0: Python DDL parser
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
-dev-python/nginx-relay-logparser 0.2.0: Daemon providing prometheus-compatible stream viewer statistics
 dev-python/pykeepass 4.0.1 4.0.4: Python library to interact with keepass databases (supports KDBX3 and KDBX4)
 dev-python/pynetbox 7.0.0 7.0.1: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
