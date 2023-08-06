@@ -28,7 +28,10 @@ RDEPEND="
 	dokuwiki? (
 		$(python_gen_cond_dep '
 			>=dev-python/dokuwiki-1.2.1[${PYTHON_USEDEP}]
-			>=dev-python/progressbar-2.5[${PYTHON_USEDEP}]
+			|| (
+				>=dev-python/progressbar-2.5[${PYTHON_USEDEP}]
+				dev-python/progressbar2[${PYTHON_USEDEP}]
+			)
 		')
 	)
 "
