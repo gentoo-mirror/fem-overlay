@@ -41,9 +41,8 @@ WEBUI_S="${WORKDIR}/dist"
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}/daemon-fix-native-httplib-build.patch"
-	"${FILESDIR}/daemon-fix-systemd-watchdog.patch"
 	"${FILESDIR}/${P}-fix-string-nullptr.patch"
+	"${FILESDIR}/daemon-fix-native-httplib-build.patch"
 )
 
 src_configure() {

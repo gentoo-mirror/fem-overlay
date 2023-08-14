@@ -1,3 +1,22 @@
+commit 4f2b730a3601af24dba3610cefdfab4880f01053
+Author: Adrian Schollmeyer <git@nexadn.de>
+Date:   Mon Aug 14 08:36:38 2023 +0200
+
+    HttpServer: improve string initialization
+    
+    Passing nullptr to string constructors is bug prone and forbidden in
+    C++23. Since the intent is probably to pass a default-constructed string
+    (i.e. an empty string), this commit replaces passing nullptr with
+    passing an empty string.
+    
+    std::string should also not be converted to C-strings just to create
+    other std::string instances as copies of the original. They can be
+    simply copied directly, making the code easier to read.
+    
+    See-Also: https://stackoverflow.com/questions/10771864/assign-a-nullptr-to-a-stdstring-is-safe
+    See-Also: https://en.cppreference.com/w/cpp/string/basic_string/basic_string
+    See-Also: https://clang.llvm.org/extra/clang-tidy/checks/bugprone/string-constructor.html
+
 --- a/daemon/http_server.cpp
 +++ b/daemon/http_server.cpp
 @@ -83,7 +83,7 @@ bool HttpServer::init() {
@@ -5,7 +24,25 @@
    }
  
 -  svr_.set_mount_point(nullptr, config_->get_http_base_dir().c_str());
-+  svr_.set_mount_point("", config_->get_http_base_dir().c_str());
++  svr_.set_mount_point("", config_->get_http_base_dir());
  
    svr_.Get("(/|/Config|/PTP|/Sources|/Sinks|/Browser)",
             [&](const Request& req, Response& res) {
+@@ -336,7 +336,7 @@ bool HttpServer::init() {
+   /* start http server on a separate thread */
+   res_ = std::async(std::launch::async, [&]() {
+     try {
+-      svr_.listen(config_->get_ip_addr_str().c_str(), config_->get_http_port());
++      svr_.listen(config_->get_ip_addr_str(), config_->get_http_port());
+     } catch (...) {
+       BOOST_LOG_TRIVIAL(fatal)
+           << "http_server:: "
+@@ -348,7 +348,7 @@ bool HttpServer::init() {
+   });
+ 
+   /* wait for HTTP server to show up */
+-  httplib::Client cli(config_->get_ip_addr_str().c_str(),
++  httplib::Client cli(config_->get_ip_addr_str(),
+                       config_->get_http_port());
+   int retry = 3;
+   while (retry) {
