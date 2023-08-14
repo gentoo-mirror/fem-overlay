@@ -1,10 +1,12 @@
 acct-group/acme-dns 1: System group: acme-dns
+acct-group/aes67-daemon 0: System group: aes67-daemon
 acct-group/gortr 1: System group: gortr
 acct-group/jamulus 1: System group: jamulus
 acct-group/mimir 1: System group: mimir
 acct-group/prometheus-graphite-relay 1: System group: prometheus-graphite-relay
 acct-group/srtrelay 0: System group: srtrelay
 acct-user/acme-dns 1: user for net-dns/acme-dns
+acct-user/aes67-daemon 0: User for media-sound/aes67-linux-daemon
 acct-user/gortr 1: User for net-misc/gortr
 acct-user/jamulus 1: User for media-sound/jamulus
 acct-user/mimir 1: User for app-metrics/mimir
@@ -67,6 +69,7 @@ dev-util/debian-devscripts 2.22.2-r2 2.23.5: Scripts to help Debian package main
 media-libs/melted 9999: MLT Video Server
 media-plugins/gst-plugins-decklink 1.18.4: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.1 1.20.4: Fraunhofer AAC encoder plugin for GStreamer
+media-sound/aes67-linux-daemon 1.6.4: AES67 Linux Daemon with configuration WebUI
 media-sound/jamulus 3.8.2: Internet jam session software
 media-sound/x32edit-bin 4.3-r1: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
