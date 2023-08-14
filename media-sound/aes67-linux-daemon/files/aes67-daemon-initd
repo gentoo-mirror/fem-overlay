@@ -1,0 +1,34 @@
+#!/sbin/openrc-run
+# Copyright 2023 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="aes67 daemon"
+description="AES67 ALSA interface"
+command=/usr/bin/aes67-daemon
+command_args="${aes67_daemon_args}"
+command_user="aes67-daemon:aes67-daemon"
+pidfile="/run/${SVCNAME}.pid"
+
+depend() {
+	need net
+	after net
+}
+
+start_pre() {
+	checkpath -d -m 755 -o "${command_user}" "${aes67_log}"
+}
+
+start() {
+	ebegin "Starting ${description}"
+	start-stop-daemon \
+		-x "${command}" \
+		-p "${pidfile}" \
+		-u "${command_user}" \
+		-b \
+		-m \
+		-w 5000 \
+		-1 "${aes67_log}/aes67-daemon.log" \
+		-2 "${aes67_log}/aes67-daemon.log" \
+		-- ${command_args}
+	eend $?
+}

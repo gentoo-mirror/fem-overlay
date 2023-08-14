@@ -1,0 +1,2 @@
+aes67_daemon_args="-c /etc/aes67-daemon/daemon.conf"
+aes67_log="/var/log/aes67-daemon"
