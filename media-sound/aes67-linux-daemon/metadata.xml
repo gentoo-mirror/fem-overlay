@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian 'nex' Schollmeyer</name>
+	</maintainer>
+	<longdescription lang="en">
+		This is a daemon and Kernel module to allow connection of a Linux computer
+		to any AES67-compatible Audio-over-IP network like Dante or Ravenna.
+		The daemon allows configuring virtual ALSA devices to send and receive audio
+		to and from the AES67-compatible network by simply interacting with ALSA
+		as if the devices were actual sound cards,
+		much like Dante Virtual Soundcard does for Windows computers in Dante networks.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">bondagit/aes67-linux-daemon</remote-id>
+	</upstream>
+</pkgmetadata>
