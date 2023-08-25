@@ -29,9 +29,3 @@
 ## funny. (bug #987654)
 ## app-misc/some-package
 #--- END OF EXAMPLES ---
-
-# Broken package (dead SRC_URI, compile failures).
-# Upstream migrated to a new project (not packaged).
-# Removal on 2023-08-25.
-# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/269
-net-misc/rtsp-simple-server
