@@ -30,6 +30,12 @@
 ## app-misc/some-package
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (2023-09-02)
+# Fails to compile on some system configurations, old EAPI, unmaintained.
+# Exists as media-libs/mlt in ::gentoo. Removal on 2023-10-02.
+# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/273
+media-libs/melted
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de>
 # No use for this package in our infrastructure, unmaintained,
 # upstream dead. Removal on 2023-09-29.
