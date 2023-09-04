@@ -1,0 +1,12 @@
+DEFINED_PHASES=install postinst
+DEPEND=net-misc/openssh
+DESCRIPTION=Create MySQL-, PostgreSQL- or MongoDB-Dumps via SSH using key-authentication.
+EAPI=8
+HOMEPAGE=https://github.com/fem/sql-ssh-backup
+KEYWORDS=~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86
+LICENSE=GPL-2
+RDEPEND=net-misc/openssh
+RESTRICT=test
+SLOT=0
+SRC_URI=https://github.com/fem/sql-ssh-backup/archive/2.0.tar.gz -> sql-ssh-backup-2.0.tar.gz
+_md5_=aa9a9b664377381db2671a8c8ba869bf
