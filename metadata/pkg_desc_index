@@ -86,6 +86,7 @@ net-analyzer/fem-arubaos-monitoring-plugins 1.4.0 9999-r1: FeM NRPE scripts for 
 net-analyzer/fem-nagios-plugins 1.1 2.2.3-r1 2.3.0 9999: Nagios plugins written by FeM
 net-analyzer/nagios-check_smart 6.9.1: Nagios Plugin to check hdds, ssds and NVMe drives using SMART
 net-analyzer/nagios-plugins-ceph 1.6.0: Nagios plugins for Ceph
+net-analyzer/nagios-plugins-extended 0.7.9: Nagios 0.7.9 plugins - Additional Icinga/Nagios plugins
 net-dns/acme-dns 1.0-r2: Limited DNS server with RESTful API to handle ACME DNS challenges securely
 net-im/matterhorn-bin 50200.19.0.69624: Terminal based Mattermost client
 net-im/xmppc 0.1.1: XMPP Command Line Interface
