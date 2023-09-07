@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1 pypi
 
@@ -12,11 +12,12 @@ HOMEPAGE="https://pypi.org/project/pynetbox/"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="
 	>=dev-python/requests-2.20.0[${PYTHON_USEDEP}]
 	<dev-python/requests-3[${PYTHON_USEDEP}]
+	<dev-python/packaging-24[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
 
