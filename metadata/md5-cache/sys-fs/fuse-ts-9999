@@ -1,0 +1,13 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DEPEND=sys-fs/fuse:0 >=dev-libs/mxml-2.6
+DESCRIPTION=FUSE module for working with splitted MPEG TS files
+EAPI=8
+HOMEPAGE=https://github.com/a-tze/fuse-ts
+INHERIT=git-r3
+LICENSE=GPL-3
+PROPERTIES=live
+RDEPEND=sys-fs/fuse:0 >=dev-libs/mxml-2.6
+SLOT=0
+_eclasses_=git-r3	2358a7b20091609e24bd3a83b3ac5991
+_md5_=0f54aa2ff392fe04a10fa1d1a870363f
