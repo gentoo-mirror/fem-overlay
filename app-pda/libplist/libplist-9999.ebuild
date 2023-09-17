@@ -1,9 +1,9 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-PYTHON_COMPAT=( python3_{6..11} )
-inherit autotools eutils python-r1 git-r3
+EAPI=8
+PYTHON_COMPAT=( python3_{10..11} )
+inherit autotools python-r1 git-r3
 
 DESCRIPTION="Support library to deal with Apple Property Lists (Binary & XML)"
 HOMEPAGE="https://libimobiledevice.org/"
