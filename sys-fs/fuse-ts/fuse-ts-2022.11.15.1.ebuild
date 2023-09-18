@@ -22,6 +22,11 @@ DEPEND="sys-fs/fuse:0
 	>=dev-libs/mxml-2.6"
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	# Backported patch. Remove after 2022.11.15.1
+	"${FILESDIR}/${P}-respect-ldflags.patch"
+)
+
 src_compile() {
 	emake \
 		CC="$(tc-getCC)" \
