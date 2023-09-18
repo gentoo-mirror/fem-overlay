@@ -3,12 +3,17 @@
 
 EAPI=8
 
-inherit toolchain-funcs git-r3
-
-EGIT_REPO_URI="https://github.com/a-tze/fuse-ts.git"
+inherit toolchain-funcs
 
 DESCRIPTION="FUSE module for working with splitted MPEG TS files"
 HOMEPAGE="https://github.com/a-tze/fuse-ts"
+if [[ "${PV}" == "9999" ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/a-tze/fuse-ts.git"
+else
+	SRC_URI="https://github.com/a-tze/fuse-ts/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+	KEYWORDS="~amd64"
+fi
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
