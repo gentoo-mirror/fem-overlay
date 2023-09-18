@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit git-r3
+inherit toolchain-funcs git-r3
 
 EGIT_REPO_URI="https://github.com/a-tze/fuse-ts.git"
 
@@ -16,6 +16,13 @@ IUSE=""
 DEPEND="sys-fs/fuse:0
 	>=dev-libs/mxml-2.6"
 RDEPEND="${DEPEND}"
+
+src_compile() {
+	emake \
+		CC="$(tc-getCC)" \
+		EXTRA_CFLAGS="${CFLAGS}" \
+		EXTRA_LFLAGS="${LDFLAGS}"
+}
 
 src_install() {
 	dobin fuse-ts || die
