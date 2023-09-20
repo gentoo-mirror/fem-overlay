@@ -5,8 +5,4 @@
 		<email>gentoo@pennewiss.de</email>
 		<name>Marcel Pennewiss</name>
 	</maintainer>
-	<maintainer type="person">
-		<email>gentoo@friiks.de</email>
-		<name>Peter Grosse</name>
-	</maintainer>
 </pkgmetadata>
