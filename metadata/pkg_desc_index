@@ -66,7 +66,6 @@ dev-python/pynetbox 7.0.1 7.2.0: Python library to interact with the NetBox REST
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
 dev-util/debian-devscripts 2.23.5: Scripts to help Debian package maintenance
-media-libs/melted 9999: MLT Video Server
 media-plugins/gst-plugins-decklink 1.18.4: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.1 1.20.4: Fraunhofer AAC encoder plugin for GStreamer
 media-sound/aes67-linux-daemon 1.6.4-r1: AES67 Linux Daemon with configuration WebUI
