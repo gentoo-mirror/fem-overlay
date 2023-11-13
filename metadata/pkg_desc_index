@@ -17,7 +17,7 @@ app-admin/arch-install-scripts 28: Scripts to aid installing Linux system, origi
 app-admin/fem-arubawlan-python-scripts 1.0.0 1.1.0_pre20220819: Python utility scripts for FeM's Aruba WLAN system
 app-admin/fem-netbox-user-scripts 0.3.1-r1: Scripts for NetBox users by FeM e.V.
 app-admin/pass-git-helper 1.2.0: Git credential helper for the password manager pass
-app-admin/xq 1.2.1 1.2.2: Command-line XML beautifier and content extractor
+app-admin/xq 1.2.2: Command-line XML beautifier and content extractor
 app-backup/bontmia 0.15.1 0.16: An incremental network backup tool for snapshotting directories using rsync
 app-backup/borrg 0.1.0_pre20220618-r1 0.1.0_pre20231225: Wrapper for borgbackup
 app-backup/sql-ssh-backup 1.8.3 2.0 2.1: Create MySQL-, PostgreSQL- or MongoDB-Dumps via SSH using key-authentication.
