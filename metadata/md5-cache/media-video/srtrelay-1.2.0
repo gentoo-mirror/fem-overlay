@@ -1,0 +1,15 @@
+BDEPEND=>=dev-lang/go-1.18 app-arch/unzip
+DEFINED_PHASES=compile install unpack
+DEPEND=>=net-libs/srt-1.4.2:=
+DESCRIPTION=SRT relay server to distribute media streams to multiple clients
+EAPI=8
+HOMEPAGE=https://github.com/voc/srtrelay
+INHERIT=go-module-fem
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=net-libs/srt-1.4.2:= acct-user/srtrelay acct-group/srtrelay
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://github.com/voc/srtrelay/archive/refs/tags/v1.2.0.tar.gz -> srtrelay-1.2.0.gh.tar.gz https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/srtrelay/1.2.0%2B2023-12-12/srtrelay-1.2.0-deps.tar.xz -> srtrelay-deps-1.2.0+2023-12-12.tar.xz
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	eed10cf5e5a06916e654d31f5a1925cc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	go-env	96e1747610bbb2f5c5d3fb16f0f3a83a	go-module	9e5a8f7b134fd3ed3785755097fe8ef0	go-module-fem	1e1506bf0aa593697a16764c66d6263a
+_md5_=9d381e55cb637f9d7b3557c5f2aee34c
