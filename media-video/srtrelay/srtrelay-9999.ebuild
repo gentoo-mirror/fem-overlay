@@ -4,7 +4,7 @@
 EAPI=8
 
 GO_FEM_DEP_ARCHIVE_VER=
-inherit go-module go-module-fem
+inherit go-module-fem
 
 DESCRIPTION="SRT relay server to distribute media streams to multiple clients"
 HOMEPAGE="https://github.com/voc/srtrelay"
