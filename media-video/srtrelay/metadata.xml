@@ -2,6 +2,9 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+	</maintainer>
+	<maintainer type="person">
 		<email>matthias.detsch@fem.tu-ilmenau.de</email>
 	</maintainer>
 	<upstream>
