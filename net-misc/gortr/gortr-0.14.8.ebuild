@@ -29,6 +29,8 @@ src_compile() {
 }
 
 src_install() {
+	einstalldocs
+
 	exeinto /usr/bin/
 	cd dist || die
 	mv "${PN}--linux-x86_64" "${PN}" || die
@@ -37,6 +39,4 @@ src_install() {
 	newconfd "${FILESDIR}/${PN}-confd" "${PN}"
 	newinitd "${FILESDIR}/${PN}-initd" "${PN}"
 	keepdir /var/log/gortr
-
-	einstalldocs
 }
