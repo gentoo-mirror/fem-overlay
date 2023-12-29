@@ -6,9 +6,9 @@ EAPI=8
 inherit kernel-build toolchain-funcs
 
 MY_P=linux-${PV%.*}
-GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 4 ))
-CONFIG_VER=6.1.28
-GENTOO_CONFIG_VER=g7
+GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 8 ))
+CONFIG_VER=6.1.53
+GENTOO_CONFIG_VER=g11
 
 DESCRIPTION="Linux kernel built with Gentoo patches"
 HOMEPAGE="https://www.kernel.org/"
