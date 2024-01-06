@@ -5,6 +5,6 @@
 		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
 	</maintainer>
 	<upstream>
-		<remote-id type="pypi">netbox</remote-id>
+		<remote-id type="pypi">pynetbox</remote-id>
 	</upstream>
 </pkgmetadata>
