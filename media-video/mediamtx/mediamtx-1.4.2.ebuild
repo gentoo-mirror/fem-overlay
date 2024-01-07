@@ -17,6 +17,11 @@ LICENSE="Apache-2.0 BSD ISC MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+RDEPEND="
+	acct-user/mediamtx
+	acct-group/mediamtx
+"
+
 src_prepare() {
 	default
 
