@@ -33,6 +33,10 @@ src_prepare() {
 		|| die
 }
 
+src_compile() {
+	ego build -work -ldflags="-X github.com/bluenviron/mediamtx/internal/core.version=v${PV}-gentoo-${PR}"
+}
+
 src_install() {
 	einstalldocs
 
