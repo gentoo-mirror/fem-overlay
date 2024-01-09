@@ -59,6 +59,7 @@ dev-perl/ProCurve-SNMP-Wrapper 2.00.01: Perl SNMP wrapper for HP ProCurve switch
 dev-perl/Sys-Prctl 1.02: Perl module to access prctl syscall
 dev-python/admindb-dbhandler 1.0.0: Python wrapper for interactions with FeM's AdminDB
 dev-python/arubaos-client 0.2.2-r1 0.2.3-r1 9999: Library to interact with the ArubaOS REST API
+dev-python/arubaos-lib 0.2.0: An object oriented library to interact with the ArubaOS REST API
 dev-python/crayons 0.4.0: Text UI colors for Python
 dev-python/ddlparse 1.10.0: Python DDL parser
 dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
