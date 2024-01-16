@@ -1,0 +1,10 @@
+--- a/src/plugin-main.cpp
++++ b/src/plugin-main.cpp
+@@ -246,6 +246,7 @@ const NDIlib_v4 *load_ndilib()
+ 	}
+ #if defined(__linux__) || defined(__APPLE__)
+ 	locations << "/usr/lib";
++	locations << "/usr/lib64";
+ 	locations << "/usr/local/lib";
+ #endif
+ 	for (QString location : locations) {
