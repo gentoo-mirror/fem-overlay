@@ -3,19 +3,21 @@
 
 EAPI=8
 
-inherit desktop systemd linux-mod udev
+inherit desktop systemd linux-mod-r1 udev
 
 DESCRIPTION="Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)"
 HOMEPAGE="https://www.blackmagicdesign.com/"
 
 # Desktop Video Revision
-REV="a15"
+REV="a4"
 
 # SDK Package Version
 SDK_VERSION="${PV}"
 
-SRC_URI="Blackmagic_Desktop_Video_Linux_${PV}.tar.gz
-headers? ( Blackmagic_DeckLink_SDK_${SDK_VERSION}.zip )"
+SRC_URI="
+	Blackmagic_Desktop_Video_Linux_${PV}.tar.gz
+	headers? ( Blackmagic_DeckLink_SDK_${SDK_VERSION}.zip )
+"
 UNPACKED_DIR="desktopvideo-${PV}${REV}-x86_64"
 
 LICENSE="BlackmagicDesktopVideo"
@@ -46,16 +48,10 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${P}-fix-deprecated-linux-api.patch"
+	"${FILESDIR}/${P}-fix-missing-function-prototypes.patch"
 )
-S="${WORKDIR}/${UNPACKED_DIR}"
 
-# for kernel module compilation
-MODULE_NAMES="
-	blackmagic(misc:${S}/usr/src/blackmagic-${PV}${REV})
-	blackmagic-io(misc:${S}/usr/src/blackmagic-io-${PV}${REV})
-"
-BUILD_TARGETS="all"
+S="${WORKDIR}/${UNPACKED_DIR}"
 
 QA_PREBUILT="usr/*"
 
@@ -91,11 +87,18 @@ src_prepare() {
 
 src_compile() {
 	# library/tools are binary but kernel module requires compilation
-	linux-mod_src_compile
+	local modlist=(
+		blackmagic="misc:${S}/usr/src/blackmagic-${PV}${REV}"
+		blackmagic-io="misc:${S}/usr/src/blackmagic-io-${PV}${REV}"
+	)
+	local modargs=(
+		KERNELRELEASE="${KV_FULL}"
+	)
+	linux-mod-r1_src_compile
 }
 
 src_install() {
-	linux-mod_src_install
+	linux-mod-r1_src_install
 
 	udev_dorules etc/udev/rules.d/*.rules
 
@@ -154,7 +157,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	linux-mod_pkg_postinst
+	linux-mod-r1_pkg_postinst
 	udev_reload
 
 	einfo ""
@@ -183,6 +186,5 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	linux-mod_pkg_postrm
 	udev_reload
 }
