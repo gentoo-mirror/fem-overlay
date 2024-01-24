@@ -47,6 +47,12 @@ BDEPEND="
 	app-arch/unzip
 "
 
+CONFIG_CHECK="
+	SOUND
+	SND
+	SND_PCM
+"
+
 PATCHES=(
 	"${FILESDIR}/${P}-fix-missing-function-prototypes.patch"
 )

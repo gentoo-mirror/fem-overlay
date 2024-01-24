@@ -47,6 +47,12 @@ BDEPEND="
 	app-arch/unzip
 "
 
+CONFIG_CHECK="
+	SOUND
+	SND
+	SND_PCM
+"
+
 S="${WORKDIR}/${UNPACKED_DIR}"
 
 QA_PREBUILT="usr/*"
