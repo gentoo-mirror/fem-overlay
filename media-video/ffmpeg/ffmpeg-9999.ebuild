@@ -264,7 +264,7 @@ RDEPEND="${RDEPEND}
 "
 
 DEPEND="${RDEPEND}
-	>=sys-devel/make-3.81
+	>=dev-build/make-3.81
 	doc? ( sys-apps/texinfo )
 	virtual/pkgconfig
 	ladspa? ( >=media-libs/ladspa-sdk-1.13-r2[${MULTILIB_USEDEP}] )
