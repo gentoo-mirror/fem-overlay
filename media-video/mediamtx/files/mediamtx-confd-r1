@@ -1,0 +1,5 @@
+# Specify the config file and any additional arguments for MediaMTX
+mediamtx_args="/etc/mediamtx/mediamtx.yml"
+# Set the cwd for running MediaMTX,
+# useful when using relative path specs in the config
+mediamtx_chdir="/var/lib/mediamtx"
