@@ -44,7 +44,7 @@ CRATES="
 inherit cargo
 
 DESCRIPTION="A commandline calculator with interactive ASCII art input and accurate results"
-HOMEPAGE="https://gitlab.fem-net.de/mabl/calculator-cli/"
+HOMEPAGE="https://gitlab.fem-net.de/mabl/taschenrechner"
 SRC_URI="https://gitlab.fem-net.de/mabl/taschenrechner/-/archive/${PV}/${P}.tar.gz
     ${CARGO_CRATE_URIS}
 "
