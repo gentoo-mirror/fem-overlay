@@ -3,7 +3,7 @@
 
 EAPI=8
 
-GO_FEM_DEP_ARCHIVE_VER="2024-01-23"
+GO_FEM_DEP_ARCHIVE_VER="2024-02-05"
 inherit go-module-fem systemd
 
 DESCRIPTION="Multi-protocol media server and streaming proxy for video and audio streams"
@@ -48,6 +48,10 @@ src_install() {
 	insinto "/etc/mediamtx"
 	doins mediamtx.yml
 
-	newinitd "${FILESDIR}/${PN}-initd" "${PN}"
+	newinitd "${FILESDIR}/${PN}-initd-r1" "${PN}"
+	newconfd "${FILESDIR}/${PN}-confd-r1" "${PN}"
 	systemd_dounit "${FILESDIR}/${PN}.service"
+
+	insinto "/etc/logrotate.d/"
+	newins "${FILESDIR}/logrotate.conf" "${PN}.conf"
 }
