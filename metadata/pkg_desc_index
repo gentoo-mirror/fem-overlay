@@ -14,7 +14,7 @@ acct-user/mediamtx 1: User for media-video/mediamtx
 acct-user/mimir 1: User for app-metrics/mimir
 acct-user/prometheus-graphite-relay 1: Group for dev-go/prometheus-graphite-relay
 acct-user/srtrelay 0: User for media-video/srtrelay
-app-admin/admindb-python-scripts 1.3.0 1.4.1 9999: Python utility scripts for use with FeM's AdminDB2
+app-admin/admindb-python-scripts 1.3.0 1.4.1 1.4.2 9999: Python utility scripts for use with FeM's AdminDB2
 app-admin/arch-install-scripts 28: Scripts to aid installing Linux system, originally for Arch Linux
 app-admin/fem-arubawlan-python-scripts 1.0.0 1.1.0_pre20220819: Python utility scripts for FeM's Aruba WLAN system
 app-admin/fem-netbox-user-scripts 0.3.1-r1: Scripts for NetBox users by FeM e.V.
