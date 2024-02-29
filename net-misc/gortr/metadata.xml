@@ -5,4 +5,7 @@
 		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
 		<name>Adrian 'nex' Schollmeyer</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">cloudflare/gortr</remote-id>
+	</upstream>
 </pkgmetadata>
