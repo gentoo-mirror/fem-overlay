@@ -29,7 +29,10 @@ RDEPEND="
 	dev-python/pyperclip[${PYTHON_USEDEP}]
 "
 BDEPEND="
-	test? ( ${RDEPEND} )
+	test? (
+		${RDEPEND}
+		dev-python/pytest-mock[${PYTHON_USEDEP}]
+	)
 "
 
 distutils_enable_tests pytest
