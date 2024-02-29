@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10,11} )
+PYTHON_COMPAT=( python3_11 )
 inherit python-single-r1
 
 DESCRIPTION="Scripts for NetBox users by FeM e.V."
@@ -28,10 +28,7 @@ RDEPEND="
 	dokuwiki? (
 		$(python_gen_cond_dep '
 			>=dev-python/dokuwiki-1.2.1[${PYTHON_USEDEP}]
-			|| (
-				>=dev-python/progressbar-2.5[${PYTHON_USEDEP}]
-				dev-python/progressbar2[${PYTHON_USEDEP}]
-			)
+			dev-python/progressbar2[${PYTHON_USEDEP}]
 		')
 	)
 "
