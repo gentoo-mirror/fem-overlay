@@ -3,12 +3,12 @@ DESCRIPTION=Scripts for NetBox users by FeM e.V.
 EAPI=8
 HOMEPAGE=https://gitlab.fem-net.de/nexbox/netbox-user-scripts
 INHERIT=python-single-r1
-IUSE=+dokuwiki python_single_target_python3_10 python_single_target_python3_11
+IUSE=+dokuwiki +python_single_target_python3_11
 KEYWORDS=~amd64 ~x86
 LICENSE=MIT
-RDEPEND=python_single_target_python3_10? ( dev-lang/python:3.10 ) python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_10? ( >=dev-python/fem-netbox-user-scripts-common-0.1[python_targets_python3_10(-)] ) python_single_target_python3_11? ( >=dev-python/fem-netbox-user-scripts-common-0.1[python_targets_python3_11(-)] ) dokuwiki? ( python_single_target_python3_10? ( >=dev-python/dokuwiki-1.2.1[python_targets_python3_10(-)] || ( >=dev-python/progressbar-2.5[python_targets_python3_10(-)] dev-python/progressbar2[python_targets_python3_10(-)] ) ) python_single_target_python3_11? ( >=dev-python/dokuwiki-1.2.1[python_targets_python3_11(-)] || ( >=dev-python/progressbar-2.5[python_targets_python3_11(-)] dev-python/progressbar2[python_targets_python3_11(-)] ) ) )
-REQUIRED_USE=^^ ( python_single_target_python3_10 python_single_target_python3_11 )
+RDEPEND=python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_11? ( >=dev-python/fem-netbox-user-scripts-common-0.1[python_targets_python3_11(-)] ) dokuwiki? ( python_single_target_python3_11? ( >=dev-python/dokuwiki-1.2.1[python_targets_python3_11(-)] dev-python/progressbar2[python_targets_python3_11(-)] ) )
+REQUIRED_USE=^^ ( python_single_target_python3_11 )
 SLOT=0
 SRC_URI=https://gitlab.fem-net.de/nexbox/netbox-user-scripts/-/archive/v0.3.1/netbox-user-scripts-v0.3.1.tar.gz
 _eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	042f4cc53680245bf99a84669b94155a	python-single-r1	75118e916668a74c660a13b0ecb22562
-_md5_=ad9e286b1f2a84a90a6b6be0bbf3ebb3
+_md5_=cb49ff4917cc026efc73e85cf4acefd6
