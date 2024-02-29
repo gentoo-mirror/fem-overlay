@@ -28,6 +28,8 @@ RDEPEND="
 	dev-perl/Moo
 	dev-perl/String-ShellQuote
 	virtual/perl-DB_File
+
+	!dev-util/checkbashisms
 "
 DEPEND="
 	test? (
@@ -102,4 +104,7 @@ src_install() {
 	perl_domodule -r lib/*
 
 	dosym debchange "${EPREFIX}"/usr/bin/dch
+
+	# bts is provided by app-shells/bash-completion
+	rm "${D}/$(get_bashcompdir)/bts" || die
 }
