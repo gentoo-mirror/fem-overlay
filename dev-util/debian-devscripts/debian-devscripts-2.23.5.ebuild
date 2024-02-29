@@ -34,6 +34,7 @@ RDEPEND="
 DEPEND="
 	test? (
 		${RDEPEND}
+		dev-perl/File-HomeDir
 	)
 "
 # app-arch/libarchive tar breaks tests due to the tar implementation not
