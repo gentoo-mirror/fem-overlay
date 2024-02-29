@@ -25,7 +25,7 @@ RDEPEND="
 	>=dev-python/typing-extensions-4.5.0[${PYTHON_USEDEP}]
 	>=dev-python/tzlocal-2.1[${PYTHON_USEDEP}]
 	>=dev-python/urwid-2.1.2[${PYTHON_USEDEP}]
-	>=dev-python/urwid_readline-0.13[${PYTHON_USEDEP}]
+	>=dev-python/urwid-readline-0.13[${PYTHON_USEDEP}]
 	dev-python/pyperclip[${PYTHON_USEDEP}]
 "
 BDEPEND="
