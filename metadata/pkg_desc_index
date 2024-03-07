@@ -69,6 +69,7 @@ dev-python/pynetbox 7.3.3: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
 dev-util/debian-devscripts 2.23.5: Scripts to help Debian package maintenance
+dev-util/dput-ng 1.38: Debian package uploading tool
 media-gfx/corrupter 1.0_p20230111: Simple image glitcher
 media-plugins/gst-plugins-decklink 1.18.4: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.1 1.20.4: Fraunhofer AAC encoder plugin for GStreamer
