@@ -30,10 +30,10 @@ REQUIRED_USE="autostart? ( X )"
 RESTRICT="fetch"
 
 RDEPEND="
-	sys-apps/systemd-utils[udev]
 	sys-libs/libcxx
 	sys-libs/libcxxabi
 	virtual/libusb
+	virtual/udev
 
 	X? (
 		dev-qt/qtcore:5
@@ -52,6 +52,10 @@ CONFIG_CHECK="
 	SND
 	SND_PCM
 "
+
+PATCHES=(
+	"${FILESDIR}/${P}-fix-missing-function-prototypes.patch"
+)
 
 S="${WORKDIR}/${UNPACKED_DIR}"
 
