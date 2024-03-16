@@ -10,5 +10,5 @@ RDEPEND=acct-user/mediamtx acct-group/mediamtx
 RESTRICT=test strip
 SLOT=0
 SRC_URI=https://github.com/bluenviron/mediamtx/archive/v1.5.0.tar.gz -> mediamtx-1.5.0.gh.tar.gz https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/mediamtx/1.5.0%2B2024-01-23/mediamtx-1.5.0-deps.tar.xz -> mediamtx-deps-1.5.0+2024-01-23.tar.xz
-_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	go-env	96e1747610bbb2f5c5d3fb16f0f3a83a	go-module	83fd3ed1657cfc316c93d6a37018290d	go-module-fem	1e1506bf0aa593697a16764c66d6263a	systemd	c8b03e8df84486aa991d4396686e8942
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	24c947ff5f858625cf0b33c15eed4425	go-env	14f8f70fe58c14d7ab44fff15a05ac47	go-module	83fd3ed1657cfc316c93d6a37018290d	go-module-fem	1e1506bf0aa593697a16764c66d6263a	systemd	c8b03e8df84486aa991d4396686e8942
 _md5_=292b738d9d1572c6c3c4717ce2804686
