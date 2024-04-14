@@ -80,7 +80,7 @@ media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB 
 media-video/bmdtools 9999: Basic capture and play programs for Blackmagic Design Decklink
 media-video/bmusb 0.7.6 0.7.6-r1: USB Driver for Blackmagic Ultrastudio cards
 media-video/decklink-debugger 20180112 20180511: BlackMagic DeckLink Input-Debugger
-media-video/decklink-drivers 12.7-r1 12.7-r2 12.8: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
+media-video/decklink-drivers 12.7-r1 12.7-r2 12.8 12.9: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/ffmpeg 4.4.1-r1 5.1.2-r1 9999: Complete solution to record, convert and stream audio and video. Includes libavcodec
 media-video/mediamtx 1.5.0-r1 1.5.1: Multi-protocol media server and streaming proxy for video and audio streams
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
