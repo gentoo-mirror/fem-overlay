@@ -5,4 +5,7 @@
 <email>jonas.licht@fem.tu-ilmenau.de</email>
 <name>Jonas 'Nas' Licht</name>
 </maintainer>
+<use>
+	<flag name="tools">Install additional NDI tools</flag>
+</use>
 </pkgmetadata>
