@@ -13,7 +13,7 @@ SRC_URI="https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v${INSTALLER
 LICENSE="NDI_EULA_END"
 # subslot is SONAME version
 SLOT="0/$(ver_cut 1)"
-KEYWORDS="~amd64"
+KEYWORDS="-* ~amd64"
 IUSE=""
 
 RDEPEND="net-dns/avahi[dbus]"
