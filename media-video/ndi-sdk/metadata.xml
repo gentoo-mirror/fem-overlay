@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<maintainer type="person">
-<email>jonas.licht@fem.tu-ilmenau.de</email>
-<name>Jonas 'Nas' Licht</name>
-</maintainer>
+	<maintainer type="person">
+		<email>jonas.licht@fem.tu-ilmenau.de</email>
+		<name>Jonas 'Nas' Licht</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian 'nex' Schollmeyer</name>
+	</maintainer>
+	<use>
+		<flag name="tools">Install additional NDI tools</flag>
+	</use>
 </pkgmetadata>

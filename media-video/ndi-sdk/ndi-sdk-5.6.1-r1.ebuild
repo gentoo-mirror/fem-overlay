@@ -14,14 +14,17 @@ LICENSE="NDI_EULA_END"
 # subslot is SONAME version
 SLOT="0/$(ver_cut 1)"
 KEYWORDS="-* ~amd64"
-IUSE=""
+IUSE="doc examples tools"
 
 RDEPEND="net-dns/avahi[dbus]"
 
 S="${WORKDIR}/NDI SDK for Linux/"
 
 RESTRICT="bindist mirror"
-QA_PREBUILT="usr/*/libndi.so.${PV}"
+QA_PREBUILT="
+	bin/*
+	usr/*/libndi.so.${PV}
+"
 
 src_unpack() {
 	unpack ${A}
@@ -49,4 +52,9 @@ src_install() {
 	dosym "libndi.so.$(ver_cut 1)" "usr/$(get_libdir)/libndi.so"
 
 	doheader -r include/*
+
+	use doc && dodoc -r documentation/*
+	insinto "/usr/share/${PN}"
+	use examples && doins -r examples
+	use tools && dobin "bin/${host}"/*
 }
