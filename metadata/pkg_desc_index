@@ -97,7 +97,6 @@ net-dns/acme-dns 1.0-r2: Limited DNS server with RESTful API to handle ACME DNS 
 net-im/matterhorn-bin 90000.0.0.109433: Terminal based Mattermost client
 net-im/xmppc 0.1.1 0.1.2: XMPP Command Line Interface
 net-im/zulip-terminal 0.7.0: Official Zulip terminal client
-net-libs/libnetfilter_conntrack 1.0.7: programming interface (API) to the in-kernel connection tracking state table
 net-misc/fem-ssh-utils 0.2.0: FeM SSH utilities and configs
 net-misc/gortr 0.14.8 0.15.0: Open-Source implementation of RPKI to Router protocol
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
