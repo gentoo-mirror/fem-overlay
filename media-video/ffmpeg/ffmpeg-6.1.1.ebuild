@@ -14,19 +14,56 @@ EAPI=8
 # doing so since such a case is unlikely.
 FFMPEG_SUBSLOT=58.60.60
 
-EGIT_MIN_CLONE_TYPE="single"
-EGIT_REPO_URI="https://gitlab.fem-net.de/broadcast/ffmpeg.git"
+BROADCAST_PATCHES_PV="6.1.1-1"
+BROADCAST_PATCHES_DIR="${WORKDIR}/ffmpeg-patches-v${BROADCAST_PATCHES_PV}"
+
+SOC_PATCH="ffmpeg-rpi-6.1-r3.patch"
+
+SCM=""
 if [ "${PV#9999}" != "${PV}" ] ; then
-	EGIT_BRANCH="fem-master"
-else
-	EGIT_BRANCH="fem-${PV}"
+	SCM="git-r3"
+	EGIT_MIN_CLONE_TYPE="single"
+	EGIT_REPO_URI="https://git.ffmpeg.org/ffmpeg.git"
 fi
 
-inherit flag-o-matic multilib multilib-minimal toolchain-funcs git-r3
+inherit flag-o-matic multilib multilib-minimal toolchain-funcs ${SCM}
 
 DESCRIPTION="Complete solution to record/convert/stream audio and video. Includes libavcodec"
 HOMEPAGE="https://ffmpeg.org/"
-SRC_URI=""
+SRC_URI="
+	soc? ( https://dev.gentoo.org/~chewi/distfiles/${SOC_PATCH} )
+	https://gitlab.fem-net.de/broadcast/ffmpeg-patches/-/archive/v${BROADCAST_PATCHES_PV}/ffmpeg-patches-v${BROADCAST_PATCHES_PV}.tar.bz2
+"
+if [ "${PV#9999}" != "${PV}" ] ; then
+	:
+elif [ "${PV%_p*}" != "${PV}" ] ; then # Snapshot
+	SRC_URI+=" mirror://gentoo/${P}.tar.xz"
+else # Release
+	inherit verify-sig
+
+	SRC_URI+="
+		https://ffmpeg.org/releases/${P/_/-}.tar.xz
+		verify-sig? (
+			https://ffmpeg.org/releases/${P/_/-}.tar.xz.asc
+			soc? ( https://dev.gentoo.org/~chewi/distfiles/${SOC_PATCH}.asc )
+		)
+	"
+
+	BDEPEND="
+		verify-sig? (
+			sec-keys/openpgp-keys-ffmpeg
+			soc? ( sec-keys/openpgp-keys-gentoo-developers )
+		)
+	"
+
+	src_unpack() {
+		if use verify-sig; then
+			verify-sig_verify_detached "${DISTDIR}"/${P/_/-}.tar.xz{,.asc} /usr/share/openpgp-keys/ffmpeg.asc
+			use soc && verify-sig_verify_detached "${DISTDIR}"/${SOC_PATCH}{,.asc} /usr/share/openpgp-keys/gentoo-developers.asc
+		fi
+		default
+	}
+fi
 FFMPEG_REVISION="${PV#*_p}"
 
 SLOT="0/${FFMPEG_SUBSLOT}"
@@ -54,7 +91,7 @@ LICENSE="
 	samba? ( GPL-3 )
 "
 if [ "${PV#9999}" = "${PV}" ] ; then
-	KEYWORDS="~alpha ~amd64 ~arm arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos"
 fi
 
 # Options to use as use_enable in the foo[:bar] form.
@@ -70,7 +107,8 @@ FFMPEG_FLAG_MAP=(
 		cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal
 		opengl
 		# indevs
-		libv4l:libv4l2 pulseaudio:libpulse libdrm jack:libjack decklink libndi_newtek
+		libv4l:libv4l2 pulseaudio:libpulse libdrm jack:libjack
+		decklink libndi_newtek
 		# decoders
 		amr:libopencore-amrwb amr:libopencore-amrnb codec2:libcodec2 +dav1d:libdav1d fdk:libfdk-aac
 		jpeg2k:libopenjpeg jpegxl:libjxl bluray:libbluray gme:libgme gsm:libgsm
@@ -186,7 +224,7 @@ RDEPEND="
 	chromaprint? ( >=media-libs/chromaprint-1.2-r1[${MULTILIB_USEDEP}] )
 	codec2? ( media-libs/codec2[${MULTILIB_USEDEP}] )
 	dav1d? ( >=media-libs/dav1d-0.5.0:0=[${MULTILIB_USEDEP}] )
-	decklink? ( amd64? ( media-video/decklink-drivers ) )
+	decklink? ( media-video/decklink-drivers )
 	encode? (
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
 		kvazaar? ( >=media-libs/kvazaar-2.0.0[${MULTILIB_USEDEP}] )
@@ -234,7 +272,7 @@ RDEPEND="
 	libcaca? ( >=media-libs/libcaca-0.99_beta18-r1[${MULTILIB_USEDEP}] )
 	libdrm? ( x11-libs/libdrm[${MULTILIB_USEDEP}] )
 	libilbc? ( >=media-libs/libilbc-2[${MULTILIB_USEDEP}] )
-	libndi_newtek? ( amd64? ( media-video/ndi-sdk:= ) arm64? ( media-video/ndi-sdk-embedded ) )
+	libndi_newtek? ( >=media-video/ndi-sdk-5:= )
 	libplacebo? ( >=media-libs/libplacebo-4.192.0:=[$MULTILIB_USEDEP] )
 	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
@@ -328,7 +366,6 @@ GPL_REQUIRED_USE="
 	)
 "
 REQUIRED_USE="
-	arm64? ( !decklink )
 	chromium? ( opus )
 	cuda? ( nvenc )
 	fftools_cws2fws? ( zlib )
@@ -342,6 +379,7 @@ REQUIRED_USE="
 RESTRICT="
 	!test? ( test )
 	gpl? ( openssl? ( bindist ) fdk? ( bindist ) )
+	decklink? ( bindist )
 	libndi_newtek? ( bindist )
 "
 
@@ -354,6 +392,10 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-6.1-opencl-parallel-gmake-fix.patch
 	"${FILESDIR}"/${PN}-6.1-gcc-14.patch
 	"${FILESDIR}"/${PN}-6.0.1-alignment.patch
+
+	# Add new patches in the same order as the accompanying series file
+	"${BROADCAST_PATCHES_DIR}"/decklink-use-device-numbers.patch
+	"${BROADCAST_PATCHES_DIR}"/ndi-support.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -428,8 +470,6 @@ multilib_src_configure() {
 	for i in alsa oss jack sndio ; do
 		use ${i} || myconf+=( --disable-indev=${i} )
 	done
-
-	use decklink && append-flags "-I${EPREFIX}/usr/include/blackmagic"
 
 	# Outdevs
 	for i in alsa oss sndio ; do
