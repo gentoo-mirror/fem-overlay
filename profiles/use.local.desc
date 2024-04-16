@@ -108,6 +108,7 @@ media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
 media-video/ffmpeg:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
 media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
+media-video/ndi-sdk:tools - Install additional NDI tools
 media-video/voctomix:gui - Voctomix GTK+ application
 net-analyzer/fem-nagios-plugins:bandwidth - add plugin check_bindwidth checks switch SNMP
 net-analyzer/fem-nagios-plugins:cgiirc - add plugin check_cgiirc
