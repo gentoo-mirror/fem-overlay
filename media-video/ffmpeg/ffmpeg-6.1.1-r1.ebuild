@@ -14,7 +14,7 @@ EAPI=8
 # doing so since such a case is unlikely.
 FFMPEG_SUBSLOT=58.60.60
 
-BROADCAST_PATCHES_PV="6.1.1-1"
+BROADCAST_PATCHES_PV="6.1.1-2"
 BROADCAST_PATCHES_DIR="${WORKDIR}/ffmpeg-patches-v${BROADCAST_PATCHES_PV}"
 
 SOC_PATCH="ffmpeg-rpi-6.1-r3.patch"
@@ -274,7 +274,6 @@ RDEPEND="
 	libilbc? ( >=media-libs/libilbc-2[${MULTILIB_USEDEP}] )
 	libndi_newtek? (
 		>=media-video/ndi-sdk-5:=
-		<media-video/ndi-sdk-6
 	)
 	libplacebo? ( >=media-libs/libplacebo-4.192.0:=[$MULTILIB_USEDEP] )
 	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
