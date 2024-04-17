@@ -222,7 +222,15 @@ RDEPEND="
 	libcaca? ( >=media-libs/libcaca-0.99_beta18-r1[${MULTILIB_USEDEP}] )
 	libdrm? ( x11-libs/libdrm[${MULTILIB_USEDEP}] )
 	libilbc? ( >=media-libs/libilbc-2[${MULTILIB_USEDEP}] )
-	libndi_newtek? ( amd64? ( media-video/ndi-sdk ) arm64? ( media-video/ndi-sdk-embedded ) )
+	libndi_newtek? (
+		amd64? (
+			>=media-video/ndi-sdk-5:=
+			<media-video/ndi-sdk-6
+		)
+		arm64? (
+			media-video/ndi-sdk-embedded
+		)
+	)
 	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
 	libsoxr? ( >=media-libs/soxr-0.1.0[${MULTILIB_USEDEP}] )
 	libtesseract? ( >=app-text/tesseract-4.1.0-r1[${MULTILIB_USEDEP}] )
