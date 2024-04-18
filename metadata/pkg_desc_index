@@ -71,8 +71,8 @@ dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain fo
 dev-util/debian-devscripts 2.23.5: Scripts to help Debian package maintenance
 dev-util/dput-ng 1.38: Debian package uploading tool
 media-gfx/corrupter 1.0_p20230111: Simple image glitcher
-media-plugins/gst-plugins-decklink 1.18.4: Decklink Plugin for Gstreamer
-media-plugins/gst-plugins-fdkaac 1.20.1 1.20.4: Fraunhofer AAC encoder plugin for GStreamer
+media-plugins/gst-plugins-decklink 1.20.6: Decklink Plugin for Gstreamer
+media-plugins/gst-plugins-fdkaac 1.20.6: Fraunhofer AAC encoder plugin for GStreamer
 media-plugins/obs-ndi 4.13.1: NewTek NDI integration for OBS Studio
 media-sound/aes67-linux-daemon 1.6.4-r1: AES67 Linux Daemon with configuration WebUI
 media-sound/jamulus 3.8.2: Internet jam session software
