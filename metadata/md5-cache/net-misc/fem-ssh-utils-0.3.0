@@ -1,0 +1,10 @@
+DEFINED_PHASES=compile install
+DESCRIPTION=FeM SSH utilities and configs
+EAPI=8
+HOMEPAGE=https://example.com/
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=net-misc/sshpass virtual/ssh
+SLOT=0
+SRC_URI=https://gitlab.fem-net.de/nex/fem-ssh-utils/-/archive/v0.3.0/fem-ssh-utils-v0.3.0.tar.bz2
+_md5_=ee7af9fccad118a4337abcf9d94131a0
