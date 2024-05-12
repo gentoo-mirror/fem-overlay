@@ -11,5 +11,5 @@ RDEPEND=>=net-libs/srt-1.4.2:= acct-user/srtrelay acct-group/srtrelay
 RESTRICT=strip
 SLOT=0
 SRC_URI=https://github.com/voc/srtrelay/archive/refs/tags/v1.2.0.tar.gz -> srtrelay-1.2.0.gh.tar.gz https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/srtrelay/1.2.0%2B2023-12-12/srtrelay-1.2.0-deps.tar.xz -> srtrelay-deps-1.2.0+2023-12-12.tar.xz
-_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	288c54efeb5e2aa70775e39032695ad4	go-env	dbefaac6fd7019213514bccd65949d9a	go-module	83fd3ed1657cfc316c93d6a37018290d	go-module-fem	1e1506bf0aa593697a16764c66d6263a
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	d309b9713dfc18e754cba88d3ba69653	go-env	dbefaac6fd7019213514bccd65949d9a	go-module	83fd3ed1657cfc316c93d6a37018290d	go-module-fem	1e1506bf0aa593697a16764c66d6263a
 _md5_=9d381e55cb637f9d7b3557c5f2aee34c
