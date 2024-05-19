@@ -394,6 +394,8 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-6.1-opencl-parallel-gmake-fix.patch
 	"${FILESDIR}"/${PN}-6.1-gcc-14.patch
 	"${FILESDIR}"/${PN}-6.0.1-alignment.patch
+	"${FILESDIR}"/${PN}-6.1.1-vulkan-rename.patch
+	"${FILESDIR}"/${PN}-6.1.1-memory-leak.patch
 
 	# Add new patches in the same order as the accompanying series file
 	"${BROADCAST_PATCHES_DIR}"/decklink-use-device-numbers.patch
@@ -472,6 +474,8 @@ multilib_src_configure() {
 	for i in alsa oss jack sndio ; do
 		use ${i} || myconf+=( --disable-indev=${i} )
 	done
+
+	use decklink && append-flags "-I${EPREFIX}/usr/include/blackmagic"
 
 	# Outdevs
 	for i in alsa oss sndio ; do
