@@ -22,7 +22,7 @@ S="${WORKDIR}/NDI SDK for Linux/"
 
 RESTRICT="bindist mirror"
 QA_PREBUILT="
-	bin/*
+	usr/bin/*
 	usr/*/libndi.so.${PV}
 "
 
