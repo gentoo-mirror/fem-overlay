@@ -8,5 +8,5 @@ LICENSE=NDI_EULA_END
 RDEPEND=net-dns/avahi[dbus]
 RESTRICT=bindist mirror
 SLOT=0/6
-SRC_URI=https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz -> ndi-sdk-6.0.0.tar.gz
-_md5_=7ff28948cd2ccabc05e2e1a558b6cdf8
+SRC_URI=https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz -> ndi-sdk-6.0.1.tar.gz
+_md5_=8944fceb53e33ae9f395ce5fe0cc275d
