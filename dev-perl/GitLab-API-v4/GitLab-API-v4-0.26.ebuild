@@ -33,9 +33,9 @@ DEPEND="
 	test? (
 		${RDEPEND}
 
-		dev-perl/Test2-Suite
 		dev-perl/strictures
 		virtual/perl-MIME-Base64
+		virtual/perl-Test2-Suite
 	)
 "
 BDEPEND="
