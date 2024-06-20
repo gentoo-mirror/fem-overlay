@@ -63,7 +63,7 @@ dev-python/arubaos-client 0.2.2-r1 0.2.3-r1 9999: Library to interact with the A
 dev-python/arubaos-lib 0.2.0 0.2.1: An object oriented library to interact with the ArubaOS REST API
 dev-python/crayons 0.4.0: Text UI colors for Python
 dev-python/ddlparse 1.10.0: Python DDL parser
-dev-python/dokuwiki 1.2.1: Library to manage DokuWiki via XML-RPC API
+dev-python/dokuwiki 1.2.1 1.2.1-r1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
 dev-python/pynetbox 7.3.3: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
