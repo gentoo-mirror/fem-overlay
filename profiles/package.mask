@@ -41,11 +41,3 @@ dev-python/pykeepass
 # unmaintained for a while.
 # Removal on 2024-05-16
 media-video/bmdtools
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (24 Apr 2024)
-# Masked for testing
-=media-video/decklink-drivers-12.9
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (14 Apr 2024)
-# Masked for testing
-=media-video/ffmpeg-6.1.1-r1
