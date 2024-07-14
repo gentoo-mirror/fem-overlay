@@ -21,6 +21,7 @@ RESTRICT="strip"
 
 RDEPEND="
 	media-libs/alsa-lib
+	media-libs/freetype
 	net-misc/curl
 "
 BDEPEND="
