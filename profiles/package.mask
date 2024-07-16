@@ -33,15 +33,3 @@
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (16 Jul 2024)
 # Masked for testing
 =media-video/decklink-drivers-14.0
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (18 Apr 2024)
-# Missing dependencies on recent systems preventing installation,
-# inactive maintainer.
-# Removal on 2024-05-18
-dev-python/pykeepass
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (16 Apr 2024)
-# Does not compile with recent media-video/decklink-drivers, dead upstream,
-# unmaintained for a while.
-# Removal on 2024-05-16
-media-video/bmdtools
