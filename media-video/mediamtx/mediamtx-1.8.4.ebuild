@@ -3,19 +3,22 @@
 
 EAPI=8
 
-GO_FEM_DEP_ARCHIVE_VER="2024-02-05"
+GO_FEM_DEP_ARCHIVE_VER="2024-07-07"
+# Matches the version in internal/servers/hsl/hlsjsdownloader/VERSION
+HLSJS_PV="1.5.13"
 inherit go-module-fem systemd
 
 DESCRIPTION="Multi-protocol media server and streaming proxy for video and audio streams"
 HOMEPAGE="https://github.com/bluenviron/mediamtx"
 SRC_URI="
 	https://github.com/bluenviron/mediamtx/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz
+	https://cdn.jsdelivr.net/npm/hls.js@v${HLSJS_PV}/dist/hls.min.js -> hls-${HLSJS_PV}.min.js
 	${GO_FEM_SRC_URI}
 "
 
 LICENSE="Apache-2.0 BSD ISC MIT"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	acct-user/mediamtx
@@ -27,6 +30,9 @@ RESTRICT="test"
 
 src_prepare() {
 	default
+
+	# Manually add hls.min.js, as go generate would need Internet access to download files;
+	cp -v "${DISTDIR}/hls-${HLSJS_PV}.min.js" "${S}/internal/servers/hls/hls.min.js" || die
 
 	# Default to file-based logging for OpenRC compatibility
 	sed -i \
