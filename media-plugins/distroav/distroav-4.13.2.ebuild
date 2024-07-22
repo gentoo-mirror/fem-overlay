@@ -5,9 +5,13 @@ EAPI=8
 
 inherit cmake
 
+MY_PN="DistroAV"
+MY_P="DistroAV-${PV}"
+
 DESCRIPTION="NewTek NDI integration for OBS Studio"
-HOMEPAGE="https://github.com/obs-ndi/obs-ndi"
-SRC_URI="https://github.com/obs-ndi/obs-ndi/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
+HOMEPAGE="https://github.com/distroav/distroav"
+SRC_URI="https://github.com/distroav/distroav/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -15,13 +19,14 @@ KEYWORDS="~amd64"
 
 DEPEND="
 	>=media-video/obs-studio-30.0.0
-	dev-qt/qtbase:6
+	dev-qt/qtbase:6[network,widgets]
 	media-video/ndi-sdk:0=
+	net-misc/curl
 "
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/${P}-ndi-search-paths.patch"
+	"${FILESDIR}/${PN}-4.13.1-ndi-search-paths.patch"
 )
 
 src_prepare() {
@@ -32,8 +37,6 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		# OBS uses Qt 6
-		-DQT_VERSION=6
 		# Build doesn't work without Qt
 		-DENABLE_QT=true
 	)

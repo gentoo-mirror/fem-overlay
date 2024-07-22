@@ -6,6 +6,6 @@
 		<name>Adrian 'nex' Schollmeyer</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">obs-ndi/obs-ndi</remote-id>
+		<remote-id type="github">distroav/distroav</remote-id>
 	</upstream>
 </pkgmetadata>
