@@ -5,9 +5,13 @@ EAPI=8
 
 inherit cmake
 
+MY_PN="DistroAV"
+MY_P="${MY_PN}-${PV}"
+
 DESCRIPTION="NewTek NDI integration for OBS Studio"
-HOMEPAGE="https://github.com/obs-ndi/obs-ndi"
-SRC_URI="https://github.com/obs-ndi/obs-ndi/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
+HOMEPAGE="https://github.com/distroav/distroav"
+SRC_URI="https://github.com/distroav/distroav/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
