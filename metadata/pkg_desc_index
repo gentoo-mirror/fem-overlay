@@ -65,6 +65,7 @@ dev-python/crayons 0.4.0: Text UI colors for Python
 dev-python/ddlparse 1.10.0: Python DDL parser
 dev-python/dokuwiki 1.2.1 1.2.1-r1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
+dev-python/ffmpeg-progress-yield 0.7.8: Run an ffmpeg command with progress
 dev-python/pynetbox 7.3.3: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
@@ -75,6 +76,7 @@ media-plugins/distroav 4.13.1 4.13.2 4.14.0: NewTek NDI integration for OBS Stud
 media-plugins/gst-plugins-decklink 1.20.6: Decklink Plugin for Gstreamer
 media-plugins/gst-plugins-fdkaac 1.20.6: Fraunhofer AAC encoder plugin for GStreamer
 media-sound/aes67-linux-daemon 1.6.4-r1: AES67 Linux Daemon with configuration WebUI
+media-sound/ffmpeg-normalize 1.28.2: Audio normalizer using ffmpeg
 media-sound/jamulus 3.8.2: Internet jam session software
 media-sound/x32edit-bin 4.3-r2: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
