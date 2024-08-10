@@ -9,5 +9,5 @@ LICENSE=AGPL-3 Apache-2.0 BSD-2 BSD ISC LGPL-3 MIT MPL-2.0
 RDEPEND=acct-user/mimir acct-group/mimir
 SLOT=0
 SRC_URI=https://github.com/grafana/mimir/releases/download/mimir-2.5.0/mimir-2.5.0_amd64.deb
-_eclasses_=toolchain-funcs	e7e7331166166e7a516d19e264b098c2	multilib	c19072c3cd7ac5cb21de013f7e9832e0	systemd	c8b03e8df84486aa991d4396686e8942
+_eclasses_=toolchain-funcs	0c713337f7872f1a002cecaaea9bef73	multilib	c19072c3cd7ac5cb21de013f7e9832e0	systemd	c8b03e8df84486aa991d4396686e8942
 _md5_=9420dce49accceff9c7acde4371cec97
