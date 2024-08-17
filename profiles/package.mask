@@ -33,6 +33,7 @@
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (17 Aug 2024)
 # Ummaintained, lacks an EAPI bump, global scope failures.
 # Removal in 30 days
+# Issue: https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/312
 media-video/decklink-debugger
 
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (16 Jul 2024)
