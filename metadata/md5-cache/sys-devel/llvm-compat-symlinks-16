@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Compatibility symlinks for sys-devel/lld
+EAPI=8
+HOMEPAGE=https://wiki.gentoo.org/wiki/No_homepage
+KEYWORDS=~amd64
+LICENSE=GPL-2
+RDEPEND=sys-devel/lld:16
+SLOT=16
+_md5_=900d54fbe36b8ee6e2a15abd7604e2d5
