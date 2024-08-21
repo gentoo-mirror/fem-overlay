@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian 'nex' Schollmeyer</name>
+	</maintainer>
+	<longdescription lang="en">
+		This package provides a set of symlinks to achieve compatiblity with
+		build systems that assume versioned LLVM tool names as they are used in
+		the Debian ecosystem. The symlinks are not complete, but reduced to the
+		set assumed to be needed under such circumstances.
+	</longdescription>
+</pkgmetadata>
