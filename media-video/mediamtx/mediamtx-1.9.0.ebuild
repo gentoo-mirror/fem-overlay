@@ -3,9 +3,9 @@
 
 EAPI=8
 
-GO_FEM_DEP_ARCHIVE_VER="2024-05-19"
+GO_FEM_DEP_ARCHIVE_VER="2024-08-27"
 # Matches the version in internal/servers/hsl/hlsjsdownloader/VERSION
-HLSJS_PV="1.5.8"
+HLSJS_PV="1.5.15"
 inherit go-module-fem systemd
 
 DESCRIPTION="Multi-protocol media server and streaming proxy for video and audio streams"
@@ -18,7 +18,7 @@ SRC_URI="
 
 LICENSE="Apache-2.0 BSD ISC MIT"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	acct-user/mediamtx
