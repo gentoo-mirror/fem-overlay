@@ -95,7 +95,7 @@ net-analyzer/nagios-check_smart 6.9.1: Nagios Plugin to check hdds, ssds and NVM
 net-analyzer/nagios-plugins-ceph 1.6.0: Nagios plugins for Ceph
 net-analyzer/nagios-plugins-extended 0.7.9: Nagios 0.7.9 plugins - Additional Icinga/Nagios plugins
 net-dns/acme-dns 1.0-r2 1.0-r3: Limited DNS server with RESTful API to handle ACME DNS challenges securely
-net-im/matterhorn-bin 90000.0.0.109433: Terminal based Mattermost client
+net-im/matterhorn-bin 90000.0.0.109433 90000.0.1.154143: Terminal based Mattermost client
 net-im/xmppc 0.1.1 0.1.2: XMPP Command Line Interface
 net-im/zulip-terminal 0.7.0: Official Zulip terminal client
 net-misc/fem-ssh-utils 0.2.0 0.3.0: FeM SSH utilities and configs
