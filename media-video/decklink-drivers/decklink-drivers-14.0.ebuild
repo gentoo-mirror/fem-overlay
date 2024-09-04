@@ -55,6 +55,10 @@ CONFIG_CHECK="
 
 S="${WORKDIR}/${UNPACKED_DIR}"
 
+PATCHES=(
+	"${FILESDIR}/${P}-fix-c-prototypes.patch"
+)
+
 QA_PREBUILT="usr/*"
 
 pkg_nofetch() {

@@ -1,0 +1,61 @@
+Upstream missed prototyping functions taking no arguments as (void).
+--- a/usr/src/blackmagic-14.0a1/blackmagic_lib.c
++++ b/usr/src/blackmagic-14.0a1/blackmagic_lib.c
+@@ -335,7 +335,7 @@ dl_uptime(void)
+ #endif
+ }
+ 
+-inline unsigned long long dl_get_time_us()
++inline unsigned long long dl_get_time_us(void)
+ {
+ #if KERNEL_VERSION_OR_LATER(5, 6, 0)
+ 	struct timespec64 t;
+@@ -642,7 +642,7 @@ dl_access_ok(int type, void *addr, unsig
+ }
+ 
+ void *
+-dl_get_current()
++dl_get_current(void)
+ {
+ 	return current;
+ }
+@@ -838,7 +838,7 @@ int dl_strcmp(const char* str1, const ch
+ 	return strcmp(str1, str2);
+ }
+ 
+-void dl_schedule()
++void dl_schedule(void)
+ {
+ 	schedule();
+ }
+--- a/usr/src/blackmagic-io-14.0a1/bm_locks.c
++++ b/usr/src/blackmagic-io-14.0a1/bm_locks.c
+@@ -172,7 +172,7 @@ void bm_rwlock_write_unlock_irqrestore(b
+ }
+ 
+ /* Basic mutex */
+-bm_mutex_t* bm_mutex_alloc()
++bm_mutex_t* bm_mutex_alloc(void)
+ {
+ 	bm_mutex_t* mutex = bm_kmalloc(sizeof(bm_mutex_t));
+ 	mutex_init(mutex);
+--- a/usr/src/blackmagic-io-14.0a1/bm_util.c
++++ b/usr/src/blackmagic-io-14.0a1/bm_util.c
+@@ -207,7 +207,7 @@ int bm_printk(const char *fmt, ...)
+ 	return r;
+ }
+ 
+-void bm_backtrace()
++void bm_backtrace(void)
+ {
+ 	dump_stack();
+ }
+@@ -899,7 +899,7 @@ void bm_iowrite32be(uint32_t val, volati
+ 	iowrite32be(val, (void*)addr);
+ }
+ 
+-void bm_util_init()
++void bm_util_init(void)
+ {
+ 	init_event_table();
+ }
