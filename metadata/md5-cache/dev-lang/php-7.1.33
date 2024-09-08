@@ -11,5 +11,5 @@ RDEPEND=>=app-eselect/eselect-php-0.9.1[apache2?,fpm?] >=dev-libs/libpcre-8.32[u
 REQUIRED_USE=|| ( cli cgi fpm apache2 embed phpdbg ) cli? ( ^^ ( readline libedit ) ) truetype? ( gd zlib ) webp? ( gd zlib ) cjk? ( gd zlib ) exif? ( gd zlib ) xpm? ( gd zlib ) gd? ( zlib ) simplexml? ( xml ) soap? ( xml ) wddx? ( xml ) xmlrpc? ( || ( xml iconv ) ) xmlreader? ( xml ) xslt? ( xml ) ldap-sasl? ( ldap ) mhash? ( hash ) phar? ( hash ) qdbm? ( !gdbm ) readline? ( !libedit ) recode? ( !imap !mysqli !mysql ) session-mm? ( session !threads ) mysql? ( hash || ( mysqli pdo ) ) mysqli? ( hash )
 SLOT=7.1
 SRC_URI=https://php.net/distributions/php-7.1.33.tar.xz
-_eclasses_=toolchain-funcs	333970c740aa7b1a92e4fcdc52f612bd	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	e503ea5acc20410237ba33ec3f7c857d	systemd	c8b03e8df84486aa991d4396686e8942	gnuconfig	a397adda6984a4c423e28ac274c1ba98	libtool	5f49a16f67f81bdf873e3d1f10b10001	autotools	d12ccbad07b44642a75ac97a3334d8e0
+_eclasses_=toolchain-funcs	948855ec7ad9f11351edf9066708dfa9	multilib	7e1347c006a76bb812f3a9f663b79991	flag-o-matic	fa33e3696fe4689dda7e9affe92e2c94	systemd	0f241b5c9f3758c3d3423df59a7f655a	gnuconfig	f8b9cc21e72de8cbedde6ca5108d208b	libtool	f9e6905c12590c1cac06d85371a0819a	autotools	61927ff6474f1d141b4ea4a5b9870424
 _md5_=28416a66976887116d1275467f297505
