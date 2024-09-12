@@ -38,4 +38,4 @@ media-video/decklink-debugger
 
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (16 Jul 2024)
 # Masked for testing
-=media-video/decklink-drivers-14.0
+=media-video/decklink-drivers-14.2
