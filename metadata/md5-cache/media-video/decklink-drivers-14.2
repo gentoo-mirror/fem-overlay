@@ -1,0 +1,18 @@
+BDEPEND=app-arch/unzip virtual/pkgconfig dev-util/pahole sys-apps/kmod[tools] modules-sign? ( dev-libs/openssl virtual/pkgconfig ) virtual/pkgconfig
+DEFINED_PHASES=compile install nofetch postinst postrm prepare setup unpack
+DEPEND=virtual/linux-sources
+DESCRIPTION=Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
+EAPI=8
+HOMEPAGE=https://www.blackmagicdesign.com/
+IDEPEND=sys-apps/kmod[tools]
+INHERIT=desktop systemd linux-mod-r1 udev
+IUSE=autostart +headers X dist-kernel modules-compress modules-sign +strip
+KEYWORDS=-* ~amd64
+LICENSE=BlackmagicDesktopVideo
+RDEPEND=sys-libs/libcxx sys-libs/libcxxabi virtual/libusb virtual/udev X? ( dev-qt/qtcore:5 dev-qt/qtnetwork:5 dev-qt/qtgui:5 dev-qt/qtdbus:5 dev-qt/qtwidgets:5 ) sys-apps/kmod[tools] dist-kernel? ( virtual/dist-kernel:= )
+REQUIRED_USE=autostart? ( X )
+RESTRICT=fetch
+SLOT=0
+SRC_URI=Blackmagic_Desktop_Video_Linux_14.2.tar.gz headers? ( Blackmagic_DeckLink_SDK_14.2.zip )
+_eclasses_=desktop	56973babb9c5f19cab0eeb53ece644c6	toolchain-funcs	948855ec7ad9f11351edf9066708dfa9	multilib	7e1347c006a76bb812f3a9f663b79991	systemd	0f241b5c9f3758c3d3423df59a7f655a	mount-boot-utils	69218c024651aa10db01df7e8a5b63e0	dist-kernel-utils	55a979ee597f57f3b478d503f9af23e4	edo	367e103a74bf77e6a8da7894d999fa3c	linux-info	ea4122ba1d8791a12b78e53f9510a2e3	multiprocessing	e644caa6eb7ce7e5ab0864383ac13ad9	linux-mod-r1	c3684e27e002b9857ed37bc4e877e47a	udev	3b4170e9c327a8ed17097484a016c0c8
+_md5_=1689c3336140a14d21a195ee283e911c
