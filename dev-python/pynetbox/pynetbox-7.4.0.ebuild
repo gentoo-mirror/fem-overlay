@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="
 	>=dev-python/requests-2.20.0[${PYTHON_USEDEP}]
 	<dev-python/requests-3[${PYTHON_USEDEP}]
-	<dev-python/packaging-24[${PYTHON_USEDEP}]
+	dev-python/packaging[${PYTHON_USEDEP}]
 "
 RDEPEND="${DEPEND}"
 
