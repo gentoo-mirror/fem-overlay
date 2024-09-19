@@ -27,6 +27,7 @@ app-emulation/grub-xen-host 1.0-r2: Grub2 built as a PV grub per the Xen PV Boot
 app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-emulation/xen-sriov 0.2020705: Xen sr-iov scripts
 app-metrics/mimir-bin 2.5.0-r1: Long term prometheus metrics storage
+app-misc/bugwarrior 9999: Bugtracker to taskwarrior importer
 app-misc/tmux-starter 1.1.1: Simple ncurses based interface for accessing tmux sessions
 app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
@@ -66,6 +67,7 @@ dev-python/ddlparse 1.10.0: Python DDL parser
 dev-python/dokuwiki 1.2.1 1.2.1-r1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
 dev-python/ffmpeg-progress-yield 0.7.8: Run an ffmpeg command with progress
+dev-python/kitchen 1.2.6: Collection of useful code fragments
 dev-python/pynetbox 7.4.0: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
