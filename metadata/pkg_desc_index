@@ -112,7 +112,7 @@ sys-kernel/femkvm-kernel 5.15.88 6.1.31 6.1.67: Linux kernel built with Gentoo p
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
 www-apps/icinga-overview 9999: Simple Icinga-Classic-UI-like overview for Icinga2
-www-nginx/nginx-vod-module 1.27.0.1.33: NGINX-based MP4 Repackager
+www-nginx/nginx-vod-module 1.27.1.1.33: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2 9999: pass integration for rofi
 x11-plugins/pidgin-carbons 0.2.3: Experimental XEP-0280: Message Carbons plugin for libpurple
