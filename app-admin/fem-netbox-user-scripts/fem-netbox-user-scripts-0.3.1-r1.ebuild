@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_11 )
+PYTHON_COMPAT=( python3_{11,12} )
 inherit python-single-r1
 
 DESCRIPTION="Scripts for NetBox users by FeM e.V."
