@@ -1,0 +1,556 @@
+commit fff27c80608a605e62dcd541dd5bfea2caf17b36
+Author: Adrian Schollmeyer <git@nexadn.de>
+Date:   Mon Sep 16 13:08:34 2024 +0200
+
+    use pydantic v2 backwards compat mode
+    
+    This should allow using the existing pydantic v1 features while
+    migration to v2 is not done. This also raises the minimum requirement to
+    pydantic >= 2, as the v1 compat modules are not available in pydantic
+    v1. As discussed in the PR [0], this new version requirement was
+    accepted due to widespread adoption of pydantic v2 in major
+    distributions.
+    
+    Issue: https://github.com/GothenburgBitFactory/bugwarrior/issues/998
+    
+    [0] https://github.com/GothenburgBitFactory/bugwarrior/pull/1068#pullrequestreview-2310309470
+
+--- a/bugwarrior/config/ini2toml_plugin.py
++++ b/bugwarrior/config/ini2toml_plugin.py
+@@ -3,8 +3,8 @@ import re
+ import typing
+ 
+ from ini2toml.types import IntermediateRepr, Translator
+-import pydantic
+-from pydantic import BaseModel
++import pydantic.v1
++from pydantic.v1 import BaseModel
+ 
+ from .schema import ConfigList
+ from ..services.activecollab2 import ActiveCollabProjects
+@@ -147,7 +147,7 @@ def process_values(doc: IntermediateRepr) -> IntermediateRepr:
+                 if service == 'gitlab' and 'verify_ssl' in section.keys():
+                     try:
+                         to_bool(section, 'verify_ssl')
+-                    except pydantic.error_wrappers.ValidationError:
++                    except pydantic.v1.ValidationError:
+                         # verify_ssl is allowed to be a path
+                         pass
+ 
+--- a/bugwarrior/config/schema.py
++++ b/bugwarrior/config/schema.py
+@@ -5,7 +5,8 @@ import re
+ import sys
+ import typing
+ 
+-import pydantic.error_wrappers
++import pydantic.v1
++import pydantic.v1.error_wrappers
+ import taskw
+ import typing_extensions
+ 
+@@ -16,14 +17,14 @@ from .data import BugwarriorData, get_data_path
+ log = logging.getLogger(__name__)
+ 
+ 
+-class StrippedTrailingSlashUrl(pydantic.AnyUrl):
++class StrippedTrailingSlashUrl(pydantic.v1.AnyUrl):
+ 
+     @classmethod
+     def validate(cls, value, field, config):
+         return super().validate(value.rstrip('/'), field, config)
+ 
+ 
+-class UrlSchemeError(pydantic.errors.UrlSchemeError):
++class UrlSchemeError(pydantic.v1.UrlSchemeError):
+     msg_template = "URL should not include scheme ('{scheme}')"
+ 
+ 
+@@ -38,11 +39,11 @@ class NoSchemeUrl(StrippedTrailingSlashUrl):
+ 
+         port = parts['port']
+         if port is not None and int(port) > 65_535:
+-            raise pydantic.errors.UrlPortError()
++            raise pydantic.v1.errors.UrlPortError()
+ 
+         user = parts['user']
+         if cls.user_required and user is None:
+-            raise pydantic.errors.UrlUserInfoError()
++            raise pydantic.v1.errors.UrlUserInfoError()
+ 
+         return parts
+ 
+@@ -94,13 +95,13 @@ class TaskrcPath(ExpandedPath):
+         return expanded_path
+ 
+ 
+-class PydanticConfig(pydantic.BaseConfig):
++class PydanticConfig(pydantic.v1.BaseConfig):
+     allow_mutation = False  # config is faux-immutable
+     extra = 'forbid'  # do not allow undeclared fields
+     validate_all = True  # validate default fields
+ 
+ 
+-class MainSectionConfig(pydantic.BaseModel):
++class MainSectionConfig(pydantic.v1.BaseModel):
+ 
+     class Config(PydanticConfig):
+         arbitrary_types_allowed = True
+@@ -114,13 +115,13 @@ class MainSectionConfig(pydantic.BaseModel):
+     # added during validation (computed field support will land in pydantic-2)
+     data: typing.Optional[BugwarriorData] = None
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def compute_data(cls, values):
+         values['data'] = BugwarriorData(get_data_path(values['taskrc']))
+         return values
+ 
+     # optional
+-    taskrc: TaskrcPath = pydantic.Field(
++    taskrc: TaskrcPath = pydantic.v1.Field(
+         default_factory=lambda: TaskrcPath(os.getenv('TASKRC', '~/.taskrc')))
+     shorten: bool = False
+     inline_links: bool = True
+@@ -141,11 +142,11 @@ class MainSectionConfig(pydantic.BaseModel):
+     log_file: typing.Optional[LoggingPath] = None
+ 
+ 
+-class Hooks(pydantic.BaseModel):
++class Hooks(pydantic.v1.BaseModel):
+     pre_import: ConfigList = ConfigList([])
+ 
+ 
+-class Notifications(pydantic.BaseModel):
++class Notifications(pydantic.v1.BaseModel):
+     notifications: bool = False
+     # Although upstream supports it, pydantic has problems with Literal[None].
+     backend: typing.Optional[typing_extensions.Literal[
+@@ -155,7 +156,7 @@ class Notifications(pydantic.BaseModel):
+     only_on_new_tasks: bool = False
+ 
+ 
+-class SchemaBase(pydantic.BaseSettings):
++class SchemaBase(pydantic.v1.BaseSettings):
+     class Config(PydanticConfig):
+         # Allow extra top-level sections so all targets don't have to be selected.
+         extra = 'ignore'
+@@ -167,7 +168,7 @@ class SchemaBase(pydantic.BaseSettings):
+ class ValidationErrorEnhancedMessages(list):
+     """ Methods loosely adapted from pydantic.error_wrappers. """
+ 
+-    def __init__(self, error: pydantic.ValidationError):
++    def __init__(self, error: pydantic.v1.ValidationError):
+         super().__init__(self.flatten(error))
+ 
+     def __str__(self):
+@@ -192,17 +193,17 @@ class ValidationErrorEnhancedMessages(list):
+ 
+     def flatten(self, err, loc=None):
+         for error in err.raw_errors:
+-            if isinstance(error, pydantic.error_wrappers.ErrorWrapper):
++            if isinstance(error, pydantic.v1.error_wrappers.ErrorWrapper):
+ 
+                 if loc:
+                     error_loc = loc + error.loc_tuple()
+                 else:
+                     error_loc = error.loc_tuple()
+ 
+-                if isinstance(error.exc, pydantic.ValidationError):
++                if isinstance(error.exc, pydantic.v1.ValidationError):
+                     yield from self.flatten(error.exc, error_loc)
+                 else:
+-                    e = pydantic.error_wrappers.error_dict(
++                    e = pydantic.v1.error_wrappers.error_dict(
+                         error.exc, PydanticConfig, error_loc)
+                     yield self.display_error(e, error, err.model)
+             elif isinstance(error, list):
+@@ -223,7 +224,7 @@ def raise_validation_error(msg, config_path, no_errors=1):
+ 
+ def get_target_validator(targets):
+ 
+-    @pydantic.root_validator(pre=True, allow_reuse=True)
++    @pydantic.v1.root_validator(pre=True, allow_reuse=True)
+     def compute_target(cls, values):
+         for target in targets:
+             values[target]['target'] = target
+@@ -260,7 +261,7 @@ def validate_config(config: dict, main_section: str, config_path: str) -> dict:
+                       for target, service in servicemap.items()}
+ 
+     # Construct Validation Model
+-    bugwarrior_config_model = pydantic.create_model(
++    bugwarrior_config_model = pydantic.v1.create_model(
+         'bugwarriorrc',
+         __base__=SchemaBase,
+         __validators__={'compute_target': get_target_validator(targets)},
+@@ -274,14 +275,14 @@ def validate_config(config: dict, main_section: str, config_path: str) -> dict:
+         # Convert top-level model to dict since target names are dynamic and
+         # a bunch of calls to getattr(config, target) inhibits readability.
+         return dict(bugwarrior_config_model(**config))
+-    except pydantic.ValidationError as e:
++    except pydantic.v1.ValidationError as e:
+         errors = ValidationErrorEnhancedMessages(e)
+         raise_validation_error(
+             str(errors), config_path, no_errors=len(errors))
+ 
+ 
+ # Dynamically add template fields to model.
+-_ServiceConfig = pydantic.create_model(
++_ServiceConfig = pydantic.v1.create_model(
+     '_ServiceConfig',
+     **{f'{key}_template': (typing.Optional[str], None)
+        for key in taskw.task.Task.FIELDS}
+@@ -303,7 +304,7 @@ class ServiceConfig(_ServiceConfig):  # type: ignore  # (dynamic base class)
+     add_tags: ConfigList = ConfigList([])
+     description_template: typing.Optional[str] = None
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def compute_templates(cls, values):
+         """ Get any defined templates for configuration values.
+ 
+@@ -337,7 +338,7 @@ class ServiceConfig(_ServiceConfig):  # type: ignore  # (dynamic base class)
+                 values['templates'][key] = template
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def deprecate_filter_merge_requests(cls, values):
+         if hasattr(cls, '_DEPRECATE_FILTER_MERGE_REQUESTS'):
+             if values['filter_merge_requests'] != 'Undefined':
+@@ -351,7 +352,7 @@ class ServiceConfig(_ServiceConfig):  # type: ignore  # (dynamic base class)
+                 values['include_merge_requests'] = True
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def deprecate_project_name(cls, values):
+         if hasattr(cls, '_DEPRECATE_PROJECT_NAME'):
+             if values['project_name'] != '':
+--- a/bugwarrior/services/bitbucket.py
++++ b/bugwarrior/services/bitbucket.py
+@@ -1,7 +1,7 @@
+ import logging
+ import typing
+ 
+-import pydantic
++import pydantic.v1
+ import requests
+ import typing_extensions
+ 
+@@ -30,7 +30,7 @@ class BitbucketConfig(config.ServiceConfig):
+     include_merge_requests: typing.Union[bool, typing_extensions.Literal['Undefined']] = 'Undefined'
+     project_owner_prefix: bool = False
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def deprecate_password_authentication(cls, values):
+         if values['login'] != 'Undefined' or values['password'] != 'Undefined':
+             log.warning(
+--- a/bugwarrior/services/bts.py
++++ b/bugwarrior/services/bts.py
+@@ -1,6 +1,6 @@
+ import sys
+ 
+-import pydantic
++import pydantic.v1
+ import requests
+ import typing_extensions
+ 
+@@ -24,7 +24,7 @@ UDD_BUGS_SEARCH = "https://udd.debian.org/bugs/"
+ class BTSConfig(config.ServiceConfig):
+     service: typing_extensions.Literal['bts']
+ 
+-    email: pydantic.EmailStr = pydantic.EmailStr('')
++    email: pydantic.v1.EmailStr = pydantic.v1.EmailStr('')
+     packages: config.ConfigList = config.ConfigList([])
+ 
+     udd: bool = False
+@@ -33,20 +33,20 @@ class BTSConfig(config.ServiceConfig):
+     ignore_pkg: config.ConfigList = config.ConfigList([])
+     ignore_src: config.ConfigList = config.ConfigList([])
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def require_email_or_packages(cls, values):
+         if not values['email'] and not values['packages']:
+             raise ValueError(
+                 'section requires one of:\n    email\n    packages')
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def udd_needs_email(cls, values):
+         if values['udd'] and not values['email']:
+             raise ValueError("no 'email' but UDD search was requested")
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def python_version_limited(cls, values):
+         log.warning(
+             'The Debian BTS service has a dependency that has not yet been '
+--- a/bugwarrior/services/bz.py
++++ b/bugwarrior/services/bz.py
+@@ -6,7 +6,7 @@ import typing
+ import xmlrpc.client
+ 
+ import bugzilla
+-import pydantic
++import pydantic.v1
+ import pytz
+ import typing_extensions
+ 
+@@ -16,7 +16,7 @@ from bugwarrior.services import IssueService, Issue
+ log = logging.getLogger(__name__)
+ 
+ 
+-class OptionalSchemeUrl(pydantic.AnyUrl):
++class OptionalSchemeUrl(pydantic.v1.AnyUrl):
+     """
+     A temporary type to use during the deprecation period of scheme-less urls.
+     """
+@@ -54,7 +54,7 @@ class BugzillaConfig(config.ServiceConfig):
+         'PASSES_QA',
+     ])
+     include_needinfos: bool = False
+-    query_url: typing.Optional[pydantic.AnyUrl]
++    query_url: typing.Optional[pydantic.v1.AnyUrl]
+     force_rest: bool = False
+     advanced: bool = False
+ 
+--- a/bugwarrior/services/github.py
++++ b/bugwarrior/services/github.py
+@@ -2,7 +2,7 @@ import re
+ import sys
+ import urllib.parse
+ 
+-import pydantic
++import pydantic.v1
+ import requests
+ import typing_extensions
+ 
+@@ -41,7 +41,7 @@ class GithubConfig(config.ServiceConfig):
+     project_owner_prefix: bool = False
+     issue_urls: config.ConfigList = config.ConfigList([])
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def deprecate_password(cls, values):
+         if values['password'] != 'Deprecated':
+             log.warning(
+@@ -49,14 +49,14 @@ class GithubConfig(config.ServiceConfig):
+                 '"password" in favor of "token".')
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def require_username_or_query(cls, values):
+         if not values['username'] and not values['query']:
+             raise ValueError(
+                 'section requires one of:\n    username\n    query')
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def issue_urls_consistent_with_host(cls, values):
+         issue_url_paths = []
+         for url in values['issue_urls']:
+@@ -71,7 +71,7 @@ class GithubConfig(config.ServiceConfig):
+         values['issue_urls'] = issue_url_paths
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def require_username_if_include_user_repos(cls, values):
+         if values['include_user_repos'] and not values['username']:
+             raise ValueError(
+--- a/bugwarrior/services/gitlab.py
++++ b/bugwarrior/services/gitlab.py
+@@ -2,7 +2,7 @@ from urllib.parse import quote, urlencode
+ import requests
+ import typing
+ 
+-import pydantic
++import pydantic.v1
+ import sys
+ import typing_extensions
+ 
+@@ -48,7 +48,7 @@ class GitlabConfig(config.ServiceConfig):
+     merge_request_query: str = ''
+     todo_query: str = ''
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def namespace_repo_lists(cls, values):
+         """ Add a default namespace to a repository name.  If the name already
+         contains a namespace, it will be returned unchanged:
+@@ -64,7 +64,7 @@ class GitlabConfig(config.ServiceConfig):
+                 for repo in values[repolist]]
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def default_priorities(cls, values):
+         for task_type in ['issue', 'todo', 'mr']:
+             priority_field = f'default_{task_type}_priority'
+@@ -74,7 +74,7 @@ class GitlabConfig(config.ServiceConfig):
+                 else values['default_priority'])
+         return values
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def filter_gitlab_dot_com(cls, values):
+         """
+         There must be a repository filter if the host is gitlab.com.
+@@ -99,7 +99,7 @@ class GitlabConfig(config.ServiceConfig):
+                 "there are too many on gitlab.com to fetch them all.")
+         return values
+ 
+-    @pydantic.validator('owned', always=True)
++    @pydantic.v1.validator('owned', always=True)
+     def require_owned(cls, v):
+         """
+         Migrate 'owned' field from default False to default True.
+--- a/bugwarrior/services/jira.py
++++ b/bugwarrior/services/jira.py
+@@ -3,7 +3,7 @@ import sys
+ import typing
+ from functools import reduce
+ 
+-import pydantic
++import pydantic.v1
+ import typing_extensions
+ from dateutil.tz.tz import tzutc
+ from jira.client import JIRA as BaseJIRA
+@@ -56,7 +56,7 @@ class JiraExtraFields(frozenset):
+ 
+ 
+ # NOTE: replace with stdlib dataclasses.dataclass once python-3.6 is dropped
+-@pydantic.dataclasses.dataclass
++@pydantic.v1.dataclasses.dataclass
+ class JiraExtraField:
+     label: str
+     keys: typing.List[str]
+@@ -78,7 +78,7 @@ class JiraExtraField:
+ 
+ class JiraConfig(config.ServiceConfig):
+     service: typing_extensions.Literal['jira']
+-    base_uri: pydantic.AnyUrl
++    base_uri: pydantic.v1.AnyUrl
+     username: str
+ 
+     password: str = ''
+@@ -94,7 +94,7 @@ class JiraConfig(config.ServiceConfig):
+     verify_ssl: bool = True
+     version: int = 5
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def require_password_xor_PAT(cls, values):
+         if ((values['password'] and values['PAT'])
+                 or not (values['password'] or values['PAT'])):
+--- a/bugwarrior/services/pagure.py
++++ b/bugwarrior/services/pagure.py
+@@ -1,7 +1,7 @@
+ import datetime
+ import pytz
+ 
+-import pydantic
++import pydantic.v1
+ import requests
+ import typing_extensions
+ 
+@@ -27,7 +27,7 @@ class PagureConfig(config.ServiceConfig):
+     import_tags: bool = False
+     tag_template: str = '{{label}}'
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def require_tag_or_repo(cls, values):
+         if not values['tag'] and not values['repo']:
+             raise ValueError(
+--- a/bugwarrior/services/phab.py
++++ b/bugwarrior/services/phab.py
+@@ -2,7 +2,7 @@ import logging
+ import typing
+ 
+ import phabricator
+-import pydantic
++import pydantic.v1
+ import typing_extensions
+ 
+ from bugwarrior import config
+@@ -16,7 +16,7 @@ class PhabricatorConfig(config.ServiceConfig):
+ 
+     user_phids: config.ConfigList = config.ConfigList([])
+     project_phids: config.ConfigList = config.ConfigList([])
+-    host: typing.Optional[pydantic.AnyUrl]
++    host: typing.Optional[pydantic.v1.AnyUrl]
+     ignore_cc: typing.Optional[bool] = None
+     ignore_author: typing.Optional[bool] = None
+     ignore_owner: bool = False
+--- a/bugwarrior/services/teamlab.py
++++ b/bugwarrior/services/teamlab.py
+@@ -1,4 +1,4 @@
+-import pydantic
++import pydantic.v1
+ import requests
+ import typing_extensions
+ 
+@@ -18,7 +18,7 @@ class TeamLabConfig(config.ServiceConfig):
+     login: str
+     password: str
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def default_project_name(cls, values):
+         if values['project_name'] == '':
+             values['project_name'] = values['hostname']
+--- a/bugwarrior/services/versionone.py
++++ b/bugwarrior/services/versionone.py
+@@ -1,4 +1,4 @@
+-import pydantic
++import pydantic.v1
+ import typing_extensions
+ from v1pysdk import V1Meta
+ from v1pysdk.none_deref import NoneDeref
+@@ -13,7 +13,7 @@ class VersionOneConfig(config.ServiceConfig):
+     project_name: str = ''
+ 
+     service: typing_extensions.Literal['versionone']
+-    base_uri: pydantic.AnyUrl
++    base_uri: pydantic.v1.AnyUrl
+     username: str
+ 
+     password: str = ''
+--- a/bugwarrior/services/youtrack.py
++++ b/bugwarrior/services/youtrack.py
+@@ -1,6 +1,6 @@
+ import typing
+ 
+-import pydantic
++import pydantic.v1
+ import requests
+ import typing_extensions
+ 
+@@ -31,7 +31,7 @@ class YoutrackConfig(config.ServiceConfig):
+     # added during validation (computed field support will land in pydantic-2)
+     base_url: str = ''
+ 
+-    @pydantic.root_validator
++    @pydantic.v1.root_validator
+     def compute_base_url(cls, values):
+         if values['use_https']:
+             scheme = 'https'
+--- a/setup.py
++++ b/setup.py
+@@ -60,7 +60,7 @@ setup(name='bugwarrior',
+           "dogpile.cache>=0.5.3",
+           "jinja2>=2.7.2",
+           "lockfile>=0.9.1",
+-          "pydantic[email]<2",
++          "pydantic[email]>=2",
+           "python-dateutil",
+           "pytz",
+           "requests",
