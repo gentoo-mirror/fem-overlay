@@ -52,10 +52,6 @@ distutils_enable_tests pytest
 
 DOCS=( bugwarrior/README.rst )
 
-PATCHES=(
-	"${FILESDIR}/${P}-pydanticv2-compat.patch"
-)
-
 src_prepare() {
 	# Some modules don't have packaged dependencies
 	local ignore_modules=(
