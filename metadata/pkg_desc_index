@@ -80,6 +80,7 @@ media-plugins/gst-plugins-fdkaac 1.20.6: Fraunhofer AAC encoder plugin for GStre
 media-sound/aes67-linux-daemon 1.6.4-r1: AES67 Linux Daemon with configuration WebUI
 media-sound/ffmpeg-normalize 1.28.2: Audio normalizer using ffmpeg
 media-sound/jamulus 3.8.2: Internet jam session software
+media-sound/x-air-edit-bin 1.8.1: Graphical editor for the X32 mixer
 media-sound/x32edit-bin 4.3-r2: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmusb 0.7.6 0.7.6-r1: USB Driver for Blackmagic Ultrastudio cards
