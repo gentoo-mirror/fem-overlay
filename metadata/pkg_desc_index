@@ -106,7 +106,6 @@ net-misc/gortr 0.14.8 0.15.0: Open-Source implementation of RPKI to Router proto
 net-misc/webaccess-to-icingaweb2 9999: Tool to derive Icingaweb2 roles file from Icinga2 API
 sci-calculators/taschenrechner 1.4.0: A commandline calculator with interactive ASCII art input and accurate results
 sci-electronics/ghdl-bin 0.33-r1: VHDL 2008/93/87 simulator
-sci-electronics/verilator 4.210: Verilog compiler and simulator
 sys-devel/llvm-compat-symlinks 16 17 18: Compatibility symlinks for sys-devel/lld
 sys-fs/fuse-ts 2022.11.15.1 9999: FUSE module for working with splitted MPEG TS files
 sys-kernel/femkvm-kernel 5.15.88 6.1.31 6.1.67: Linux kernel built with Gentoo patches

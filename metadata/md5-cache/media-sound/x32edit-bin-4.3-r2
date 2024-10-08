@@ -10,5 +10,5 @@ RDEPEND=media-libs/alsa-lib media-libs/freetype net-misc/curl
 RESTRICT=strip
 SLOT=0
 SRC_URI=https://mediadl.musictribe.com/download/software/behringer/X32/X32-Edit_LINUX_4.3.tar.gz
-_eclasses_=desktop	56973babb9c5f19cab0eeb53ece644c6
+_eclasses_=desktop	3a72ffe0d8e1dd73af3a1c8c15a59fed
 _md5_=4bb3b2833986447ef0de889c91ffa462
