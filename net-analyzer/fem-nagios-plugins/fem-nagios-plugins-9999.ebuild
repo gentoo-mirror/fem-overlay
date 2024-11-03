@@ -49,7 +49,7 @@ RESTRICT="test"
 # This list is extended conditionally using PLUGIN_FLAG_MAP depending on the
 # USE flags set
 PLUGIN_LIST=(
-	cgiirc gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram ram2 smart_sectors smartarray temp_sensor vg_size lvm_cache net_traffic zfs
+	cgiirc conntrack gentoo_portage mailqueue_exim nfs nrpe_wrapper openvpn_clients ram ram2 smart_sectors smartarray temp_sensor vg_size lvm_cache net_traffic zfs
 )
 
 DOCS=( README.md CHANGELOG.md )
