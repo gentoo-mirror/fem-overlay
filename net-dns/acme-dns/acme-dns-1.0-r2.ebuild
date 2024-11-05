@@ -24,6 +24,10 @@ RDEPEND="
 	acct-group/acme-dns
 	sys-libs/libcap
 "
+# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/314
+BDEPEND="
+	<dev-lang/go-1.23
+"
 
 EGO_PN="github.com/joohoi/acme-dns"
 
