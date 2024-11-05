@@ -26,6 +26,10 @@ RDEPEND="
 	sys-libs/libcap
 	!systemd? ( sys-apps/openrc[caps] )
 "
+# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/314
+BDEPEND="
+	<dev-lang/go-1.23
+"
 
 EGO_PN="github.com/joohoi/acme-dns"
 
