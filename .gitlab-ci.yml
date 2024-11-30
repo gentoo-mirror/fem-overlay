@@ -19,6 +19,23 @@ overlint:
   rules:
     - if: "$CI_COMMIT_BRANCH == 'master'"
 
+pkgcheck_cq:
+  stage: pkgcheck
+  script:
+    - "/tools/pkgcheck4gitlab.py --output pkgcheck_cq.json --cache-dir $PKGCHECK_CACHE_DIR"
+
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'master'"
+    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
+
+  artifacts:
+    reports:
+      codequality: "pkgcheck_cq.json"
+
+    paths:
+      # for debugging
+      - "pkgcheck_cq.json"
+
 pkgcheck_all:
   stage: pkgcheck
   script:
