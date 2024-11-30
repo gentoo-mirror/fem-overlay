@@ -6,6 +6,14 @@ stages:
   - manifest
   - global-scope-checks
 
+.pkgcheck-cache:
+  variables:
+    PKGCHECK_CACHE_DIR: ".cache/pkgcheck/"
+  cache:
+    - key: "pkgcheck.${CI_COMMIT_REF_SLUG}"
+      paths:
+        - ".cache/pkgcheck/"
+
 variables:
   DISTDIR: ./tmp_distdir
   NOCOLOR: "false"
@@ -20,6 +28,7 @@ overlint:
     - if: "$CI_COMMIT_BRANCH == 'master'"
 
 pkgcheck_cq:
+  extends: ".pkgcheck-cache"
   stage: pkgcheck
   script:
     - "/tools/pkgcheck4gitlab.py --output pkgcheck_cq.json --cache-dir $PKGCHECK_CACHE_DIR"
@@ -37,18 +46,20 @@ pkgcheck_cq:
       - "pkgcheck_cq.json"
 
 pkgcheck_all:
+  extends: ".pkgcheck-cache"
   stage: pkgcheck
   script:
-    - pkgcheck scan $PKGCHECK_COMMON_OPTS
+    - "pkgcheck scan $PKGCHECK_COMMON_OPTS --cache-dir $PKGCHECK_CACHE_DIR"
   needs: []
   rules:
     - if: "$CI_COMMIT_BRANCH == 'master'"
 
 pkgcheck_commits:
+  extends: ".pkgcheck-cache"
   stage: pkgcheck
   script:
     - git fetch
-    - pkgcheck scan $PKGCHECK_COMMON_OPTS --commits origin/master..HEAD
+    - "pkgcheck scan $PKGCHECK_COMMON_OPTS --commits origin/master..HEAD --cache-dir $PKGCHECK_CACHE_DIR"
   needs: []
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
