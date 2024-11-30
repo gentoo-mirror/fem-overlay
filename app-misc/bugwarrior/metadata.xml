@@ -5,4 +5,8 @@
 		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
 		<name>Adrian 'nex' Schollmeyer</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="pypi">bugwarrior</remote-id>
+		<remote-id type="github">GothenburgBitFactory/bugwarrior</remote-id>
+	</upstream>
 </pkgmetadata>

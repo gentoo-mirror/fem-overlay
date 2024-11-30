@@ -4,11 +4,11 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{11..12} )
 inherit optfeature distutils-r1
 
 DESCRIPTION="Bugtracker to taskwarrior importer"
-HOMEPAGE="http://pypi.python.org/pypi/bugwarrior https://github.com/ralphbean/bugwarrior"
+HOMEPAGE="https://pypi.org/project/bugwarrior/ https://github.com/GothenburgBitFactory/bugwarrior"
 if [[ "${PV}" == "9999" ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/GothenburgBitFactory/bugwarrior.git"
@@ -30,7 +30,7 @@ RDEPEND="
 	>=dev-python/pydantic-2[${PYTHON_USEDEP}]
 	>=dev-python/taskw-0.8[${PYTHON_USEDEP}]
 	dev-python/click[${PYTHON_USEDEP}]
-	dev-python/jinja[${PYTHON_USEDEP}]
+	dev-python/jinja2[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
 	dev-python/pytz[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
