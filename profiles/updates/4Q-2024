@@ -1,0 +1,1 @@
+move sys-devel/llvm-compat-symlinks llvm-core/llvm-compat-symlinks
