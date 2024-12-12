@@ -31,8 +31,8 @@ RESTRICT="fetch"
 
 RDEPEND="
 	sys-apps/systemd-utils[udev]
-	sys-libs/libcxx
-	sys-libs/libcxxabi
+	llvm-runtimes/libcxx
+	llvm-runtimes/libcxxabi
 	virtual/libusb
 
 	X? (
