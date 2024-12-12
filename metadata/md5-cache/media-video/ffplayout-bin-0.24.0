@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install postinst
+DEPEND=acct-user/ffplayout acct-group/ffplayout
+DESCRIPTION=Rust and ffmpeg based playout
+EAPI=8
+HOMEPAGE=https://github.com/ffplayout/ffplayout https://ffplayout.github.io/
+INHERIT=systemd
+KEYWORDS=-* ~amd64
+LICENSE=GPL-3 0BSD Apache-2.0 BSD CC0-1.0 ISC MIT MPL-2.0 Unicode-3.0 Unicode-DFS-2016 openssl
+RDEPEND=acct-user/ffplayout acct-group/ffplayout media-video/ffmpeg
+SLOT=0
+SRC_URI=https://gitlab.fem-net.de/gentoo/ffplayout-bin/-/jobs/172267/artifacts/raw/ffplayout-bin-0.24.0.tar.bz2
+_eclasses_=toolchain-funcs	fa554cc3cff825d21dfe3f24841e29cf	multilib	b2a329026f2e404e9e371097dda47f96	systemd	54bd206bb5c4efac6ae28b6b006713b0
+_md5_=a971f0bbc464335753172f640acfc173
