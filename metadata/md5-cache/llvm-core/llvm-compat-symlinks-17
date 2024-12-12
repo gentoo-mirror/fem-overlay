@@ -1,9 +1,9 @@
 DEFINED_PHASES=install
-DESCRIPTION=Compatibility symlinks for sys-devel/lld
+DESCRIPTION=Compatibility symlinks for llvm-core/lld
 EAPI=8
 HOMEPAGE=https://wiki.gentoo.org/wiki/No_homepage
 KEYWORDS=~amd64
 LICENSE=GPL-2
-RDEPEND=sys-devel/lld:17
+RDEPEND=llvm-core/lld:17
 SLOT=17
-_md5_=e2b4031fd5340e6a3ce46c2366fd0fe5
+_md5_=33598710df9a87608c33de650ab86769
