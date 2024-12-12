@@ -5,19 +5,18 @@ EAPI=8
 
 MY_PV="$(ver_cut 1)"
 
-DESCRIPTION="Compatibility symlinks for sys-devel/lld"
+DESCRIPTION="Compatibility symlinks for llvm-core/lld"
 HOMEPAGE="https://wiki.gentoo.org/wiki/No_homepage"
-SRC_URI=""
+
+S="${WORKDIR}"
 
 LICENSE="GPL-2"
 SLOT="${MY_PV}"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	sys-devel/lld:${MY_PV}
+	llvm-core/lld:${MY_PV}
 "
-
-S="${WORKDIR}"
 
 src_install() {
 	local l

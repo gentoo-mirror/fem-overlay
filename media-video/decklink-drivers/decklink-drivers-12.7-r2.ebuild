@@ -30,8 +30,8 @@ REQUIRED_USE="autostart? ( X )"
 RESTRICT="fetch"
 
 RDEPEND="
-	sys-libs/libcxx
-	sys-libs/libcxxabi
+	llvm-runtimes/libcxx
+	llvm-runtimes/libcxxabi
 	virtual/libusb
 	virtual/udev
 
