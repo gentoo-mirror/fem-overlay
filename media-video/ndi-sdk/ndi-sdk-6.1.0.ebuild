@@ -7,8 +7,10 @@ INSTALLER_VER="$(ver_cut 1)"
 FILE_NAME="Install_NDI_SDK_v${INSTALLER_VER}_Linux.sh"
 
 DESCRIPTION="NewTek NDI SDK"
-HOMEPAGE="https://www.newtek.com/ndi/sdk/"
+HOMEPAGE="https://ndi.video/tech/"
 SRC_URI="https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v${INSTALLER_VER}_Linux.tar.gz -> ${P}.tar.gz"
+
+S="${WORKDIR}/NDI SDK for Linux/"
 
 LICENSE="NDI_EULA_END"
 # subslot is SONAME version
@@ -17,8 +19,6 @@ KEYWORDS="-* ~amd64"
 IUSE="doc examples tools"
 
 RDEPEND="net-dns/avahi[dbus]"
-
-S="${WORKDIR}/NDI SDK for Linux/"
 
 RESTRICT="bindist mirror"
 QA_PREBUILT="
