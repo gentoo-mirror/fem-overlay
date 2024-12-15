@@ -1,12 +1,12 @@
 DEFINED_PHASES=install unpack
 DESCRIPTION=NewTek NDI SDK
 EAPI=8
-HOMEPAGE=https://www.newtek.com/ndi/sdk/
+HOMEPAGE=https://ndi.video/tech/
 IUSE=doc examples tools
 KEYWORDS=-* ~amd64
 LICENSE=NDI_EULA_END
 RDEPEND=net-dns/avahi[dbus]
 RESTRICT=bindist mirror
 SLOT=0/6
-SRC_URI=https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz -> ndi-sdk-6.0.1.tar.gz
-_md5_=8944fceb53e33ae9f395ce5fe0cc275d
+SRC_URI=https://downloads.ndi.tv/SDK/NDI_SDK_Linux/Install_NDI_SDK_v6_Linux.tar.gz -> ndi-sdk-6.1.0.tar.gz
+_md5_=c765538014fcef3fae98edbdbaf499c7
