@@ -75,7 +75,7 @@ dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
 dev-util/debian-devscripts 2.23.5: Scripts to help Debian package maintenance
 dev-util/dput-ng 1.38 1.40: Debian package uploading tool
-llvm-core/llvm-compat-symlinks 16 17 18: Compatibility symlinks for llvm-core/lld
+llvm-core/llvm-compat-symlinks 16 17 18 19: Compatibility symlinks for llvm-core/lld
 media-gfx/corrupter 1.0_p20230111: Simple image glitcher
 media-plugins/distroav 4.14.0 6.0.0: NewTek NDI integration for OBS Studio
 media-plugins/gst-plugins-decklink 1.20.6: Decklink Plugin for Gstreamer
