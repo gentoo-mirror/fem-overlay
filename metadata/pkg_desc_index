@@ -87,7 +87,7 @@ media-sound/x-air-edit-bin 1.8.1: Graphical editor for the X32 mixer
 media-sound/x32edit-bin 4.3-r2: Graphical editor for the X32 mixer
 media-tv/mumudvb 20220501: Multi Multicast DVB to redistribute streams from DVB or ATSC
 media-video/bmusb 0.7.6 0.7.6-r1 0.7.7: USB Driver for Blackmagic Ultrastudio cards
-media-video/decklink-drivers 12.7-r1 12.7-r2 12.8 12.9 14.0 14.2: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
+media-video/decklink-drivers 14.0 14.2: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/ffmpeg 4.4.1-r1 5.1.2-r1 6.1.1-r1 6.1.2 9999: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/ffplayout-bin 0.24.0: Rust and ffmpeg based playout
 media-video/mediamtx 1.9.3 1.10.0: Multi-protocol media server and streaming proxy for video and audio streams
@@ -114,7 +114,7 @@ sys-fs/fuse-ts 2022.11.15.1 9999: FUSE module for working with splitted MPEG TS 
 sys-kernel/femkvm-kernel 5.15.88 6.1.31 6.1.67: Linux kernel built with Gentoo patches
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
 www-apps/icinga-overview 9999: Simple Icinga-Classic-UI-like overview for Icinga2
-www-nginx/nginx-vod-module 1.27.1.1.33: NGINX-based MP4 Repackager
+www-nginx/nginx-vod-module 1.27.3.1.33: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2 9999: pass integration for rofi
 x11-plugins/pidgin-carbons 0.2.3: Experimental XEP-0280: Message Carbons plugin for libpurple
