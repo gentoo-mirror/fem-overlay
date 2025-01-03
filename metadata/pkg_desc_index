@@ -113,7 +113,6 @@ sci-electronics/ghdl-bin 0.33-r1: VHDL 2008/93/87 simulator
 sys-fs/fuse-ts 2022.11.15.1 9999: FUSE module for working with splitted MPEG TS files
 sys-kernel/femkvm-kernel 5.15.88 6.1.31 6.1.67: Linux kernel built with Gentoo patches
 sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
-www-apache/mod_rangecnt 1.0 1.0-r1: fixes apache Range header vulnerability
 www-apps/icinga-overview 9999: Simple Icinga-Classic-UI-like overview for Icinga2
 www-nginx/nginx-vod-module 1.27.1.1.33: NGINX-based MP4 Repackager
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
