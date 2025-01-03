@@ -33,9 +33,3 @@
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (16 Jul 2024)
 # Masked for testing
 =media-video/decklink-drivers-14.2
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (30 Nov 2024)
-# Uses deprecated EAPI=6. Unmaintained.
-# Removal in 30 days.
-# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/316
-sci-electronics/verilator
