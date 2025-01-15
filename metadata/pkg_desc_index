@@ -70,7 +70,7 @@ dev-python/dokuwiki 1.2.1 1.2.1-r1: Library to manage DokuWiki via XML-RPC API
 dev-python/fem-netbox-user-scripts-common 0.3.1: Common script modules for FeM e.V.'s NetBox
 dev-python/ffmpeg-progress-yield 0.7.8: Run an ffmpeg command with progress
 dev-python/kitchen 1.2.6: Collection of useful code fragments
-dev-python/pynetbox 7.4.0 7.4.1: Python library to interact with the NetBox REST API
+dev-python/pynetbox 7.4.1: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
 dev-util/debian-devscripts 2.23.5: Scripts to help Debian package maintenance
@@ -90,7 +90,7 @@ media-video/bmusb 0.7.6 0.7.6-r1 0.7.7: USB Driver for Blackmagic Ultrastudio ca
 media-video/decklink-drivers 14.0 14.2 14.4: Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)
 media-video/ffmpeg 4.4.1-r1 5.1.2-r1 6.1.1-r1 6.1.2 9999: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/ffplayout-bin 0.24.0: Rust and ffmpeg based playout
-media-video/mediamtx 1.9.3 1.10.0: Multi-protocol media server and streaming proxy for video and audio streams
+media-video/mediamtx 1.10.0: Multi-protocol media server and streaming proxy for video and audio streams
 media-video/mxflib 1.0.1: A multi-platform C++ library for reading and writing MXF files
 media-video/ndi-sdk 5.6.1-r1 6.1.1: NewTek NDI SDK
 media-video/ndi-sdk-embedded 4.5.3: NewTek NDI SDK
