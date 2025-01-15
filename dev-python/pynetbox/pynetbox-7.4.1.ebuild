@@ -12,7 +12,7 @@ HOMEPAGE="https://pypi.org/project/pynetbox/"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 
 DEPEND="
 	>=dev-python/requests-2.20.0[${PYTHON_USEDEP}]
