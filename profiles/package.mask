@@ -31,12 +31,5 @@
 #--- END OF EXAMPLES ---
 
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jan 2025)
-# Part of www-servers/nginx::gentoo. Install
-# www-servers/nginx[nginx_modules_http_vod] instead.
-# Removal in 30 days.
-# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/321
-www-nginx/nginx-vod-module
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jan 2025)
 # Masked for testing
 =media-video/decklink-drivers-14.4
