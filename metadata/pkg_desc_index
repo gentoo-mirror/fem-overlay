@@ -112,7 +112,7 @@ sci-calculators/taschenrechner 1.4.0: A commandline calculator with interactive 
 sci-electronics/ghdl-bin 0.33-r1: VHDL 2008/93/87 simulator
 sys-fs/fuse-ts 2022.11.15.1 9999: FUSE module for working with splitted MPEG TS files
 sys-kernel/femkvm-kernel 5.15.88 6.1.31 6.1.67: Linux kernel built with Gentoo patches
-sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113: Linux kernel built with Gentoo patches
+sys-kernel/femxen-kernel 5.4.52 5.4.66 5.10.113 6.6.74: Linux kernel built with Gentoo patches
 www-apps/icinga-overview 9999: Simple Icinga-Classic-UI-like overview for Icinga2
 x11-misc/lightdm-slick-greeter 1.5.1: LightDM greeter forked from Unity by Linux Mint team
 x11-misc/rofi-pass 2.0.2 9999: pass integration for rofi
