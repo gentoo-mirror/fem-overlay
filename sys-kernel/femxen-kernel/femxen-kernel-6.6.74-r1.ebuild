@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ inherit kernel-build toolchain-funcs
 MY_P=linux-${PV%.*}
 GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 9 ))
 # https://koji.fedoraproject.org/koji/packageinfo?packageID=8
-CONFIG_VER=5.10.27
+CONFIG_VER=6.6.74
 
 DESCRIPTION="Linux kernel built with Gentoo patches"
 HOMEPAGE="https://www.kernel.org/"
@@ -24,14 +24,8 @@ LICENSE="GPL-2"
 KEYWORDS="~amd64"
 IUSE="debug hardened"
 
-RDEPEND="
-	!sys-kernel/gentoo-kernel-bin:${SLOT}
-"
 BDEPEND="
 	debug? ( dev-util/pahole )
-"
-PDEPEND="
-	>=virtual/dist-kernel-${PV}
 "
 
 QA_FLAGS_IGNORED="
