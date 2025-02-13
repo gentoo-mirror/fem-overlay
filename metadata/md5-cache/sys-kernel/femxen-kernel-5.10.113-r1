@@ -8,10 +8,9 @@ INHERIT=kernel-build toolchain-funcs
 IUSE=debug hardened savedconfig +initramfs test +strip
 KEYWORDS=~amd64
 LICENSE=GPL-2
-PDEPEND=>=virtual/dist-kernel-6.6.74
-RDEPEND=!sys-kernel/gentoo-kernel-bin:6.6.74 virtual/libelf
+RDEPEND=virtual/libelf
 RESTRICT=!test? ( test ) test? ( userpriv ) arm? ( test )
-SLOT=6.6.74
-SRC_URI=https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.tar.xz https://dev.gentoo.org/~mpagano/dist/genpatches/genpatches-6.6-83.base.tar.xz https://dev.gentoo.org/~mpagano/dist/genpatches/genpatches-6.6-83.extras.tar.xz https://gitlab.fem-net.de/gentoo/kernel-configs/-/raw/master/kernel-xen-domu-x86_64.config.6.6.74
+SLOT=5.10.113
+SRC_URI=https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.tar.xz https://dev.gentoo.org/~mpagano/dist/genpatches/genpatches-5.10-122.base.tar.xz https://dev.gentoo.org/~mpagano/dist/genpatches/genpatches-5.10-122.extras.tar.xz https://gitlab.fem-net.de/gentoo/kernel-configs/-/raw/master/kernel-xen-domu-x86_64.config.5.10.27
 _eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	14648d8795f7779e11e1bc7cf08b7536	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	42c5abe4a656a4993a06a4fc61dbdd12	python-any-r1	6ddb5e75c10db046f89ebe39c85e1d82	portability	a39e3d646f76cb45d06b44cc1144b8d4	savedconfig	b9131abe556ad2ea96c01b06d658d363	mount-boot-utils	2551bac1a772f4b6beacb494a750ae92	dist-kernel-utils	97700892f3bc8ee315ee55ff5297a739	kernel-install	0b514a68b37af1d396618edfbf1dd064	kernel-build	181daddd7aea64d9ff4057bd1c7b472e
-_md5_=cefa2f92834466723c6be91ecc952ad1
+_md5_=e9ed145f8eb6138b667191f1f002d752
