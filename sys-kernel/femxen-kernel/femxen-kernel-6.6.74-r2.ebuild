@@ -3,12 +3,13 @@
 
 EAPI=8
 
-inherit kernel-build toolchain-funcs
+inherit kernel-build
 
 MY_P=linux-${PV%.*}
 GENPATCHES_P=genpatches-${PV%.*}-$(( ${PV##*.} + 9 ))
 # https://koji.fedoraproject.org/koji/packageinfo?packageID=8
 CONFIG_VER=6.6.74
+GENTOO_CONFIG_VER=g15
 
 DESCRIPTION="Linux kernel built with Gentoo patches"
 HOMEPAGE="https://www.kernel.org/"
@@ -16,6 +17,8 @@ SRC_URI+="
 	https://cdn.kernel.org/pub/linux/kernel/v$(ver_cut 1).x/${MY_P}.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.base.tar.xz
 	https://dev.gentoo.org/~mpagano/dist/genpatches/${GENPATCHES_P}.extras.tar.xz
+	https://github.com/projg2/gentoo-kernel-config/archive/${GENTOO_CONFIG_VER}.tar.gz
+		-> gentoo-kernel-config-${GENTOO_CONFIG_VER}.tar.gz
 	https://gitlab.fem-net.de/gentoo/kernel-configs/-/raw/master/kernel-xen-domu-x86_64.config.${CONFIG_VER}
 "
 S=${WORKDIR}/${MY_P}
@@ -51,4 +54,27 @@ src_prepare() {
 			die "Unsupported arch ${ARCH}"
 			;;
 	esac
+	local myversion="-femxen"
+	use hardened && myversion+="-hardened"
+	echo "CONFIG_LOCALVERSION=\"${myversion}\"" > "${T}"/version.config || die
+	local dist_conf_path="${WORKDIR}/gentoo-kernel-config-${GENTOO_CONFIG_VER}"
+
+	local merge_configs=(
+		"${T}"/version.config
+		"${dist_conf_path}"/base.config
+	)
+	use debug || merge_configs+=(
+		"${dist_conf_path}"/no-debug.config
+	)
+	if use hardened; then
+		merge_configs+=( "${dist_conf_path}"/hardened-base.config )
+
+		tc-is-gcc && merge_configs+=( "${dist_conf_path}"/hardened-gcc-plugins.config )
+
+		if [[ -f "${dist_conf_path}/hardened-${ARCH}.config" ]]; then
+			merge_configs+=( "${dist_conf_path}/hardened-${ARCH}.config" )
+		fi
+	fi
+
+	kernel-build_merge_configs "${merge_configs[@]}"
 }
