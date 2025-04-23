@@ -10,5 +10,5 @@ RDEPEND=acct-user/mediamtx acct-group/mediamtx
 RESTRICT=test strip
 SLOT=0
 SRC_URI=https://github.com/bluenviron/mediamtx/archive/v1.10.0.tar.gz -> mediamtx-1.10.0.gh.tar.gz https://cdn.jsdelivr.net/npm/hls.js@v1.5.17/dist/hls.min.js -> hls-1.5.17.min.js https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/mediamtx/1.10.0%2B2024-12-12/mediamtx-1.10.0-deps.tar.xz -> mediamtx-deps-1.10.0+2024-12-12.tar.xz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	df32d29550d40a92da723d3b8e17b467	go-module-fem	1e1506bf0aa593697a16764c66d6263a	systemd	54bd206bb5c4efac6ae28b6b006713b0
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	191a27261275fc3bff7dd7482361b5d6	go-module-fem	1e1506bf0aa593697a16764c66d6263a	systemd	a964c0cbe818b5729da1dbfcee5be861
 _md5_=bc76503a2c8cc3a010b757b9ddc243be
