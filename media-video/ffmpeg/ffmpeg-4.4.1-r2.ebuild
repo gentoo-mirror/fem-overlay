@@ -55,7 +55,7 @@ LICENSE="
 	samba? ( GPL-3 )
 "
 if [ "${PV#9999}" = "${PV}" ] ; then
-	KEYWORDS="~arm64 ~amd64 ~x86 ~amd64-linux ~x86-linux"
+	KEYWORDS="~amd64"
 fi
 
 # Options to use as use_enable in the foo[:bar] form.
