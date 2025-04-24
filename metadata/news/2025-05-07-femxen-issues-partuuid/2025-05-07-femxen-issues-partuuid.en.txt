@@ -1,0 +1,22 @@
+Title: femxen-kernel problem with partuuid in grub config
+Author: Timo Kettenbach <timo.kettenbach@fem.tu-ilmenau.de>
+Posted: 2025-05-07
+Revision: 1
+News-Item-Format: 2.0
+Display-If-Installed: >=sys-kernel/femxen-kernel-6.6.74
+
+Starting with grub-2.04, a new option GRUB_DISABLE_LINUX_PARTUUID was added and
+defaulted to 'true'. The maintainers of sys-boot/grub::gentoo have decided to
+set this option to 'false' with recent config updates.
+
+Beginning with femxen-kernel-6.6.74 this configuration can lead to the system
+being unbootable. To prevent this please comment the following line in
+/etc/default/grub:
+
+   GRUB_DISABLE_LINUX_PARTUUID=false
+
+And instead uncomment the following line:
+
+   GRUB_DISABLE_LINUX_UUID=true
+
+
