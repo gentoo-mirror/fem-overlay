@@ -2,10 +2,19 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>jonas.licht@fem.tu-ilmenau.de</email>
-		<name>Jonas Licht</name>
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian Schollmeyer</name>
 	</maintainer>
 	<use>
-		<flag name='initramfs'>Build initramfs along with the kernel.</flag>
+		<flag name="experimental">
+			Apply experimental patches; for more information, see "https://wiki.gentoo.org/wiki/Project:Kernel/Experimental".
+		</flag>
+		<flag name="hardened">
+			Use selection of hardening options recommended by Kernel Self
+			Protection Project
+		</flag>
+		<flag name="initramfs">
+			Build initramfs along with the kernel.
+		</flag>
 	</use>
 </pkgmetadata>
