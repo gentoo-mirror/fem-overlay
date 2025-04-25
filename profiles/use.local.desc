@@ -140,5 +140,7 @@ net-analyzer/nagios-plugins-extended:suid - Set SUID-Flag for several plugins
 net-analyzer/nagios-plugins-extended:tcptraffic - Install TCP-Traffic plugin
 net-analyzer/nagios-plugins-extended:temp - Install Temperature-sensor plugin
 net-analyzer/nagios-plugins-extended:timestamp - Install Timestamp-Check plugin
+sys-kernel/femkvm-kernel:experimental - Apply experimental patches; for more information, see "https://wiki.gentoo.org/wiki/Project:Kernel/Experimental".
+sys-kernel/femkvm-kernel:hardened - Use selection of hardening options recommended by Kernel Self Protection Project
 sys-kernel/femkvm-kernel:initramfs - Build initramfs along with the kernel.
 sys-kernel/femxen-kernel:initramfs - Build initramfs along with the kernel.
