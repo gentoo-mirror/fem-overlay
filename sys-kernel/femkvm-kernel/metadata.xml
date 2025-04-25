@@ -2,8 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>jonas.licht@fem.tu-ilmenau.de</email>
-		<name>Jonas Licht</name>
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian Schollmeyer</name>
 	</maintainer>
 	<use>
 		<flag name="experimental">
