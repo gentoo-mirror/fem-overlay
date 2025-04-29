@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..13} )
 inherit autotools python-r1 git-r3
 
 DESCRIPTION="Support library to deal with Apple Property Lists (Binary & XML)"
@@ -51,16 +51,22 @@ src_configure() {
 }
 
 src_compile() {
-	python_compile() {
-		emake -C "${BUILD_DIR}"/cython \
-			VPATH="${S}/cython:${native_builddir}/cython" \
-			plist_la_LIBADD="${native_builddir}/src/libplist.la"
-	}
-
 	local native_builddir=${BUILD_DIR}
 	pushd "${BUILD_DIR}" >/dev/null || die
 	emake
-	use python && python_foreach_impl python_compile
+
+	if use python; then
+		local plist_la
+		plist_la=$(find src -maxdepth 1 -iname "libplist-*.la") \
+			|| die "Failed to find .la files"
+		python_compile() {
+			emake -C "${BUILD_DIR}"/cython \
+				VPATH="${S}/cython:${native_builddir}/cython" \
+				plist_la_LIBADD="${native_builddir}/${plist_la}"
+		}
+		python_foreach_impl python_compile
+	fi
+
 	popd >/dev/null || die
 }
 
