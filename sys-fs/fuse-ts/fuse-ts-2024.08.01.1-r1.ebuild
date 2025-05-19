@@ -18,18 +18,14 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
-# mxml is version-constrained for now:
-# https://github.com/a-tze/fuse-ts/issues/20
-# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/305
 DEPEND="
 	sys-fs/fuse:0
-	dev-libs/mxml:0
+	dev-libs/mxml:=
 "
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	# Backported patch. Remove after 2022.11.15.1
-	"${FILESDIR}/${P}-respect-ldflags.patch"
+	"${FILESDIR}/${P}-mxml4-support.patch"
 )
 
 src_compile() {
