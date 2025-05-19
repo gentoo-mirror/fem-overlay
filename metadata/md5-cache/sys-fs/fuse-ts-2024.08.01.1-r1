@@ -1,13 +1,13 @@
 DEFINED_PHASES=compile install
-DEPEND=sys-fs/fuse:0 dev-libs/mxml:0
+DEPEND=sys-fs/fuse:0 dev-libs/mxml:=
 DESCRIPTION=FUSE module for working with splitted MPEG TS files
 EAPI=8
 HOMEPAGE=https://github.com/a-tze/fuse-ts
 INHERIT=toolchain-funcs
 KEYWORDS=~amd64
 LICENSE=GPL-3
-RDEPEND=sys-fs/fuse:0 dev-libs/mxml:0
+RDEPEND=sys-fs/fuse:0 dev-libs/mxml:=
 SLOT=0
-SRC_URI=https://github.com/a-tze/fuse-ts/archive/v2022.11.15.1.tar.gz -> fuse-ts-2022.11.15.1.gh.tar.gz
+SRC_URI=https://github.com/a-tze/fuse-ts/archive/v2024.08.01.1.tar.gz -> fuse-ts-2024.08.01.1.gh.tar.gz
 _eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169
-_md5_=f12fcc3b104d781f0de07ef00a6484b7
+_md5_=507c69aad753fa8d3bc59183fcd9c407
