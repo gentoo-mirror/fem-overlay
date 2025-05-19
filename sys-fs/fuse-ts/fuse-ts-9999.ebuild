@@ -18,12 +18,9 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
-# mxml is version-constrained for now:
-# https://github.com/a-tze/fuse-ts/issues/20
-# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/305
 DEPEND="
 	sys-fs/fuse:0
-	dev-libs/mxml:0
+	dev-libs/mxml:=
 "
 RDEPEND="${DEPEND}"
 
