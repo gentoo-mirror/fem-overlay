@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+# Copyright 2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="ontime daemon"
+description="Central server for digital time tables"
+command="/usr/bin/xvfb-run"
+command_args="/usr/bin/ontime-bin ${ontime_args}"
+command_background=true
+command_user="ontime"
+pidfile="/run/${RC_SVCNAME}.pid"
+start_stop_daemon_args="-1 /var/log/ontime/ontime.log -2 /var/log/ontime/ontime.log"
+
+depend() {
+	use net
+	after net
+}
+
+start_pre() {
+	checkpath \
+		--owner "${command_user}:${command_user}" \
+		--mode 0750 \
+		--directory "/var/lib/ontime"
+	checkpath \
+		--owner "${command_user}:${command_user}" \
+		--mode 0750 \
+		--directory "/var/log/ontime"
+}

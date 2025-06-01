@@ -1,0 +1,19 @@
+[Unit]
+Description=OnTime digital time table server
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/xvfb-run /usr/bin/ontime-bin
+User=ontime
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectProc=noaccess
+StateDirectory=ontime
+
+[Install]
+WantedBy=multi-user.target
