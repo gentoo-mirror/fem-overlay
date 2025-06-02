@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian 'nex' Schollmeyer</name>
+	</maintainer>
+	<longdescription lang="en">
+		OnTime is a system for digitally managing a time table for live events.
+		It maintains a central schedule that is distributed to various devices over HTTP and WebSockets
+		and can be shown in various (and custom) views as needed.
+	</longdescription>
+	<use>
+		<flag name="headless">Add support for running OnTime as daemon</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">cpvalente/ontime</remote-id>
+	</upstream>
+</pkgmetadata>
