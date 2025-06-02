@@ -4,6 +4,7 @@
 
 app-admin/fem-netbox-user-scripts:dokuwiki - Install also DokuWiki scripts
 app-emulation/grub-xen-host:pvh - Build an additional grub bin for pvh.
+app-misc/ontime-bin:headless - Add support for running OnTime as daemon
 app-pda/libusbmuxd:static-libs - ...
 dev-lang/php:bcmath - Add support for libbcmath
 dev-lang/php:cli - Enable CLI SAPI

@@ -5,6 +5,7 @@ acct-group/gortr 1: System group: gortr
 acct-group/jamulus 1: System group: jamulus
 acct-group/mediamtx 1: System group: mediamtx
 acct-group/mimir 1: System group: mimir
+acct-group/ontime 1: System group: ontime
 acct-group/prometheus-graphite-relay 1: System group: prometheus-graphite-relay
 acct-group/srtrelay 0: System group: srtrelay
 acct-user/acme-dns 1: user for net-dns/acme-dns
@@ -14,6 +15,7 @@ acct-user/gortr 1: User for net-misc/gortr
 acct-user/jamulus 1: User for media-sound/jamulus
 acct-user/mediamtx 1: User for media-video/mediamtx
 acct-user/mimir 1: User for app-metrics/mimir
+acct-user/ontime 1: Daemon user for app-misc/ontime
 acct-user/prometheus-graphite-relay 1: Group for dev-go/prometheus-graphite-relay
 acct-user/srtrelay 0: User for media-video/srtrelay
 app-admin/admindb-python-scripts 1.4.1 1.4.2 9999: Python utility scripts for use with FeM's AdminDB2
@@ -30,6 +32,7 @@ app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-emulation/xen-sriov 0.2020705: Xen sr-iov scripts
 app-metrics/mimir-bin 2.5.0-r1: Long term prometheus metrics storage
 app-misc/bugwarrior 9999: Bugtracker to taskwarrior importer
+app-misc/ontime-bin 3.15.2: Digital flexible timetable for live events
 app-misc/tmux-starter 1.1.1: Simple ncurses based interface for accessing tmux sessions
 app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
