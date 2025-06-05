@@ -478,7 +478,7 @@ multilib_src_configure() {
 		use ${i} || myconf+=( --disable-indev=${i} )
 	done
 
-	use decklink && append-flags "-I${EPREFIX}/usr/include/blackmagic"
+	use decklink && append-cppflags "-I${EPREFIX}/usr/include/blackmagic" && myconf+=( --enable-nonfree )
 
 	# Outdevs
 	for i in alsa oss sndio ; do
