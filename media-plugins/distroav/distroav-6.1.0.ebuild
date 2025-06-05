@@ -1,4 +1,4 @@
-# Copyright 2024 Gentoo Authors
+# Copyright 2024-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,9 +18,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 DEPEND="
-	>=media-video/obs-studio-30.0.0
+	>=media-video/obs-studio-31.0.0
 	dev-qt/qtbase:6[network,widgets]
-	media-video/ndi-sdk:0=
+	>=media-video/ndi-sdk-6.0:0=
 	net-misc/curl
 "
 RDEPEND="${DEPEND}"
