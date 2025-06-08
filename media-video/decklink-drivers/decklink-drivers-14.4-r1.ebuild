@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit desktop systemd linux-mod-r1 udev
+inherit desktop edo systemd linux-mod-r1 udev
 
 DESCRIPTION="Desktop Video drivers & tools for products by Blackmagic Design (e.g. DeckLink)"
 HOMEPAGE="https://www.blackmagicdesign.com/"
@@ -23,7 +23,8 @@ UNPACKED_DIR="desktopvideo-${PV}${REV}-x86_64"
 S="${WORKDIR}/${UNPACKED_DIR}"
 
 LICENSE="BlackmagicDesktopVideo"
-SLOT="0"
+# artifical SONAME is subslot
+SLOT="0/${PV}"
 # Some files are precompiled binaries for amd64 only
 KEYWORDS="-* ~amd64"
 IUSE="autostart +headers X"
@@ -47,6 +48,7 @@ RDEPEND="
 "
 BDEPEND="
 	app-arch/unzip
+	dev-util/patchelf
 "
 
 CONFIG_CHECK="
@@ -101,6 +103,16 @@ src_compile() {
 		KERNELRELEASE="${KV_FULL}"
 	)
 	linux-mod-r1_src_compile
+
+	# DeckLink ignores ABI compatiblity but doesn't set SONAME,
+	# so we cautiously set SONAME to the full version manually
+	pushd "usr/lib" || die
+	local lib
+	for lib in lib*.so; do
+		edo patchelf --set-soname "${lib}.${PV}" "${lib}"
+		mv -v "${lib}" "${lib}.${PV}" || die "Failed to rename library"
+		ln -sv "${lib}.${PV}" "${lib}"
+	done
 }
 
 src_install() {
@@ -111,7 +123,7 @@ src_install() {
 	insinto /etc/dracut.conf.d
 	doins etc/dracut.conf.d/*.conf
 
-	dolib.so usr/lib/lib*.so
+	dolib.so usr/lib/lib*.so usr/lib/lib*.so."${PV}"
 	dodir "/usr/$(get_libdir)/blackmagic/DesktopVideo"
 	cp -vR usr/lib/blackmagic/DesktopVideo/* \
 		"${ED}/usr/$(get_libdir)/blackmagic/DesktopVideo" \
