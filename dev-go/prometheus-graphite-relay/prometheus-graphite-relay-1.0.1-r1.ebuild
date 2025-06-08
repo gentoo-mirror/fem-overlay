@@ -1,7 +1,7 @@
-# Copyright 2019-2022 Gentoo Authors
+# Copyright 2019-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 GO_FEM_DEP_ARCHIVE_VER=2022-07-09
 inherit go-module-fem
