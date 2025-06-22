@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>adrian.schollmeyer@fem.tu-ilmenau.de</email>
+		<name>Adrian 'nex' Schollmeyer</name>
+	</maintainer>
+	<stabilize-allarches/>
+	<upstream>
+		<remote-id type="pypi">taskw</remote-id>
+	</upstream>
+</pkgmetadata>

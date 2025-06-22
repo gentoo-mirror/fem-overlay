@@ -3,13 +3,18 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..12} )
+PYTHON_COMPAT=( python3_{11..13} )
 DISTUTILS_USE_PEP517=setuptools
 inherit distutils-r1
 
+MY_PV="debian-${PV}"
+MY_P="${PN}-${MY_PV}"
+
 DESCRIPTION="Debian package uploading tool"
 HOMEPAGE="https://salsa.debian.org/debian/dput-ng"
-SRC_URI="https://salsa.debian.org/debian/${PN}/-/archive/${PV}/${P}.tar.bz2"
+SRC_URI="https://salsa.debian.org/debian/${PN}/-/archive/debian/${PV}/${MY_P}.tar.bz2"
+
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -26,7 +31,7 @@ RDEPEND="
 RESTRICT="test"
 
 PATCHES=(
-	"${FILESDIR}/${P}-fix-xdg-import.patch"
+	"${FILESDIR}/${PN}-1.40-fix-xdg-import.patch"
 )
 
 src_install() {
