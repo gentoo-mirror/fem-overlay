@@ -75,8 +75,9 @@ dev-python/kitchen 1.2.6: Collection of useful code fragments
 dev-python/pynetbox 7.4.1 7.5.0: Python library to interact with the NetBox REST API
 dev-python/python-zulip-api 0.8.2: Python bindings for the Zulip message API
 dev-python/sphinxcontrib-phpdomain 0.8.0: Extension providing a Sphinx domain for describing PHP code
+dev-python/taskw 2.0.0: Python Taskwarrior API
 dev-util/debian-devscripts 2.23.5: Scripts to help Debian package maintenance
-dev-util/dput-ng 1.38 1.40: Debian package uploading tool
+dev-util/dput-ng 1.40 1.43: Debian package uploading tool
 llvm-core/llvm-compat-symlinks 16 17 18 19: Compatibility symlinks for llvm-core/lld
 media-gfx/corrupter 1.0_p20230111: Simple image glitcher
 media-plugins/distroav 6.0.0 6.1.0: NewTek NDI integration for OBS Studio
