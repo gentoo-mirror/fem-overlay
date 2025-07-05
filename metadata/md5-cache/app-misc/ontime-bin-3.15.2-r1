@@ -11,5 +11,5 @@ LICENSE=BSD GPL-2+ GPL-3+ MIT
 RDEPEND=>=app-accessibility/at-spi2-core-2.46.0 dev-libs/nss media-libs/alsa-lib net-print/cups x11-libs/libxkbcommon x11-libs/gtk+:3= headless? ( acct-user/ontime acct-group/ontime x11-misc/xvfb-run )
 SLOT=0
 SRC_URI=https://github.com/cpvalente/ontime/releases/download/v3.15.2/ontime-linux.AppImage -> ontime-bin-3.15.2.AppImage
-_eclasses_=desktop	3a72ffe0d8e1dd73af3a1c8c15a59fed	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	systemd	a964c0cbe818b5729da1dbfcee5be861	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_eclasses_=desktop	3a72ffe0d8e1dd73af3a1c8c15a59fed	toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	systemd	a964c0cbe818b5729da1dbfcee5be861	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
 _md5_=4afac431c542af92bff07caa1e64ae6f

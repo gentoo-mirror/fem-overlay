@@ -10,5 +10,5 @@ LICENSE=GPL-3 0BSD Apache-2.0 BSD CC0-1.0 ISC MIT MPL-2.0 Unicode-3.0 Unicode-DF
 RDEPEND=acct-user/ffplayout acct-group/ffplayout media-video/ffmpeg
 SLOT=0
 SRC_URI=https://gitlab.fem-net.de/gentoo/ffplayout-bin/-/jobs/172267/artifacts/raw/ffplayout-bin-0.24.0.tar.bz2
-_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	systemd	a964c0cbe818b5729da1dbfcee5be861
+_eclasses_=toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	systemd	a964c0cbe818b5729da1dbfcee5be861
 _md5_=5bbf5f6f998e759ad07fd2dcd220ac2f
