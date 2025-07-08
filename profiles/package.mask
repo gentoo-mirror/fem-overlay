@@ -44,13 +44,6 @@ media-video/ffplayout-bin
 acct-user/ffplayout
 acct-group/ffplayout
 
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jun 2025)
-# Unmaintained, failing tests preventing PYTHON_COMPAT bumps
-# Removal in 30 days
-# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/363
-net-im/zulip-terminal
-dev-python/python-zulip-api
-
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jan 2025)
 # Masked for testing
 =media-video/decklink-drivers-14.4
