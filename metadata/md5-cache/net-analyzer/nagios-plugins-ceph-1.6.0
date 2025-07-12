@@ -10,5 +10,5 @@ LICENSE=Apache-2.0
 RDEPEND=acct-group/nagios acct-user/nagios python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) sys-cluster/ceph
 SLOT=0
 SRC_URI=https://github.com/j-licht/ceph-nagios-plugins/archive/ceph-nagios-plugins_1.6.0.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	python-utils-r1	5ffe8ec396a751540949b565de0f048c	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	python-utils-r1	bb392d69d55c48a5483d356933a26d57	python-single-r1	47d8ac9be330c9366112b78fd4f8ce57
 _md5_=c91d2a0475f0da5b8aa1e994d95434db
