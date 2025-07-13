@@ -46,5 +46,5 @@ acct-group/ffplayout
 
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jan 2025)
 # Masked for testing
-=media-video/decklink-drivers-14.4
+=media-video/decklink-drivers-14.4-r1
 
