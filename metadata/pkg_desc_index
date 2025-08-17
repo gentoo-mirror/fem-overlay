@@ -31,7 +31,7 @@ app-emulation/xen-shell 1.9-r3: allow a user to control multiple Xen instances
 app-emulation/xen-sriov 0.2020705: Xen sr-iov scripts
 app-metrics/mimir-bin 2.5.0-r1: Long term prometheus metrics storage
 app-misc/bugwarrior 9999: Bugtracker to taskwarrior importer
-app-misc/ontime-bin 3.16.0: Digital flexible timetable for live events
+app-misc/ontime-bin 3.16.0 3.16.1: Digital flexible timetable for live events
 app-misc/tmux-starter 1.1.1: Simple ncurses based interface for accessing tmux sessions
 app-pda/libplist 9999: Support library to deal with Apple Property Lists (Binary & XML)
 app-pda/libusbmuxd 9999: USB multiplex daemon for use with Apple iPhone/iPod Touch devices
