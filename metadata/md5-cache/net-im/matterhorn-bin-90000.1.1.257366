@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=Terminal based Mattermost client
+EAPI=8
+HOMEPAGE=https://github.com/matterhorn-chat/matterhorn
+KEYWORDS=-* ~amd64
+LICENSE=BSD Apache-2.0
+RDEPEND=dev-libs/gmp:0/10.4 sys-libs/ncurses:0/6 sys-libs/zlib:0/1
+SLOT=0
+SRC_URI=https://gitlab.fem-net.de/nex/matterhorn-gentoo-bin/-/jobs/257366/artifacts/raw/matterhorn-bin-90000.1.1.tar.bz2?inline=false -> matterhorn-bin-90000.1.1.257366.tar.bz2
+_md5_=27911988b3d265b360499ea00904f687
