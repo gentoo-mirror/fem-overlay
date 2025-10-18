@@ -1,0 +1,11 @@
+Make OnTime use the correct name of the installed newbin
+--- a/ontime.desktop
++++ b/ontime.desktop
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+ Name=ontime
+-Exec=AppRun --no-sandbox %U
++Exec=ontime-bin
+ Terminal=false
+ Type=Application
+ Icon=ontime-electron
