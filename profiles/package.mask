@@ -30,6 +30,12 @@
 ## app-misc/some-package
 #--- END OF EXAMPLES ---
 
+# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (29 Oct 2025)
+# Upstream dead, doesn't compile with recent golang versions
+# Removal in 30 days
+# https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/368
+net-dns/acme-dns
+
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (11 Oct 2025)
 # Masked for testing
 =app-misc/ontime-bin-4.0.2
