@@ -45,8 +45,8 @@ dev-perl/File-DirList 0.05: Provide a sorted list of directory content
 dev-perl/File-Touch 0.12: Update file access and modification times, creating files if needed
 dev-perl/Frontier-Client-Easy 1.03: Perl extension for easy use of Frontier::Client
 dev-perl/Frontier-Daemon-Threading 0.01-r1: Drop-in replacement for Frontier::Daemon using threads
-dev-perl/GitLab-API-v4 0.26: A complete GitLab API v4 client
-dev-perl/HTTP-Tiny-Multipart 0.08: Add post_multipart to HTTP::Tiny
+dev-perl/GitLab-API-v4 0.26-r1: A complete GitLab API v4 client
+dev-perl/HTTP-Tiny-Multipart 0.08-r1: Add post_multipart to HTTP::Tiny
 dev-perl/List-Compare 0.55: Compare elements of two or more lists
 dev-perl/Net-Frame 1.21: Base framework for frame crafting
 dev-perl/Net-Frame-Device 1.12: Get network device information and gateway
