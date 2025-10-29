@@ -7,7 +7,7 @@ inherit desktop systemd xdg
 
 DESCRIPTION="Digital flexible timetable for live events"
 HOMEPAGE="https://www.getontime.no/"
-SRC_URI="https://github.com/cpvalente/ontime/releases/download/v${PV}/ontime-linux.AppImage -> ${P}.AppImage"
+SRC_URI="https://github.com/cpvalente/ontime/releases/download/${PV}/ontime-linux.AppImage -> ${P}.AppImage"
 
 S="${WORKDIR}/squashfs-root"
 
