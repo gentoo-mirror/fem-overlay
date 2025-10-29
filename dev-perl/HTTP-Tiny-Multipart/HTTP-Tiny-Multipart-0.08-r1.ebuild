@@ -10,7 +10,7 @@ DESCRIPTION="Add post_multipart to HTTP::Tiny"
 
 LICENSE="Artistic-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="test"
 
 RDEPEND="
