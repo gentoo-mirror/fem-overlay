@@ -15,7 +15,6 @@ IUSE="test"
 
 RDEPEND="
 	virtual/perl-Carp
-	virtual/perl-HTTP-Tiny
 	virtual/perl-MIME-Base64
 "
 DEPEND="

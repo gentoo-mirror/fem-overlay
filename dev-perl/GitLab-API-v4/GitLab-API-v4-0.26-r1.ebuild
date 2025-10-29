@@ -27,7 +27,6 @@ RDEPEND="
 	virtual/perl-Carp
 	virtual/perl-Exporter
 	virtual/perl-Getopt-Long
-	virtual/perl-HTTP-Tiny
 "
 DEPEND="
 	test? (
