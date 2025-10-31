@@ -36,11 +36,3 @@
 # https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/368
 net-dns/acme-dns
 
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (11 Oct 2025)
-# Masked for testing
-=app-misc/ontime-bin-4.0.2
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jan 2025)
-# Masked for testing
-=media-video/decklink-drivers-14.4-r1
-
