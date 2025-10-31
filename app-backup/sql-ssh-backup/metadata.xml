@@ -5,4 +5,7 @@
 		<email>gentoo@pennewiss.de</email>
 		<name>Marcel Pennewiss</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">fem/sql-ssh-backup</remote-id>
+	</upstream>
 </pkgmetadata>

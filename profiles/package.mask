@@ -40,20 +40,6 @@ net-dns/acme-dns
 # Masked for testing
 =app-misc/ontime-bin-4.0.2
 
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (22 Jun 2025)
-# No revdeps left, lacing PYTHON_COMPAT bump.
-# Removal in 30 days
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/364
-dev-python/ddlparse
-
-# Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (12 Jun 2025)
-# Dead upstream, hacky binpackage, not really in use.
-# Removal in 30 days
-# See https://gitlab.fem-net.de/gentoo/fem-overlay/-/issues/325
-media-video/ffplayout-bin
-acct-user/ffplayout
-acct-group/ffplayout
-
 # Adrian Schollmeyer <adrian.schollmeyer@fem.tu-ilmenau.de> (09 Jan 2025)
 # Masked for testing
 =media-video/decklink-drivers-14.4-r1
