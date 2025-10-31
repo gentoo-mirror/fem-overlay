@@ -1,0 +1,14 @@
+BDEPEND=>=dev-lang/go-1.15 >=dev-lang/go-1.20:= app-arch/unzip virtual/pkgconfig
+DEFINED_PHASES=compile install prepare unpack
+DESCRIPTION=Multi-protocol media server and streaming proxy for video and audio streams
+EAPI=8
+HOMEPAGE=https://github.com/bluenviron/mediamtx
+INHERIT=go-module-fem systemd
+KEYWORDS=~amd64
+LICENSE=Apache-2.0 BSD ISC MIT
+RDEPEND=acct-user/mediamtx acct-group/mediamtx
+RESTRICT=test
+SLOT=0
+SRC_URI=https://github.com/bluenviron/mediamtx/archive/v1.15.3.tar.gz -> mediamtx-1.15.3.gh.tar.gz https://cdn.jsdelivr.net/npm/hls.js@v1.6.13/dist/hls.min.js -> hls-1.6.13.min.js https://gitlab.fem-net.de/api/v4/projects/309/packages/generic/mediamtx/1.15.3%2B2025-10-31/mediamtx-1.15.3-deps.tar.xz -> mediamtx-deps-1.15.3+2025-10-31.tar.xz
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	go-env	0e2babf96e7d0b045fc07ad199eb2399	go-module	d96f2a2fd6d8fbad6d94516bf238f885	go-module-fem	1e1506bf0aa593697a16764c66d6263a	systemd	a964c0cbe818b5729da1dbfcee5be861
+_md5_=f096df461bc1b09b0acfc3ce08787ad1
